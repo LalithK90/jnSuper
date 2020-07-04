@@ -1,8 +1,9 @@
-package lk.J_N_Super_Pvt_Ltd.asset.ledger.entity;
+package J_N_Super_Pvt_Ltd.asset.ledger.entity;
 
+
+import J_N_Super_Pvt_Ltd.asset.item.entity.ItemBatch;
+import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.J_N_Super_Pvt_Ltd.asset.item.entity.ItemBatch;
-import lk.J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
-
-
 
 @Entity
 @Getter

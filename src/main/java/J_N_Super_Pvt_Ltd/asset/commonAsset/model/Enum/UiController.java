@@ -1,8 +1,8 @@
-package lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum;
+package J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum;
 
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
-import lk.J_N_Super_Pvt_Ltd.util.service.DateTimeAgeService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
+import J_N_Super_Pvt_Ltd.util.service.DateTimeAgeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +13,11 @@ public class UiController {
     private final UserService userService;
     private final DateTimeAgeService dateTimeAgeService;
 
-    @Autowired
     public UiController(UserService userService, DateTimeAgeService dateTimeAgeService) {
         this.userService = userService;
         this.dateTimeAgeService = dateTimeAgeService;
     }
+
 
     @GetMapping(value = {"/", "/index"})
     public String index() {

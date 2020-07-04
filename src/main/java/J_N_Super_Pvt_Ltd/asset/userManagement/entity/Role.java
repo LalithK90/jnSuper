@@ -1,7 +1,7 @@
-package lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity;
+package J_N_Super_Pvt_Ltd.asset.userManagement.entity;
 
 
-import lk.J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
+import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

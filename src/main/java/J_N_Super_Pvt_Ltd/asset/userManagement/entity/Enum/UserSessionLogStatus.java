@@ -1,4 +1,4 @@
-package lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.Enum;
+package J_N_Super_Pvt_Ltd.asset.userManagement.entity.Enum;
 
 
 import lombok.AllArgsConstructor;

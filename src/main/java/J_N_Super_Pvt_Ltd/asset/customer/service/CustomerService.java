@@ -1,16 +1,16 @@
-package lk.J_N_Super_Pvt_Ltd.asset.customer.service;
+package J_N_Super_Pvt_Ltd.asset.customer.service;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.customer.dao.CustomerDao;
-import lk.J_N_Super_Pvt_Ltd.asset.customer.entity.Customer;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
+import J_N_Super_Pvt_Ltd.asset.customer.dao.CustomerDao;
+import J_N_Super_Pvt_Ltd.asset.customer.entity.Customer;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
-import java.util.List;
 @Service
 @CacheConfig( cacheNames = "customer" )
 public class CustomerService implements AbstractService<Customer, Integer> {
@@ -21,7 +21,7 @@ public class CustomerService implements AbstractService<Customer, Integer> {
         this.customerDao = customerDao;
     }
 
-    public List<Customer> findAll() {
+    public Object findAll() {
         return customerDao.findAll();
     }
 

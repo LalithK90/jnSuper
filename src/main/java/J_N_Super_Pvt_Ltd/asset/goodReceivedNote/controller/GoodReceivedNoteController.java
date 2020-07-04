@@ -1,9 +1,9 @@
-package lk.J_N_Super_Pvt_Ltd.asset.goodReceivedNote.controller;
+package J_N_Super_Pvt_Ltd.asset.goodReceivedNote.controller;
 
-import lk.J_N_Super_Pvt_Ltd.asset.goodReceivedNote.service.GoodReceivedNoteService;
-import lk.J_N_Super_Pvt_Ltd.asset.purchaseOrder.entity.Enum.PurchaseOrderStatus;
-import lk.J_N_Super_Pvt_Ltd.asset.purchaseOrder.service.PurchaseOrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderStatus;
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.service.PurchaseOrderService;
+import J_N_Super_Pvt_Ltd.asset.goodReceivedNote.service.GoodReceivedNoteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +15,11 @@ public class GoodReceivedNoteController {
     private final GoodReceivedNoteService goodReceivedNoteService;
     private final PurchaseOrderService purchaseOrderService;
 
-    @Autowired
     public GoodReceivedNoteController(GoodReceivedNoteService goodReceivedNoteService, PurchaseOrderService purchaseOrderService) {
         this.goodReceivedNoteService = goodReceivedNoteService;
         this.purchaseOrderService = purchaseOrderService;
     }
+
 
     @GetMapping
     public String notCompleteAll(Model model) {

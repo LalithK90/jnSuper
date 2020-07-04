@@ -1,20 +1,19 @@
-package lk.J_N_Super_Pvt_Ltd.asset.item.category.controller;
+package J_N_Super_Pvt_Ltd.asset.item.category.controller;
 
 
+import J_N_Super_Pvt_Ltd.asset.item.category.entity.Category;
+import J_N_Super_Pvt_Ltd.asset.item.category.service.CategoryService;
+import J_N_Super_Pvt_Ltd.asset.item.entity.Enum.MainCategory;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import lk.J_N_Super_Pvt_Ltd.asset.item.category.entity.Category;
-import lk.J_N_Super_Pvt_Ltd.asset.item.category.service.CategoryService;
-import lk.J_N_Super_Pvt_Ltd.asset.item.entity.Enum.MainCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/category")

@@ -1,11 +1,12 @@
-package lk.J_N_Super_Pvt_Ltd.asset.invoice.entity;
+package J_N_Super_Pvt_Ltd.asset.invoice.entity;
 
+
+import J_N_Super_Pvt_Ltd.asset.customer.entity.Customer;
+import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.InvoicePrintOrNot;
+import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.PaymentMethod;
+import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lk.J_N_Super_Pvt_Ltd.asset.customer.entity.Customer;
-import lk.J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.InvoicePrintOrNot;
-import lk.J_N_Super_Pvt_Ltd.asset.payment.entity.Enum.PaymentMethod;
-import lk.J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter

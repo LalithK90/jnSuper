@@ -1,9 +1,9 @@
-package lk.J_N_Super_Pvt_Ltd.asset.item.category.entity;
+package J_N_Super_Pvt_Ltd.asset.item.category.entity;
 
 
+import J_N_Super_Pvt_Ltd.asset.item.entity.Enum.MainCategory;
+import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.J_N_Super_Pvt_Ltd.asset.item.entity.Enum.MainCategory;
-import lk.J_N_Super_Pvt_Ltd.asset.item.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,25 +11,26 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter( "Category" )
+@JsonFilter("Category")
 public class Category {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Enumerated(EnumType.STRING)
     private MainCategory mainCategory;
 
-    @Size( min = 3, message = "Your name cannot be accepted" )
+    @Size(min = 3, message = "Your name cannot be accepted")
     private String name;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Item> items;}
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Item> items;
+}

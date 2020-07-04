@@ -1,16 +1,17 @@
-package lk.J_N_Super_Pvt_Ltd.asset.userManagement.service;
+package J_N_Super_Pvt_Ltd.asset.userManagement.service;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.dao.RoleDao;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.Role;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
+import J_N_Super_Pvt_Ltd.asset.userManagement.dao.RoleDao;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.Role;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+
 @Service
 @CacheConfig( cacheNames = {"role"} ) // tells Spring where to store cache for this class
 public class RoleService implements AbstractService<Role, Integer > {

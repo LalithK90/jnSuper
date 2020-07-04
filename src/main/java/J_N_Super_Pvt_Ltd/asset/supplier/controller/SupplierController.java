@@ -1,10 +1,10 @@
-package lk.J_N_Super_Pvt_Ltd.asset.supplier.controller;
+package J_N_Super_Pvt_Ltd.asset.supplier.controller;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
-import lk.J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierService;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractController;
-import lk.J_N_Super_Pvt_Ltd.util.service.MakeAutoGenerateNumberService;
+import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
+import J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierService;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractController;
+import J_N_Super_Pvt_Ltd.util.service.MakeAutoGenerateNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,14 +57,16 @@ public class SupplierController implements AbstractController<Supplier, Integer>
         //if supplier has id that supplier is not a new supplier
         if (supplier.getId() == null) {
             //if there is not supplier in db
-            if (supplierService.lastSupplier() == null) {
+            Supplier DBSupplier = supplierService.lastSupplier();
+
+            if (DBSupplier == null) {
                 //need to generate new one
-                supplier.setCode("KMS"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
+                supplier.setCode("JN" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
             } else {
                 System.out.println("last supplier not null");
                 //if there is supplier in db need to get that supplier's code and increase its value
-                String previousCode = supplierService.lastSupplier().getCode().substring(3);
-                supplier.setCode("KMS"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+                String previousCode = DBSupplier.getCode().substring(3);
+                supplier.setCode("JNS" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
             }
             //send welcome message and email
             if (supplier.getEmail() != null) {

@@ -1,16 +1,16 @@
-package lk.J_N_Super_Pvt_Ltd.asset.userManagement.service;
+package J_N_Super_Pvt_Ltd.asset.userManagement.service;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.dao.UserSessionLogDao;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.Enum.UserSessionLogStatus;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.UserSessionLog;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
+import J_N_Super_Pvt_Ltd.asset.userManagement.dao.UserSessionLogDao;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.Enum.UserSessionLogStatus;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.UserSessionLog;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
-import java.util.List;
 @Service
 @CacheConfig( cacheNames = {"userSessionLog"} )
 public class UserSessionLogService implements AbstractService<UserSessionLog, Integer > {
@@ -23,7 +23,7 @@ public class UserSessionLogService implements AbstractService<UserSessionLog, In
 
     @Override
     @Cacheable
-    public List<UserSessionLog> findAll() {
+    public Object findAll() {
         return userSessionLogDao.findAll();
     }
 

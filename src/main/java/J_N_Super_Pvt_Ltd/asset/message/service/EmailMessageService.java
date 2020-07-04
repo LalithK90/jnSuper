@@ -1,13 +1,15 @@
-package lk.J_N_Super_Pvt_Ltd.asset.message.service;
+package J_N_Super_Pvt_Ltd.asset.message.service;
 
-import lk.J_N_Super_Pvt_Ltd.asset.message.dao.EmailMessageDao;
-import lk.J_N_Super_Pvt_Ltd.asset.message.entity.EmailMessage;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
+
+import J_N_Super_Pvt_Ltd.asset.message.dao.EmailMessageDao;
+import J_N_Super_Pvt_Ltd.asset.message.entity.EmailMessage;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+
 @Service
 @CacheConfig(cacheNames = "emailMessage")
 public class EmailMessageService implements AbstractService<EmailMessage, Integer> {

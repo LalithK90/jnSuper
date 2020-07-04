@@ -1,7 +1,7 @@
-package lk.J_N_Super_Pvt_Ltd.asset.item.dao;
+package J_N_Super_Pvt_Ltd.asset.item.dao;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.item.entity.Item;
+import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,8 @@
-package lk.J_N_Super_Pvt_Ltd.asset.branch.entity;
+package J_N_Super_Pvt_Ltd.asset.branch.entity;
 
 
-
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
-import lk.J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
+import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter

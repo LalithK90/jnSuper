@@ -1,6 +1,4 @@
-package lk.J_N_Super_Pvt_Ltd.configuration;
-
-
+package J_N_Super_Pvt_Ltd.configuration;
 
 
 import org.slf4j.Logger;

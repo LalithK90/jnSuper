@@ -1,4 +1,5 @@
-package lk.J_N_Super_Pvt_Ltd.util.interfaces;
+package J_N_Super_Pvt_Ltd.util.interfaces;
+
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

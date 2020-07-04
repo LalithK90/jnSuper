@@ -1,11 +1,11 @@
-package lk.J_N_Super_Pvt_Ltd.util.interfaces;
+package J_N_Super_Pvt_Ltd.util.interfaces;
 
 
 import java.util.List;
 
 public interface AbstractService<E, I> {
 
-   List<E> findAll();
+   Object findAll();
 
     E findById(I id);
 

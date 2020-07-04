@@ -1,4 +1,4 @@
-package lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity;
+package J_N_Super_Pvt_Ltd.asset.userManagement.entity;
 
 
 import lombok.Getter;

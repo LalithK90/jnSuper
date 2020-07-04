@@ -1,11 +1,11 @@
-package lk.J_N_Super_Pvt_Ltd.configuration;
+package J_N_Super_Pvt_Ltd.configuration;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.Enum.UserSessionLogStatus;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.UserSessionLog;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.service.UserSessionLogService;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.Enum.UserSessionLogStatus;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.UserSessionLog;
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.UserSessionLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;

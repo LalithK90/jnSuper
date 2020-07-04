@@ -1,4 +1,5 @@
-package lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model;
+package J_N_Super_Pvt_Ltd.asset.commonAsset.model;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -17,5 +18,5 @@ public class Message {
 
     private String message;
 
-    private List< MultipartFile > files = new ArrayList<>();
+    private List<MultipartFile> files = new ArrayList<>();
 }

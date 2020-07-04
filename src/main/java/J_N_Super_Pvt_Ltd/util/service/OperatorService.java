@@ -1,4 +1,5 @@
-package lk.J_N_Super_Pvt_Ltd.util.service;
+package J_N_Super_Pvt_Ltd.util.service;
+
 
 import org.springframework.stereotype.Service;
 
@@ -8,7 +9,7 @@ import java.math.RoundingMode;
 @Service
 public class OperatorService {
 
-    public  BigDecimal multiply(BigDecimal operand1, BigDecimal operand2) {
+    public BigDecimal multiply(BigDecimal operand1, BigDecimal operand2) {
         return operand1.multiply(operand2).setScale(2, RoundingMode.CEILING);
     }
 

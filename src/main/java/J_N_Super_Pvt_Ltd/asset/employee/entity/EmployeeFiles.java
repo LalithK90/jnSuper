@@ -1,7 +1,7 @@
-package lk.J_N_Super_Pvt_Ltd.asset.employee.entity;
+package J_N_Super_Pvt_Ltd.asset.employee.entity;
 
 
-import lk.J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
+import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +36,6 @@ public class EmployeeFiles extends AuditEntity {
     }
 
     @ManyToOne
-    private lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Employee employee;
+    private Employee employee;
 
 }

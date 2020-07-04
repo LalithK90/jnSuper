@@ -1,4 +1,5 @@
-package lk.J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum;
+package J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

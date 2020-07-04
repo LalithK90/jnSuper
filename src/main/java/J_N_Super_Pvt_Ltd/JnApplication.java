@@ -1,4 +1,5 @@
-package lk.J_N_Super_Pvt_Ltd;
+package J_N_Super_Pvt_Ltd;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

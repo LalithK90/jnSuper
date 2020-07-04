@@ -1,7 +1,8 @@
-package lk.J_N_Super_Pvt_Ltd.asset.invoice.entity;
+package J_N_Super_Pvt_Ltd.asset.invoice.entity;
 
+
+import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
@@ -28,6 +29,6 @@ public class DiscountRatio extends AuditEntity {
     private BigDecimal amount;
 
     @OneToMany(mappedBy = "discountRatio")
-    private List<lk.J_N_Super_Pvt_Ltd.asset.invoice.entity.Invoice> invoices;
+    private List<Invoice> invoices;
 
 }

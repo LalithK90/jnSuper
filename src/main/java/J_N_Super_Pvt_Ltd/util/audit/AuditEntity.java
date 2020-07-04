@@ -1,4 +1,5 @@
-package lk.J_N_Super_Pvt_Ltd.util.audit;
+package J_N_Super_Pvt_Ltd.util.audit;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -12,7 +13,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
 
 @Getter
 @Setter

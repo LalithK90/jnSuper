@@ -1,17 +1,17 @@
-package lk.J_N_Super_Pvt_Ltd;
+package J_N_Super_Pvt_Ltd;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.CivilStatus;
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Gender;
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Title;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.Designation;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.EmployeeStatus;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.service.EmployeeService;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.Role;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.service.RoleService;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.CivilStatus;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Gender;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Title;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.Designation;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.EmployeeStatus;
+import J_N_Super_Pvt_Ltd.asset.employee.service.EmployeeService;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.Role;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.RoleService;
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

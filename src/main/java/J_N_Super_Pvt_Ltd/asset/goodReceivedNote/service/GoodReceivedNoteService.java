@@ -1,16 +1,16 @@
-package lk.J_N_Super_Pvt_Ltd.asset.goodReceivedNote.service;
+package J_N_Super_Pvt_Ltd.asset.goodReceivedNote.service;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.goodReceivedNote.dao.GoodReceivedNoteDao;
-import lk.J_N_Super_Pvt_Ltd.asset.goodReceivedNote.entity.GoodReceivedNote;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
+import J_N_Super_Pvt_Ltd.asset.goodReceivedNote.dao.GoodReceivedNoteDao;
+import J_N_Super_Pvt_Ltd.asset.goodReceivedNote.entity.GoodReceivedNote;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
-import java.util.List;
 @Service
 @CacheConfig(cacheNames = "goodReceivedNote")
 public class GoodReceivedNoteService implements AbstractService<GoodReceivedNote, Integer> {
@@ -22,7 +22,7 @@ public class GoodReceivedNoteService implements AbstractService<GoodReceivedNote
     }
 
     @Override
-    public List<GoodReceivedNote> findAll() {
+    public Object findAll() {
         return goodReceivedNoteDao.findAll();
     }
 

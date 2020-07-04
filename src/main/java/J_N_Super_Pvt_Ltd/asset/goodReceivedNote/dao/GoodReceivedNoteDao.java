@@ -1,7 +1,7 @@
-package lk.J_N_Super_Pvt_Ltd.asset.goodReceivedNote.dao;
+package J_N_Super_Pvt_Ltd.asset.goodReceivedNote.dao;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.goodReceivedNote.entity.GoodReceivedNote;
+import J_N_Super_Pvt_Ltd.asset.goodReceivedNote.entity.GoodReceivedNote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

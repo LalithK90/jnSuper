@@ -1,17 +1,17 @@
-package lk.J_N_Super_Pvt_Ltd.asset.employee.entity;
+package J_N_Super_Pvt_Ltd.asset.employee.entity;
 
 
+import J_N_Super_Pvt_Ltd.asset.branch.entity.Branch;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.BloodGroup;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.CivilStatus;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Gender;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Title;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.FileInfo;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.Designation;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.EmployeeStatus;
+import J_N_Super_Pvt_Ltd.asset.message.entity.EmailMessage;
+import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.J_N_Super_Pvt_Ltd.asset.branch.entity.Branch;
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.BloodGroup;
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.CivilStatus;
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Gender;
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Title;
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.FileInfo;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.Designation;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.EmployeeStatus;
-import lk.J_N_Super_Pvt_Ltd.asset.message.entity.EmailMessage;
-import lk.J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

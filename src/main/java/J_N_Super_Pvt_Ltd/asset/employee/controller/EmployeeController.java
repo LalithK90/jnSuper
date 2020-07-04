@@ -1,20 +1,20 @@
-package lk.J_N_Super_Pvt_Ltd.asset.employee.controller;
+package J_N_Super_Pvt_Ltd.asset.employee.controller;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.branch.service.BranchService;
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.CivilStatus;
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Gender;
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Title;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.EmployeeFiles;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.Designation;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.EmployeeStatus;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.service.EmployeeFilesService;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.service.EmployeeService;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
-import lk.J_N_Super_Pvt_Ltd.util.service.DateTimeAgeService;
-import lk.J_N_Super_Pvt_Ltd.util.service.MakeAutoGenerateNumberService;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.BloodGroup;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.CivilStatus;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Gender;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Title;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.service.CommonService;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.EmployeeFiles;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.Designation;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.EmployeeStatus;
+import J_N_Super_Pvt_Ltd.asset.employee.service.EmployeeFilesService;
+import J_N_Super_Pvt_Ltd.asset.employee.service.EmployeeService;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
+import J_N_Super_Pvt_Ltd.util.service.DateTimeAgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -29,27 +29,25 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Controller
 @RequestMapping("/employee")
+@Controller
 public class EmployeeController {
     private final EmployeeService employeeService;
     private final EmployeeFilesService employeeFilesService;
     private final DateTimeAgeService dateTimeAgeService;
-    private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
+    private final CommonService commonService;
     private final UserService userService;
-    private final BranchService branchService;
 
     @Autowired
     public EmployeeController(EmployeeService employeeService, EmployeeFilesService employeeFilesService,
-                              DateTimeAgeService dateTimeAgeService,
-                              MakeAutoGenerateNumberService makeAutoGenerateNumberService, UserService userService, BranchService branchService) {
+                              DateTimeAgeService dateTimeAgeService, CommonService commonService,
+                              UserService userService) {
         this.employeeService = employeeService;
         this.employeeFilesService = employeeFilesService;
 
         this.dateTimeAgeService = dateTimeAgeService;
-        this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
+        this.commonService = commonService;
         this.userService = userService;
-        this.branchService = branchService;
     }
 //----> Employee details management - start <----//
 
@@ -57,10 +55,11 @@ public class EmployeeController {
     private String commonThings(Model model) {
         model.addAttribute("title", Title.values());
         model.addAttribute("gender", Gender.values());
+        model.addAttribute("designation", Designation.values());
+        model.addAttribute("bloodGroup", BloodGroup.values());
         model.addAttribute("civilStatus", CivilStatus.values());
         model.addAttribute("employeeStatus", EmployeeStatus.values());
-        model.addAttribute("designation", Designation.values());
-        model.addAttribute("branches", branchService.findAll());
+
         return "employee/addEmployee";
     }
 
@@ -95,6 +94,7 @@ public class EmployeeController {
     public String editEmployeeForm(@PathVariable("id") Integer id, Model model) {
         Employee employee = employeeService.findById(id);
         model.addAttribute("employee", employee);
+        model.addAttribute("newEmployee", employee.getPayRoleNumber());
         model.addAttribute("addStatus", false);
         model.addAttribute("files", employeeFilesService.employeeFileDownloadLinks(employee));
         return commonThings(model);
@@ -119,9 +119,9 @@ public class EmployeeController {
             return commonThings(model);
         }
         try {
-            employee.setMobileOne(makeAutoGenerateNumberService.phoneNumberLengthValidator(employee.getMobileOne()));
-            employee.setMobileTwo(makeAutoGenerateNumberService.phoneNumberLengthValidator(employee.getMobileTwo()));
-            employee.setLand(makeAutoGenerateNumberService.phoneNumberLengthValidator(employee.getLand()));
+            employee.setMobileOne(commonService.commonMobileNumberLengthValidator(employee.getMobileOne()));
+            employee.setMobileTwo(commonService.commonMobileNumberLengthValidator(employee.getMobileTwo()));
+            employee.setLand(commonService.commonMobileNumberLengthValidator(employee.getLand()));
             //after save employee files and save employee
             employeeService.persist(employee);
 
@@ -134,7 +134,7 @@ public class EmployeeController {
                     userService.persist(user);
                 }
             }
-            //save employee images file
+            //save employee img file
             for (MultipartFile file : employee.getFiles()) {
                 if (file.getOriginalFilename() != null) {
                     EmployeeFiles employeeFiles = employeeFilesService.findByName(file.getOriginalFilename());
@@ -192,9 +192,8 @@ public class EmployeeController {
     }
 
     //Send a searched employee to add working place
-
-/**
-    //@PostMapping( value = "/workingPlace" )
+/*
+    @PostMapping( value = "/workingPlace" )
     public String addWorkingPlaceEmployeeDetails(@ModelAttribute( "employee" ) Employee employee, Model model) {
 
         List< Employee > employees = employeeService.search(employee);
@@ -225,8 +224,7 @@ public class EmployeeController {
         return "employeeWorkingPlace/addEmployeeWorkingPlace";
     }
 
-    /**
-     //@PostMapping( value = "/workingPlace/add" )
+    @PostMapping( value = "/workingPlace/add" )
     public String addWorkingPlaceEmployee(@ModelAttribute( "employeeWorkingPlaceHistory" ) EmployeeWorkingPlaceHistory employeeWorkingPlaceHistory, Model model) {
         System.out.println(employeeWorkingPlaceHistory.toString());
         // -> need to write validation before the save working place
@@ -240,8 +238,8 @@ public class EmployeeController {
         employeeWorkingPlaceHistoryService.persist(employeeWorkingPlaceHistory);
         return "redirect:/employee";
     }
+*/
 
-**/
 //----> EmployeeWorkingPlace - details management - end <----//
 
 }

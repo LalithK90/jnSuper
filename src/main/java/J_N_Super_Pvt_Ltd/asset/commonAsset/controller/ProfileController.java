@@ -1,10 +1,11 @@
-package lk.J_N_Super_Pvt_Ltd.asset.commonAsset.controller;
+package J_N_Super_Pvt_Ltd.asset.commonAsset.controller;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.PasswordChange;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.PasswordChange;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,11 @@ public class ProfileController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
     public ProfileController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
+
 
     @GetMapping( value = "/profile" )
     public String userProfile(Model model, Principal principal) {

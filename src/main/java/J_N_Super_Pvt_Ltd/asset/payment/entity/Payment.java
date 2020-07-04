@@ -1,9 +1,10 @@
-package lk.J_N_Super_Pvt_Ltd.asset.payment.entity;
+package J_N_Super_Pvt_Ltd.asset.payment.entity;
 
+
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.PurchaseOrder;
+import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.PaymentMethod;
+import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.J_N_Super_Pvt_Ltd.asset.payment.entity.Enum.PaymentMethod;
-import lk.J_N_Super_Pvt_Ltd.asset.purchaseOrder.entity.PurchaseOrder;
-import lk.J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

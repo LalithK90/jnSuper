@@ -1,10 +1,10 @@
-package lk.J_N_Super_Pvt_Ltd.asset.item.category.controller;
+package J_N_Super_Pvt_Ltd.asset.item.category.controller;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.item.category.entity.Category;
-import lk.J_N_Super_Pvt_Ltd.asset.item.category.service.CategoryService;
-import lk.J_N_Super_Pvt_Ltd.asset.item.entity.Enum.MainCategory;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractController;
+import J_N_Super_Pvt_Ltd.asset.item.category.entity.Category;
+import J_N_Super_Pvt_Ltd.asset.item.category.service.CategoryService;
+import J_N_Super_Pvt_Ltd.asset.item.entity.Enum.MainCategory;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

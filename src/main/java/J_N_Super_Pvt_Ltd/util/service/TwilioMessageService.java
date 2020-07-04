@@ -1,10 +1,10 @@
-package lk.J_N_Super_Pvt_Ltd.util.service;
+package J_N_Super_Pvt_Ltd.util.service;
+
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class TwilioMessageService {

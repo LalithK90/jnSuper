@@ -1,22 +1,22 @@
-package lk.J_N_Super_Pvt_Ltd.asset.employee.service;
+package J_N_Super_Pvt_Ltd.asset.employee.service;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.employee.dao.EmployeeDao;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
+import J_N_Super_Pvt_Ltd.asset.employee.dao.EmployeeDao;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 // spring transactional annotation need to tell spring to this method work through the project
-@CacheConfig( cacheNames = "employee" )
-public class EmployeeService implements AbstractService<Employee, Integer > {
+@CacheConfig(cacheNames = "employee")
+public class EmployeeService implements AbstractService<Employee, Integer> {
 
     private final EmployeeDao employeeDao;
 
@@ -35,22 +35,17 @@ public class EmployeeService implements AbstractService<Employee, Integer > {
         return employeeDao.getOne(id);
     }
 
-    @Caching( evict = {@CacheEvict( value = "employee", allEntries = true )},
-            put = {@CachePut( value = "employee", key = "#employee.id" )} )
+    @Caching(evict = {@CacheEvict(value = "employee", allEntries = true)},
+            put = {@CachePut(value = "employee", key = "#employee.id")})
     @Transactional
     public Employee persist(Employee employee) {
         return employeeDao.save(employee);
     }
 
-    @CacheEvict( allEntries = true )
+    @CacheEvict(allEntries = true)
     public boolean delete(Integer id) {
         employeeDao.deleteById(id);
         return false;
-    }
-
-    @Cacheable
-    public List<Employee> search() {
-        return search();
     }
 
     @Cacheable
@@ -59,7 +54,7 @@ public class EmployeeService implements AbstractService<Employee, Integer > {
                 .matching()
                 .withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-        Example< Employee > employeeExample = Example.of(employee, matcher);
+        Example<Employee> employeeExample = Example.of(employee, matcher);
         return employeeDao.findAll(employeeExample);
     }
 

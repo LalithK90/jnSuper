@@ -1,9 +1,8 @@
-package lk.J_N_Super_Pvt_Ltd.asset.message.entity;
+package J_N_Super_Pvt_Ltd.asset.message.entity;
 
 
-import com.sun.istack.NotNull;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
-import lk.J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
+import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import java.util.*;
 
 @Entity
 @Getter

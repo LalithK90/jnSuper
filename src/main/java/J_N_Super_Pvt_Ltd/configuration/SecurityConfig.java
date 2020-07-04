@@ -1,7 +1,7 @@
-package lk.J_N_Super_Pvt_Ltd.configuration;
+package J_N_Super_Pvt_Ltd.configuration;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.service.UserDetailsServiceImpl;
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -72,10 +72,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-          /* http.csrf().disable();
+  /*         http.csrf().disable();
             http.authorizeRequests().antMatchers("/").permitAll();*/
         // For developing easy to give permission all lin
-
         http
                 .authorizeRequests(
                         authorizeRequests ->
@@ -104,7 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         .usernameParameter("username")
                                         .passwordParameter("password")
                                         .successHandler(customAuthenticationSuccessHandler())
-                                        .failureForwardUrl("/login")
+                                        .failureUrl("/login")
                 )
                 //Logout controlling
                 .logout(
@@ -123,7 +122,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                                         .invalidSessionUrl("/login")
                                         .maximumSessions(1)
-                                        .expiredUrl("/l")
+                                        .expiredUrl("/login")
                                         .sessionRegistry(sessionRegistry()))
                 //Cross site disable
                 .csrf(AbstractHttpConfigurer::disable)

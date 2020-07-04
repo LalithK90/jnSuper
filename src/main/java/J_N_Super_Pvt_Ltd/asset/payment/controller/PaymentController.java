@@ -1,4 +1,4 @@
-package lk.J_N_Super_Pvt_Ltd.asset.payment.controller;
+package J_N_Super_Pvt_Ltd.asset.payment.controller;
 
 import org.springframework.stereotype.Controller;
 

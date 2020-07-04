@@ -1,29 +1,34 @@
-package lk.J_N_Super_Pvt_Ltd.asset.commonAsset.service;
+package J_N_Super_Pvt_Ltd.asset.commonAsset.service;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.employee.controller.EmployeeRestController;
-import lk.J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
-import lk.J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierService;
-import lk.J_N_Super_Pvt_Ltd.util.service.MakeAutoGenerateNumberService;
-import org.springframework.beans.factory.annotation.Autowired;
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderStatus;
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.service.PurchaseOrderSupplierService;
+import J_N_Super_Pvt_Ltd.asset.employee.controller.EmployeeRestController;
+import J_N_Super_Pvt_Ltd.asset.item.service.ItemService;
+import J_N_Super_Pvt_Ltd.asset.supplier.entity.Enum.ItemSupplierStatus;
+import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
+import J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierService;
+import J_N_Super_Pvt_Ltd.util.service.MakeAutoGenerateNumberService;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class CommonService {
     private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
     private final SupplierService supplierService;
+    private final ItemService itemService;
 
-    @Autowired
-    public CommonService(MakeAutoGenerateNumberService makeAutoGenerateNumberService, SupplierService supplierService) {
+    public CommonService(MakeAutoGenerateNumberService makeAutoGenerateNumberService, SupplierService supplierService, ItemService itemService, PurchaseOrderSupplierService purchaseOrderSupplierService) {
         this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
         this.supplierService = supplierService;
+        this.itemService = itemService;
     }
+
 
     public String supplierItemAndPurchaseOrderSearch(Supplier supplier, Model model, String htmlFileLocation) {
         List<Supplier> suppliers;
@@ -52,6 +57,9 @@ public class CommonService {
         if (suppliers.size() == 1) {
             model.addAttribute("supplierDetail", suppliers.get(0));
             model.addAttribute("supplierDetailShow", false);
+            model.addAttribute("items", itemService.findAll());
+            model.addAttribute("itemSupplierStatus", ItemSupplierStatus.values());
+            model.addAttribute("purchaseOrderStatus", PurchaseOrderStatus.values());
             return htmlFileLocation;
         }
         model.addAttribute("suppliers", suppliers);

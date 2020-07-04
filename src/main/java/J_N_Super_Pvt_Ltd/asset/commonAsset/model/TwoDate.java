@@ -1,4 +1,4 @@
-package lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model;
+package J_N_Super_Pvt_Ltd.asset.commonAsset.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

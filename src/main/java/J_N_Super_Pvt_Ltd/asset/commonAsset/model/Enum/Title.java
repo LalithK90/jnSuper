@@ -1,4 +1,6 @@
-package lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum;
+package J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

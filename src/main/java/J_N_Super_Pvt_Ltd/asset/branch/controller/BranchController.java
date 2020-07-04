@@ -1,8 +1,9 @@
-package lk.J_N_Super_Pvt_Ltd.asset.branch.controller;
+package J_N_Super_Pvt_Ltd.asset.branch.controller;
 
-import lk.J_N_Super_Pvt_Ltd.asset.branch.entity.Branch;
-import lk.J_N_Super_Pvt_Ltd.asset.branch.service.BranchService;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractController;
+
+import J_N_Super_Pvt_Ltd.asset.branch.entity.Branch;
+import J_N_Super_Pvt_Ltd.asset.branch.service.BranchService;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/branch")
-   public  class BranchController  implements AbstractController <Branch , Integer>{
+   public  class BranchController  implements AbstractController<Branch , Integer> {
         private final BranchService branchService;
 
     @Autowired

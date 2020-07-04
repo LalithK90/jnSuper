@@ -1,9 +1,9 @@
-package lk.J_N_Super_Pvt_Ltd.asset.branch.service;
+package J_N_Super_Pvt_Ltd.asset.branch.service;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.branch.dao.BranchDao;
-import lk.J_N_Super_Pvt_Ltd.asset.branch.entity.Branch;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
+import J_N_Super_Pvt_Ltd.asset.branch.dao.BranchDao;
+import J_N_Super_Pvt_Ltd.asset.branch.entity.Branch;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Example;
@@ -11,6 +11,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 @CacheConfig( cacheNames = "branch" )
 public class BranchService implements AbstractService<Branch, Integer> {
@@ -21,7 +22,7 @@ public class BranchService implements AbstractService<Branch, Integer> {
         this.branchDao = branchDao;
     }
 
-    public List<Branch> findAll() {
+    public Object findAll() {
         return branchDao.findAll();
     }
 

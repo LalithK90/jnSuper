@@ -1,12 +1,13 @@
-package lk.J_N_Super_Pvt_Ltd.asset.userManagement.controller;
+package J_N_Super_Pvt_Ltd.asset.userManagement.controller;
 
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.Designation;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.EmployeeStatus;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.service.EmployeeService;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.service.RoleService;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
+
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.Designation;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.EmployeeStatus;
+import J_N_Super_Pvt_Ltd.asset.employee.service.EmployeeService;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.RoleService;
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +16,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.*;
 
 @Controller
 @RequestMapping( "/user" )

@@ -1,9 +1,10 @@
-package lk.J_N_Super_Pvt_Ltd.asset.userManagement.service;
+package J_N_Super_Pvt_Ltd.asset.userManagement.service;
 
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.dao.UserDao;
+
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
+import J_N_Super_Pvt_Ltd.asset.userManagement.dao.UserDao;
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Example;
@@ -14,10 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 @Service
 @CacheConfig( cacheNames = {"user"} ) // tells Spring where to store cache for this class
-public class UserService implements AbstractService<User, Integer > {
+public class UserService implements AbstractService<User, Integer> {
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
 
@@ -28,7 +28,7 @@ public class UserService implements AbstractService<User, Integer > {
     }
 
     @Cacheable
-    public List<User> findAll() {
+    public Object findAll() {
         return userDao.findAll();
     }
 

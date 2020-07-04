@@ -1,4 +1,5 @@
-package lk.J_N_Super_Pvt_Ltd.util.service;
+package J_N_Super_Pvt_Ltd.util.service;
+
 
 import org.springframework.stereotype.Service;
 

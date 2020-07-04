@@ -1,14 +1,13 @@
-package lk.J_N_Super_Pvt_Ltd.asset.customer.controller;
+package J_N_Super_Pvt_Ltd.asset.customer.controller;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Title;
-import lk.J_N_Super_Pvt_Ltd.asset.customer.entity.Customer;
-import lk.J_N_Super_Pvt_Ltd.asset.customer.service.CustomerService;
-import lk.J_N_Super_Pvt_Ltd.util.interfaces.AbstractController;
-import lk.J_N_Super_Pvt_Ltd.util.service.EmailService;
-import lk.J_N_Super_Pvt_Ltd.util.service.MakeAutoGenerateNumberService;
-import lk.J_N_Super_Pvt_Ltd.util.service.TwilioMessageService;
-import org.springframework.beans.factory.annotation.Autowired;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.model.Enum.Title;
+import J_N_Super_Pvt_Ltd.asset.customer.entity.Customer;
+import J_N_Super_Pvt_Ltd.asset.customer.service.CustomerService;
+import J_N_Super_Pvt_Ltd.util.interfaces.AbstractController;
+import J_N_Super_Pvt_Ltd.util.service.EmailService;
+import J_N_Super_Pvt_Ltd.util.service.MakeAutoGenerateNumberService;
+import J_N_Super_Pvt_Ltd.util.service.TwilioMessageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,13 +25,13 @@ public class CustomerController implements AbstractController<Customer, Integer>
     private final EmailService emailService;
     private final TwilioMessageService twilioMessageService;
 
-    @Autowired
     public CustomerController(CustomerService customerService, MakeAutoGenerateNumberService makeAutoGenerateNumberService, EmailService emailService, TwilioMessageService twilioMessageService) {
         this.customerService = customerService;
         this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
         this.emailService = emailService;
         this.twilioMessageService = twilioMessageService;
     }
+
 
     private String commonThings(Model model, Customer customer, Boolean addState) {
         model.addAttribute("title", Title.values());

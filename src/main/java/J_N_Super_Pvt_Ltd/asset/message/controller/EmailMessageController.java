@@ -1,12 +1,12 @@
-package lk.J_N_Super_Pvt_Ltd.asset.message.controller;
+package J_N_Super_Pvt_Ltd.asset.message.controller;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.commonAsset.service.CommonService;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
-import lk.J_N_Super_Pvt_Ltd.asset.employee.service.EmployeeService;
-import lk.J_N_Super_Pvt_Ltd.asset.message.entity.EmailMessage;
-import lk.J_N_Super_Pvt_Ltd.asset.message.service.EmailMessageService;
-import lk.J_N_Super_Pvt_Ltd.util.service.EmailService;
+import J_N_Super_Pvt_Ltd.asset.commonAsset.service.CommonService;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
+import J_N_Super_Pvt_Ltd.asset.employee.service.EmployeeService;
+import J_N_Super_Pvt_Ltd.asset.message.entity.EmailMessage;
+import J_N_Super_Pvt_Ltd.asset.message.service.EmailMessageService;
+import J_N_Super_Pvt_Ltd.util.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.*;
 
 @Controller
 @RequestMapping( "/emailMessage" )

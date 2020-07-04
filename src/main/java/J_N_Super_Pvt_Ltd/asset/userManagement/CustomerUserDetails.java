@@ -1,6 +1,7 @@
-package lk.J_N_Super_Pvt_Ltd.asset.userManagement;
+package J_N_Super_Pvt_Ltd.asset.userManagement;
 
-import lk.J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
+
+import J_N_Super_Pvt_Ltd.asset.userManagement.entity.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.Collection;
 import java.util.stream.Collectors;

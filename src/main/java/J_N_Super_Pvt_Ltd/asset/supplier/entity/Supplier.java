@@ -1,13 +1,10 @@
-package lk.J_N_Super_Pvt_Ltd.asset.supplier.entity;
+package J_N_Super_Pvt_Ltd.asset.supplier.entity;
 
-
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.PurchaseOrder;
+import J_N_Super_Pvt_Ltd.asset.supplier.entity.Enum.ItemSupplierStatus;
+import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.J_N_Super_Pvt_Ltd.asset.item.entity.Item;
-import lk.J_N_Super_Pvt_Ltd.asset.purchaseOrder.entity.PurchaseOrder;
-import lk.J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -19,13 +16,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonFilter("Supplier")
-@ToString
 public class Supplier extends AuditEntity {
 
     @Size(min = 5, message = "Your Company name cannot be accepted")
     private String name;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String code;
 
     @Size(min = 2, message = "Your BRN cannot be accepted")
@@ -33,7 +29,6 @@ public class Supplier extends AuditEntity {
 
     @Size(max = 10, min = 9, message = "Mobile number length should be contained 10 and 9")
     private String contactOne;
-
     private String contactTwo;
 
     @Column(unique = true)
@@ -45,11 +40,10 @@ public class Supplier extends AuditEntity {
     @OneToMany(mappedBy = "supplier")
     private List<PurchaseOrder> purchaseOrders;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SUBSELECT)
-    @JoinTable(name = "supplier_item",
-            joinColumns = @JoinColumn(name = "supplier_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private List<Item> items;
+    @OneToMany(mappedBy = "supplier")
+    private List<SupplierItem> supplierItems;
+
+    @Enumerated(EnumType.STRING)
+    private ItemSupplierStatus itemSupplierStatus;
 
 }

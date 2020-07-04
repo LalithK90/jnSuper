@@ -39,6 +39,8 @@ $(document).ready(function () {
 // regex
 let nicRegex = /^([0-9]{9}[vV|xX])|^([0-9]{12})$/;
 let mobileRegex = /^([0][7][\d]{8}$)|^([7][\d]{8})$/;
+//todo-> need to valid mobile
+//let mobileRegex = /^0((7)(0|1|[4-8]))[0-9]{8}$/;
 let landRegex = /^0((11)|(2(1|[3-7]))|(3[1-8])|(4(1|5|7))|(5(1|2|4|5|7))|(6(3|[5-7]))|([8-9]1))([2-4]|5|7|9)[0-9]{6}$/;
 let nameRegex = /^[a-zA-Z .-]{5}[ a-zA-Z.-]+$/;
 let numberRegex = /^([eE][hH][sS][\d]+)$/;
@@ -631,3 +633,9 @@ $(".reveal").on('click', function () {
         $pwd.attr('type', 'password');
     }
 });
+
+/*When edit employee if there is a nic number need to select relevant gender*/
+if ($("#nic").val() !== null || $("#nic").val() === undefined){
+    $("input:radio[name=gender]").filter(`[value=${calculateGender($("#nic").val())}]`).prop('checked',true);
+}
+

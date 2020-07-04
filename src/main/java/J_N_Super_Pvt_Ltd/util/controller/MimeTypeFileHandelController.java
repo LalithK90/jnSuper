@@ -1,4 +1,5 @@
-package lk.J_N_Super_Pvt_Ltd.util.controller;
+package J_N_Super_Pvt_Ltd.util.controller;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

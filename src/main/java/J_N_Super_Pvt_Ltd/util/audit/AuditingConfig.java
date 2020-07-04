@@ -1,4 +1,4 @@
-package lk.J_N_Super_Pvt_Ltd.util.audit;
+package J_N_Super_Pvt_Ltd.util.audit;
 
 
 import org.springframework.context.annotation.Bean;

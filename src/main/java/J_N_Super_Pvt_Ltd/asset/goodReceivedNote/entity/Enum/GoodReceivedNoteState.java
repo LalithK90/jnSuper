@@ -1,4 +1,4 @@
-package lk.J_N_Super_Pvt_Ltd.asset.goodReceivedNote.entity.Enum;
+package J_N_Super_Pvt_Ltd.asset.goodReceivedNote.entity.Enum;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

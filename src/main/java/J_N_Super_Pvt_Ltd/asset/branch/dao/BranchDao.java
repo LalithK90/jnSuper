@@ -1,7 +1,7 @@
-package lk.J_N_Super_Pvt_Ltd.asset.branch.dao;
+package J_N_Super_Pvt_Ltd.asset.branch.dao;
 
 
-import lk.J_N_Super_Pvt_Ltd.asset.branch.entity.Branch;
+import J_N_Super_Pvt_Ltd.asset.branch.entity.Branch;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
