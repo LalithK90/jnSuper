@@ -5,7 +5,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-
 public enum ItemSupplierStatus {
     CURRENTLY_BUYING("Currently Buying"),
     STOPPED("Stopped");

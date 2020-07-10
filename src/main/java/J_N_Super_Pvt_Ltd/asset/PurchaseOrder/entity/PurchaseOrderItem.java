@@ -26,12 +26,6 @@ public class PurchaseOrderItem extends AuditEntity {
 
     private String receivedQuantity;
 
-    @Column(unique = true, nullable = false)
-    private String code;
-
-    @Column(precision = 10, scale = 2)
-    private BigDecimal linetotal;
-
     @ManyToOne
     private PurchaseOrder purchaseOrder;
 

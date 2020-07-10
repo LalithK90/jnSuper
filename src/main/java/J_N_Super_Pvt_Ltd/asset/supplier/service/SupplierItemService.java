@@ -3,6 +3,7 @@ package J_N_Super_Pvt_Ltd.asset.supplier.service;
 
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
 import J_N_Super_Pvt_Ltd.asset.supplier.dao.SupplierItemDao;
+import J_N_Super_Pvt_Ltd.asset.supplier.entity.Enum.ItemSupplierStatus;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.SupplierItem;
 import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
@@ -33,6 +34,9 @@ public class SupplierItemService implements AbstractService<SupplierItem, Intege
     }
 
     public SupplierItem persist(SupplierItem supplierItem) {
+        if (supplierItem.getId()==null){
+            supplierItem.setItemSupplierStatus(ItemSupplierStatus.CURRENTLY_BUYING);
+        }
         return supplierItemDao.save(supplierItem);
     }
 
@@ -57,5 +61,8 @@ public class SupplierItemService implements AbstractService<SupplierItem, Intege
     public List<SupplierItem> findBySupplier(Supplier supplier) {
         return supplierItemDao.findBySupplier(supplier);
     }
-}
 
+    public List<SupplierItem> findBySupplierAndItemSupplierStatus(Supplier supplier, ItemSupplierStatus itemSupplierStatus) {
+  return supplierItemDao.findBySupplierAndItemSupplierStatus(supplier,itemSupplierStatus);
+    }
+}

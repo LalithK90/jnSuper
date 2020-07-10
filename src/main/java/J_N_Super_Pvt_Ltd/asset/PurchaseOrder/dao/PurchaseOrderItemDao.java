@@ -11,6 +11,5 @@ import java.util.*;
 @Repository
 public interface PurchaseOrderItemDao extends JpaRepository<PurchaseOrderItem, Integer> {
     PurchaseOrderItem findByPurchaseOrderAndItem(PurchaseOrder purchaseOrder, Item item);
-
     List<PurchaseOrderItem> findByPurchaseOrder(PurchaseOrder purchaseOrder);
 }

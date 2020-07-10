@@ -48,8 +48,8 @@
                 <tbody>
                     <tr th:each="purchaseOrder, rowCount : ${purchaseOrders}">
                         <th th:text="${rowCount.count}"></th>
-                        <th th:text="${purchaseOrder.purchaseOrderDate}"></th>
-                        <th th:if="${purchaseOrderDetailShow !=true}">
+                       <!-- <th th:text="${purchaseOrder.purchaseOrderDate}"></th>-->
+                        <th th:if="${purchaseOrder !=true}">
                             <a th:href="${'/purchaseOrderItem/purchaseOrder/' + purchaseOrder.id}" class="btn btn-primary btn-sm"><i
                                     class="fa fa-folder-open" style="font-size: 15px"></i>&nbsp;Item Price</a>
                             <a th:href="${'/purchaseOrder/' + purchaseOrder.id}" class="btn btn-primary btn-sm"><i

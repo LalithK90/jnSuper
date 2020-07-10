@@ -3,9 +3,12 @@ package J_N_Super_Pvt_Ltd.asset.PurchaseOrder.controller;
 
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderStatus;
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.PurchaseOrder;
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.service.PurchaseOrderItemService;
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.service.PurchaseOrderService;
 import J_N_Super_Pvt_Ltd.asset.commonAsset.service.CommonService;
+import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
+import J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierItemService;
 import J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierService;
 import J_N_Super_Pvt_Ltd.util.service.EmailService;
 import J_N_Super_Pvt_Ltd.util.service.MakeAutoGenerateNumberService;
@@ -22,51 +25,61 @@ import javax.validation.Valid;
 @RequestMapping("/purchaseOrder")
 public class PurchaseOrderController {
     private final PurchaseOrderService purchaseOrderService;
+    private final PurchaseOrderItemService purchaseOrderItemService;
     private final SupplierService supplierService;
     private final CommonService commonService;
     private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
     private final EmailService emailService;
     private final OperatorService operatorService;
+    private final SupplierItemService supplierItemService;
 
-    public PurchaseOrderController(PurchaseOrderService purchaseOrderService, SupplierService supplierService, CommonService commonService, MakeAutoGenerateNumberService makeAutoGenerateNumberService, EmailService emailService, OperatorService operatorService) {
+    public PurchaseOrderController(PurchaseOrderService supplierItemService, PurchaseOrderService purchaseOrderService, PurchaseOrderItemService purchaseOrderItemService, SupplierService supplierService, CommonService commonService, MakeAutoGenerateNumberService makeAutoGenerateNumberService, EmailService emailService, OperatorService operatorService, SupplierItemService supplierItemService1) {
         this.purchaseOrderService = purchaseOrderService;
+        this.purchaseOrderItemService = purchaseOrderItemService;
         this.supplierService = supplierService;
         this.commonService = commonService;
         this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
         this.emailService = emailService;
         this.operatorService = operatorService;
+        this.supplierItemService = supplierItemService1;
     }
 
     @GetMapping
+    public String list(Model model) {
+        model.addAttribute("purchaseOrder", purchaseOrderService.findAll());
+        model.addAttribute("searchAreaShow", true);
+        return "purchaseOrder/purchaseOrder";
+    }
+
+    @GetMapping("/add")
     public String addForm(Model model) {
-        model.addAttribute("purchaseOrder", new PurchaseOrder());
+        model.addAttribute("purchaseOrder", new Supplier());
         model.addAttribute("searchAreaShow", true);
         return "purchaseOrder/addPurchaseOrder";
     }
 
     @PostMapping("/find")
     public String search(@Valid @ModelAttribute Supplier supplier, Model model) {
-        return commonService
-                .supplierItemAndPurchaseOrderSearch(supplier, model,  "purchaseOrder/addPurchaseOrder");
-    }
+        return commonService.purchaseOrder(supplier, model, "purchaseOrder/addPurchaseOrder");
+          }
 
 
     @GetMapping("/{id}")
     public String view(@PathVariable Integer id, Model model) {
-        commonService.supplierItemAndPurchaseOrderView(model, id);
-        return "purchaseOrder/addPurchaseOrder";
+        return commonService.purchaseOrder( model, id);
+
     }
 
     @PostMapping
-    public String supplierItemPersist(@Valid @ModelAttribute PurchaseOrder purchaseOrder, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String purchaseOrderPersist(@Valid @ModelAttribute PurchaseOrder purchaseOrder, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            return "redirect:/supplierItem/" + purchaseOrder.getId();
+            return "redirect:/purchaseOrder/" + purchaseOrder.getId();
         }
-        purchaseOrder.getPurchaseOrderSuppliers()
+       /* purchaseOrder.getPurchaseOrderSuppliers()
                 .forEach(purchaseOrderSupplier -> {
                     purchaseOrderSupplier.setPurchaseOrder(purchaseOrder);
                     //todo need to create batch number
-                });
+                });*/
         purchaseOrder.setPurchaseOrderStatus(PurchaseOrderStatus.NOT_COMPLETED);
         if (purchaseOrder.getId() != null) {
             if (purchaseOrderService.lastPurchaseOrder() == null) {
@@ -122,6 +135,25 @@ public class PurchaseOrderController {
     }
 
     //todo -> need to  manage item price displaying option and amount calculation
+    @GetMapping("/supplier/{id}")
+    public String addPriceToSupplierItem(@PathVariable int id, Model model) {
+        Supplier supplier = supplierService.findById(id);
+        // supplier.setSupplierItems(purchaseOrders);
+        model.addAttribute("supplierDetail", supplier);
+        model.addAttribute("supplierDetailShow", false);
+        model.addAttribute("purchaseOrderItemEdit", false);
+
+
+        model.addAttribute("items", commonService.activeItemsFromSupplier(supplier));
+        return "purchaseOrder/addPurchaseOrder";
+    }
+
+ /*   @GetMapping
+    public String list(Model model) {
+        model.addAttribute("purchaseOrder", purchaseOrderItemService.findByPurchaseOrderAndItem(PurchaseOrder, Item));
+        return "purchaseOrder/purchaseOrder";
+    }
+*/
 
 }
 
