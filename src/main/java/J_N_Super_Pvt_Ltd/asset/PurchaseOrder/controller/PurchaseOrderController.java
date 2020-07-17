@@ -6,13 +6,15 @@ import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.PurchaseOrder;
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.service.PurchaseOrderItemService;
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.service.PurchaseOrderService;
 import J_N_Super_Pvt_Ltd.asset.commonAsset.service.CommonService;
-import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
 import J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierItemService;
 import J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierService;
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.RoleService;
+import J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
 import J_N_Super_Pvt_Ltd.util.service.EmailService;
 import J_N_Super_Pvt_Ltd.util.service.MakeAutoGenerateNumberService;
 import J_N_Super_Pvt_Ltd.util.service.OperatorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,12 +63,12 @@ public class PurchaseOrderController {
     @PostMapping("/find")
     public String search(@Valid @ModelAttribute Supplier supplier, Model model) {
         return commonService.purchaseOrder(supplier, model, "purchaseOrder/addPurchaseOrder");
-          }
+    }
 
 
     @GetMapping("/{id}")
     public String view(@PathVariable Integer id, Model model) {
-        return commonService.purchaseOrder( model, id);
+        return commonService.purchaseOrder(model, id);
 
     }
 
@@ -142,18 +144,16 @@ public class PurchaseOrderController {
         model.addAttribute("supplierDetail", supplier);
         model.addAttribute("supplierDetailShow", false);
         model.addAttribute("purchaseOrderItemEdit", false);
-
-
+        //send all active item belongs to supplier
         model.addAttribute("items", commonService.activeItemsFromSupplier(supplier));
         return "purchaseOrder/addPurchaseOrder";
     }
 
- /*   @GetMapping
-    public String list(Model model) {
-        model.addAttribute("purchaseOrder", purchaseOrderItemService.findByPurchaseOrderAndItem(PurchaseOrder, Item));
+    @GetMapping("/supplier")
+    @ResponseBody
+    public Object purchaseOrderItem(Model model) {
         return "purchaseOrder/purchaseOrder";
     }
-*/
 
 }
 

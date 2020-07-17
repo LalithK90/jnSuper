@@ -80,7 +80,7 @@
                                     class="fa fa-trash" style="font-size: 15px"></i> Delete</a>
                         </th>
                         <th th:if="${supplierDetailShow==true}">
-                            <a class="btn btn-primary btn-sm" th:href="${'/supplierItem/supplier/' + supplier.id}"><i
+                            <a class="btn btn-primary btn-sm" th:href="${supplierDetailShow==true ?'/purchaseOrder/supplier/' + supplier.id :'/supplierItem/supplier/' + supplier.id}"><i
                                     class="fa fa-thumbs-up" style="font-size: 15px"></i>&nbsp;Select</a>
                         </th>
                     </tr>
