@@ -2,6 +2,7 @@ package J_N_Super_Pvt_Ltd.asset.supplier.service;
 
 
 import J_N_Super_Pvt_Ltd.asset.supplier.dao.SupplierDao;
+import J_N_Super_Pvt_Ltd.asset.supplier.entity.Enum.ItemSupplierStatus;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
 import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@CacheConfig( cacheNames = "supplier" )
+@CacheConfig(cacheNames = "supplier")
 public class SupplierService implements AbstractService<Supplier, Integer> {
     private final SupplierDao supplierDao;
 
@@ -31,6 +32,9 @@ public class SupplierService implements AbstractService<Supplier, Integer> {
     }
 
     public Supplier persist(Supplier supplier) {
+        if (supplier.getId() == null) {
+            supplier.setItemSupplierStatus(ItemSupplierStatus.CURRENTLY_BUYING);
+        }
         return supplierDao.save(supplier);
     }
 
@@ -48,7 +52,7 @@ public class SupplierService implements AbstractService<Supplier, Integer> {
         return supplierDao.findAll(supplierExample);
     }
 
-    public Supplier lastSupplier(){
+    public Supplier lastSupplier() {
         return supplierDao.findFirstByOrderByIdDesc();
     }
 }
