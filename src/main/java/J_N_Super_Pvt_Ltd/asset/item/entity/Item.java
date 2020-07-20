@@ -1,7 +1,7 @@
 package J_N_Super_Pvt_Ltd.asset.item.entity;
 
 
-import J_N_Super_Pvt_Ltd.asset.item.category.entity.Category;
+import J_N_Super_Pvt_Ltd.asset.category.entity.Category;
 
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.SupplierItem;
 import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;

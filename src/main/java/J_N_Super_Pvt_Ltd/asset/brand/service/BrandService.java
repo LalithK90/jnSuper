@@ -1,8 +1,8 @@
-package J_N_Super_Pvt_Ltd.asset.item.brand.service;
+package J_N_Super_Pvt_Ltd.asset.brand.service;
 
 
-import J_N_Super_Pvt_Ltd.asset.item.brand.dao.BrandDao;
-import J_N_Super_Pvt_Ltd.asset.item.brand.entity.Brand;
+import J_N_Super_Pvt_Ltd.asset.brand.dao.BrandDao;
+import J_N_Super_Pvt_Ltd.asset.brand.entity.Brand;
 import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Example;

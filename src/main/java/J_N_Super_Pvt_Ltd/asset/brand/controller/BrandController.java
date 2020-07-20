@@ -1,8 +1,8 @@
-package J_N_Super_Pvt_Ltd.asset.item.brand.controller;
+package J_N_Super_Pvt_Ltd.asset.brand.controller;
 
 
-import J_N_Super_Pvt_Ltd.asset.item.brand.entity.Brand;
-import J_N_Super_Pvt_Ltd.asset.item.brand.service.BrandService;
+import J_N_Super_Pvt_Ltd.asset.brand.entity.Brand;
+import J_N_Super_Pvt_Ltd.asset.brand.service.BrandService;
 import J_N_Super_Pvt_Ltd.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

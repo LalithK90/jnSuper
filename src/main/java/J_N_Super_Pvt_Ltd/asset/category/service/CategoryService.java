@@ -1,8 +1,8 @@
-package J_N_Super_Pvt_Ltd.asset.item.category.service;
+package J_N_Super_Pvt_Ltd.asset.category.service;
 
 
-import J_N_Super_Pvt_Ltd.asset.item.category.dao.CategoryDao;
-import J_N_Super_Pvt_Ltd.asset.item.category.entity.Category;
+import J_N_Super_Pvt_Ltd.asset.category.dao.CategoryDao;
+import J_N_Super_Pvt_Ltd.asset.category.entity.Category;
 import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

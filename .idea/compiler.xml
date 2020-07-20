@@ -11,6 +11,9 @@
         <module name="J_N_Super_Pvt_Ltd.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="11">
+      <module name="JN.main" target="11" />
+      <module name="JN.test" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

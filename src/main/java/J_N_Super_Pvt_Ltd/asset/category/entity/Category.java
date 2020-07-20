@@ -1,4 +1,4 @@
-package J_N_Super_Pvt_Ltd.asset.item.category.entity;
+package J_N_Super_Pvt_Ltd.asset.category.entity;
 
 
 import J_N_Super_Pvt_Ltd.asset.item.entity.Enum.MainCategory;

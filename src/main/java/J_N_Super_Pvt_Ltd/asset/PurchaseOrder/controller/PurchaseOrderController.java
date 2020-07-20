@@ -6,6 +6,9 @@ import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.PurchaseOrder;
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.service.PurchaseOrderItemService;
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.service.PurchaseOrderService;
 import J_N_Super_Pvt_Ltd.asset.commonAsset.service.CommonService;
+import J_N_Super_Pvt_Ltd.asset.employee.controller.EmployeeRestController;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Employee;
+import J_N_Super_Pvt_Ltd.asset.employee.entity.Enum.Designation;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
 import J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierItemService;
 import J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierService;
@@ -14,14 +17,22 @@ import J_N_Super_Pvt_Ltd.asset.userManagement.service.UserService;
 import J_N_Super_Pvt_Ltd.util.service.EmailService;
 import J_N_Super_Pvt_Ltd.util.service.MakeAutoGenerateNumberService;
 import J_N_Super_Pvt_Ltd.util.service.OperatorService;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import com.google.common.collect.HashBiMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.HashSet;
 
 @Controller
 @RequestMapping("/purchaseOrder")
@@ -146,15 +157,52 @@ public class PurchaseOrderController {
         model.addAttribute("purchaseOrderItemEdit", false);
         //send all active item belongs to supplier
         model.addAttribute("items", commonService.activeItemsFromSupplier(supplier));
+        Object[] argument = {"", ""};
+        model.addAttribute("purchaseOrderItemUrl", MvcUriComponentsBuilder
+                .fromMethodName(PurchaseOrderController.class, "purchaseOrderSupplierItem", argument)
+                .build()
+                .toString());
+
         return "purchaseOrder/addPurchaseOrder";
     }
 
-    @PostMapping("/supplierItem")
+    @GetMapping(value = "/supplierItem", params = {"supplierId", "itemId"})
     @ResponseBody
-    public Object purchaseOrderItem(Model model) {
+    public Object purchaseOrderSupplierItem(@RequestParam("supplierId") Integer supplierId, @RequestParam("itemId") Integer itemId) {
+        //  MappingJacksonValue
+
+        System.out.println("supplier id " + supplierId + "      item id " + itemId);
+        HashMap<String,String> purchaseOrderItem = new HashMap<>();
 
 
-        return "purchaseOrder/purchaseOrder";
+        /*
+         * 1. ID
+         * 2. Item name
+         * 3. Rop
+         * 4. Price
+         * 5. Available Quantity.
+         * */
+
+        //MappingJacksonValue
+        List<Employee> employees = employeeService.search(employee);
+        //employeeService.findByWorkingPlace(workingPlaceService.findById(id));
+
+        //Create new mapping jackson value and set it to which was need to filter
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(employees);
+
+        //simpleBeanPropertyFilter :-  need to give any id to addFilter method and created filter which was mentioned
+        // what parameter's necessary to provide
+        SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter
+                .filterOutAllExcept("id", "name", "payRoleNumber", "designation");
+        //filters :-  set front end required value to before filter
+
+        FilterProvider filters = new SimpleFilterProvider()
+                .addFilter("Employee", simpleBeanPropertyFilter);
+        //Employee :- need to annotate relevant class with JsonFilter  {@JsonFilter("Employee") }
+        mappingJacksonValue.setFilters(filters);
+
+        //return mappingJacksonValue;
+
     }
 
 }
