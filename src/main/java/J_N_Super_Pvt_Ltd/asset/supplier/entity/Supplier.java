@@ -37,13 +37,13 @@ public class Supplier extends AuditEntity {
     @Column(columnDefinition = "VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL", length = 255)
     private String address;
 
+    @Enumerated(EnumType.STRING)
+    private ItemSupplierStatus itemSupplierStatus;
+
     @OneToMany(mappedBy = "supplier")
     private List<PurchaseOrder> purchaseOrders;
 
     @OneToMany(mappedBy = "supplier")
     private List<SupplierItem> supplierItems;
-
-    @Enumerated(EnumType.STRING)
-    private ItemSupplierStatus itemSupplierStatus;
 
 }
