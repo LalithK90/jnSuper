@@ -1,7 +1,7 @@
 package J_N_Super_Pvt_Ltd.asset.item.controller;
 
 
-import J_N_Super_Pvt_Ltd.asset.item.category.controller.CategoryRestController;
+import J_N_Super_Pvt_Ltd.asset.category.controller.CategoryRestController;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Enum.ItemStatus;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Enum.MainCategory;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;

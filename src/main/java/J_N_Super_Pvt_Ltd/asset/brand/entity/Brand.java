@@ -1,4 +1,4 @@
-package J_N_Super_Pvt_Ltd.asset.item.brand.entity;
+package J_N_Super_Pvt_Ltd.asset.brand.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
