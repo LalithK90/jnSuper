@@ -149,9 +149,11 @@ public class PurchaseOrderController {
         return "purchaseOrder/addPurchaseOrder";
     }
 
-    @GetMapping("/supplier")
+    @PostMapping("/supplierItem")
     @ResponseBody
     public Object purchaseOrderItem(Model model) {
+
+
         return "purchaseOrder/purchaseOrder";
     }
 

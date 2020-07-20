@@ -131,8 +131,8 @@
 <footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 <script th:replace="~{fragments/script :: scriptFragment}"></script>
 <script>
+    //when change supplier search criteria that value set search value input
     $(document).ready(function () {
-//when search criteria add
         $("#searchCriteria").bind("change", function () {
             $("#searchValue").attr("name", $(this).val());
         });
