@@ -1,7 +1,9 @@
 package J_N_Super_Pvt_Ltd.asset.supplier.entity;
 
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.PurchaseOrder;
-import J_N_Super_Pvt_Ltd.asset.supplier.entity.Enum.ItemSupplierStatus;
+import J_N_Super_Pvt_Ltd.asset.itemBatch.entity.ItemBatch;
+import J_N_Super_Pvt_Ltd.asset.supplierItem.entity.Enum.ItemSupplierStatus;
+import J_N_Super_Pvt_Ltd.asset.supplierItem.entity.SupplierItem;
 import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lombok.*;
@@ -29,6 +31,7 @@ public class Supplier extends AuditEntity {
 
     @Size(max = 10, min = 9, message = "Mobile number length should be contained 10 and 9")
     private String contactOne;
+
     private String contactTwo;
 
     @Column(unique = true)
@@ -45,5 +48,9 @@ public class Supplier extends AuditEntity {
 
     @OneToMany(mappedBy = "supplier")
     private List<SupplierItem> supplierItems;
+
+    @OneToMany(mappedBy = "supplier")
+    private List<ItemBatch> itemBatches;
+
 
 }

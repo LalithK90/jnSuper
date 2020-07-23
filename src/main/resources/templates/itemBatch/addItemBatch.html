@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--/* Styles, meta data, and title are included */-->
+<head data-th-replace="~{fragments/header :: headerFragment}">
+    <meta charset="UTF-8">
+    <title>Thymeleaf Springboot </title>
+</head>
+<body>
+<!--/* Nav bar is included */-->
+<nav data-th-replace="~{fragments/navBar :: navBarFragment}"></nav>
+
+<!--item detail show -->
+<a aria-controls="itemDetails" aria-expanded="false" class="btn btn-primary col-12" data-toggle="collapse"
+   href="#itemDetails">Show Item Details</a>
+<div class="collapse" id="itemDetails">
+    <section data-th-replace="~{item/item-detail :: itemDetailsFragment}"></section>
+</div>
+<!--item batch - start-->
+<div class="container ">
+    <form class="mb-5 form-horizontal" data-th-action="${'/supplierItem/save'}" data-th-object="${itemBatch}" method="POST">
+        <input data-th-name="${'item'}" data-th-value="${itemDetail.id}" type="hidden">
+        <!--Select supplier-->
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="control-label" for="supplier">Select Supplier:</label>
+            </div>
+            <div class="col-md-8">
+                <select class="form-control" data-th-name="${'supplier'}" data-th-value="${supplier}" id="supplier">
+                    <option value=""> Please Select</option>
+                    <option data-th-each="supplier : ${suppliers}"
+                            data-th-text="${supplier.name +' ' + supplier.code + ' ' + supplier.contactOne + ' ' +  supplier.itemSupplierStatus.itemSupplierStatus}"
+                            data-th-value="${supplier.id}"> Please Select
+                    </option>
+                </select>
+            </div>
+        </div>
+        <!--code-->
+        <div class="form-group ">
+            <div class="col-md-4">
+                <label class="control-label" for="code">Code :</label>
+            </div>
+            <div class="col-md-8">
+                <input class="form-control" data-th-name="${'code'}" data-th-value="${code}" id="code" readonly
+                       type="text"/>
+            </div>
+        </div>
+        <!--item Status-->
+        <div class="form-group ">
+            <div class="col-md-4">
+                <label class="control-label" for="itemStatus">Item Status :</label>
+            </div>
+            <div class="col-md-8">
+                <input class="form-control" data-th-name="${'itemStatus'}" data-th-value="${itemStatus}" id="itemStatus" readonly
+                       type="text"/>
+            </div>
+        </div>
+        <!--price-->
+        <div class="form-group ">
+            <div class="col-md-4">
+                <label class="control-label" for="price">Sell Price :</label>
+            </div>
+            <div class="col-md-8">
+                <input class="form-control" data-th-name="${'price'}" data-th-value="${price}" id="price" type="text"/>
+            </div>
+        </div>
+        <!--mDate-->
+        <div class="form-group ">
+            <div class="col-md-4">
+                <label class="control-label" for="mDate">Manufacture At :</label>
+            </div>
+            <div class="col-md-8">
+                <input class="form-control" data-th-name="${'mDate'}" data-th-value="${mDate}" id="mDate" type="text"/>
+            </div>
+        </div>
+        <!--eDate-->
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="control-label" for="eDate">Expired At :</label>
+            </div>
+            <div class="col-md-8">
+                <input class="form-control" data-th-name="${'eDate'}" data-th-value="${eDate}" id="eDate" type="text"/>
+            </div>
+        </div>
+        <!--Button-->
+        <div class="form-group">
+            <!--Back Button-->
+            <a class="btn btn-dark" href="/item" tabindex="11">
+                <i class="fas fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp;&nbsp;Back
+            </a>
+            <!--Save Button-->
+            <button class="btn btn-success ml-5" tabindex="9" type="submit">
+                <i class="fa fa-save " style="font-size: 20px"></i>&nbsp;&nbsp;Save
+            </button>
+            <!--Cancel Button-->
+            <button class="btn btn-warning ml-5" tabindex="10" type="reset">
+                <i class="far fa-times-circle" style="font-size: 20px"></i>&nbsp;&nbsp;Cancel
+            </button>
+        </div>
+    </form>
+</div>
+<!--item batch - end-->
+
+<!--/* footer is */-->
+<footer data-th-replace="~{fragments/footer :: footerFragment}"></footer>
+<!--/* script is included */-->
+<script data-th-replace="~{fragments/script :: scriptFragment}"></script>
+</body>
+</html>

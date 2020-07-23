@@ -5,15 +5,18 @@ import J_N_Super_Pvt_Ltd.asset.category.entity.Category;
 import J_N_Super_Pvt_Ltd.asset.category.service.CategoryService;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Enum.MainCategory;
 import J_N_Super_Pvt_Ltd.util.interfaces.AbstractController;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/category")
@@ -43,9 +46,9 @@ public class CategoryController implements AbstractController<Category, Integer>
         return commonThings(model, new Category(), true);
     }
 
-    @PostMapping( value = {"/add", "/update"} )
+    @PostMapping(value = {"/add", "/update"})
     public String persist(Category category, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
-        if ( bindingResult.hasErrors() ) {
+        if (bindingResult.hasErrors()) {
             return commonThings(model, category, true);
         }
 
@@ -53,20 +56,49 @@ public class CategoryController implements AbstractController<Category, Integer>
         return "redirect:/category";
     }
 
-    @GetMapping( "/edit/{id}" )
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         return commonThings(model, categoryService.findById(id), false);
     }
 
-    @GetMapping( "/delete/{id}" )
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id, Model model) {
         categoryService.delete(id);
         return "redirect:/category";
     }
 
-    @GetMapping( "/{id}" )
+    @GetMapping("/{id}")
     public String view(@PathVariable Integer id, Model model) {
         model.addAttribute("categoryDetail", categoryService.findById(id));
         return "category/category-detail";
+    }
+
+    @GetMapping(value = "/getCategory/{mainCategory}")
+    @ResponseBody
+    public MappingJacksonValue getCategoryByMainCategory(@PathVariable String mainCategory) {
+        Category category = new Category();
+        if (mainCategory != null) {
+            category.setMainCategory(MainCategory.valueOf(mainCategory));
+        } else {
+            category.setMainCategory(MainCategory.DAIRY_PRODUCTS);
+        }
+
+        //MappingJacksonValue
+        List<Category> categories = categoryService.search(category);
+        //Create new mapping jackson value and set it to which was need to filter
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(categories);
+
+        //simpleBeanPropertyFilter :-  need to give any id to addFilter method and created filter which was mentioned
+        // what parameter's necessary to provide
+        SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter
+                .filterOutAllExcept("id", "name");
+        //filters :-  set front end required value to before filter
+
+        FilterProvider filters = new SimpleFilterProvider()
+                .addFilter("Category", simpleBeanPropertyFilter);
+        //Employee :- need to annotate relevant class with JsonFilter  {@JsonFilter("Employee") }
+        mappingJacksonValue.setFilters(filters);
+
+        return mappingJacksonValue;
     }
 }

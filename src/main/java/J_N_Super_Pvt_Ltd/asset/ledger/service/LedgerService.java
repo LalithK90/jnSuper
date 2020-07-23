@@ -1,6 +1,7 @@
 package J_N_Super_Pvt_Ltd.asset.ledger.service;
 
 
+import J_N_Super_Pvt_Ltd.asset.itemBatch.entity.ItemBatch;
 import J_N_Super_Pvt_Ltd.asset.ledger.dao.LedgerDao;
 import J_N_Super_Pvt_Ltd.asset.ledger.entity.Ledger;
 import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
@@ -10,7 +11,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 @Service
 @CacheConfig(cacheNames = "ledger")
@@ -52,4 +53,12 @@ public class LedgerService implements AbstractService<Ledger, Integer> {
         Example<Ledger> ledgerExample = Example.of(ledger, matcher);
         return ledgerDao.findAll(ledgerExample);
     }
+
+    public Ledger findByItemBatch(ItemBatch itemBatch) {
+        return ledgerDao.findByItemBatch(itemBatch);
+    }
+
+   /* public Ledger findByItem(Item item) {
+        return ledgerDao.findByItem(item);
+    }*/
 }

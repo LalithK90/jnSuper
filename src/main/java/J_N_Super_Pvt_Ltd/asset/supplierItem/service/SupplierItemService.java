@@ -1,11 +1,11 @@
-package J_N_Super_Pvt_Ltd.asset.supplier.service;
+package J_N_Super_Pvt_Ltd.asset.supplierItem.service;
 
 
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
-import J_N_Super_Pvt_Ltd.asset.supplier.dao.SupplierItemDao;
-import J_N_Super_Pvt_Ltd.asset.supplier.entity.Enum.ItemSupplierStatus;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
-import J_N_Super_Pvt_Ltd.asset.supplier.entity.SupplierItem;
+import J_N_Super_Pvt_Ltd.asset.supplierItem.dao.SupplierItemDao;
+import J_N_Super_Pvt_Ltd.asset.supplierItem.entity.Enum.ItemSupplierStatus;
+import J_N_Super_Pvt_Ltd.asset.supplierItem.entity.SupplierItem;
 import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -13,6 +13,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,15 +35,29 @@ public class SupplierItemService implements AbstractService<SupplierItem, Intege
     }
 
     public SupplierItem persist(SupplierItem supplierItem) {
-        if (supplierItem.getId()==null){
+        //if item is new supplier should be save as currently buying item
+        if (supplierItem.getId() == null) {
             supplierItem.setItemSupplierStatus(ItemSupplierStatus.CURRENTLY_BUYING);
+        }
+        //if item buying price was changed (increase/decrease) by supplier,
+        // need to change that item as supplier not currently buying and save as new supplier_item
+        if (supplierItem.getId() != null) {
+            SupplierItem supplierItemDB = supplierItemDao.getOne(supplierItem.getId());
+            if ( !supplierItem.getPrice().equals(supplierItemDB.getPrice())) {
+                //price change item save as new item
+                supplierItem.setItemSupplierStatus(ItemSupplierStatus.CURRENTLY_BUYING);
+                supplierItem.setId(null);
+                //already saved item was change to not currently buying
+                supplierItemDB.setItemSupplierStatus(ItemSupplierStatus.STOPPED);
+                supplierItemDao.save(supplierItemDB);
+            }
         }
         return supplierItemDao.save(supplierItem);
     }
 
     public boolean delete(Integer id) {
         supplierItemDao.deleteById(id);
-        return false;
+        return true;
     }
 
     public List<SupplierItem> search(SupplierItem supplierItem) {
@@ -63,6 +78,14 @@ public class SupplierItemService implements AbstractService<SupplierItem, Intege
     }
 
     public List<SupplierItem> findBySupplierAndItemSupplierStatus(Supplier supplier, ItemSupplierStatus itemSupplierStatus) {
-  return supplierItemDao.findBySupplierAndItemSupplierStatus(supplier,itemSupplierStatus);
+        return supplierItemDao.findBySupplierAndItemSupplierStatus(supplier, itemSupplierStatus);
+    }
+
+    public List<Supplier> findByItem(Item item) {
+        List<Supplier> suppliers = new ArrayList<>();
+        supplierItemDao.findByItem(item).forEach(x -> {
+            suppliers.add(x.getSupplier());
+        });
+        return suppliers;
     }
 }
