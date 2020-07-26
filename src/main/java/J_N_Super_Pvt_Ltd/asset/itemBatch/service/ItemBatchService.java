@@ -2,10 +2,12 @@ package J_N_Super_Pvt_Ltd.asset.itemBatch.service;
 
 
 import J_N_Super_Pvt_Ltd.asset.item.entity.Enum.ItemStatus;
+import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
 import J_N_Super_Pvt_Ltd.asset.itemBatch.dao.ItemBatchDao;
 import J_N_Super_Pvt_Ltd.asset.itemBatch.entity.ItemBatch;
 import J_N_Super_Pvt_Ltd.asset.ledger.entity.Ledger;
 import J_N_Super_Pvt_Ltd.asset.ledger.service.LedgerService;
+import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
 import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -83,5 +85,9 @@ public class ItemBatchService implements AbstractService<ItemBatch, Integer> {
 
     public ItemBatch lastItemBatch() {
         return itemBatchDao.findFirstByOrderByIdDesc();
+    }
+
+    public ItemBatch findByItemAndSupplier(Item item, Supplier supplier) {
+    return itemBatchDao.findByItemAndSupplier(item,supplier);
     }
 }

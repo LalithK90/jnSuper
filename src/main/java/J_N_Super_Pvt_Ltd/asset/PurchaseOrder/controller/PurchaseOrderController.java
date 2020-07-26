@@ -1,15 +1,18 @@
 package J_N_Super_Pvt_Ltd.asset.PurchaseOrder.controller;
 
 
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderPriority;
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderStatus;
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.PurchaseOrder;
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.service.PurchaseOrderItemService;
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.service.PurchaseOrderService;
 import J_N_Super_Pvt_Ltd.asset.commonAsset.service.CommonService;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
+import J_N_Super_Pvt_Ltd.asset.itemBatch.controller.ItemBatchController;
 import J_N_Super_Pvt_Ltd.asset.ledger.service.LedgerService;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
 import J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierService;
+import J_N_Super_Pvt_Ltd.asset.supplierItem.controller.SupplierItemController;
 import J_N_Super_Pvt_Ltd.asset.supplierItem.entity.SupplierItem;
 import J_N_Super_Pvt_Ltd.asset.supplierItem.service.SupplierItemService;
 import J_N_Super_Pvt_Ltd.util.service.EmailService;
@@ -148,63 +151,20 @@ public class PurchaseOrderController {
         model.addAttribute("supplierDetail", supplier);
         model.addAttribute("supplierDetailShow", false);
         model.addAttribute("purchaseOrderItemEdit", false);
+        model.addAttribute("purchaseOrder", new PurchaseOrder());
+        model.addAttribute("purchaseOrderPriorities", PurchaseOrderPriority.values());
         //send all active item belongs to supplier
         model.addAttribute("items", commonService.activeItemsFromSupplier(supplier));
         Object[] argument = {"", ""};
         model.addAttribute("purchaseOrderItemUrl", MvcUriComponentsBuilder
-                .fromMethodName(PurchaseOrderController.class, "purchaseOrderSupplierItem", argument)
+                .fromMethodName(SupplierItemController.class, "purchaseOrderSupplierItem", argument)
                 .build()
                 .toString());
 
         return "purchaseOrder/addPurchaseOrder";
     }
 
-    @GetMapping(value = "/supplierItem", params = {"supplierId", "itemId"})
-    @ResponseBody
-    public Object purchaseOrderSupplierItem(@RequestParam("supplierId") Integer supplierId, @RequestParam("itemId") Integer itemId) {
-        //  MappingJacksonValue
 
-        System.out.println("supplier id " + supplierId + "      item id " + itemId);
-        HashMap<String,String> purchaseOrderItem = new HashMap<>();
-        //supplier id
-        Supplier supplier = new Supplier();
-        supplier.setId(supplierId);
-        // item id
-        Item item = new Item();
-        item.setId(itemId);
-
-        SupplierItem supplierItem = supplierItemService.findBySupplierAndItem(supplier,item);
-       // Ledger ledger = ledgerService.findByItem(supplierItem.getItem());
-        /*
-         * 1. ID
-         * 2. Item name
-         * 3. Rop
-         * 4. Price
-         * 5. Available Quantity.
-         * */
-
-        //MappingJacksonValue
-        //List<Employee> employees = employeeService.search(employee);
-        //employeeService.findByWorkingPlace(workingPlaceService.findById(id));
-
-        //Create new mapping jackson value and set it to which was need to filter
-       // MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(employees);
-
-        //simpleBeanPropertyFilter :-  need to give any id to addFilter method and created filter which was mentioned
-        // what parameter's necessary to provide
-       // SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter
-                //.filterOutAllExcept("id", "name", "payRoleNumber", "designation");
-        //filters :-  set front end required value to before filter
-
-       // FilterProvider filters = new SimpleFilterProvider()
-               // .addFilter("Employee", simpleBeanPropertyFilter);
-        //Employee :- need to annotate relevant class with JsonFilter  {@JsonFilter("Employee") }
-      //  mappingJacksonValue.setFilters(filters);
-
-        //return mappingJacksonValue;
-
-        return "";
-    }
 
 }
 

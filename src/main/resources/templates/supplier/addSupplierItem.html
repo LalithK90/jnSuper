@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head data-th-replace="~{fragments/header :: headerFragment}">
     <meta charset="UTF-8">
     <title>JN_Super</title>
 </head>
 <body>
 <!--Multi CSS-->
-<link media="all" rel="stylesheet" data-th-href="@{/css/multi.css}" type="text/css"/>
+<link data-th-href="@{/css/multi.css}" media="all" rel="stylesheet" type="text/css"/>
 
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}"></nav>
 <!--Heading Area -->
@@ -39,8 +39,8 @@
 <div class="container-fluid bg-info">
     <!--Supplier Search - Start-->
     <div class="offset-1 flex-column" data-th-if="${searchAreaShow==true}">
-        <form class="form-inline" id="form" method="POST"
-              data-th-action="${'/supplierItem/find'}" data-th-object="${supplier}">
+        <form class="form-inline" data-th-action="${'/supplierItem/find'}" data-th-object="${supplier}"
+              id="form" method="POST">
             <div class="form-row">
                 <label class="mr-5 ml-5" for="searchCriteria">Search By</label>
                 <select class="form-control mr-5 ml-5" id="searchCriteria" required tabindex="1">
@@ -72,7 +72,7 @@
             <section data-th-replace="~{supplier/supplier-detail :: supplierDetailsFragment}"></section>
         </div>
         <!--Supplier Item add Form - start-->
-        <form class="mb-5" method="POST" data-th-action="${'/supplierItem'}" data-th-object="${supplierDetail}">
+        <form class="mb-5" data-th-action="${'/supplierItem'}" data-th-object="${supplierDetail}" method="POST">
             <input data-th-name="${'supplier'}" data-th-value="${supplierDetail.id}" type="hidden">
             <div class="form-row" data-th-if="${supplierItemEdit==false}">
                 <div class="container-fluid text-right col-md-4">
@@ -107,7 +107,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr data-th-each="supplierItem, index : ${supplierDetail.supplierItems}" data-th-if="${supplierItemEdit}">
+                        <tr data-th-each="supplierItem, index : ${supplierDetail.supplierItems}"
+                            data-th-if="${supplierItemEdit}">
                             <td>
                                 <strong> <span data-th-text="${index.count}"></span></strong>
                             </td>
@@ -115,18 +116,21 @@
                                 <strong>
                                     <span class="control-label" data-th-text="${supplierItem.item.name}"></span>
                                 </strong>
-                                <input data-th-name="${'supplierItems[__${index.index}__].item.id'}" data-th-value="${supplierItem.item.id}"
+                                <input data-th-name="${'supplierItems[__${index.index}__].item.id'}"
+                                       data-th-value="${supplierItem.item.id}"
                                        type="hidden">
-                                <input data-th-name="${'supplierItems[__${index.index}__].id'}" data-th-value="${supplierItem.id}"
+                                <input data-th-name="${'supplierItems[__${index.index}__].id'}"
+                                       data-th-value="${supplierItem.id}"
                                        type="hidden">
-                                <input data-th-name="${'supplierItems[__${index.index}__].supplier.id'}" data-th-value="${supplierItem.supplier.id}"
+                                <input data-th-name="${'supplierItems[__${index.index}__].supplier.id'}"
+                                       data-th-value="${supplierItem.supplier.id}"
                                        type="hidden">
                             </td>
                             <td>
                                 <div class="form-row form-inline">
-                                    <label> Rs.<input class="form-control" min="0" required step="0.5"
-                                                      data-th-name="${'supplierItems[__${index.index}__].price'}"
-                                                      data-th-value="${supplierItem.price}" type="number">
+                                    <label> Rs.<input class="form-control" data-th-name="${'supplierItems[__${index.index}__].price'}" data-th-value="${supplierItem.price}" min="0"
+                                                      required
+                                                      step="0.5" type="number">
                                     </label>
                                 </div>
                             </td>
@@ -135,10 +139,11 @@
                                 <div class="col">
                                     <div class="custom-control custom-checkbox custom-control-inline "
                                          data-th-each="itemSupplierStatuses,abc : ${itemSupplierStatus}">
-                                        <input class="custom-control-input itemSupplierStatus" required
-                                               data-th-checked="${itemSupplierStatuses==supplierItem.itemSupplierStatus}"
+                                        <input class="custom-control-input itemSupplierStatus" data-th-checked="${itemSupplierStatuses==supplierItem.itemSupplierStatus}"
                                                data-th-id="${index.index}+${itemSupplierStatuses}"
-                                               data-th-name="${'supplierItems[__${index.index}__].itemSupplierStatus'}" data-th-value="${itemSupplierStatuses}"
+                                               data-th-name="${'supplierItems[__${index.index}__].itemSupplierStatus'}"
+                                               data-th-value="${itemSupplierStatuses}"
+                                               required
                                                type="radio"/>
                                         <label class="custom-control-label"
                                                data-th-for="${index.index}+${itemSupplierStatuses}"
@@ -236,7 +241,6 @@
     //table row add
     let tableRowAdd = function (value) {
         let rows = $("#selectedItemInTable tr").length;
-
         let rowCount = [[${#lists.size(currentlyBuyingItems)}]];
         if (rowCount === 0) {
             rowCount = rows - 1;

@@ -27,7 +27,7 @@ public class Item extends AuditEntity {
     @Size(min = 5, message = "Your name cannot be accepted")
     private String name;
 
-    private Integer rop;
+    private String rop;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
