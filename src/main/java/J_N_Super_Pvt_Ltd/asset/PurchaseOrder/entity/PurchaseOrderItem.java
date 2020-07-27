@@ -24,8 +24,6 @@ public class PurchaseOrderItem extends AuditEntity {
     @Column(nullable = false)
     private String quantity;
 
-    private String receivedQuantity;
-
     @ManyToOne
     private PurchaseOrder purchaseOrder;
 

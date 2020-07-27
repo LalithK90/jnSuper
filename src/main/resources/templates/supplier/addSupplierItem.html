@@ -97,7 +97,13 @@
                 <!--Add new Item-->
                 <div data-th-class="${supplierItemEdit==true?'container-fluid':'col-md-6'}">
                     <table class="table table-striped table-inverse" id="selectedItemInTable">
-                        <legend><strong> <i>Selected Items </i></strong></legend>
+                        <fieldset>
+                            <legend>
+                                <strong>
+                                    <i>Selected Items </i>
+                                </strong>
+                            </legend>
+                        </fieldset>
                         <thead class="thead-inverse">
                         <tr>
                             <th>Index</th>
@@ -128,7 +134,9 @@
                             </td>
                             <td>
                                 <div class="form-row form-inline">
-                                    <label> Rs.<input class="form-control" data-th-name="${'supplierItems[__${index.index}__].price'}" data-th-value="${supplierItem.price}" min="0"
+                                    <label> Rs.<input class="form-control"
+                                                      data-th-name="${'supplierItems[__${index.index}__].price'}"
+                                                      data-th-value="${supplierItem.price}" min="0"
                                                       required
                                                       step="0.5" type="number">
                                     </label>
@@ -139,7 +147,8 @@
                                 <div class="col">
                                     <div class="custom-control custom-checkbox custom-control-inline "
                                          data-th-each="itemSupplierStatuses,abc : ${itemSupplierStatus}">
-                                        <input class="custom-control-input itemSupplierStatus" data-th-checked="${itemSupplierStatuses==supplierItem.itemSupplierStatus}"
+                                        <input class="custom-control-input itemSupplierStatus"
+                                               data-th-checked="${itemSupplierStatuses==supplierItem.itemSupplierStatus}"
                                                data-th-id="${index.index}+${itemSupplierStatuses}"
                                                data-th-name="${'supplierItems[__${index.index}__].itemSupplierStatus'}"
                                                data-th-value="${itemSupplierStatuses}"
