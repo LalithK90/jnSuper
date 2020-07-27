@@ -1,7 +1,7 @@
 package J_N_Super_Pvt_Ltd.asset.item.controller;
 
 
-import J_N_Super_Pvt_Ltd.asset.category.controller.CategoryRestController;
+import J_N_Super_Pvt_Ltd.asset.category.controller.CategoryController;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Enum.ItemStatus;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Enum.MainCategory;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
@@ -37,7 +37,7 @@ public class ItemController implements AbstractController<Item, Integer> {
         model.addAttribute("addStatus", addState);
         model.addAttribute("mainCategories", MainCategory.values());
         model.addAttribute("urlMainCategory", MvcUriComponentsBuilder
-                .fromMethodName(CategoryRestController.class, "getCategoryByMainCategory", "")
+                .fromMethodName(CategoryController.class, "getCategoryByMainCategory", "")
                 .build()
                 .toString());
         return "item/addItem";
@@ -59,17 +59,17 @@ public class ItemController implements AbstractController<Item, Integer> {
         if (bindingResult.hasErrors()) {
             return commonThings(model, item, true);
         }
-        /*if (item.getId() == null) {
+     /*   if (item.getId() == null) {
             //if there is not item in db
             if (itemService.lastItem() == null) {
                 System.out.println("last item null");
                 //need to generate new one
-                item.setCode("KMC"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
+                item.setCode("JNI"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
             } else {
                 System.out.println("last item not null");
                 //if there is item in db need to get that item's code and increase its value
                 String previousCode = itemService.lastItem().getCode().substring(3);
-                item.setCode("KMC"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+                item.setCode("JNI"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
             }
         }*/
 
@@ -93,4 +93,11 @@ public class ItemController implements AbstractController<Item, Integer> {
         model.addAttribute("itemDetail", itemService.findById(id));
         return "item/item-detail";
     }
+
+    @GetMapping("/itemBatch/{id}")
+    public String itemBatch(@PathVariable Integer id, Model model) {
+        model.addAttribute("itemDetail", itemService.findById(id));
+        return "itemBatch/addItemBatch";
+    }
+
 }

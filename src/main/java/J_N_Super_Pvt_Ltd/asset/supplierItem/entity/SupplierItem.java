@@ -1,7 +1,8 @@
-package J_N_Super_Pvt_Ltd.asset.supplier.entity;
+package J_N_Super_Pvt_Ltd.asset.supplierItem.entity;
 
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
-import J_N_Super_Pvt_Ltd.asset.supplier.entity.Enum.ItemSupplierStatus;
+import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
+import J_N_Super_Pvt_Ltd.asset.supplierItem.entity.Enum.ItemSupplierStatus;
 import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lombok.AllArgsConstructor;

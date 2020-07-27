@@ -1,5 +1,6 @@
 package J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity;
 
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderPriority;
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderStatus;
 import J_N_Super_Pvt_Ltd.asset.payment.entity.Payment;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
@@ -11,8 +12,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.util.*;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,21 +25,23 @@ public class PurchaseOrder extends AuditEntity {
 
     private String remark;
 
-    @Size(min = 5, message = "Your Company name cannot be accepted")
-    private String name;
-
     @Column(nullable = false, unique = true)
     private String code;
 
-   @ManyToOne
-    private Supplier supplier;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
 
-    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.PERSIST)
-    private List<PurchaseOrderItem> purchaseOrderItems;
+    @Enumerated(EnumType.STRING)
+    private PurchaseOrderPriority purchaseOrderPriority;
 
     @Enumerated(EnumType.STRING)
     private PurchaseOrderStatus purchaseOrderStatus;
 
+    @ManyToOne
+    private Supplier supplier;
+
+    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.PERSIST)
+    private List<PurchaseOrderItem> purchaseOrderItems;
 
     @OneToMany(mappedBy = "purchaseOrder")
     private List<Payment> payments;
