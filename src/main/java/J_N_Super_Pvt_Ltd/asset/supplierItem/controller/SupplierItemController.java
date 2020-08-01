@@ -172,6 +172,7 @@ public class SupplierItemController {
 
 
 
+
         /*Dumy data to frontend*/
  /*       purchaseOrderItemLedger.setItemId(1);
         purchaseOrderItemLedger.setItemName("Name");
