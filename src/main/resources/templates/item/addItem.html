@@ -95,6 +95,53 @@
                                   data-th-errors="*{rop}" data-th-if="${#fields.hasErrors('rop')}">Error ROP</span>
                         </div>
                     </div>
+                    <!--code-->
+                    <div class="form-group ">
+                        <div class="col-md-4">
+                            <label class="control-label" for="code">Code :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control" data-th-name="${'code'}" data-th-value="${code}" id="code" readonly
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <!--item Status-->
+                    <div class="form-group ">
+                        <div class="col-md-4">
+                            <label class="control-label" for="itemStatus">Item Status :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control" data-th-name="${'itemStatus'}" data-th-value="${itemStatus}" id="itemStatus" readonly
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <!--sell price-->
+                    <div class="form-group ">
+                        <div class="col-md-4">
+                            <label class="control-label" for="sellPrice">Sell Price :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control" data-th-name="${'sellPrice'}" data-th-value="${sellPrice}" id="sellPrice" type="text"/>
+                        </div>
+                    </div><!--
+                    &lt;!&ndash;mDate&ndash;&gt;
+                    <div class="form-group ">
+                        <div class="col-md-4">
+                            <label class="control-label" for="mDate">Manufacture At :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control" data-th-name="${'mDate'}" data-th-value="${mDate}" id="mDate" type="text"/>
+                        </div>
+                    </div>
+                    &lt;!&ndash;eDate&ndash;&gt;
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="control-label" for="eDate">Expired At :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control" data-th-name="${'eDate'}" data-th-value="${eDate}" id="eDate" type="text"/>
+                        </div>
+                    </div>-->
                     <!--Created by and created at-->
                     <div data-th-if="${addStatus==false}" id="updateStatus">
                         <!--hidden url -->
@@ -121,56 +168,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- &lt;!&ndash;Batch&ndash;&gt;
-                 <div class="form-row text-right">
-                     <div class="col-md-4">
-                         <label class="control-label" for="batch">Batch :</label>
-                     </div>
-                     <div class="col-md-4">
-                         <input id="batch" data-th-field="*{batch}" class="form-control" tabindex="9" type="text" maxlength="10" min="9" required/>
-                         <span id="batchError" data-th-errors="*{batch}"
-                               data-th-if="${#fields.hasErrors('batch')}" class="error">Error Batch</span>
-                     </div>
-                 </div>
-                 &lt;!&ndash;Manufactured Date&ndash;&gt;
-                 <div class="form-row text-right">
-                     <div class="col-md-4">
-                         <label class="control-label" for="mDate">Manufactured Date :</label>
-                     </div>
-                     <div class="col-md-4">
-                         <input id="mDate" data-th-field="*{mDate}" class="form-control" tabindex="10" type="date" required/>
-                         <span id="nameError" data-th-errors="*{mDate}"
-                               data-th-if="${#fields.hasErrors('mDate')}" class="error">Error Date</span>
-                     </div>
-                 </div>
-                 &lt;!&ndash;Expiration Date&ndash;&gt;
-                 <div class="form-row text-right">
-                     <div class="col-md-4">
-                         <label class="control-label" for="eDate">Expiration Date :</label>
-                     </div>
-                     <div class="col-md-4">
-                         <input id="eDate" data-th-field="*{eDate}" class="form-control" tabindex="11" type="date" required/>
-                         <span id="nameError" data-th-errors="*{eDate}"
-                               data-th-if="${#fields.hasErrors('eDate')}" class="error">Error Date</span>
-                     </div>
-
-                    <div class="form-row text-right">
-                        <div class="col-md-4">
-                            <label class="control-label" for="status">Status :</label>
-                        </div>
-                        <div class="col-md-4">
-                            <select id="status" data-th-field="*{itemStatus}" class="form-control" tabindex="3" required>
-                                <option value="">Please Select</option>
-                                <option data-th-each="status : ${statuses}"
-                                        data-th-text="${status.itemStatus}"
-                                        data-th-value="${status}"
-                                        ></option>
-                            </select>
-                        </div>
-                    </div>
-                 </div>-->
-
                 <!--Button-->
                 <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
                     <!--Back Button-->

@@ -12,6 +12,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -23,6 +24,10 @@ public class PurchaseOrderItem extends AuditEntity {
 
     @Column(nullable = false)
     private String quantity;
+
+
+    @Column( nullable = false, precision = 10, scale = 2 )
+    private BigDecimal buyingPrice;
 
     @ManyToOne
     private PurchaseOrder purchaseOrder;

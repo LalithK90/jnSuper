@@ -2,7 +2,6 @@ package J_N_Super_Pvt_Ltd.asset.supplierItem.service;
 
 
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
-import J_N_Super_Pvt_Ltd.asset.itemBatch.entity.ItemBatch;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
 import J_N_Super_Pvt_Ltd.asset.supplierItem.dao.SupplierItemDao;
 import J_N_Super_Pvt_Ltd.asset.supplierItem.entity.Enum.ItemSupplierStatus;
@@ -90,7 +89,7 @@ public class SupplierItemService implements AbstractService<SupplierItem, Intege
         return suppliers;
     }
 
-    public ItemBatch findByItemAndSupplier(Item item, Supplier supplier) {
+    public Item findByItemAndSupplier(Item item, Supplier supplier) {
     return supplierItemDao.findByItemAndSupplier(item,supplier);
     }
 }

@@ -1,13 +1,11 @@
 package J_N_Super_Pvt_Ltd.asset.supplierItem.controller;
 
 
-import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.PurchaseOrderItemLedger;
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.commonModel.PurchaseOrderItemLedger;
 import J_N_Super_Pvt_Ltd.asset.commonAsset.service.CommonService;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
 import J_N_Super_Pvt_Ltd.asset.item.service.ItemService;
-import J_N_Super_Pvt_Ltd.asset.itemBatch.entity.ItemBatch;
-import J_N_Super_Pvt_Ltd.asset.itemBatch.service.ItemBatchService;
-import J_N_Super_Pvt_Ltd.asset.ledger.service.LedgerService;
+import J_N_Super_Pvt_Ltd.asset.ledger.dao.LedgerDao;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
 import J_N_Super_Pvt_Ltd.asset.supplier.service.SupplierService;
 import J_N_Super_Pvt_Ltd.asset.supplierItem.entity.Enum.ItemSupplierStatus;
@@ -32,18 +30,16 @@ public class SupplierItemController {
     private final SupplierService supplierService;
     private final CommonService commonService;
     private final SupplierItemService supplierItemService;
-    private final ItemBatchService itemBatchService;
-    private final LedgerService ledgerService;
+    private final LedgerDao ledgerDao;
 
 
     @Autowired
-    public SupplierItemController(ItemService itemService, SupplierService supplierService, CommonService commonService, SupplierItemService supplierItemService, ItemBatchService itemBatchService, LedgerService ledgerService) {
+    public SupplierItemController(ItemService itemService, SupplierService supplierService, CommonService commonService, SupplierItemService supplierItemService, LedgerDao ledgerDao) {
         this.itemService = itemService;
         this.supplierService = supplierService;
         this.commonService = commonService;
         this.supplierItemService = supplierItemService;
-        this.itemBatchService = itemBatchService;
-        this.ledgerService = ledgerService;
+        this.ledgerDao = ledgerDao;
     }
 
     @GetMapping
