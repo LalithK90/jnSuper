@@ -6,8 +6,10 @@ import J_N_Super_Pvt_Ltd.asset.ledger.entity.Ledger;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface LedgerDao extends JpaRepository<Ledger, Integer> {
-    Ledger findByItem(Item item);
+    List<Ledger> findByItem(Item item);
 
 }

@@ -13,7 +13,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,10 +41,10 @@ public class ItemService implements AbstractService<Item, Integer> {
             int number = Integer.parseInt(lastNumber);
 
             if (number<10){
-                newNumber = "00"+String.valueOf(number+1);
+                newNumber = "00"+ (number + 1);
             }
             if (10 < number && number < 100){
-newNumber = "0"+String.valueOf(number+1);
+                newNumber = "0"+ (number + 1);
             }
             if (100<number){
                 newNumber = String.valueOf(number+1);
@@ -60,33 +59,19 @@ newNumber = "0"+String.valueOf(number+1);
     public Item persist(Item item) {
         if (item.getId() == null) {
             //need to create code to item
-            makeNewItemWithItemCode(item);
-        }
-        //if item buying price was changed (increase/decrease) by supplier,
-        // need to change that item as supplier not currently buying and save as new supplier_item
-        if (item.getId() != null) {
-            Ledger itemLedger = ledgerDao.findByItem(item);
-            if (!item.getSellPrice().equals(itemLedger.getSellPrice())) {
-                //need to create code to item
-                makeNewItemWithItemCode(item);
+            String code =item.getCategory().getMainCategory()
+                    + item.getCategory().getName().trim().substring(0,2)
+                    + item.getName().trim().substring(0,2);
+            //check last item on db
+            Item itemDB = itemDao.findFirstByOrderByIdDesc();
+            if ( itemDB != null ){
+                item.setCode(code +makeItemCode(itemDB.getCode().substring(6)));
+            }else{
+                      item.setCode(code +makeItemCode(null));
             }
+            item.setItemStatus(ItemStatus.NOT_AVAILABLE);
         }
         return itemDao.save(item);
-    }
-
-    private void makeNewItemWithItemCode(Item item) {
-        String code =item.getCategory().getMainCategory()
-                + item.getCategory().getName().trim().substring(0,2)
-                + item.getName().trim().substring(0,2);
-        item.setItemStatus(ItemStatus.NOT_AVAILABLE);
-        item.setCode(code +makeItemCode(null));
-        List< Ledger > ledgers = item.getLedgers();
-        Ledger ledger = new Ledger();
-        ledger.setQuantity("0");
-        ledger.setItem(item);
-        ledger.setSellPrice(item.getSellPrice());
-        ledgers.add(ledger);
-        item.setLedgers(ledgers);
     }
 
     public boolean delete(Integer id) {
@@ -103,7 +88,4 @@ newNumber = "0"+String.valueOf(number+1);
         return itemDao.findAll(itemExample);
     }
 
-    public Item lastItem() {
-        return itemDao.findFirstByOrderByIdDesc();
-    }
 }

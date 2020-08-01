@@ -37,6 +37,9 @@ public class Item extends AuditEntity {
     @Column( unique = true )
     private String code;
 
+    @Column( nullable = false, precision = 10, scale = 2 )
+    private BigDecimal sellPrice;
+
     @Enumerated( EnumType.STRING )
     private ItemStatus itemStatus;
 
@@ -50,6 +53,4 @@ public class Item extends AuditEntity {
     private List< Ledger > ledgers;
 
 
-    @Transient
-    private BigDecimal sellPrice;
 }

@@ -52,7 +52,7 @@ public class LedgerService implements AbstractService<Ledger, Integer> {
         return ledgerDao.findAll(ledgerExample);
     }
 
-    public Ledger findByItem(Item item) {
+    public List<Ledger> findByItem(Item item) {
         return ledgerDao.findByItem(item);
     }
 
