@@ -2,7 +2,6 @@ package J_N_Super_Pvt_Ltd.asset.supplierItem.service;
 
 
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
-import J_N_Super_Pvt_Ltd.asset.itemBatch.entity.ItemBatch;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
 import J_N_Super_Pvt_Ltd.asset.supplierItem.dao.SupplierItemDao;
 import J_N_Super_Pvt_Ltd.asset.supplierItem.entity.Enum.ItemSupplierStatus;
@@ -18,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@CacheConfig(cacheNames = "supplierItem")
-public class SupplierItemService implements AbstractService<SupplierItem, Integer> {
+@CacheConfig( cacheNames = "supplierItem" )
+public class SupplierItemService implements AbstractService< SupplierItem, Integer > {
     private final SupplierItemDao supplierItemDao;
 
     @Autowired
@@ -27,7 +26,7 @@ public class SupplierItemService implements AbstractService<SupplierItem, Intege
         this.supplierItemDao = supplierItemDao;
     }
 
-    public List<SupplierItem> findAll() {
+    public List< SupplierItem > findAll() {
         return supplierItemDao.findAll();
     }
 
@@ -37,14 +36,14 @@ public class SupplierItemService implements AbstractService<SupplierItem, Intege
 
     public SupplierItem persist(SupplierItem supplierItem) {
         //if item is new supplier should be save as currently buying item
-        if (supplierItem.getId() == null) {
+        if ( supplierItem.getId() == null ) {
             supplierItem.setItemSupplierStatus(ItemSupplierStatus.CURRENTLY_BUYING);
         }
         //if item buying price was changed (increase/decrease) by supplier,
         // need to change that item as supplier not currently buying and save as new supplier_item
-        if (supplierItem.getId() != null) {
+        if ( supplierItem.getId() != null ) {
             SupplierItem supplierItemDB = supplierItemDao.getOne(supplierItem.getId());
-            if ( !supplierItem.getPrice().equals(supplierItemDB.getPrice())) {
+            if ( !supplierItem.getPrice().equals(supplierItemDB.getPrice()) ) {
                 //price change item save as new item
                 supplierItem.setItemSupplierStatus(ItemSupplierStatus.CURRENTLY_BUYING);
                 supplierItem.setId(null);
@@ -61,12 +60,12 @@ public class SupplierItemService implements AbstractService<SupplierItem, Intege
         return true;
     }
 
-    public List<SupplierItem> search(SupplierItem supplierItem) {
+    public List< SupplierItem > search(SupplierItem supplierItem) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-        Example<SupplierItem> supplierItemExample = Example.of(supplierItem, matcher);
+        Example< SupplierItem > supplierItemExample = Example.of(supplierItem, matcher);
         return supplierItemDao.findAll(supplierItemExample);
     }
 
@@ -74,23 +73,29 @@ public class SupplierItemService implements AbstractService<SupplierItem, Intege
         return supplierItemDao.findBySupplierAndItem(supplier, item);
     }
 
-    public List<SupplierItem> findBySupplier(Supplier supplier) {
+    public List< SupplierItem > findBySupplier(Supplier supplier) {
         return supplierItemDao.findBySupplier(supplier);
     }
 
-    public List<SupplierItem> findBySupplierAndItemSupplierStatus(Supplier supplier, ItemSupplierStatus itemSupplierStatus) {
+    public List< SupplierItem > findBySupplierAndItemSupplierStatus(Supplier supplier,
+                                                                    ItemSupplierStatus itemSupplierStatus) {
         return supplierItemDao.findBySupplierAndItemSupplierStatus(supplier, itemSupplierStatus);
     }
 
-    public List<Supplier> findByItem(Item item) {
-        List<Supplier> suppliers = new ArrayList<>();
+    public List< Supplier > findByItem(Item item) {
+        List< Supplier > suppliers = new ArrayList<>();
         supplierItemDao.findByItem(item).forEach(x -> {
             suppliers.add(x.getSupplier());
         });
         return suppliers;
     }
 
-    public ItemBatch findByItemAndSupplier(Item item, Supplier supplier) {
-    return supplierItemDao.findByItemAndSupplier(item,supplier);
+    public Item findByItemAndSupplier(Item item, Supplier supplier) {
+        return supplierItemDao.findByItemAndSupplier(item, supplier);
+    }
+
+    public SupplierItem findBySupplierAndItemItemSupplierStatus(Supplier supplier, Item item,
+                                                                ItemSupplierStatus itemSupplierStatus) {
+        return supplierItemDao.findBySupplierAndItemAndItemSupplierStatus(supplier, item, itemSupplierStatus);
     }
 }

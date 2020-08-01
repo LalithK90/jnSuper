@@ -1,7 +1,6 @@
 package J_N_Super_Pvt_Ltd.asset.supplierItem.dao;
 
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
-import J_N_Super_Pvt_Ltd.asset.itemBatch.entity.ItemBatch;
 import J_N_Super_Pvt_Ltd.asset.supplier.entity.Supplier;
 import J_N_Super_Pvt_Ltd.asset.supplierItem.entity.Enum.ItemSupplierStatus;
 import J_N_Super_Pvt_Ltd.asset.supplierItem.entity.SupplierItem;
@@ -21,5 +20,7 @@ public interface SupplierItemDao extends JpaRepository<SupplierItem, Integer> {
 
     List<SupplierItem> findByItem(Item item);
 
-    ItemBatch findByItemAndSupplier(Item item, Supplier supplier);
+    Item findByItemAndSupplier(Item item, Supplier supplier);
+
+    SupplierItem findBySupplierAndItemAndItemSupplierStatus(Supplier supplier, Item item, ItemSupplierStatus itemSupplierStatus);
 }

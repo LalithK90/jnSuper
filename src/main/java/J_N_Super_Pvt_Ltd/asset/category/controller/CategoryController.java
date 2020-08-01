@@ -80,7 +80,7 @@ public class CategoryController implements AbstractController<Category, Integer>
         if (mainCategory != null) {
             category.setMainCategory(MainCategory.valueOf(mainCategory));
         } else {
-            category.setMainCategory(MainCategory.DAIRY_PRODUCTS);
+            category.setMainCategory(MainCategory.DP);
         }
 
         //MappingJacksonValue

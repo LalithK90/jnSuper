@@ -31,6 +31,7 @@ public class CategoryService implements AbstractService<Category, Integer> {
     }
 
     public Category persist(Category category) {
+        category.setName(category.getName().toUpperCase());
         return categoryDao.save(category);
     }
 
