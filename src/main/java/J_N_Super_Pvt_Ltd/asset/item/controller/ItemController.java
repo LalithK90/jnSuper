@@ -32,7 +32,7 @@ public class ItemController implements AbstractController<Item, Integer> {
     }
 
     private String commonThings(Model model, Item item, Boolean addState) {
-        model.addAttribute("statuses", ItemStatus.values());
+        model.addAttribute("itemStatuses", ItemStatus.values());
         model.addAttribute("item", item);
         model.addAttribute("addStatus", addState);
         model.addAttribute("mainCategories", MainCategory.values());

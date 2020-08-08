@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -160,7 +161,7 @@ public class SupplierItemController {
         Comparator<Ledger> ledgerComparator = (ledger, ledger2) -> ledger.getId().compareTo(ledger2.getId());*/
         //comparing
 
-        Comparator< Ledger > ledgerComparator = Comparator.comparing(AuditEntity::getId);
+       /* Comparator< Ledger > ledgerComparator = Comparator.comparing(AuditEntity::getId);
         List< Ledger > ledgers =
                 ledgerDao.findByItem(supplierItem.getItem())
                         .stream()
@@ -169,16 +170,16 @@ public class SupplierItemController {
                         .collect(Collectors.toList());
 
         purchaseOrderItemLedger.setAvailableQuantity(ledgers.get(0).getQuantity());
-
+*/
 
 
 
         /*Dumy data to frontend*/
- /*       purchaseOrderItemLedger.setItemId(1);
+        purchaseOrderItemLedger.setItemId(1);
         purchaseOrderItemLedger.setItemName("Name");
         purchaseOrderItemLedger.setRop("190");
         purchaseOrderItemLedger.setPrice(BigDecimal.valueOf(123.50));
-        purchaseOrderItemLedger.setAvailableQuantity("100");*/
+        purchaseOrderItemLedger.setAvailableQuantity("100");
 
         return purchaseOrderItemLedger;
     }
