@@ -19,15 +19,18 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("PurchaseOrderItem")
+@JsonFilter( "PurchaseOrderItem" )
 public class PurchaseOrderItem extends AuditEntity {
 
-    @Column(nullable = false)
+    @Column( nullable = false )
     private String quantity;
 
 
     @Column( nullable = false, precision = 10, scale = 2 )
     private BigDecimal buyingPrice;
+
+    @Column( nullable = false, precision = 10, scale = 2 )
+    private BigDecimal lineTotal;
 
     @ManyToOne
     private PurchaseOrder purchaseOrder;

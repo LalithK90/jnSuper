@@ -75,7 +75,7 @@ public class PurchaseOrderController {
 
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public String purchaseOrderPersist(@Valid @ModelAttribute PurchaseOrder purchaseOrder, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "redirect:/purchaseOrder/" + purchaseOrder.getId();

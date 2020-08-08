@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @JsonFilter("Payment")
 public class Payment extends AuditEntity {
+
     private String bankName;
 
     private String remarks;
