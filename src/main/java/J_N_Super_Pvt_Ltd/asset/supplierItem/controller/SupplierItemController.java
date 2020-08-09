@@ -168,19 +168,12 @@ public class SupplierItemController {
                         .filter(x -> x.getItem().getItemStatus().equals(supplierItem.getItem().getItemStatus()))
                         .sorted(ledgerComparator)
                         .collect(Collectors.toList());
-        if ( ledgers.size() != 0 )
-            purchaseOrderItemLedger.setAvailableQuantity(ledgers.get(0).getQuantity());
-        else
+        if ( ledgers.size() != 0 ){
+            purchaseOrderItemLedger.setAvailableQuantity(ledgers.get(0).getQuantity());}
+        else {
             purchaseOrderItemLedger.setAvailableQuantity(String.valueOf(0));
+        }
 
-
-
-        /*Dumy data to frontend*/
-/*        purchaseOrderItemLedger.setItemId(1);
-        purchaseOrderItemLedger.setItemName("Name");
-        purchaseOrderItemLedger.setRop("190");
-        purchaseOrderItemLedger.setPrice(BigDecimal.valueOf(123.50));
-        purchaseOrderItemLedger.setAvailableQuantity("100");*/
 
         return purchaseOrderItemLedger;
     }

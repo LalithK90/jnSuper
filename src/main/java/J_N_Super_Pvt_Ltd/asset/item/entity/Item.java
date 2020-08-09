@@ -1,6 +1,7 @@
 package J_N_Super_Pvt_Ltd.asset.item.entity;
 
 
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.PurchaseOrderItem;
 import J_N_Super_Pvt_Ltd.asset.category.entity.Category;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Enum.ItemStatus;
 import J_N_Super_Pvt_Ltd.asset.ledger.entity.Ledger;
@@ -11,13 +12,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -49,8 +48,9 @@ public class Item extends AuditEntity {
     @OneToMany( mappedBy = "item" )
     private List< SupplierItem > supplierItems;
 
-    @OneToMany( mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true )
+    @OneToMany( mappedBy = "item" )
     private List< Ledger > ledgers;
 
-
+    @OneToMany( mappedBy = "item" )
+    private List< PurchaseOrderItem > purchaseOrderItems;
 }

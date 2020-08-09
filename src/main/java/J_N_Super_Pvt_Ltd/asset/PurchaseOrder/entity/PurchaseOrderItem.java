@@ -25,7 +25,6 @@ public class PurchaseOrderItem extends AuditEntity {
     @Column( nullable = false )
     private String quantity;
 
-
     @Column( nullable = false, precision = 10, scale = 2 )
     private BigDecimal buyingPrice;
 
