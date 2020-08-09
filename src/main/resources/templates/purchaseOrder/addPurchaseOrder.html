@@ -91,20 +91,19 @@
             </div>
 
             <div class="form-row col-md-12 col-sm-12 mt-4 text-center">
+                <div class="form-row container-fluid">
+                    <div class="col-6 text-left h3 text-capitalize font-weight-bold">Selected Item List</div>
+                    <div class="col-6 form-row">
+                        <div class="col-6 text-left h3 text-capitalize font-weight-bold">Selected Item Count:</div>
+                        <div class="col-3 text-left h3 text-capitalize font-weight-bold">
+                            <span id="selectedItemCount"></span>
+                        </div>
+                    </div>
+                </div>
                 <!--Add new Item-->
                 <table class="table table-striped table-inverse border" id="selectedItemInTable">
-                    <fieldset>
-                        <legend class="text-center">
-                            <strong>
-                                <i>
-                                    Selected Items
-                                </i>
-                            </strong>
-                        </legend>
-                    </fieldset>
                     <thead class="thead-inverse">
                     <tr>
-                        <th>Index</th>
                         <th>Item Name</th>
                         <th>Available Quantity</th>
                         <th>ROP</th>
@@ -120,7 +119,7 @@
                         <td>
                             <label>
                                 <input class="form-control" id="purchaseOrderValue" data-th-name="${'price'}" readonly
-                                       type="number" step="0.01">
+                                       type="number" step="0.01" required>
                             </label>
                         </td>
                     </tr>
@@ -211,10 +210,9 @@
         let rowCount = rows - 1;
 
         let html = `<tr>
-                        <td>${rows}</td>
                         <td>
                             <span id='nm${value.itemId}'>${value.itemName}</span>
-                            <input id="id${value.itemId}" type="hidden" name="purchaseOrderItem[${rowCount}].item.id" value="${value.itemId}">
+                            <input id="id${value.itemId}" type="hidden" name="purchaseOrderItems[${rowCount}].item.id" value="${value.itemId}">
                         </td>
                         <td>
                          <span>${value.availableQuantity}</span>
@@ -224,19 +222,19 @@
                         </td>
                         <td>
                         <label>
-                        <input type="text" id="pr${value.itemId}" class="form-control" value="${value.price}" readonly></label>
+                        <input type="text" id="pr${value.itemId}" class="form-control" name="purchaseOrderItems[${rowCount}].buyingPrice" value="${value.price}" readonly></label>
                         </td>
                         <td>
                          <div class="form-row form-inline">
                                 <label>
-                          <input type="number" id="rq${value.itemId}" class="form-control" name="purchaseOrderItem[${rowCount}].quantity"
+                          <input type="number" id="rq${value.itemId}" class="form-control" name="purchaseOrderItems[${rowCount}].quantity"
                            onkeyup="lineTotalCalculateByLine(this)" required>
                                 </label>
                          </div>
                         </td>
                         <td>
                           <label>
-                          <input type="number" id="lt${value.itemId}" class="form-control lineTotal" name="purchaseOrderItem[${rowCount}].lineTotal" readonly>
+                          <input type="number" id="lt${value.itemId}" class="form-control lineTotal" name="purchaseOrderItems[${rowCount}].lineTotal" readonly>
                                 </label>
                         </td>
                         <td>
@@ -245,18 +243,18 @@
                     </tr>`;
 
         $("#selectedItemInTable tbody tr:last").after(html);
+        selectedItemCount();
     }
     //table row remove
     let tableRowRemove = function (obj) {
         let selectedFiledId = obj.getAttribute('id').slice(2);
-        let itemIndex = obj.parentNode.parentNode.rowIndex;
-        console.log('item index '+ itemIndex +  '     selectedfiled id '+ selectedFiledId);
-       let  removeItemText=$(`#nm${selectedFiledId}`).html();
-       let removeItemValue=$(`#id${selectedFiledId}`).val();
+        let removeItemText = $(`#nm${selectedFiledId}`).html();
+        let removeItemValue = $(`#id${selectedFiledId}`).val();
         $("#item").append(new Option(removeItemText, removeItemValue));
-        let removeRow = `#selectedItemInTable tr:eq(${itemIndex})`
-        $(removeRow).remove();
+        let i = obj.parentNode.parentNode.rowIndex;
+        document.getElementById("selectedItemInTable").deleteRow(i);
         purchaseOrderValue();
+        selectedItemCount();
     };
     //calculate line total
     let lineTotalCalculateByLine = function (obj) {
@@ -274,13 +272,16 @@
         }
         $('#purchaseOrderValue').val(purchaseOrderTotal);
     }
-
     //option tag remove
     let optionElementRemove = function (id) {
         let selectedValue = $(id).val();
         let selectedItemId = `${id} option[value='${selectedValue}']`;
         $(selectedItemId).remove();
     }
+    //seledted item count dispaly
+    let selectedItemCount = function (){
+        $('#selectedItemCount').html($('#selectedItemInTable tr').length - 3);
+    };
 </script>
 </body>
 </html>
