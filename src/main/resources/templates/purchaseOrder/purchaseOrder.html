@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: headerFragment}">
+<head data-th-replace="~{fragments/header :: headerFragment}">
     <meta charset="UTF-8">
     <title>purchaseOrder</title>
 </head>
 <body>
-<nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
+<nav data-th-replace="~{fragments/navBar :: navBarFragment}"></nav>
 
 <!--heading Area-->
 <div class="container-fluid bg-dark form-Border">
@@ -36,7 +36,7 @@
     <!--Table view-->
     <div class="col">
         <div class="col" id="purchaseRequestListPresent"
-             th:if="${not #lists.isEmpty(purchaseOrders)}">
+             data-th-if="${not #lists.isEmpty(purchaseOrders)}">
             <table class="table table-hover table-striped" id="myTable">
                 <thead>
                     <tr>
@@ -50,20 +50,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="purchaseOrder, rowCount : ${purchaseOrders}">
-                        <th th:text="${rowCount.count}"></th>
-                        <th th:text="${purchaseOrder.code}"></th>
-                        <th th:text="${purchaseOrder.supplier.name}"></th>
-                        <th th:text="${purchaseOrder.purchaseOrderPriority.purchaseOrderPriority}"></th>
-                        <th th:text="${purchaseOrder.price}"></th>
-                        <th th:text="${{purchaseOrder.createdAt}}"></th>
-                        <th th:if="${purchaseOrder !=true}">
-                            <a th:href="${'/purchaseOrder/' + purchaseOrder.id}" class="btn btn-primary btn-sm"><i
+                    <tr data-th-each="purchaseOrder, rowCount : ${purchaseOrders}">
+                        <th data-th-text="${rowCount.count}"></th>
+                        <th data-th-text="${purchaseOrder.code}"></th>
+                        <th data-th-text="${purchaseOrder.supplier.name}"></th>
+                        <th data-th-text="${purchaseOrder.purchaseOrderPriority.purchaseOrderPriority}"></th>
+                        <th data-th-text="${purchaseOrder.price}"></th>
+                        <th data-th-text="${{purchaseOrder.createdAt}}"></th>
+                        <th data-th-if="${purchaseOrder !=true}">
+                            <a data-th-href="${'/purchaseOrder/' + purchaseOrder.id}" class="btn btn-primary btn-sm"><i
                                     class="fa fa-folder-open" style="font-size: 15px"></i>&nbsp;View</a>
-                            <a th:href="${'/purchaseOrder/edit/' + purchaseOrder.id}" class="btn btn-success btn-sm"><i
+                            <a data-th-if="${grnStatus}" data-th-href="${'/purchaseOrder/edit/' + purchaseOrder.id}"
+                               class="btn btn-success btn-sm"><i
                                     class="fa fa-edit" style="font-size: 15px"></i>&nbsp;GRN</a>
-                            <a th:href="${'/purchaseOrder/delete/' + purchaseOrder.id}" class="btn btn-danger btn-sm">
-                                <!--th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"--> <i
+                            <a data-th-href="${'/purchaseOrder/delete/' + purchaseOrder.id}"
+                               class="btn btn-danger btn-sm">
+                                <!--data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"--> <i
                                     class="fa fa-trash" style="font-size: 15px"></i> Delete</a>
                         </th>
                     </tr>
@@ -72,7 +74,7 @@
         </div>
     </div>
     <!--Error-->
-    <div class="row" th:if="${ #lists.isEmpty(purchaseOrders)}">
+    <div class="row" data-th-if="${ #lists.isEmpty(purchaseOrders)}">
         <div class="col-sm-12">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -92,9 +94,9 @@
 </div>
 
 <!--footer include-->
-<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+<footer data-th-replace="~{fragments/footer :: footerFragment}"></footer>
 <!--script include-->
-<script th:replace="~{fragments/script :: scriptFragment}"></script>
+<script data-th-replace="~{fragments/script :: scriptFragment}"></script>
 
 </body>
 </html>

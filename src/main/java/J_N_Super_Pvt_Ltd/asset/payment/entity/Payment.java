@@ -2,6 +2,7 @@ package J_N_Super_Pvt_Ltd.asset.payment.entity;
 
 
 import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.PurchaseOrder;
+import J_N_Super_Pvt_Ltd.asset.goodReceivedNote.entity.GoodReceivedNote;
 import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.PaymentMethod;
 import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
@@ -35,5 +36,5 @@ public class Payment extends AuditEntity {
     private BigDecimal amount;
 
     @ManyToOne
-    private PurchaseOrder purchaseOrder;
+    private GoodReceivedNote goodReceivedNote;
 }

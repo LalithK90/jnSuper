@@ -140,32 +140,34 @@
                 </div>
             </div>
             <!--purchase order items -->
-            <div class="form-row container-fluid table-responsive">
-                <div class="col-md-4">
-                    <label class="control-label">Selected Items :</label>
+            <div class="form-group col-md-12 col-sm-12 text-center flex-column">
+                <div class="form-row">
+                    <label class="control-label text-capitalize font-weight-bold">Selected Items :</label>
                 </div>
-                <table class="table table-striped table-inverse border" id="myTable">
-                    <thead class="thead-inverse">
-                    <tr>
-                        <th>Index</th>
-                        <th>Item Name</th>
-                        <th>ROP</th>
-                        <th>Buying Price (Rs.)</th>
-                        <th>Request Quantity</th>
-                        <th>Line Total</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-th-each="purchaseOrderItem, index : ${purchaseOrderDetail.purchaseOrderItems}">
-                        <td data-th-text="${index.count}"></td>
-                        <td data-th-text="${purchaseOrderItem.item.name}"></td>
-                        <td data-th-text="${purchaseOrderItem.item.rop}"></td>
-                        <td data-th-text="${purchaseOrderItem.buyingPrice}"></td>
-                        <td data-th-text="${purchaseOrderItem.quantity}"></td>
-                        <td data-th-text="${purchaseOrderItem.lineTotal}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="container-fluid table-responsive">
+                    <table class="table table-striped " id="myTable">
+                        <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>Item Name</th>
+                            <th>ROP</th>
+                            <th>Buying Price (Rs.)</th>
+                            <th>Request Quantity</th>
+                            <th>Line Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-th-each="purchaseOrderItem, index : ${purchaseOrderDetail.purchaseOrderItems}">
+                            <td data-th-text="${index.count}"></td>
+                            <td data-th-text="${purchaseOrderItem.item.name}"></td>
+                            <td data-th-text="${purchaseOrderItem.item.rop}"></td>
+                            <td data-th-text="${purchaseOrderItem.buyingPrice}"></td>
+                            <td data-th-text="${purchaseOrderItem.quantity}"></td>
+                            <td data-th-text="${purchaseOrderItem.lineTotal}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <!--Back Button-->
             <div class="form-group col-md-12 col-sm-12 text-center flex-column ">

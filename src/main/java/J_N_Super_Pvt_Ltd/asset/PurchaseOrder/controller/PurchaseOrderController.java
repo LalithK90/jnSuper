@@ -60,8 +60,9 @@ public class PurchaseOrderController {
 
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("purchaseOrder", purchaseOrderService.findAll());
-        model.addAttribute("searchAreaShow", true);
+        model.addAttribute("purchaseOrders", purchaseOrderService.findAll());
+        model.addAttribute("heading", "All Purchase Order");
+        model.addAttribute("grnStatus",false);
         return "purchaseOrder/purchaseOrder";
     }
 
@@ -140,6 +141,8 @@ public class PurchaseOrderController {
                 .stream()
                 .filter(x -> x.getPurchaseOrderStatus().equals(PurchaseOrderStatus.NOT_COMPLETED))
                 .collect(Collectors.toList()));
+        model.addAttribute("heading", "Pending Purchase Order");
+        model.addAttribute("grnStatus",true);
         return "purchaseOrder/purchaseOrder";
     }
 
