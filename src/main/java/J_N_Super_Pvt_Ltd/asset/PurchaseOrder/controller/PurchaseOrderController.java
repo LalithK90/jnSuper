@@ -26,7 +26,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Controller
@@ -81,7 +80,8 @@ public class PurchaseOrderController {
 
     @GetMapping( "/{id}" )
     public String view(@PathVariable Integer id, Model model) {
-        return commonService.purchaseOrder(model, id);
+        model.addAttribute("purchaseOrderDetail", purchaseOrderService.findById(id));
+        return "purchaseOrder/purchaseOrder-detail";
 
     }
 
