@@ -11,6 +11,7 @@ Already done
         supplier item,
 7. purchase
         purchase order item
+8. discount ration
 
 
 need to be done

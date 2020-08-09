@@ -2,6 +2,7 @@ package J_N_Super_Pvt_Ltd.asset.invoice.entity;
 
 
 import J_N_Super_Pvt_Ltd.asset.customer.entity.Customer;
+import J_N_Super_Pvt_Ltd.asset.discountRatio.entity.DiscountRatio;
 import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.InvoicePrintOrNot;
 import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.PaymentMethod;
 import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
@@ -59,7 +60,7 @@ public class Invoice extends AuditEntity {
     private Customer customer;
 
     @ManyToOne
-    private DiscountRatio discountRatio;
+    private DiscountRatio.DiscountRatio discountRatio;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "invoice")
     private List< InvoiceItem > invoiceItemQuantities;
