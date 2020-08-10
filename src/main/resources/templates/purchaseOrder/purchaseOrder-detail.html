@@ -33,109 +33,117 @@
 <div data-th-fragment="purchaseOrderDetailsFragment" class="container-fluid bg-info formBorder">
     <div class="col-sm-12 flex-column ">
         <div class="row">
-            <!--Left Side-->
-            <div class="form-group col-md-6 col-sm-6 text-left flex-column">
-                <!--code-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="id">Code :</label>
+            <a aria-controls="hrefCollapse" aria-expanded="false" class="btn btn-primary col-12" data-toggle="collapse"
+               href="#supplierDetail">Supplier Detail's</a>
+            <div class="form-group col-md-12 col-sm-12 text-center flex-column collapse" id="supplierDetail">
+                <div class="row ">
+                    <!--Left Side-->
+                    <div class="form-group col-md-6 col-sm-6 text-left flex-column">
+                        <!--code-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="id">Code :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p id="id" data-th-text="${purchaseOrderDetail.code}" class="display_detail"></p>
+                            </div>
+                        </div>
+                        <!--Supplier Name-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="departmentIdNumber">Supplier Name :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p id="departmentIdNumber" data-th-text="${purchaseOrderDetail.supplier.name}"
+                                   class="display_detail"></p></div>
+                        </div>
+                        <!--Purchase Order Priority-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="mainCategory">Purchase Order Priority :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p id="mainCategory"
+                                   data-th-text="${purchaseOrderDetail.purchaseOrderPriority.PurchaseOrderPriority}"
+                                   class="display_detail"></p>
+                            </div>
+                        </div>
+                        <!--Purchase Order Status-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="subCategory">Purchase Order Status :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p id="subCategory"
+                                   data-th-text="${purchaseOrderDetail.purchaseOrderStatus.purchaseOrderStatus}"
+                                   class="display_detail"></p>
+                            </div>
+                        </div>
+                        <!--Name-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="name">Price :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p id="name" data-th-text="${purchaseOrderDetail.price}"
+                                   class="display_detail"></p>
+                            </div>
+                        </div>
+                        <!--Remark-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="rop">Remarks :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p id="rop" data-th-utext="${purchaseOrderDetail.remark}"
+                                   class="display_detail"></p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <p id="id" data-th-text="${purchaseOrderDetail.code}" class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Supplier Name-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="departmentIdNumber">Supplier Name :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="departmentIdNumber" data-th-text="${purchaseOrderDetail.supplier.name}"
-                           class="display_detail"></p></div>
-                </div>
-                <!--Purchase Order Priority-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="mainCategory">Purchase Order Priority :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="mainCategory"
-                           data-th-text="${purchaseOrderDetail.purchaseOrderPriority.PurchaseOrderPriority}"
-                           class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Purchase Order Status-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="subCategory">Purchase Order Status :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="subCategory"
-                           data-th-text="${purchaseOrderDetail.purchaseOrderStatus.purchaseOrderStatus}"
-                           class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Name-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="name">Price :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="name" data-th-text="${purchaseOrderDetail.price}"
-                           class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Remark-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="rop">Remarks :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="rop" data-th-utext="${purchaseOrderDetail.remark}"
-                           class="display_detail"></p>
-                    </div>
-                </div>
-            </div>
-            <!--Right Side-->
-            <div class="form-group col-md-6 col-sm-6 text-right flex-column">
-                <!--Created By-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="createdBy">Created By :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="createdBy" data-th-text="${purchaseOrderDetail.createdBy}" class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Created at-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="createdAt">Created At :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="createdAt"
-                           data-th-text="${#temporals.format(purchaseOrderDetail.createdAt, 'dd-MM-yyyy HH:mm')}"
-                           class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Updated by-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="updatedBy">Updated By :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="updatedBy" data-th-text="${purchaseOrderDetail.updatedBy}" class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Updated at-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="updatedAt">Updated At :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="updatedAt"
-                           data-th-text="${#temporals.format(purchaseOrderDetail.updatedAt, 'dd-MM-yyyy HH:mm')}"
-                           class="display_detail"></p>
+                    <!--Right Side-->
+                    <div class="form-group col-md-6 col-sm-6 text-right flex-column">
+                        <!--Created By-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="createdBy">Created By :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p id="createdBy" data-th-text="${purchaseOrderDetail.createdBy}"
+                                   class="display_detail"></p>
+                            </div>
+                        </div>
+                        <!--Created at-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="createdAt">Created At :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p id="createdAt"
+                                   data-th-text="${#temporals.format(purchaseOrderDetail.createdAt, 'dd-MM-yyyy HH:mm')}"
+                                   class="display_detail"></p>
+                            </div>
+                        </div>
+                        <!--Updated by-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="updatedBy">Updated By :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p id="updatedBy" data-th-text="${purchaseOrderDetail.updatedBy}"
+                                   class="display_detail"></p>
+                            </div>
+                        </div>
+                        <!--Updated at-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="updatedAt">Updated At :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p id="updatedAt"
+                                   data-th-text="${#temporals.format(purchaseOrderDetail.updatedAt, 'dd-MM-yyyy HH:mm')}"
+                                   class="display_detail"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

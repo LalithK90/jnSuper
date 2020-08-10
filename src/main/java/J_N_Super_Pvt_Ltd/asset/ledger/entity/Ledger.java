@@ -1,6 +1,7 @@
 package J_N_Super_Pvt_Ltd.asset.ledger.entity;
 
 
+import J_N_Super_Pvt_Ltd.asset.goodReceivedNote.entity.GoodReceivedNote;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
 import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
@@ -30,6 +31,9 @@ public class Ledger extends AuditEntity {
     @Column( nullable = false, precision = 10, scale = 2 )
     private BigDecimal sellPrice;
 
+    @Column( nullable = false, precision = 10, scale = 2 )
+    private BigDecimal buyingPrice;
+
     @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private LocalDate mDate;
 
@@ -38,6 +42,9 @@ public class Ledger extends AuditEntity {
 
     @ManyToOne
     private Item item;
+
+    @ManyToOne
+    private GoodReceivedNote goodReceivedNote;
 
 
 }
