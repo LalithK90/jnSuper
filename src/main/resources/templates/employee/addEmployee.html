@@ -266,7 +266,8 @@
                             <label class="control-label" for="dateOfAssignment">Date Of Assignment :</label>
                         </div>
                         <div class="col-md-8">
-                            <input id="dateOfAssignment" data-th-field="*{{dateOfAssignment}}" type="date" class="form-control" tabindex="18"
+                            <input id="dateOfAssignment" data-th-field="*{{dateOfAssignment}}" type="date"
+                                   class="form-control to" tabindex="18"
                                    placeholder="Ex: 1990 - 01 - 20" required/>
                             <span class="error" data-th-errors="*{dateOfAssignment}"
                                   data-th-if="${#fields.hasErrors('dateOfAssignment')}" id="dateOfAssignmentError">Error Date Of Assignment</span>

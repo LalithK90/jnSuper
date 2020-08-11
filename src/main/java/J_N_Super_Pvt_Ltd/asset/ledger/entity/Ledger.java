@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -25,14 +26,11 @@ import java.time.LocalDate;
 @JsonFilter( "Ledger" )
 public class Ledger extends AuditEntity {
 
-    @Column( unique = true )
+    @NotEmpty
     private String quantity;
 
     @Column( nullable = false, precision = 10, scale = 2 )
     private BigDecimal sellPrice;
-
-    @Column( nullable = false, precision = 10, scale = 2 )
-    private BigDecimal buyingPrice;
 
     @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private LocalDate mDate;
