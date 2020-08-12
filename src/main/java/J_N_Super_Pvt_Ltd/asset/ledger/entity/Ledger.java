@@ -33,10 +33,10 @@ public class Ledger extends AuditEntity {
     private BigDecimal sellPrice;
 
     @DateTimeFormat( pattern = "yyyy-MM-dd" )
-    private LocalDate mDate;
+    private LocalDate manufactureDate;
 
     @DateTimeFormat( pattern = "yyyy-MM-dd" )
-    private LocalDate eDate;
+    private LocalDate expiredDate;
 
     @ManyToOne
     private Item item;
