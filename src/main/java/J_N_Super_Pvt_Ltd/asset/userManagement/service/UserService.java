@@ -28,7 +28,7 @@ public class UserService implements AbstractService<User, Integer> {
     }
 
     @Cacheable
-    public Object findAll() {
+    public List<User> findAll() {
         return userDao.findAll();
     }
 

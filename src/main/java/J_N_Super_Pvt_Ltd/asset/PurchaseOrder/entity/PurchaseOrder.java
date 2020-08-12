@@ -43,5 +43,8 @@ public class PurchaseOrder extends AuditEntity {
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.PERSIST)
     private List< PurchaseOrderItem > purchaseOrderItems;
 
+    @OneToMany(mappedBy = "purchaseOrder")
+    private List<Payment> payments;
+
 
 }

@@ -36,5 +36,5 @@ public class Payment extends AuditEntity {
     private BigDecimal amount;
 
     @ManyToOne
-    private GoodReceivedNote goodReceivedNote;
+    private PurchaseOrder purchaseOrder;
 }

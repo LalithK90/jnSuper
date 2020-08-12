@@ -37,7 +37,7 @@ public class GoodReceivedNoteController {
     @GetMapping
     public String notCompleteAll(Model model) {
         model.addAttribute("notCompleteAll",
-                           purchaseOrderService.findByGoodReceivedNoteState(PurchaseOrderStatus.NOT_COMPLETED));
+                           purchaseOrderService.findByPurchaseOrderStatus(PurchaseOrderStatus.NOT_COMPLETED));
         return "goodReceivedNote/goodReceivedNote";
     }
 

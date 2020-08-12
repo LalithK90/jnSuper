@@ -22,7 +22,7 @@ public class GoodReceivedNoteService implements AbstractService<GoodReceivedNote
     }
 
     @Override
-    public Object findAll() {
+    public List<GoodReceivedNote> findAll() {
         return goodReceivedNoteDao.findAll();
     }
 

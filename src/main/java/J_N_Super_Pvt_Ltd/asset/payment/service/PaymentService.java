@@ -1,5 +1,6 @@
 package J_N_Super_Pvt_Ltd.asset.payment.service;
 
+import J_N_Super_Pvt_Ltd.asset.PurchaseOrder.entity.PurchaseOrder;
 import J_N_Super_Pvt_Ltd.asset.ledger.entity.Ledger;
 import J_N_Super_Pvt_Ltd.asset.payment.dao.PaymentDao;
 import J_N_Super_Pvt_Ltd.asset.payment.entity.Payment;
@@ -41,5 +42,9 @@ public class PaymentService implements AbstractService< Payment, Integer > {
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
         Example< Payment > paymentExample = Example.of(payment, matcher);
         return paymentDao.findAll(paymentExample);
+    }
+
+    public List<Payment> findByPurchaseOrder(PurchaseOrder purchaseOrder) {
+    return paymentDao.findByPurchaseOrder(purchaseOrder);
     }
 }

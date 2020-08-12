@@ -23,7 +23,7 @@ public class UserSessionLogService implements AbstractService<UserSessionLog, In
 
     @Override
     @Cacheable
-    public Object findAll() {
+    public List<UserSessionLog> findAll() {
         return userSessionLogDao.findAll();
     }
 

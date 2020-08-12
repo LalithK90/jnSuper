@@ -49,9 +49,10 @@ public class PurchaseOrderService implements AbstractService<PurchaseOrder, Inte
         return purchaseOrderDao.findAll(purchaseRequestExample);
     }
 
-    public List<PurchaseOrder> findByGoodReceivedNoteState(PurchaseOrderStatus purchaseOrderStatus) {
+    public List<PurchaseOrder> findByPurchaseOrderStatus(PurchaseOrderStatus purchaseOrderStatus) {
         return purchaseOrderDao.findByPurchaseOrderStatus(purchaseOrderStatus);
     }
+
 
     public PurchaseOrder lastPurchaseOrder() {
     return purchaseOrderDao.findFirstByOrderByIdDesc();
