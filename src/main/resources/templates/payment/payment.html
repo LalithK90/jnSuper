@@ -41,17 +41,14 @@
                 <tbody>
                 <tr data-th-each="payment, rowCount : ${payments}">
                     <th data-th-text="${rowCount.count}"></th>
-                    <th data-th-text="${payment.roleName}"></th>
+                    <th data-th-text="${payment.supplier.name}"></th>
+                    <th data-th-text="${payment.code}"></th>
+                    <th data-th-text="${payment.price}"></th>
                     <th >
                         <a id="edit" data-th-href="${'/payment/' + payment.id}"
-                           class="btn btn-primary btn-sm mr-2 p-2">Edit
+                           class="btn btn-primary btn-sm mr-2 p-2">Payment
                         </a>
-                        &nbsp;
-                        <a id="remove" data-th-href="${'/payment/remove/' + payment.id}"
-                           class="btn btn-danger btn-sm mr-2 p-2"
-                           onclick="if
-                        (!(confirm('Are you sure you want to delete this payment?'))) return false"
->Delete</a></th>
+                      </th>
                 </tr>
                 </tbody>
             </table>
