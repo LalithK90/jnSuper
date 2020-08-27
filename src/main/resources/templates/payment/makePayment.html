@@ -135,6 +135,18 @@
                                                                        Calling                                                                                                                        Name</span>
                     </div>
                 </div>
+                <!--This purchase order value-->
+            <div class="form-row text-right">
+                <div class="col-md-4">
+                    <label class="control-label" for="sellPrice">Purchase Order's Amount :</label>
+                </div>
+                <div class="col-md-8">
+                    <input class="form-control" data-th-value="${amount}" id="" required tabindex="8"
+                           type="number" step="0.01" readonly/>
+                    <span class="text-warning"
+                          data-th-errors="*{amount}" data-th-if="${#fields.hasErrors('amount')}">Error ROP</span>
+                </div>
+            </div>
                 <!--Amount-->
                 <div class="form-row text-right">
                     <div class="col-md-4">
@@ -164,7 +176,7 @@
                     <!--Save Button-->
                     <button class="btn btn-success ml-5" tabindex="12" type="submit">
                         <i class="fa fa-save " style="font-size: 20px"></i>&nbsp;&nbsp;<span
-                            data-th-text="${addStatus==true?'Save': 'Update'}"
+                            data-th-text="${'Save'}"
                             id="submit"></span>
                     </button>
                     <!--Cancel Button-->
