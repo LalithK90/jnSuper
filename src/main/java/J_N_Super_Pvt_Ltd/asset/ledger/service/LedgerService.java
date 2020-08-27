@@ -10,6 +10,8 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,7 +24,7 @@ public class LedgerService implements AbstractService<Ledger, Integer> {
     }
 
 
-    public Object findAll() {
+    public List<Ledger> findAll() {
         return ledgerDao.findAll();
     }
 
@@ -54,6 +56,10 @@ public class LedgerService implements AbstractService<Ledger, Integer> {
 
     public List<Ledger> findByItem(Item item) {
         return ledgerDao.findByItem(item);
+    }
+
+    public Ledger findByItemAndAndExpiredDateAndSellPrice(Item item, LocalDate eDate, BigDecimal sellPrice) {
+    return ledgerDao.findByItemAndAndExpiredDateAndSellPrice( item, eDate, sellPrice);
     }
 
    /* public Ledger findByItem(Item item) {

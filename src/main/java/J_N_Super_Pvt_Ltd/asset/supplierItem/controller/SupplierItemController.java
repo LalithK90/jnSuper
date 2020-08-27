@@ -125,10 +125,12 @@ public class SupplierItemController {
         //items from front item relevant to supplier
         List< SupplierItem > supplierItems = supplier.getSupplierItems();
         for ( SupplierItem supplierItem : supplierItems ) {
-            if ( supplierItem.getId() == null ) {
+            if ( supplierItem.getId() == null && supplierItem.getPrice() != null ) {
                 supplierItem.setSupplier(supplier);
+                supplierItemService.persist(supplierItem);
+            } else if ( supplierItem.getPrice() != null ) {
+                supplierItemService.persist(supplierItem);
             }
-            supplierItemService.persist(supplierItem);
         }
         return "redirect:/supplier";
     }
@@ -148,18 +150,17 @@ public class SupplierItemController {
         purchaseOrderItemLedger.setRop(supplierItem.getItem().getRop());
         purchaseOrderItemLedger.setPrice(supplierItem.getPrice());
 
-    /*
-    normal comparator
-    Comparator<Ledger> ledgerComparator = new Comparator<Ledger>() {
-            @Override
-            public int compare(Ledger ledger, Ledger ledger2) {
-                return ledger.getId().compareTo(ledger2.getId());
-            }
-        }; */
-/*Lambda comparator
-        Comparator<Ledger> ledgerComparator = (ledger, ledger2) -> ledger.getId().compareTo(ledger2.getId());*/
-        //comparing
+//normal comparator
+//    Comparator<Ledger> ledgerComparator = new Comparator<Ledger>() {
+//            @Override
+//            public int compare(Ledger ledger, Ledger ledger2) {
+//                return ledger.getId().compareTo(ledger2.getId());
+//            }
+//        };
+//Lambda comparator
+        // Comparator<Ledger> ledgerComparator = (ledger, ledger2) -> ledger.getId().compareTo(ledger2.getId());
 
+        //comparing
         Comparator< Ledger > ledgerComparator = Comparator.comparing(AuditEntity::getId);
         List< Ledger > ledgers =
                 ledgerDao.findByItem(supplierItem.getItem())
@@ -167,18 +168,12 @@ public class SupplierItemController {
                         .filter(x -> x.getItem().getItemStatus().equals(supplierItem.getItem().getItemStatus()))
                         .sorted(ledgerComparator)
                         .collect(Collectors.toList());
+        if ( ledgers.size() != 0 ){
+            purchaseOrderItemLedger.setAvailableQuantity(ledgers.get(0).getQuantity());}
+        else {
+            purchaseOrderItemLedger.setAvailableQuantity(String.valueOf(0));
+        }
 
-        purchaseOrderItemLedger.setAvailableQuantity(ledgers.get(0).getQuantity());
-
-
-
-
-        /*Dumy data to frontend*/
- /*       purchaseOrderItemLedger.setItemId(1);
-        purchaseOrderItemLedger.setItemName("Name");
-        purchaseOrderItemLedger.setRop("190");
-        purchaseOrderItemLedger.setPrice(BigDecimal.valueOf(123.50));
-        purchaseOrderItemLedger.setAvailableQuantity("100");*/
 
         return purchaseOrderItemLedger;
     }

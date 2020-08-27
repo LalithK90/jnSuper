@@ -219,11 +219,22 @@
             $("#searchValue").attr("name", $(this).val());
         });
     });
+    //selected items on array
+    let selectedItem = [];
     //add new item and price
     $("#item").bind('change', function () {
         let valueA = optionElementRemove("#item");
-        tableRowAdd(valueA);
+        let value = {
+            'name': valueA.name,
+            'value': valueA.value
+        };
+        if (!selectedItem.includes(value)) {
+            selectedItem.push(value);
+        }
+        tableRowAdd();
     });
+
+
     //table row remove
     let tableRowRemove = function (obj) {
 
@@ -234,11 +245,26 @@
         let removeItemText = itemSelected[1].childNodes[1].firstChild.nodeValue;
 
         $("#item").append(new Option(removeItemText, removeItemValue));
+        //remove selectedItem array
+        let value = {
+            'name': removeItemText,
+            'value': removeItemValue
+        }
+        let filterArray = [];
+        selectedItem.filter(dataObject => dataObject !== value);
+        for (let k = 0; k < selectedItem.length; k++) {
+            if (selectedItem[k].value !== value.value) {
+                filterArray.push(selectedItem[k]);
+            }
+        }
+        //console.log(filterArray);
+        selectedItem = filterArray;
+
         let removeRow = `#selectedItemInTable tr:eq(${itemIndex})`
         $(removeRow).remove();
 
 
-    }
+    };
     //option tag remove
     let optionElementRemove = function (id) {
         let selectedValue = $(id).val();
@@ -248,24 +274,29 @@
         return {name: selectedValueInnerHTML, value: selectedValue};
     }
     //table row add
-    let tableRowAdd = function (value) {
+    let tableRowAdd = function () {
         let rows = $("#selectedItemInTable tr").length;
         let rowCount = [[${#lists.size(currentlyBuyingItems)}]];
         if (rowCount === 0) {
             rowCount = rows - 1;
         }
-        // let rowCount = itemCount + 1;
+        //remove all table
+        removeTableRow();
 
-        let html = `<tr>
-                        <td>${rows}</td>
+        let html = '';
+        let k = 1;
+        for (let i = selectedItem.length - 1; i >= 0; i--) {
+
+            html += `<tr>
+                        <td>${k}</td>
                         <td>
-                            <span>${value.name}</span>
-                            <input type="hidden" name="supplierItems[${rowCount}].item.id" value="${value.value}">
+                            <span>${selectedItem[i].name}</span>
+                            <input type="hidden" name="supplierItems[${rowCount}].item.id" value="${selectedItem[i].value}">
                         </td>
                         <td>
                          <div class="form-row form-inline">
                                 <label>
-                            Rs. <input type="number" min="0" step="0.5" class="form-control" name="supplierItems[${rowCount}].price" required>
+                            Rs. <input type="number" min="0" step="0.01" class="form-control" name="supplierItems[${rowCount}].price" required>
                                 </label>
                          </div>
                         </td>
@@ -274,11 +305,22 @@
                             <button type="button" class="btn btn-outline-danger" onclick="tableRowRemove(this)">Remove</button>
                         </td>
                     </tr>`;
+            k++;
+            rows++;
+            rowCount++
 
-        $("#selectedItemInTable tr:last").after(html);
+        }
+        $("#selectedItemInTable tbody").html(html);
 
     }
-
+    //remove all table rows except header
+    let removeTableRow = function () {
+        let tableRowLength = $('#selectedItemInTable tbody tr').length;
+        for (let i = 0; i < tableRowLength; i++) {
+            let removeRow = `#selectedItemInTable tbody tr:eq(${i})`
+            $(removeRow).remove();
+        }
+    }
 
 </script>
 </body>

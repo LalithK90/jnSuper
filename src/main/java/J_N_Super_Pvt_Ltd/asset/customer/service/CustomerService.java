@@ -21,7 +21,7 @@ public class CustomerService implements AbstractService<Customer, Integer> {
         this.customerDao = customerDao;
     }
 
-    public Object findAll() {
+    public List<Customer> findAll() {
         return customerDao.findAll();
     }
 

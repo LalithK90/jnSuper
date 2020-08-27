@@ -2,6 +2,7 @@ package J_N_Super_Pvt_Ltd.asset.invoice.entity;
 
 
 import J_N_Super_Pvt_Ltd.asset.customer.entity.Customer;
+import J_N_Super_Pvt_Ltd.asset.discountRatio.entity.DiscountRatio;
 import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.InvoicePrintOrNot;
 import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.PaymentMethod;
 import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
