@@ -13,6 +13,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -46,5 +48,12 @@ public class PurchaseOrder extends AuditEntity {
     @OneToMany(mappedBy = "purchaseOrder")
     private List<Payment> payments;
 
+    @Transient
+    private BigDecimal paidAmount;
 
+    @Transient
+    private BigDecimal needToPaid;
+
+    @Transient
+    private LocalDateTime grnAt;
 }
