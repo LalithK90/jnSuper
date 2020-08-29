@@ -4,6 +4,7 @@ package J_N_Super_Pvt_Ltd.asset.invoice.entity;
 import J_N_Super_Pvt_Ltd.asset.customer.entity.Customer;
 import J_N_Super_Pvt_Ltd.asset.discountRatio.entity.DiscountRatio;
 import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.InvoicePrintOrNot;
+import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.InvoiceValidOrNot;
 import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.PaymentMethod;
 import J_N_Super_Pvt_Ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
@@ -35,9 +36,6 @@ public class Invoice extends AuditEntity {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
-
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal totalPrice;
 
@@ -55,6 +53,12 @@ public class Invoice extends AuditEntity {
 
     @Enumerated(EnumType.STRING)
     private InvoicePrintOrNot invoicePrintOrNot;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+
+    @Enumerated(EnumType.STRING)
+    private InvoiceValidOrNot invoiceValidOrNot;
 
     @ManyToOne
     private Customer customer;
