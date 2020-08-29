@@ -1,7 +1,10 @@
 package J_N_Super_Pvt_Ltd.asset.invoice.controller;
 
 import J_N_Super_Pvt_Ltd.asset.customer.service.CustomerService;
+import J_N_Super_Pvt_Ltd.asset.discountRatio.service.DiscountRatioService;
+import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.InvoicePrintOrNot;
 import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.InvoiceValidOrNot;
+import J_N_Super_Pvt_Ltd.asset.invoice.entity.Enum.PaymentMethod;
 import J_N_Super_Pvt_Ltd.asset.invoice.entity.Invoice;
 import J_N_Super_Pvt_Ltd.asset.invoice.service.InvoiceService;
 import J_N_Super_Pvt_Ltd.asset.item.service.ItemService;
@@ -21,14 +24,17 @@ public class InvoiceController {
     private final CustomerService customerService;
     private final LedgerService ledgerService;
     private final DateTimeAgeService dateTimeAgeService;
+    private final DiscountRatioService discountRatioService;
 
     public InvoiceController(InvoiceService invoiceService, ItemService itemService, CustomerService customerService,
-                             LedgerService ledgerService, DateTimeAgeService dateTimeAgeService) {
+                             LedgerService ledgerService, DateTimeAgeService dateTimeAgeService,
+                             DiscountRatioService discountRatioService) {
         this.invoiceService = invoiceService;
         this.itemService = itemService;
         this.customerService = customerService;
         this.ledgerService = ledgerService;
         this.dateTimeAgeService = dateTimeAgeService;
+        this.discountRatioService = discountRatioService;
     }
 
     @GetMapping
@@ -51,11 +57,19 @@ public class InvoiceController {
     @GetMapping( "/add" )
     public String getInvoiceForm(Model model) {
         model.addAttribute("invoice", new Invoice());
+        model.addAttribute("invoicePrintOrNots", InvoicePrintOrNot.values());
+        model.addAttribute("paymentMethods", PaymentMethod.values());
+        model.addAttribute("invoiceValidOrNots", InvoiceValidOrNot.values());
+        model.addAttribute("customers", customerService.findAll());
+        model.addAttribute("discountRatios", discountRatioService.findAll());
+        model.addAttribute("ledgers", ledgerService.findAll());
+
         return "invoice/makeInvoice";
     }
 
     @GetMapping( "/{id}" )
-    public String viewDetails(@PathVariable Integer id) {
+    public String viewDetails(@PathVariable Integer id, Model model) {
+        model.addAttribute("invoiceDetail", invoiceService.findById(id));
         return "invoice/invoice-detail";
     }
 

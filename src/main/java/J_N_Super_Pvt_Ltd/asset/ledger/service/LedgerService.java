@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -60,6 +61,10 @@ public class LedgerService implements AbstractService<Ledger, Integer> {
 
     public Ledger findByItemAndAndExpiredDateAndSellPrice(Item item, LocalDate eDate, BigDecimal sellPrice) {
     return ledgerDao.findByItemAndAndExpiredDateAndSellPrice( item, eDate, sellPrice);
+    }
+
+    public List<Ledger> findByCreatedAtIsBetween(LocalDateTime startDate, LocalDateTime endDate) {
+        return ledgerDao.findByCreatedAtIsBetween(startDate, endDate);
     }
 
    /* public Ledger findByItem(Item item) {

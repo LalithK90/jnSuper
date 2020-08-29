@@ -8,13 +8,14 @@
 <body>
 <!--/* Nav bar is included */-->
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}"></nav>
+
 <div class="container">
     <div class="row">
         <!--Custom Invoice search-->
         <button type="button" class="btn btn-info mb-5 btn-block text-capitalize" data-toggle="collapse"
-                data-target="#dataTargetCollapse"
+                data-target="#dataTargetCollapse" data-th-text="${message}"
                 aria-expanded="false" aria-controls="dataTargetCollapse"
-        > Custom Invoice Search
+        >
         </button>
         <div class="collapse mx-auto" id="dataTargetCollapse">
             <div class="container-fluid text-center">
@@ -39,24 +40,6 @@
             </div>
         </div>
     </div>
-    <!--There is message about invoice count-->
-    <div class="row" data-th-if="${firstInvoiceMessage}">
-        <div class="col-sm-12 mt-4">
-            <div class="form-group text-left col-sm-2">
-                <a class="btn btn-primary" href="/invoice/add"><span
-                        class="glyphicon glyphicon-list-alt"></span>&nbsp; New Invoice</a>
-            </div>
-            <div class="alert alert-warning col-sm-8" role="alert">
-                <strong>Following table show details belongs to there month. if you need to more please
-                        search
-                        using above method</strong>
-            </div>
-            <div class="form-group text-right col-sm-2">
-                <a class="btn btn-info" href="/invoice/search"><span
-                        class="glyphicon glyphicon-search"></span>&nbsp; Search Invoice</a>
-            </div>
-        </div>
-    </div>
     <!--List all invoice-->
     <div class="row">
         <div class="table-responsive mt-4">
@@ -64,27 +47,24 @@
                 <thead>
                 <tr>
                     <th>Index</th>
-                    <th>Number</th>
-                    <th> Amount</th>
-                    <th> Created By</th>
-                    <th> Date of Invoice</th>
+                    <th>Item Name</th>
+                    <th> Quantity</th>
+                    <th> Sell Price</th>
+                    <th> M Date</th>
+                    <th> E Date</th>
                     <th>View</th>
-                    <th data-th-if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}"> Delete Invoice
-                    </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-th-each="invoice, rowCount : ${invoices}">
+                <tr data-th-each="ledger, rowCount : ${ledgers}">
                     <th data-th-text="${rowCount.count}"></th>
-                    <th data-th-text="${invoice.number}"></th>
-                    <th data-th-text="${invoice.amount}"></th>
-                    <th data-th-text="${invoice.createdBy}"></th>
-                    <th data-th-text="${{invoice.createdAt}}"></th>
-                    <th><a class="btn btn-success" data-th-href="${'/invoice/'+ invoice.id}"><i
-                            class="fa fa-folder-open"></i>&nbsp;View</a>&nbsp;
-                    </th>
-                    <th data-th-if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}"><a
-                            class="btn btn-danger" data-th-href="${'/invoice/remove/' + invoice.id}">Delete</a>
+                    <th data-th-text="${ledger.item.name}"></th>
+                    <th data-th-text="${ledger.quantity}"></th>
+                    <th data-th-text="${ledger.sellPrice}"></th>
+                    <th data-th-text="${ledger.manufactureDate}"></th>
+                    <th data-th-text="${ledger.expiredDate}"></th>
+                    <th><a class="btn btn-success" data-th-href="${'/item/'+ ledger.item.id}"><i
+                            class="fa fa-folder-open"></i>&nbsp;View Item</a>&nbsp;
                     </th>
                 </tr>
                 </tbody>
@@ -92,11 +72,11 @@
         </div>
     </div>
 </div>
-
 <!--/* footer is */-->
 <footer data-th-replace="~{fragments/footer :: footerFragment}"></footer>
 <!--/* script is included */-->
 <script data-th-replace="~{fragments/script :: scriptFragment}"></script>
+
 <script>
     $(document).ready(function () {
         let startDate = $('#startDate').val();
