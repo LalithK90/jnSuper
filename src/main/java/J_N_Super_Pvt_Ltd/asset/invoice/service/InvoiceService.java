@@ -2,7 +2,10 @@ package J_N_Super_Pvt_Ltd.asset.invoice.service;
 
 import J_N_Super_Pvt_Ltd.asset.invoice.dao.InvoiceDao;
 import J_N_Super_Pvt_Ltd.asset.invoice.entity.Invoice;
+import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
 import J_N_Super_Pvt_Ltd.util.interfaces.AbstractService;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -34,7 +37,13 @@ public class InvoiceService implements AbstractService<Invoice, Integer> {
     }
 
     public List< Invoice > search(Invoice invoice) {
-        return null;
+        ExampleMatcher matcher = ExampleMatcher
+                .matching()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        Example< Invoice > invoiceExample = Example.of(invoice, matcher);
+        return invoiceDao.findAll(invoiceExample);
+
     }
 
     public List< Invoice > findByCreatedAtIsBetween(LocalDateTime from, LocalDateTime to) {

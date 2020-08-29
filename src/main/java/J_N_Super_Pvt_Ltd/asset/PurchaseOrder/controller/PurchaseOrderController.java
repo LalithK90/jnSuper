@@ -113,7 +113,8 @@ public class PurchaseOrderController {
         }
         purchaseOrder.setPurchaseOrderItems(purchaseOrderItemList);
         PurchaseOrder purchaseOrderSaved = purchaseOrderService.persist(purchaseOrder);
-/*        if (purchaseOrderSaved.getSupplier().getEmail() != null) {
+//todo-> PO email
+        /*        if (purchaseOrderSaved.getSupplier().getEmail() != null) {
             StringBuilder message = new StringBuilder("Item Name\t\t\t\t\tQuantity\t\t\tItem Price\t\t\tTotal(Rs)\n");
             for (int i = 0; i < purchaseOrder.getPurchaseOrderItems().size(); i++) {
                 message
