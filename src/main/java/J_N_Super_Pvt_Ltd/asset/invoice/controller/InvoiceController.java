@@ -12,8 +12,10 @@ import J_N_Super_Pvt_Ltd.asset.ledger.service.LedgerService;
 import J_N_Super_Pvt_Ltd.util.service.DateTimeAgeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 
 @Controller
@@ -54,9 +56,8 @@ public class InvoiceController {
         return "invoice/invoice";
     }
 
-    @GetMapping( "/add" )
-    public String getInvoiceForm(Model model) {
-        model.addAttribute("invoice", new Invoice());
+    private String common(Model model, Invoice invoice){
+        model.addAttribute("invoice", invoice);
         model.addAttribute("invoicePrintOrNots", InvoicePrintOrNot.values());
         model.addAttribute("paymentMethods", PaymentMethod.values());
         model.addAttribute("invoiceValidOrNots", InvoiceValidOrNot.values());
@@ -66,6 +67,10 @@ public class InvoiceController {
 
         return "invoice/makeInvoice";
     }
+    @GetMapping( "/add" )
+    public String getInvoiceForm(Model model) {
+        return common(model, new Invoice());
+    }
 
     @GetMapping( "/{id}" )
     public String viewDetails(@PathVariable Integer id, Model model) {
@@ -74,7 +79,11 @@ public class InvoiceController {
     }
 
     @PostMapping
-    public String persistInvoice() {
+    public String persistInvoice(@Valid @ModelAttribute Invoice invoice, BindingResult bindingResult, Model model) {
+        if ( bindingResult.hasErrors() ){
+            return common(model, invoice);
+        }
+
         return "redirect:/invoice";
     }
 
