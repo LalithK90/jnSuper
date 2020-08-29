@@ -109,7 +109,7 @@ public class SupplierItemController {
     public String supplierItemPersist(@Valid @ModelAttribute( "supplier" ) Supplier supplier,
                                       BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if ( bindingResult.hasErrors() ) {
-            var value = false;
+            boolean value = false;
             for ( SupplierItem supplierItem : supplier.getSupplierItems() ) {
                 if ( supplierItem.getId() != null ) {
                     value = true;

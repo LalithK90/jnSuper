@@ -1,7 +1,6 @@
 package J_N_Super_Pvt_Ltd.asset.ledger.dao;
 
 
-import J_N_Super_Pvt_Ltd.asset.invoice.entity.Invoice;
 import J_N_Super_Pvt_Ltd.asset.item.entity.Item;
 import J_N_Super_Pvt_Ltd.asset.ledger.entity.Ledger;
 import org.springframework.data.jpa.repository.JpaRepository;

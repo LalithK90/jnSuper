@@ -46,7 +46,7 @@ public class LedgerController {
     @PostMapping("/expiredDate")
     public String expiredDate(@RequestAttribute( "startDate" ) LocalDate startDate,
                               @RequestAttribute( "endDate" ) LocalDate endDate, Model model){
-        model.addAttribute("title", "Reorder Point Limit Exceeded");
+        model.addAttribute("title", "All items on given date range start at "+startDate+" end at "+endDate);
         model.addAttribute("ledgers", ledgerService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate), dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate)));
 
         return "ledger/ledger";
