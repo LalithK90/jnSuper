@@ -9,7 +9,7 @@
 <!--/* Nav bar is included */-->
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}"></nav>
 
-<div class="container">
+<div class="container mt-3">
     <div class="row">
         <!--Custom Invoice search-->
         <button type="button" class="btn btn-info mb-5 btn-block text-capitalize" data-toggle="collapse"
@@ -17,32 +17,40 @@
                 aria-expanded="false" aria-controls="dataTargetCollapse"
         >
         </button>
-        <div class="collapse mx-auto" id="dataTargetCollapse">
-            <div class="container-fluid text-center">
-                <div class="row">
-                    <div class="col-sm-6 col-sm-offset-3">
-                        <h4 class="text-info"><b> Custom Search</b></h4>
-                        <form class="form-inline" data-th-action="@{/invoice/search}" data-th-method="POST">
-                            <div class="form-group">
+        <div class="collapse container-fluid" id="dataTargetCollapse">
+            <h4 class="text-info"><b> Custom Search</b></h4>
+            <div class="container-fluid mx-auto">
+                <form class="form" data-th-action="@{/invoice/search}" data-th-method="POST">
+                    <div class="form-row">
+                        <div class="col-md-4 form-row">
+                            <div class="col-md-4">
                                 <label for="startDate">FROM :</label>
+                            </div>
+                            <div class="col-md-8">
                                 <input class="form-control" id="startDate" name="startDate" type="date"/>
                             </div>
-                            <div class="form-group">
+                        </div>
+                        <div class="col-md-4 form-row">
+                            <div class="col-md-4">
                                 <label for="endDate">TO :</label>
+                            </div>
+                            <div class="col-md-8">
                                 <input class="form-control" id="endDate" name="endDate" type="date"/>
                             </div>
+                        </div>
+                        <div class="col-md-4 form-row">
                             <button class="btn btn-success" id="btnSummaryFind" type="submit"><span
                                     class="glyphicon glyphicon-search"></span>&nbsp;Search
                             </button>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
     <!--List all invoice-->
     <div class="row">
-        <div class="table-responsive mt-4">
+        <div class="col mt-4">
             <table class="table table-hover" id="myTable">
                 <thead>
                 <tr>

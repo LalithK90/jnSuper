@@ -10,6 +10,7 @@ import j_n_super_pvt_ltd.asset.invoice.service.InvoiceService;
 import j_n_super_pvt_ltd.asset.item.service.ItemService;
 import j_n_super_pvt_ltd.asset.ledger.service.LedgerService;
 import j_n_super_pvt_ltd.util.service.DateTimeAgeService;
+import j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping( "/invoice" )
@@ -27,16 +29,19 @@ public class InvoiceController {
     private final LedgerService ledgerService;
     private final DateTimeAgeService dateTimeAgeService;
     private final DiscountRatioService discountRatioService;
+    private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
 
     public InvoiceController(InvoiceService invoiceService, ItemService itemService, CustomerService customerService,
                              LedgerService ledgerService, DateTimeAgeService dateTimeAgeService,
-                             DiscountRatioService discountRatioService) {
+                             DiscountRatioService discountRatioService,
+                             MakeAutoGenerateNumberService makeAutoGenerateNumberService) {
         this.invoiceService = invoiceService;
         this.itemService = itemService;
         this.customerService = customerService;
         this.ledgerService = ledgerService;
         this.dateTimeAgeService = dateTimeAgeService;
         this.discountRatioService = discountRatioService;
+        this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
     }
 
     @GetMapping
@@ -60,12 +65,14 @@ public class InvoiceController {
         model.addAttribute("invoice", invoice);
         model.addAttribute("invoicePrintOrNots", InvoicePrintOrNot.values());
         model.addAttribute("paymentMethods", PaymentMethod.values());
-        model.addAttribute("invoiceValidOrNots", InvoiceValidOrNot.values());
         model.addAttribute("customers", customerService.findAll());
         model.addAttribute("discountRatios", discountRatioService.findAll());
-        model.addAttribute("ledgers", ledgerService.findAll());
-
-        return "invoice/makeInvoice";
+        //send not expired and not zero quantity
+        model.addAttribute("ledgers", ledgerService.findAll()
+                .stream()
+                .filter(x -> 0 < Integer.parseInt(x.getQuantity()) && x.getExpiredDate().isBefore( LocalDate.now()))
+                .collect(Collectors.toList()));
+        return "invoice/addInvoice";
     }
 
     @GetMapping( "/add" )
@@ -84,15 +91,19 @@ public class InvoiceController {
         if ( bindingResult.hasErrors() ) {
             return common(model, invoice);
         }
-//todo ->
-        Invoice lastDB = invoiceService.findByLastInvoice();
-        /*if ( lastDB != null ) {
-            invoice.setCode();
-        } else {
-
-        }*/
-
+        if ( invoice.getId() == null ) {
+            if ( invoiceService.findByLastInvoice() == null ) {
+                //need to generate new one
+                invoice.setCode("JNPI" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
+            } else {
+                System.out.println("last customer not null");
+                //if there is customer in db need to get that customer's code and increase its value
+                String previousCode = invoiceService.findByLastInvoice().getCode().substring(4);
+                invoice.setCode("JNPI" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+            }
+        }
         invoice.setInvoiceValidOrNot(InvoiceValidOrNot.VALID);
+
         return "redirect:/invoice";
     }
 

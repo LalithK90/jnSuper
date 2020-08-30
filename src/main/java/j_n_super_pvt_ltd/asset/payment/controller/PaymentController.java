@@ -99,7 +99,7 @@ public class PaymentController {
         model.addAttribute("purchaseOrders", purchaseOrderNotPaid);
         model.addAttribute("purchaseOrderNeedToPay", purchaseOrderNeedToPay);
         model.addAttribute("paymentMethods", PaymentMethod.values());
-        return "payment/makePayment";
+        return "payment/addPayment";
     }
 
     @PostMapping

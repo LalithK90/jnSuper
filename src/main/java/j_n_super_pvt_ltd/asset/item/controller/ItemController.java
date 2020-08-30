@@ -7,8 +7,6 @@ import j_n_super_pvt_ltd.asset.item.entity.Enum.MainCategory;
 import j_n_super_pvt_ltd.asset.item.entity.Item;
 import j_n_super_pvt_ltd.asset.item.service.ItemService;
 import j_n_super_pvt_ltd.util.interfaces.AbstractController;
-import j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,13 +20,11 @@ import javax.validation.Valid;
 @RequestMapping( "/item" )
 public class ItemController implements AbstractController< Item, Integer > {
     private final ItemService itemService;
-    private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
 
-    @Autowired
-    public ItemController(ItemService itemService, MakeAutoGenerateNumberService makeAutoGenerateNumberService) {
+    public ItemController(ItemService itemService) {
         this.itemService = itemService;
-        this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
     }
+
 
     private String commonThings(Model model, Item item, Boolean addState) {
         model.addAttribute("itemStatuses", ItemStatus.values());
@@ -62,6 +58,8 @@ public class ItemController implements AbstractController< Item, Integer > {
 
         if ( item.getId() == null ) {
             //item code => MainCategory first two letters + category first two letters + price
+            item.setCode(item.getCategory().getMainCategory() + item.getCategory().getName().substring(0, 2) + item.getSellPrice());
+        } else if ( !itemService.findById(item.getId()).getSellPrice().equals(item.getSellPrice()) ) {
             item.setCode(item.getCategory().getMainCategory() + item.getCategory().getName().substring(0, 2) + item.getSellPrice());
         }
 

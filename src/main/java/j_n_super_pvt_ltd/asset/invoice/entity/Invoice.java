@@ -40,7 +40,7 @@ public class Invoice extends AuditEntity {
     private BigDecimal totalPrice;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal TotalAmount;
+    private BigDecimal totalAmount;
 
     @Column(precision = 10, scale = 2)
     private BigDecimal discountAmount;
