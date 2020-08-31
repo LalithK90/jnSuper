@@ -125,10 +125,10 @@
             <!--Bank Name-->
             <div class="form-row text-right">
                 <div class="col-md-4">
-                    <label class="control-label" for="callingName">Bank Name :</label>
+                    <label class="control-label" for="callingNa">Bank Name :</label>
                 </div>
                 <div class="col-md-8">
-                    <input id="callingName" data-th-field="*{bankName}" class="form-control" tabindex="5"
+                    <input id="callingNa" data-th-field="*{bankName}" class="form-control" tabindex="5"
                            type="text" minlength="5"/>
                     <span class="error" data-th-errors="*{bankName}"
                           data-th-if="${#fields.hasErrors('bankName')}" id="callingNameError">Error
@@ -138,13 +138,12 @@
             <!--This purchase order value-->
             <div class="form-row text-right">
                 <div class="col-md-4">
-                    <label class="control-label" for="sellPrice">Purchase Order's Amount :</label>
+                    <label class="control-label" for="amount">Purchase Order's Amount :</label>
                 </div>
                 <div class="col-md-8">
-                    <input class="form-control" data-th-value="${amount}" id="" required tabindex="8"
+                    <input class="form-control" data-th-value="${purchaseOrderNeedToPay.price}" id="amount" required
+                           tabindex="8"
                            type="number" step="0.01" readonly/>
-                    <span class="text-warning"
-                          data-th-errors="*{amount}" data-th-if="${#fields.hasErrors('amount')}">Error ROP</span>
                 </div>
             </div>
             <!--Amount-->

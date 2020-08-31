@@ -137,7 +137,7 @@
                     <label class="control-label" for="priority">Select Priority:</label>
                 </div>
                 <div class="text-left col-md-8">
-                    <select class="form-control" data-th-name="${'purchaseOrderPriority'}" id="priority">
+                    <select class="form-control" data-th-name="${'purchaseOrderPriority'}" id="priority" required>
                         <option selected value=""> Please Select</option>
                         <option data-th-each="purchaseOrderPriority : ${purchaseOrderPriorities}"
                                 data-th-text="${purchaseOrderPriority.purchaseOrderPriority}"

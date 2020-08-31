@@ -9,6 +9,7 @@ import j_n_super_pvt_ltd.asset.goodReceivedNote.service.GoodReceivedNoteService;
 import j_n_super_pvt_ltd.asset.invoice.entity.Enum.PaymentMethod;
 import j_n_super_pvt_ltd.asset.payment.entity.Payment;
 import j_n_super_pvt_ltd.asset.payment.service.PaymentService;
+import j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
 import j_n_super_pvt_ltd.util.service.OperatorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,13 +30,16 @@ public class PaymentController {
     private final PurchaseOrderService purchaseOrderService;
     private final OperatorService operatorService;
     private final GoodReceivedNoteService goodReceivedNoteService;
+    private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
 
     public PaymentController(PaymentService paymentService, PurchaseOrderService purchaseOrderService,
-                             OperatorService operatorService, GoodReceivedNoteService goodReceivedNoteService) {
+                             OperatorService operatorService, GoodReceivedNoteService goodReceivedNoteService,
+                             MakeAutoGenerateNumberService makeAutoGenerateNumberService) {
         this.paymentService = paymentService;
         this.purchaseOrderService = purchaseOrderService;
         this.operatorService = operatorService;
         this.goodReceivedNoteService = goodReceivedNoteService;
+        this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
     }
 
 
@@ -107,6 +111,18 @@ public class PaymentController {
         if ( bindingResult.hasErrors() ) {
             return "redirect:/payment/".concat(String.valueOf(payment.getPurchaseOrder().getId()));
         }
+        if ( payment.getId() == null ) {
+            if ( paymentService.lastPayment() == null ) {
+                //need to generate new one
+                payment.setCode("JNPM" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
+            } else {
+                System.out.println("last customer not null");
+                //if there is customer in db need to get that customer's code and increase its value
+                String previousCode = paymentService.lastPayment().getCode().substring(4);
+                payment.setCode("JNPM" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+            }
+        }
+
         //1. need to save payment
         Payment paymentDB = paymentService.persist(payment);
         PurchaseOrder purchaseOrder = paymentDB.getPurchaseOrder();
