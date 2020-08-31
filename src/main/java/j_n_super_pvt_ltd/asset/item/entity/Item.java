@@ -1,6 +1,7 @@
 package j_n_super_pvt_ltd.asset.item.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrderItem;
 import j_n_super_pvt_ltd.asset.category.entity.Category;
 import j_n_super_pvt_ltd.asset.item.entity.Enum.ItemStatus;
@@ -49,6 +50,7 @@ public class Item extends AuditEntity {
     private List< SupplierItem > supplierItems;
 
     @OneToMany( mappedBy = "item" )
+    @JsonBackReference
     private List< Ledger > ledgers;
 
     @OneToMany( mappedBy = "item" )

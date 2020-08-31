@@ -1,6 +1,8 @@
 package j_n_super_pvt_ltd.asset.ledger.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import j_n_super_pvt_ltd.asset.goodReceivedNote.entity.GoodReceivedNote;
 import j_n_super_pvt_ltd.asset.item.entity.Item;
 import j_n_super_pvt_ltd.util.audit.AuditEntity;
@@ -39,9 +41,11 @@ public class Ledger extends AuditEntity {
     private LocalDate expiredDate;
 
     @ManyToOne
+    @JsonManagedReference
     private Item item;
 
     @ManyToOne
+    @JsonIgnore
     private GoodReceivedNote goodReceivedNote;
 
 

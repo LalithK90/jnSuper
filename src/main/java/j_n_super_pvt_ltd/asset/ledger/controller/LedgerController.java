@@ -1,14 +1,16 @@
 package j_n_super_pvt_ltd.asset.ledger.controller;
 
 
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
 import j_n_super_pvt_ltd.asset.ledger.service.LedgerService;
 import j_n_super_pvt_ltd.util.service.DateTimeAgeService;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.stream.Collectors;
@@ -42,14 +44,30 @@ public class LedgerController {
                 .collect(Collectors.toList()));
         return "ledger/ledger";
     }
+
     //near expired date
-    @PostMapping("/expiredDate")
+    @PostMapping( "/expiredDate" )
     public String expiredDate(@RequestAttribute( "startDate" ) LocalDate startDate,
-                              @RequestAttribute( "endDate" ) LocalDate endDate, Model model){
-        model.addAttribute("title", "All items on given date range start at "+startDate+" end at "+endDate);
-        model.addAttribute("ledgers", ledgerService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate), dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate)));
+                              @RequestAttribute( "endDate" ) LocalDate endDate, Model model) {
+        model.addAttribute("title", "All items on given date range start at " + startDate + " end at " + endDate);
+        model.addAttribute("ledgers",
+                           ledgerService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate), dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate)));
 
         return "ledger/ledger";
     }
 
+    @GetMapping( "/{id}" )
+    @ResponseBody
+   /* public MappingJacksonValue findId(@PathVariable Integer id) {
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(ledgerService.findById(id));
+        SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter
+                .filterOutAllExcept("id", "quantity", "item", "sellPrice");
+        FilterProvider filters = new SimpleFilterProvider()
+                .addFilter("Ledger", simpleBeanPropertyFilter);
+        mappingJacksonValue.setFilters(filters);
+        return mappingJacksonValue;
+    }*/
+    public Ledger find(@PathVariable Integer id){
+        return ledgerService.findById(id);
+    }
 }
