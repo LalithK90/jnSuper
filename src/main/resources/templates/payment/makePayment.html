@@ -100,42 +100,42 @@
     <!--Payment-->
     <div class="container mx-auto ">
         <form action="/payment" method="post" data-th-object="${payment}">
-                <!--purchase order-->
-                <input type="hidden" data-th-value="${purchaseOrderNeedToPay.id}" data-th-name="${'purchaseOrder.id'}">
-                <!--Payment Method-->
-                <div class="form-row ">
-                    <div class="col-md-4 text-right">
-                        <label data-th-for="${paymentMethod}">Payment Method:</label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="custom-control custom-checkbox custom-control-inline "
-                             data-th-each="paymentMethod,index : ${paymentMethods}">
-                            <input class="custom-control-input gender" required
-                                   data-th-name="${'paymentMethod'}"
-                                   data-th-value="${paymentMethod}"
-                                   data-th-id="${index.index}+${paymentMethod}" type="radio"
-                                   data-th-checked="${genders==gender}"/>
-                            <label class="custom-control-label"
-                                   data-th-for="${index.index}+${paymentMethod}"
-                                   data-th-text="${paymentMethod.paymentMethod}"> radio
-                            </label>
-                        </div>
+            <!--purchase order-->
+            <input type="hidden" data-th-value="${purchaseOrderNeedToPay.id}" data-th-name="${'purchaseOrder.id'}">
+            <!--Payment Method-->
+            <div class="form-row ">
+                <div class="col-md-4 text-right">
+                    <label data-th-for="${paymentMethod}">Payment Method:</label>
+                </div>
+                <div class="col-md-8">
+                    <div class="custom-control custom-checkbox custom-control-inline "
+                         data-th-each="paymentMethod,index : ${paymentMethods}">
+                        <input class="custom-control-input gender" required
+                               data-th-name="${'paymentMethod'}"
+                               data-th-value="${paymentMethod}"
+                               data-th-id="${index.index}+${paymentMethod}" type="radio"
+                               data-th-checked="${genders==gender}"/>
+                        <label class="custom-control-label"
+                               data-th-for="${index.index}+${paymentMethod}"
+                               data-th-text="${paymentMethod.paymentMethod}"> radio
+                        </label>
                     </div>
                 </div>
-                <!--Bank Name-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="callingName">Bank Name :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input id="callingName" data-th-field="*{bankName}" class="form-control" tabindex="5"
-                               type="text" minlength="5"/>
-                        <span class="error" data-th-errors="*{bankName}"
-                              data-th-if="${#fields.hasErrors('bankName')}" id="callingNameError">Error
+            </div>
+            <!--Bank Name-->
+            <div class="form-row text-right">
+                <div class="col-md-4">
+                    <label class="control-label" for="callingName">Bank Name :</label>
+                </div>
+                <div class="col-md-8">
+                    <input id="callingName" data-th-field="*{bankName}" class="form-control" tabindex="5"
+                           type="text" minlength="5"/>
+                    <span class="error" data-th-errors="*{bankName}"
+                          data-th-if="${#fields.hasErrors('bankName')}" id="callingNameError">Error
                                                                        Calling                                                                                                                        Name</span>
-                    </div>
                 </div>
-                <!--This purchase order value-->
+            </div>
+            <!--This purchase order value-->
             <div class="form-row text-right">
                 <div class="col-md-4">
                     <label class="control-label" for="sellPrice">Purchase Order's Amount :</label>
@@ -147,43 +147,43 @@
                           data-th-errors="*{amount}" data-th-if="${#fields.hasErrors('amount')}">Error ROP</span>
                 </div>
             </div>
-                <!--Amount-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="sellPrice">Amount :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input class="form-control" data-th-field="*{amount}" id="sellPrice" required tabindex="8"
-                               type="number" step="0.01"/>
-                        <span class="text-warning"
-                              data-th-errors="*{amount}" data-th-if="${#fields.hasErrors('amount')}">Error ROP</span>
-                    </div>
+            <!--Amount-->
+            <div class="form-row text-right">
+                <div class="col-md-4">
+                    <label class="control-label" for="sellPrice">Amount :</label>
                 </div>
-                <!--remarks-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label>Remarks</label></div>
-                    <div class="col-md-8">
-                        <textarea class="form-control" data-th-field="*{remarks}" rows="2"></textarea>
-                    </div>
+                <div class="col-md-8">
+                    <input class="form-control" data-th-field="*{amount}" id="sellPrice" required tabindex="8"
+                           type="number" step="0.01"/>
+                    <span class="text-warning"
+                          data-th-errors="*{amount}" data-th-if="${#fields.hasErrors('amount')}">Error ROP</span>
                 </div>
-                <!--Button-->
-                <div class="form-group col-md-12 col-sm-12 text-center mt-5 flex-column ">
-                    <!--Back Button-->
-                    <a class="btn btn-dark" href="/payment" tabindex="14">
-                        <i class="fas fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp;&nbsp;Back
-                    </a>
-                    <!--Save Button-->
-                    <button class="btn btn-success ml-5" tabindex="12" type="submit">
-                        <i class="fa fa-save " style="font-size: 20px"></i>&nbsp;&nbsp;<span
-                            data-th-text="${'Save'}"
-                            id="submit"></span>
-                    </button>
-                    <!--Cancel Button-->
-                    <button class="btn btn-warning ml-5" tabindex="13" type="reset">
-                        <i class="far fa-times-circle" style="font-size: 20px"></i>&nbsp;&nbsp;Cancel
-                    </button>
+            </div>
+            <!--remarks-->
+            <div class="form-row text-right">
+                <div class="col-md-4">
+                    <label>Remarks</label></div>
+                <div class="col-md-8">
+                    <textarea class="form-control" data-th-field="*{remarks}" rows="2"></textarea>
                 </div>
+            </div>
+            <!--Button-->
+            <div class="form-group col-md-12 col-sm-12 text-center mt-5 flex-column ">
+                <!--Back Button-->
+                <a class="btn btn-dark" href="/payment" tabindex="14">
+                    <i class="fas fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp;&nbsp;Back
+                </a>
+                <!--Save Button-->
+                <button class="btn btn-success ml-5" tabindex="12" type="submit">
+                    <i class="fa fa-save " style="font-size: 20px"></i>&nbsp;&nbsp;<span
+                        data-th-text="${'Save'}"
+                        id="submit"></span>
+                </button>
+                <!--Cancel Button-->
+                <button class="btn btn-warning ml-5" tabindex="13" type="reset">
+                    <i class="far fa-times-circle" style="font-size: 20px"></i>&nbsp;&nbsp;Cancel
+                </button>
+            </div>
         </form>
     </div>
 </div>
