@@ -18,7 +18,7 @@ public class PaymentService implements AbstractService< Payment, Integer > {
         this.paymentDao = paymentDao;
     }
 
-    public List<Payment> findAll() {
+    public List< Payment > findAll() {
         return paymentDao.findAll();
     }
 
@@ -43,7 +43,11 @@ public class PaymentService implements AbstractService< Payment, Integer > {
         return paymentDao.findAll(paymentExample);
     }
 
-    public List<Payment> findByPurchaseOrder(PurchaseOrder purchaseOrder) {
-    return paymentDao.findByPurchaseOrder(purchaseOrder);
+    public List< Payment > findByPurchaseOrder(PurchaseOrder purchaseOrder) {
+        return paymentDao.findByPurchaseOrder(purchaseOrder);
+    }
+
+    public Payment lastPayment() {
+        return paymentDao.findFirstByOrderByIdDesc();
     }
 }
