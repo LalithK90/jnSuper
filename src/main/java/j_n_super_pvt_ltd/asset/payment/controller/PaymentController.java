@@ -49,10 +49,10 @@ public class PaymentController {
         //1. still not processed po 2. partially paid po
         List< PurchaseOrder > purchaseOrdersDB =
                 purchaseOrderService.findByPurchaseOrderStatus(PurchaseOrderStatus.NOT_PROCEED);
-        //need to pay po
-        List< PurchaseOrder > purchaseOrders = new ArrayList<>();
+        if ( !purchaseOrdersDB.isEmpty() ) {
+            //need to pay po
+            List< PurchaseOrder > purchaseOrders = new ArrayList<>();
 
-        if ( purchaseOrdersDB != null ) {
             for ( PurchaseOrder purchaseOrder : purchaseOrdersDB ) {
                 List< Payment > payments = paymentService.findByPurchaseOrder(purchaseOrder);
                 if ( payments != null ) {
@@ -64,8 +64,9 @@ public class PaymentController {
                 }
                 purchaseOrders.add(purchaseOrder);
             }
+
+            model.addAttribute("purchaseOrders", purchaseOrders);
         }
-        model.addAttribute("purchaseOrders", purchaseOrders);
         return "payment/payment";
     }
 
@@ -94,7 +95,7 @@ public class PaymentController {
                         purchaseOrder.setGrnAt(LocalDateTime.now());
                     }
                     purchaseOrder.setPaidAmount(paidAmount);
-                    purchaseOrder.setNeedToPaid(operatorService.subtraction(purchaseOrder.getPrice(), paidAmount));
+                    purchaseOrderNeedToPay.setNeedToPaid(operatorService.subtraction(purchaseOrder.getPrice(), paidAmount));
                 }
                 purchaseOrderNotPaid.add(purchaseOrder);
             }
@@ -126,23 +127,27 @@ public class PaymentController {
         //1. need to save payment
         Payment paymentDB = paymentService.persist(payment);
         PurchaseOrder purchaseOrder = paymentDB.getPurchaseOrder();
+        BigDecimal purchaseOrderPrice = purchaseOrderService.findById(purchaseOrder.getId()).getPrice();
         //2. check po state -> need to finished all payment to change this
         //3. check grn state -> need to finished all payment to change this
         List< Payment > payments = paymentService.findByPurchaseOrder(purchaseOrder);
-        if ( payments != null ) {
+        if ( !payments.isEmpty() ) {
             BigDecimal paidAmount = BigDecimal.ZERO;
             for ( Payment paymentOne : payments ) {
                 paidAmount = operatorService.addition(paidAmount, paymentOne.getAmount());
             }
             // if check all paid amount is equal or not purchase order amount
-            if ( paidAmount.equals(purchaseOrder.getPrice()) ) {
+
+            if ( paidAmount.equals(purchaseOrderPrice) ) {
+                System.out.println("Im here ");
                 //change GRN sate
                 GoodReceivedNote goodReceivedNote = goodReceivedNoteService.findByPurchaseOrder(purchaseOrder);
                 goodReceivedNote.setGoodReceivedNoteState(GoodReceivedNoteState.PAID);
                 goodReceivedNoteService.persist(goodReceivedNote);
                 //change purchase order status
-                purchaseOrder.setPurchaseOrderStatus(PurchaseOrderStatus.COMPLETED);
-                purchaseOrderService.persist(purchaseOrder);
+                PurchaseOrder completedPurchaseOrder =purchaseOrderService.findById(purchaseOrder.getId());
+                completedPurchaseOrder.setPurchaseOrderStatus(PurchaseOrderStatus.COMPLETED);
+                purchaseOrderService.persist(completedPurchaseOrder);
             }
         }
         return "redirect:/payment";
