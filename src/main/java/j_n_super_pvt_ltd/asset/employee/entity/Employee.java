@@ -9,7 +9,6 @@ import j_n_super_pvt_ltd.asset.commonAsset.model.Enum.Title;
 import j_n_super_pvt_ltd.asset.commonAsset.model.FileInfo;
 import j_n_super_pvt_ltd.asset.employee.entity.Enum.Designation;
 import j_n_super_pvt_ltd.asset.employee.entity.Enum.EmployeeStatus;
-import j_n_super_pvt_ltd.asset.message.entity.EmailMessage;
 import j_n_super_pvt_ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lombok.AllArgsConstructor;
@@ -92,9 +91,6 @@ public class Employee extends AuditEntity {
 
     @ManyToOne
     private Branch branch;
-
-    @ManyToMany(mappedBy = "employees")
-    private List<EmailMessage> emailMessages;
 
     @Transient
     private List<MultipartFile> files = new ArrayList<>();
