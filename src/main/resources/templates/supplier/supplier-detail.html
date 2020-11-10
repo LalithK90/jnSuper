@@ -1,173 +1,208 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head data-th-replace="~{fragments/header :: headerFragment}">
+<head th:replace="~{fragments/header1 :: headerFragment}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>supplier-detail</title>
+    <title>J N Super </title>
 </head>
-<body>
-<nav data-th-replace="~{fragments/navBar :: navBarFragment}"></nav>
-<!--heading Area-->
-<div class="container-fluid bg-dark form-Border">
-    <div class="row text-center formManagement border-info">
-        <!--View List Button-->
-        <div class="col">
-            <a href="/supplier" class="btn btn-primary" tabindex="1">
-                <i class="fa fa-list" style="font-size: 20px"></i>&nbsp;&nbsp;View List
-            </a>
-        </div>
-        <!--Supplier Name-->
-        <div class="col">
-            <h2 class="text-light text-center">
-                <strong>
-                    <p data-th-text="${supplierDetail.name}"></p>
-                </strong>
-            </h2>
-        </div>
-        <!--Home Button-->
-        <div class="col">
-            <a class="btn btn-primary" href="/home" tabindex="2">
-                <i class="fa fa-home" style="font-size: 20px"></i> &nbsp;&nbsp;Home
-            </a>
-        </div>
-    </div>
-</div>
-<!--details-->
-<div class="container-fluid ">
-    <div class="col-sm-12 flex-column" data-th-fragment="supplierDetailsFragment">
-        <div class="row">
-            <!--Left Side-->
-            <div class="form-group col-md-6 col-sm-6 text-left flex-column">
-                <!--id-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="id">ID :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="id" data-th-text="${supplierDetail.id}" class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Code-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="code">Supplier Code :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="code" data-th-text="${supplierDetail.code}" class="display_detail"></p></div>
-                </div>
-                <!--Name-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="name">Company Name :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="name" data-th-text="${supplierDetail.name}"
-                           class="display_detail"></p>
-                    </div>
-                </div>
-                <!--BRN-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="brn">BRN :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="brn" data-th-text="${supplierDetail.brn}" class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Contact One-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="contactOne">Contact No1 :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="contactOne" data-th-text="${supplierDetail.contactOne}" class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Contact Two-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="contactTwo">Contact No2 :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="contactTwo" data-th-text="${supplierDetail.contactTwo}" class="display_detail"></p>
-                    </div>
-                </div>
-            </div>
-            <!--Right Side-->
-            <div class="form-group col-md-6 col-sm-6 text-right flex-column">
-                <!--Email-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="email">Email :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="email" data-th-text="${supplierDetail.email}" class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Address-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="address">Address :</label>
-                    </div>
-                    <div class="col-md-8 text-left">
-                        <p id="address" class="display_detail " data-th-utext="${supplierDetail.address}"></p>
-                    </div>
-                </div>
-                <!--Created By-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="createdBy">Created By :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="createdBy" data-th-text="${supplierDetail.createdBy}" class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Created at-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="createdAt">Created At :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="createdAt"
-                           data-th-text="${#temporals.format(supplierDetail.createdAt, 'dd-MM-yyyy HH:mm')}"
-                           class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Updated by-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="updatedBy">Updated By :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="updatedBy"
-                           data-th-text="${#temporals.format(supplierDetail.updatedAt, 'dd-MM-yyyy HH:mm')}"
-                           class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Updated at-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="updatedAt">Updated At :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="updatedAt" data-th-text="${{supplierDetail.updatedAt}}" class="display_detail"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Back Button-->
-    <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
-        <a href="/supplier">
-            <button class="btn btn-dark mb-5" type="button" tabindex="3">
-                <i class="fa fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp; &nbsp;Back
-            </button>
-        </a>
-    </div>
-</div>
-<!--footer include-->
-<footer data-th-replace="~{fragments/footer :: footerFragment}"></footer>
-<!--script include-->
-<script data-th-replace="~{fragments/script :: scriptFragment}"></script>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Navbar------->
+    <nav th:replace="~{fragments/navbarNew :: navbarFragment}"></nav>
+    <!-- /.navbar end -->
+    <!-- Main Sidebar Container------>
+    <aside th:replace="~{fragments/aside :: asideFragment}"></aside>
+    <!-- Main Sidebar end ------>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <a class="btn btn-primary" href="/home" tabindex="2">
+                            <i class="fa fa-home" style="font-size: 20px"></i> &nbsp;&nbsp;Home
+                        </a>
+                        <!--<h1 class="m-0 text-dark">Home</h1>-->
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <a href="/supplier/add" class="btn btn-primary" tabindex="1">
+                                <i class="fa fa-list" style="font-size: 20px"></i>&nbsp;&nbsp;View List
+                            </a>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div><!-- /.content-header -->
 
+        <!----------------------------------Header-End------------------------------------------------------>
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid"><!-- Small boxes (Stat box)---->
+                <div class="row"><!-- Main row--->
+                    <!-- Left col -->
+                    <section class="col-lg-12"><!-- Custom tabs (Charts with tabs)-->
+                        <!------form start------------->
+                        <div class="card-header">
+                            <!--details-->
+                            <strong>
+                                <p data-th-text="${supplierDetail.name}"></p>
+                            </strong>
+                        </div>
+
+                        <div class="card">
+                            <div class="col-sm-12 flex-column" data-th-fragment="supplierDetailsFragment">
+                                <div class="row">
+                                    <!--Left Side-->
+                                    <div class="form-group col-md-6 col-sm-6 text-left flex-column">
+                                        <!--id-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="id">ID :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p id="id" data-th-text="${supplierDetail.id}" class="display_detail"></p>
+                                            </div>
+                                        </div>
+                                        <!--Code-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="code">Supplier Code :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p id="code" data-th-text="${supplierDetail.code}" class="display_detail"></p></div>
+                                        </div>
+                                        <!--Name-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="name">Company Name :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p id="name" data-th-text="${supplierDetail.name}"
+                                                   class="display_detail"></p>
+                                            </div>
+                                        </div>
+                                        <!--BRN-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="brn">BRN :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p id="brn" data-th-text="${supplierDetail.brn}" class="display_detail"></p>
+                                            </div>
+                                        </div>
+                                        <!--Contact One-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="contactOne">Contact No1 :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p id="contactOne" data-th-text="${supplierDetail.contactOne}" class="display_detail"></p>
+                                            </div>
+                                        </div>
+                                        <!--Contact Two-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="contactTwo">Contact No2 :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p id="contactTwo" data-th-text="${supplierDetail.contactTwo}" class="display_detail"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Right Side-->
+                                    <div class="form-group col-md-6 col-sm-6 text-right flex-column">
+                                        <!--Email-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="email">Email :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p id="email" data-th-text="${supplierDetail.email}" class="display_detail"></p>
+                                            </div>
+                                        </div>
+                                        <!--Address-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="address">Address :</label>
+                                            </div>
+                                            <div class="col-md-8 text-left">
+                                                <p id="address" class="display_detail " data-th-utext="${supplierDetail.address}"></p>
+                                            </div>
+                                        </div>
+                                        <!--Created By-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="createdBy">Created By :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p id="createdBy" data-th-text="${supplierDetail.createdBy}" class="display_detail"></p>
+                                            </div>
+                                        </div>
+                                        <!--Created at-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="createdAt">Created At :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p id="createdAt"
+                                                   data-th-text="${#temporals.format(supplierDetail.createdAt, 'dd-MM-yyyy HH:mm')}"
+                                                   class="display_detail"></p>
+                                            </div>
+                                        </div>
+                                        <!--Updated by-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="updatedBy">Updated By :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p id="updatedBy"
+                                                   data-th-text="${#temporals.format(supplierDetail.updatedAt, 'dd-MM-yyyy HH:mm')}"
+                                                   class="display_detail"></p>
+                                            </div>
+                                        </div>
+                                        <!--Updated at-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="updatedAt">Updated At :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p id="updatedAt" data-th-text="${{supplierDetail.updatedAt}}" class="display_detail"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Back Button-->
+                            <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
+                                <a href="/supplier">
+                                    <button class="btn btn-dark mb-5" type="button" tabindex="3">
+                                        <i class="fa fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp; &nbsp;Back
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!------form end--------------->
+                    </section><!--/. Custom tabs end(Charts with tabs)-->
+                </div><!----/.Main row end---->
+            </div><!-- Small boxes (End box)---->
+        </section><!----main content end---->
+    </div>
+</div>
+
+<!---------------------------------------------------footer Start-------------------------------->
+<footer class="main-footer">
+    <strong>Copyright &copy; 2014-2021 <a href="#">Design by Tharaka</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+        <b>BIT</b> Project
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script th:replace="~{fragments/script :: scriptFragment}"></script>
 </body>
 </html>
+

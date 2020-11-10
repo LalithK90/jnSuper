@@ -5,6 +5,7 @@
     georgia, helvetica, impact, "times new roman", "trebuchet ms", verdana,
     "Iskoola Pota";
     --error-color: #fa370d;
+
 }
 /* for login form - start*/
 #loginBack {
@@ -97,3 +98,30 @@
 
 }
 /* for login form - end*/
+#formBack {
+    background-image: url('../img/tab-1.jpg');
+    margin: 0;
+    padding: 0;
+    background-size: auto;
+}
+
+#formFont {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-55%,5%);
+    width: 1320px;
+    height: 600px;
+    padding: 20px;
+    background: rgba(0,0,0,.2);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.8);
+    border-radius: 10px;
+}
+
+#formBackFont {
+    background-image: url('../img/9.jpg');
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+}
