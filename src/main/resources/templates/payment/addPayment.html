@@ -249,7 +249,9 @@
                 });
                 $(this).val(poAmount);
             }
-            $("#balance").val(poValue -(poAmount+amount));
+
+            let balance = poValue - poAmount;
+            $("#balance").val(balance);
         });
     });
 </script>

@@ -125,6 +125,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //Cross site disable
                 .csrf(AbstractHttpConfigurer::disable)
                 .exceptionHandling();
-  */  }
+  */
+    }
 }
 

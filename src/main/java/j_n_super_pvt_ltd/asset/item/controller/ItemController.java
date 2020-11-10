@@ -24,8 +24,7 @@ public class ItemController implements AbstractController< Item, Integer > {
     public ItemController(ItemService itemService) {
         this.itemService = itemService;
     }
-
-
+    
     private String commonThings(Model model, Item item, Boolean addState) {
         model.addAttribute("itemStatuses", ItemStatus.values());
         model.addAttribute("item", item);
