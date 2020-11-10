@@ -24,6 +24,7 @@ public class UiController {
         return "index";
     }
 
+//    @GetMapping(value = {"/home", "/mainWindow"})
     @GetMapping(value = {"/home", "/mainWindow"})
     public String getHome(Model model) {
         //do some logic here if you want something to be done whenever
@@ -39,7 +40,8 @@ public class UiController {
                     petitionSet.add(petitionService.findById(minutePetition.getPetition().getId()));
                 });
         model.addAttribute("petitions", petitionSet.toArray());*/
-        return "mainWindow";
+//        return "mainWindow";
+        return "mainWindow1";
     }
 
     @GetMapping(value = {"/login"})

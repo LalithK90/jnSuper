@@ -129,20 +129,13 @@ public class PaymentController {
         //2. check po state -> need to finished all payment to change this
         //3. check grn state -> need to finished all payment to change this
         List< Payment > payments = paymentService.findByPurchaseOrder(purchaseOrder);
-        if (! payments.isEmpty() ) {
+        if ( payments != null ) {
             BigDecimal paidAmount = BigDecimal.ZERO;
-            System.out.println("I'm here-1");
             for ( Payment paymentOne : payments ) {
                 paidAmount = operatorService.addition(paidAmount, paymentOne.getAmount());
             }
             // if check all paid amount is equal or not purchase order amount
-            System.out.println("paid amount\n");
-            System.out.println(paidAmount);
-            System.out.println(purchaseOrder.getPrice());
             if ( paidAmount.equals(purchaseOrder.getPrice()) ) {
-
-                System.out.println("I'm here");
-
                 //change GRN sate
                 GoodReceivedNote goodReceivedNote = goodReceivedNoteService.findByPurchaseOrder(purchaseOrder);
                 goodReceivedNote.setGoodReceivedNoteState(GoodReceivedNoteState.PAID);

@@ -1,21 +1,208 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments/header1 :: headerFragment}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <title>J N Super </title>
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Navbar------->
+        <nav th:replace="~{fragments/navbarNew :: navbarFragment}"></nav>
+        <!-- /.navbar end -->
+        <!-- Main Sidebar Container------>
+        <aside th:replace="~{fragments/aside :: asideFragment}"></aside>
+        <!-- Main Sidebar end ------>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <a class="btn btn-success" href="/home" tabindex="2">
+                                <i class="fa fa-home" style="font-size: 20px"></i> &nbsp;&nbsp;Home
+                            </a>
+                        </div><!-- /.col -->
+                        <div class="col-sm-4">
+                            <h2 class="text-black text-center">
+                                <strong>
+                                    <span th:text="${addStatus==true?'Add New Branch':'Update Branch Details'}"></span>
+                                </strong>
+                            </h2>
+                        </div>
+                        <div class="col-sm-4">
+                            <ol class="breadcrumb float-sm-right">
+                                <a href="/branch" class="btn btn-success" tabindex="1">
+                                    <i class="fa fa-list" style="font-size: 20px"></i>&nbsp;&nbsp;View List
+                                </a>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div><!-- /.content-header -->
+
+
+            <!----------------------------------Header-End------------------------------------------------------>
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- Small boxes (Stat box)---->
+                    <!-- Main row--->
+                    <div class="row">
+                        <!-- Left col -->
+                        <section class="col-lg-12">
+                            <!-- Custom tabs (Charts with tabs)-->
+                            <div class="card">
+                            <form id="form" class="form-horizontal" th:action="${addStatus==true?'/branch/save':'/branch/update'}"
+                                  th:object="${branch}" method="POST" enctype="multipart/form-data">
+                                <div class="row">
+                                    <!--Left Side-->
+                                    <div class="form-group col-md-6 col-sm-6 text-left flex-column">
+                                        <!--Id-->
+                                        <div id="idStatus" th:if="${addStatus==false}" class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="id">ID :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input id="id" th:field="*{id}" class="form-control" type="text" readonly/>
+                                            </div>
+                                        </div>
+                                        <!--Name-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="name">Name :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input id="name" th:field="*{name}" class="form-control" tabindex="4" type="text" required/>
+                                                <span id="nameError" th:errors="*{name}"
+                                                      th:if="${#fields.hasErrors('name')}" class="error">Error Name</span>
+                                            </div>
+                                        </div>
+                                        <!--Land Number-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="land">Land No :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input id="land" th:field="*{land}" class="form-control land" tabindex="5" type="text" maxlength="10" min="9" required/>
+                                                <span class="error" th:errors="*{land}"
+                                                      th:if="${#fields.hasErrors('land')}" id="mobileError">Error Land Number</span>
+                                            </div>
+                                        </div>
+                                        <!--Address-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="address">Address :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <textarea id="address" th:field="*{address}" class="form-control" tabindex="6" rows="4" style="font-size: medium"></textarea>
+                                                <span class="error" th:errors="*{address}"
+                                                      th:if="${#fields.hasErrors('address')}" id="addressError">Error Address</span>
+                                            </div>
+                                        </div>
+                                        <!--Email-->
+                                        <div class="form-row text-right">
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="email">Email :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input id="email" th:field="*{email}" class="form-control" tabindex="7" type="email" required/>
+                                                <span id="emailError" th:errors="*{email}"
+                                                      th:if="${#fields.hasErrors('email')}" class="error">Error Email</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Right Side-->
+                                    <div class="form-group col-md-6 col-sm-6 text-right flex-column">
+                                        <!--Created by and created at-->
+                                        <div id="updateStatus" th:if="${addStatus==false}">
+                                            <!--Created By-->
+                                            <div class="form-row text-right">
+                                                <div class="col-md-4">
+                                                    <label class="control-label" for="createdBy">Created By :</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input id="createdBy" th:field="*{createdBy}" class="form-control" type="text" readonly/>
+                                                </div>
+                                            </div>
+                                            <!--Created At-->
+                                            <div class="form-row text-right">
+                                                <div class="col-md-4">
+                                                    <label class="control-label" for="createdAt">Created At :</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input id="createdAt" th:field="*{createdAt}" class="form-control" type="text" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Button-->
+                                    <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
+                                        <!--Back Button-->
+                                        <a class="btn btn-dark"  tabindex="8" href="/branch">
+                                            <i class="fas fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp;&nbsp;Back
+                                        </a>
+                                        <!--Save Button-->
+                                        <button class="btn btn-success ml-5" type="submit" tabindex="9">
+                                            <i class="fa fa-save " style="font-size: 20px"></i>&nbsp;&nbsp;<span id="submit" data-th-text="${addStatus==true?'Save': 'Update'}"></span>
+                                        </button>
+                                        <!--Cancel Button-->
+                                        <button class="btn btn-warning ml-5" type="reset" tabindex="10">
+                                            <i class="far fa-times-circle" style="font-size: 20px"></i>&nbsp;&nbsp;Cancel
+                                        </button>
+                                    </div>
+                                    <!--Error-->
+                                    <div class="form-row">
+                                        <label id="errorLabel" th:if="${#fields.hasErrors('*')}" th:text="'Errors: '">Errors: </label>
+                                        <ul>
+                                            <li id="error" th:each="err: ${#fields.errors('*')}" th:text="${err}" class="error"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section><!----main content end---->
+        </div>
+    </div>
+
+    <!---------------------------------------------------footer-------------------------------->
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2014-2021 <a href="#">Design by Tharaka</a>.</strong>
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+            <b>BIT</b> Project
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script th:replace="~{fragments/script :: scriptFragment}"></script>
+    </body>
+</html>
+
+
+
+
+<!--<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: headerFragment}">
     <meta charset="UTF-8">
     <title>addBranch</title>
 </head>
 <body>
 <nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
-<!--Heading Area-->
+&lt;!&ndash;Heading Area&ndash;&gt;
 <div class="container-fluid bg-dark form-Border">
     <div class="row text-center formManagement border-info">
-        <!--ViewList Button-->
+        &lt;!&ndash;ViewList Button&ndash;&gt;
         <div class="col">
             <a href="/branch" class="btn btn-primary" tabindex="1">
                 <i class="fa fa-list" style="font-size: 20px"></i>&nbsp;&nbsp;View List
             </a>
         </div>
-        <!--Form Name-->
+        &lt;!&ndash;Form Name&ndash;&gt;
         <div class="col">
             <h2 class="text-light text-center">
                 <strong>
@@ -23,7 +210,7 @@
                 </strong>
             </h2>
         </div>
-        <!--Home Button-->
+        &lt;!&ndash;Home Button&ndash;&gt;
         <div class="col">
             <a class="btn btn-primary" href="/home" tabindex="2">
                 <i class="fa fa-home" style="font-size: 20px"></i> &nbsp;&nbsp;Home
@@ -31,15 +218,15 @@
         </div>
     </div>
 </div>
-<!--Form Content-->
+&lt;!&ndash;Form Content&ndash;&gt;
 <div class="container-fluid bg-dark formBorder">
     <div class="col-sm-12 flex-column ">
         <form id="form" class="form-horizontal" th:action="${addStatus==true?'/branch/save':'/branch/update'}"
               th:object="${branch}" method="POST" enctype="multipart/form-data">
             <div class="row">
-                <!--Left Side-->
+                &lt;!&ndash;Left Side&ndash;&gt;
                 <div class="form-group col-md-6 col-sm-6 text-left flex-column">
-                    <!--Id-->
+                    &lt;!&ndash;Id&ndash;&gt;
                     <div id="idStatus" th:if="${addStatus==false}" class="form-row text-right">
                         <div class="col-md-4">
                             <label class="control-label" for="id">ID :</label>
@@ -48,7 +235,7 @@
                             <input id="id" th:field="*{id}" class="form-control" type="text" readonly/>
                         </div>
                     </div>
-                    <!--Name-->
+                    &lt;!&ndash;Name&ndash;&gt;
                     <div class="form-row text-right">
                         <div class="col-md-4">
                             <label class="control-label" for="name">Name :</label>
@@ -59,7 +246,7 @@
                                   th:if="${#fields.hasErrors('name')}" class="error">Error Name</span>
                         </div>
                     </div>
-                    <!--Land Number-->
+                    &lt;!&ndash;Land Number&ndash;&gt;
                     <div class="form-row text-right">
                         <div class="col-md-4">
                             <label class="control-label" for="land">Land No :</label>
@@ -70,7 +257,7 @@
                                   th:if="${#fields.hasErrors('land')}" id="mobileError">Error Land Number</span>
                         </div>
                     </div>
-                    <!--Address-->
+                    &lt;!&ndash;Address&ndash;&gt;
                     <div class="form-row text-right">
                         <div class="col-md-4">
                             <label class="control-label" for="address">Address :</label>
@@ -81,7 +268,7 @@
                                   th:if="${#fields.hasErrors('address')}" id="addressError">Error Address</span>
                         </div>
                     </div>
-                    <!--Email-->
+                    &lt;!&ndash;Email&ndash;&gt;
                     <div class="form-row text-right">
                         <div class="col-md-4">
                             <label class="control-label" for="email">Email :</label>
@@ -93,11 +280,11 @@
                         </div>
                     </div>
                 </div>
-                <!--Right Side-->
+                &lt;!&ndash;Right Side&ndash;&gt;
                 <div class="form-group col-md-6 col-sm-6 text-right flex-column">
-                    <!--Created by and created at-->
+                    &lt;!&ndash;Created by and created at&ndash;&gt;
                     <div id="updateStatus" th:if="${addStatus==false}">
-                        <!--Created By-->
+                        &lt;!&ndash;Created By&ndash;&gt;
                         <div class="form-row text-right">
                             <div class="col-md-4">
                                 <label class="control-label" for="createdBy">Created By :</label>
@@ -106,7 +293,7 @@
                                 <input id="createdBy" th:field="*{createdBy}" class="form-control" type="text" readonly/>
                             </div>
                         </div>
-                        <!--Created At-->
+                        &lt;!&ndash;Created At&ndash;&gt;
                         <div class="form-row text-right">
                             <div class="col-md-4">
                                 <label class="control-label" for="createdAt">Created At :</label>
@@ -117,22 +304,22 @@
                         </div>
                     </div>
                 </div>
-                <!--Button-->
+                &lt;!&ndash;Button&ndash;&gt;
                 <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
-                    <!--Back Button-->
+                    &lt;!&ndash;Back Button&ndash;&gt;
                     <a class="btn btn-dark"  tabindex="8" href="/branch">
                         <i class="fas fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp;&nbsp;Back
                     </a>
-                    <!--Save Button-->
+                    &lt;!&ndash;Save Button&ndash;&gt;
                     <button class="btn btn-success ml-5" type="submit" tabindex="9">
                         <i class="fa fa-save " style="font-size: 20px"></i>&nbsp;&nbsp;<span id="submit" th:text="${addStatus==true?'Save': 'Update'}"></span>
                     </button>
-                    <!--Cancel Button-->
+                    &lt;!&ndash;Cancel Button&ndash;&gt;
                     <button class="btn btn-warning ml-5" type="reset" tabindex="10">
                         <i class="far fa-times-circle" style="font-size: 20px"></i>&nbsp;&nbsp;Cancel
                     </button>
                 </div>
-                <!--Error-->
+                &lt;!&ndash;Error&ndash;&gt;
                 <div class="form-row">
                     <label id="errorLabel" th:if="${#fields.hasErrors('*')}" th:text="'Errors: '">Errors: </label>
                     <ul>
@@ -143,10 +330,10 @@
         </form>
     </div>
 </div>
-<!--footer include-->
+&lt;!&ndash;footer include&ndash;&gt;
 <footer th:replace="~{fragments/footer :: footerFragment}"></footer>
-<!--script include-->
+&lt;!&ndash;script include&ndash;&gt;
 <script th:replace="~{fragments/script :: scriptFragment}"></script>
 
 </body>
-</html>
+</html>-->
