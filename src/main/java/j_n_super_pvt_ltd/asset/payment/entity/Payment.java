@@ -34,6 +34,6 @@ public class Payment extends AuditEntity {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private PurchaseOrder purchaseOrder;
 }
