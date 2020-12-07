@@ -1,6 +1,4 @@
-package j_n_super_pvt_ltd.asset.employee.entity.Enum;
-
-
+package j_n_super_pvt_ltd.asset.employee.entity.enums;
 
 public enum EmployeeStatus {
     WORKING("Working"),
