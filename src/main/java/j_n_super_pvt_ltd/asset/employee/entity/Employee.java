@@ -1,13 +1,16 @@
 package j_n_super_pvt_ltd.asset.employee.entity;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+
+import j_n_super_pvt_ltd.asset.branch.entity.Branch;
+import j_n_super_pvt_ltd.asset.commonAsset.model.Enum.BloodGroup;
 import j_n_super_pvt_ltd.asset.commonAsset.model.Enum.CivilStatus;
 import j_n_super_pvt_ltd.asset.commonAsset.model.Enum.Gender;
 import j_n_super_pvt_ltd.asset.commonAsset.model.Enum.Title;
 import j_n_super_pvt_ltd.asset.commonAsset.model.FileInfo;
-import j_n_super_pvt_ltd.asset.employee.entity.enums.Designation;
-import j_n_super_pvt_ltd.asset.employee.entity.enums.EmployeeStatus;
+import j_n_super_pvt_ltd.asset.employee.entity.Enum.Designation;
+import j_n_super_pvt_ltd.asset.employee.entity.Enum.EmployeeStatus;
 import j_n_super_pvt_ltd.util.audit.AuditEntity;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,69 +21,84 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter( "Employee" )
+@JsonFilter("Employee")
 public class Employee extends AuditEntity {
 
     @Column(unique = true)
-    private String code;
+    private String payRoleNumber;
 
-    @Size( min = 5, message = "Your name cannot be accepted" )
+    @Size(min = 5, message = "Your name cannot be accepted")
     private String name;
 
-    @Size( min = 5, message = "At least 5 characters should be included calling name" )
+    @Size(min = 5, message = "At least 5 characters should be included calling name")
     private String callingName;
 
-    @Size( max = 12, min = 10, message = "NIC number is contained numbers between 9 and X/V or 12 " )
-    @Column( unique = true )
+    @Size(max = 12, min = 10, message = "NIC number is contained numbers between 9 and X/V or 12 ")
+    @Column(unique = true)
     private String nic;
 
-    @Size( max = 10, message = "Mobile number length should be contained 10 and 9" )
+    @Column(unique = true)
+    private String departmentIdNumber;
+
+    @Size(max = 10, message = "Mobile number length should be contained 10 and 9")
     private String mobileOne;
 
-    @Size( max = 10, message = "Mobile number length should be contained 10 and 9" )
     private String mobileTwo;
 
-    @Size( max = 10, message = "Phone number length should be contained 10 and 9" )
     private String land;
 
-    @Column( unique = true )
+    @Column(unique = true)
+    private String email;
+
+    @Column(unique = true)
     private String officeEmail;
 
-    @Column( columnDefinition = "VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL", length = 255 )
+    @Column(columnDefinition = "VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL", length = 255)
     private String address;
 
-    @Enumerated( EnumType.STRING )
+    @Enumerated(EnumType.STRING)
     private Title title;
 
-    @Enumerated( EnumType.STRING )
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Enumerated( EnumType.STRING )
+    @Enumerated(EnumType.STRING)
+    private BloodGroup bloodGroup;
+
+    @Enumerated(EnumType.STRING)
     private Designation designation;
 
-    @Enumerated( EnumType.STRING )
+    @Enumerated(EnumType.STRING)
     private CivilStatus civilStatus;
 
-    @Enumerated( EnumType.STRING )
+    @Enumerated(EnumType.STRING)
     private EmployeeStatus employeeStatus;
 
-    @DateTimeFormat( pattern = "yyyy-MM-dd" )
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
-    @DateTimeFormat( pattern = "yyyy-MM-dd" )
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfAssignment;
 
-    @Transient
-    private MultipartFile file;
+    @ManyToOne
+    private Branch branch;
 
+    @Transient
+    private List<MultipartFile> files = new ArrayList<>();
 
     @Transient
-    private FileInfo fileInfo;
+    private List<String> removeImages = new ArrayList<>();
+
+    @Transient
+    private List<FileInfo> fileInfos = new ArrayList<>();
 
 }

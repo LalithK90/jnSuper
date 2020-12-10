@@ -248,9 +248,12 @@
 
     function balanceCalculate(amountString) {
         let poValue = parseInt($("#allAmount").val());
+        console.log(poValue + " po value")
         let poAmountString = $("#poAmount").val();
         let poAmount = parseInt(poAmountString);
+        console.log(poAmount + " po amount")
         let amount = parseInt(amountString);
+        console.log(amount + " enter amount");
 
         $("#balance").val(parseFloat(balance(poValue, amount)).toFixed(2));
 

@@ -1,7 +1,6 @@
 package j_n_super_pvt_ltd.asset.employee.entity;
 
 
-
 import j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
