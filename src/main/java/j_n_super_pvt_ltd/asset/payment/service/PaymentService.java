@@ -1,6 +1,6 @@
 package j_n_super_pvt_ltd.asset.payment.service;
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrder;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrder;
 import j_n_super_pvt_ltd.asset.payment.dao.PaymentDao;
 import j_n_super_pvt_ltd.asset.payment.entity.Payment;
 import j_n_super_pvt_ltd.util.interfaces.AbstractService;

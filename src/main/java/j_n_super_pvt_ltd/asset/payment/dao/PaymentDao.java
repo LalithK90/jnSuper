@@ -1,7 +1,7 @@
 package j_n_super_pvt_ltd.asset.payment.dao;
 
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrder;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrder;
 import j_n_super_pvt_ltd.asset.payment.entity.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 

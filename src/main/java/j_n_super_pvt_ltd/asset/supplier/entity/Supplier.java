@@ -1,6 +1,6 @@
 package j_n_super_pvt_ltd.asset.supplier.entity;
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrder;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrder;
 import j_n_super_pvt_ltd.asset.supplierItem.entity.Enum.ItemSupplierStatus;
 import j_n_super_pvt_ltd.asset.supplierItem.entity.SupplierItem;
 import j_n_super_pvt_ltd.util.audit.AuditEntity;

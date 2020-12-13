@@ -1,4 +1,4 @@
-package j_n_super_pvt_ltd.asset.PurchaseOrder.commonModel;
+package j_n_super_pvt_ltd.asset.purchaseOrder.commonModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

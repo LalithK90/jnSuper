@@ -1,4 +1,4 @@
-package j_n_super_pvt_ltd.asset.PurchaseOrder.entity;
+package j_n_super_pvt_ltd.asset.purchaseOrder.entity;
 
 
 import j_n_super_pvt_ltd.asset.item.entity.Item;

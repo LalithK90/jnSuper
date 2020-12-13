@@ -1,7 +1,7 @@
-package j_n_super_pvt_ltd.asset.PurchaseOrder.entity;
+package j_n_super_pvt_ltd.asset.purchaseOrder.entity;
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderPriority;
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderStatus;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.Enum.PurchaseOrderPriority;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.Enum.PurchaseOrderStatus;
 import j_n_super_pvt_ltd.asset.payment.entity.Payment;
 import j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
 import j_n_super_pvt_ltd.util.audit.AuditEntity;

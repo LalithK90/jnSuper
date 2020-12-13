@@ -1,7 +1,7 @@
 package j_n_super_pvt_ltd.asset.payment.entity;
 
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrder;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrder;
 import j_n_super_pvt_ltd.asset.invoice.entity.Enum.PaymentMethod;
 import j_n_super_pvt_ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;

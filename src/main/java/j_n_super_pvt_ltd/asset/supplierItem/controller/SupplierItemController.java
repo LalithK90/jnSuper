@@ -1,7 +1,7 @@
 package j_n_super_pvt_ltd.asset.supplierItem.controller;
 
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.commonModel.PurchaseOrderItemLedger;
+import j_n_super_pvt_ltd.asset.purchaseOrder.commonModel.PurchaseOrderItemLedger;
 import j_n_super_pvt_ltd.asset.commonAsset.service.CommonService;
 import j_n_super_pvt_ltd.asset.item.entity.Item;
 import j_n_super_pvt_ltd.asset.item.service.ItemService;

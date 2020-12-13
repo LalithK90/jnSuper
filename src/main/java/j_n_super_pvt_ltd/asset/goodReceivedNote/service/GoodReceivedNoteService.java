@@ -1,7 +1,7 @@
 package j_n_super_pvt_ltd.asset.goodReceivedNote.service;
 
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrder;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrder;
 import j_n_super_pvt_ltd.asset.goodReceivedNote.dao.GoodReceivedNoteDao;
 import j_n_super_pvt_ltd.asset.goodReceivedNote.entity.GoodReceivedNote;
 import j_n_super_pvt_ltd.util.interfaces.AbstractService;

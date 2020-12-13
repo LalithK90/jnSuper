@@ -1,9 +1,9 @@
-package j_n_super_pvt_ltd.asset.PurchaseOrder.service;
+package j_n_super_pvt_ltd.asset.purchaseOrder.service;
 
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.dao.PurchaseOrderItemDao;
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrder;
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrderItem;
+import j_n_super_pvt_ltd.asset.purchaseOrder.dao.PurchaseOrderItemDao;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrder;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrderItem;
 import j_n_super_pvt_ltd.asset.item.entity.Item;
 import j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;

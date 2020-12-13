@@ -2,7 +2,7 @@ package j_n_super_pvt_ltd.asset.item.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrderItem;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrderItem;
 import j_n_super_pvt_ltd.asset.category.entity.Category;
 import j_n_super_pvt_ltd.asset.item.entity.Enum.ItemStatus;
 import j_n_super_pvt_ltd.asset.ledger.entity.Ledger;

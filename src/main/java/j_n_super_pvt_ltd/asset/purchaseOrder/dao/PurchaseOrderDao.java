@@ -1,9 +1,9 @@
-package j_n_super_pvt_ltd.asset.PurchaseOrder.dao;
+package j_n_super_pvt_ltd.asset.purchaseOrder.dao;
 
 
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderStatus;
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrder;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.Enum.PurchaseOrderStatus;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrder;
 import j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

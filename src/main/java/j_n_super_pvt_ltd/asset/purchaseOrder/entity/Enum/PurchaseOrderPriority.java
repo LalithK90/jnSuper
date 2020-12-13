@@ -1,4 +1,4 @@
-package j_n_super_pvt_ltd.asset.PurchaseOrder.entity.Enum;
+package j_n_super_pvt_ltd.asset.purchaseOrder.entity.Enum;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

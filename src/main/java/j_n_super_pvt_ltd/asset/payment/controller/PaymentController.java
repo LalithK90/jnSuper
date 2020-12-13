@@ -1,8 +1,8 @@
 package j_n_super_pvt_ltd.asset.payment.controller;
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderStatus;
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrder;
-import j_n_super_pvt_ltd.asset.PurchaseOrder.service.PurchaseOrderService;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.Enum.PurchaseOrderStatus;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrder;
+import j_n_super_pvt_ltd.asset.purchaseOrder.service.PurchaseOrderService;
 import j_n_super_pvt_ltd.asset.goodReceivedNote.entity.Enum.GoodReceivedNoteState;
 import j_n_super_pvt_ltd.asset.goodReceivedNote.entity.GoodReceivedNote;
 import j_n_super_pvt_ltd.asset.goodReceivedNote.service.GoodReceivedNoteService;

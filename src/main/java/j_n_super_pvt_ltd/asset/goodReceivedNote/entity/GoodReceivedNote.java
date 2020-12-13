@@ -1,7 +1,7 @@
 package j_n_super_pvt_ltd.asset.goodReceivedNote.entity;
 
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrder;
+import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrder;
 import j_n_super_pvt_ltd.asset.goodReceivedNote.entity.Enum.GoodReceivedNoteState;
 import j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
 import j_n_super_pvt_ltd.util.audit.AuditEntity;
