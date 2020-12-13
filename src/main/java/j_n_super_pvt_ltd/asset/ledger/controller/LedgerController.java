@@ -1,13 +1,9 @@
 package j_n_super_pvt_ltd.asset.ledger.controller;
 
 
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
 import j_n_super_pvt_ltd.asset.ledger.service.LedgerService;
 import j_n_super_pvt_ltd.util.service.DateTimeAgeService;
-import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +35,9 @@ public class LedgerController {
     public String reorderPoint(Model model) {
         model.addAttribute("title", "Reorder Point Limit Exceeded");
         model.addAttribute("ledgers", ledgerService.findAll()
-                .stream()
-                .filter(x -> Integer.parseInt(x.getQuantity()) < Integer.parseInt(x.getItem().getRop()))
-                .collect(Collectors.toList()));
+            .stream()
+            .filter(x -> Integer.parseInt(x.getQuantity()) < Integer.parseInt(x.getItem().getRop()))
+            .collect(Collectors.toList()));
         return "ledger/ledger";
     }
 

@@ -1,6 +1,5 @@
 package j_n_super_pvt_ltd;
 
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

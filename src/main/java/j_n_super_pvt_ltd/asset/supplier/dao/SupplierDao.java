@@ -1,8 +1,7 @@
 package j_n_super_pvt_ltd.asset.supplier.dao;
 
-
+import j_n_super_pvt_ltd.asset.supplier_item.entity.enums.ItemSupplierStatus;
 import j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
-import j_n_super_pvt_ltd.asset.supplierItem.entity.Enum.ItemSupplierStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 @Repository
