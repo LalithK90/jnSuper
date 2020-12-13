@@ -1,15 +1,17 @@
 package j_n_super_pvt_ltd.asset.customer.service;
 
 
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
+import j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import j_n_super_pvt_ltd.asset.customer.dao.CustomerDao;
 import j_n_super_pvt_ltd.asset.customer.entity.Customer;
-import j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
-import java.util.*;
+
+import java.util.List;
 
 @Service
 @CacheConfig( cacheNames = "customer" )
@@ -30,11 +32,16 @@ public class CustomerService implements AbstractService<Customer, Integer> {
     }
 
     public Customer persist(Customer customer) {
+        if ( customer.getId() == null ) {
+            customer.setLiveOrDead(LiveOrDead.ACTIVE);
+        }
         return customerDao.save(customer);
     }
 
     public boolean delete(Integer id) {
-        customerDao.deleteById(id);
+        Customer customer = customerDao.getOne(id);
+        customer.setLiveOrDead(LiveOrDead.STOP);
+        customerDao.save(customer);
         return false;
     }
 

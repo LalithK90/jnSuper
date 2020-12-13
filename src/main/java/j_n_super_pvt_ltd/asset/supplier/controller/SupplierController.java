@@ -1,10 +1,10 @@
 package j_n_super_pvt_ltd.asset.supplier.controller;
 
-
-import j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
-import j_n_super_pvt_ltd.asset.supplier.service.SupplierService;
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
 import j_n_super_pvt_ltd.util.interfaces.AbstractController;
 import j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
+import j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
+import j_n_super_pvt_ltd.asset.supplier.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/supplier")
@@ -34,8 +35,15 @@ public  class SupplierController implements AbstractController<Supplier, Integer
 
     @GetMapping
     public String findAll(Model model) {
-        model.addAttribute("suppliers", supplierService.findAll());
+        model.addAttribute("suppliers", supplierService.findAll().stream()
+            .filter(x-> LiveOrDead.ACTIVE.equals(x.getLiveOrDead()))
+            .collect(Collectors.toList()));
         return "supplier/supplier";
+    }
+
+    @Override
+    public String findById(Integer id, Model model) {
+        return null;
     }
 
     @GetMapping("/add")
@@ -61,7 +69,7 @@ public  class SupplierController implements AbstractController<Supplier, Integer
 
             if (DBSupplier == null) {
                 //need to generate new one
-                supplier.setCode("JNS"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
+                supplier.setCode("SS"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
             } else {
                 System.out.println("last supplier not null");
                 //if there is supplier in db need to get that supplier's code and increase its value

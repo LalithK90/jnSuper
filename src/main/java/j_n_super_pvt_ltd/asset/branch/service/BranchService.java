@@ -1,8 +1,8 @@
 package j_n_super_pvt_ltd.asset.branch.service;
 
-
 import j_n_super_pvt_ltd.asset.branch.dao.BranchDao;
 import j_n_super_pvt_ltd.asset.branch.entity.Branch;
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
 import j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -31,11 +31,15 @@ public class BranchService implements AbstractService<Branch, Integer> {
     }
 
     public Branch persist(Branch branch) {
+        if(branch.getId()==null){
+            branch.setLiveOrDead(LiveOrDead.ACTIVE);}
         return branchDao.save(branch);
     }
 
     public boolean delete(Integer id) {
-        branchDao.deleteById(id);
+       Branch branch =  branchDao.getOne(id);
+        branch.setLiveOrDead(LiveOrDead.STOP);
+        branchDao.save(branch);
         return false;
     }
 
@@ -48,4 +52,3 @@ public class BranchService implements AbstractService<Branch, Integer> {
         return branchDao.findAll(branchExample);
     }
 }
-

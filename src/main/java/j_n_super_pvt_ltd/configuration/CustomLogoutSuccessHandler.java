@@ -1,11 +1,11 @@
 package j_n_super_pvt_ltd.configuration;
 
 
-import j_n_super_pvt_ltd.asset.userManagement.entity.Enum.UserSessionLogStatus;
-import j_n_super_pvt_ltd.asset.userManagement.entity.User;
-import j_n_super_pvt_ltd.asset.userManagement.entity.UserSessionLog;
-import j_n_super_pvt_ltd.asset.userManagement.service.UserService;
-import j_n_super_pvt_ltd.asset.userManagement.service.UserSessionLogService;
+import j_n_super_pvt_ltd.asset.user_management.user_session_log.entity.enums.UserSessionLogStatus;
+import j_n_super_pvt_ltd.asset.user_management.user.entity.User;
+import j_n_super_pvt_ltd.asset.user_management.user_session_log.entity.UserSessionLog;
+import j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
+import j_n_super_pvt_ltd.asset.user_management.user_session_log.service.UserSessionLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;

@@ -1,8 +1,9 @@
 package j_n_super_pvt_ltd.asset.invoice.service;
 
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
+import j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import j_n_super_pvt_ltd.asset.invoice.dao.InvoiceDao;
 import j_n_super_pvt_ltd.asset.invoice.entity.Invoice;
-import j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
@@ -28,13 +29,17 @@ public class InvoiceService implements AbstractService< Invoice, Integer > {
     }
 
     public Invoice persist(Invoice invoice) {
+        if(invoice.getId()==null){
+            invoice.setLiveOrDead(LiveOrDead.ACTIVE);}
         return invoiceDao.save(invoice);
     }
 
     public boolean delete(Integer id) {
+        Invoice invoice =  invoiceDao.getOne(id);
+        invoice.setLiveOrDead(LiveOrDead.STOP);
+        invoiceDao.save(invoice);
         return false;
     }
-
     public List< Invoice > search(Invoice invoice) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()

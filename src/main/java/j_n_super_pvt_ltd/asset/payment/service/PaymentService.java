@@ -1,9 +1,11 @@
 package j_n_super_pvt_ltd.asset.payment.service;
 
-import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrder;
+
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
 import j_n_super_pvt_ltd.asset.payment.dao.PaymentDao;
-import j_n_super_pvt_ltd.asset.payment.entity.Payment;
+import j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
 import j_n_super_pvt_ltd.util.interfaces.AbstractService;
+import j_n_super_pvt_ltd.asset.payment.entity.Payment;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
@@ -27,13 +29,17 @@ public class PaymentService implements AbstractService< Payment, Integer > {
     }
 
     public Payment persist(Payment payment) {
+        if(payment.getId()==null){
+            payment.setLiveOrDead(LiveOrDead.ACTIVE);}
         return paymentDao.save(payment);
     }
 
     public boolean delete(Integer id) {
+        Payment payment =  paymentDao.getOne(id);
+        payment.setLiveOrDead(LiveOrDead.STOP);
+        paymentDao.save(payment);
         return false;
     }
-
     public List< Payment > search(Payment payment) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()

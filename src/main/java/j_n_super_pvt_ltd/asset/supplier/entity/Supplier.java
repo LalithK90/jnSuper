@@ -1,10 +1,11 @@
 package j_n_super_pvt_ltd.asset.supplier.entity;
 
-import j_n_super_pvt_ltd.asset.purchaseOrder.entity.PurchaseOrder;
-import j_n_super_pvt_ltd.asset.supplierItem.entity.Enum.ItemSupplierStatus;
-import j_n_super_pvt_ltd.asset.supplierItem.entity.SupplierItem;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
+import j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
+import j_n_super_pvt_ltd.asset.supplier_item.entity.SupplierItem;
+import j_n_super_pvt_ltd.asset.supplier_item.entity.enums.ItemSupplierStatus;
+import j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,13 +43,16 @@ public class Supplier extends AuditEntity {
     @Column( columnDefinition = "VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL", length = 255 )
     private String address;
 
+    @Enumerated(EnumType.STRING)
+    private LiveOrDead liveOrDead;
+
     @Enumerated( EnumType.STRING )
     private ItemSupplierStatus itemSupplierStatus;
 
     @OneToMany( mappedBy = "supplier" )
-    private List< PurchaseOrder > purchaseOrders;
+    private List<PurchaseOrder> purchaseOrders;
 
     @OneToMany( mappedBy = "supplier" )
-    private List< SupplierItem > supplierItems;
+    private List<SupplierItem> supplierItems;
 
 }
