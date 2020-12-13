@@ -1,13 +1,15 @@
 package j_n_super_pvt_ltd.asset.customer.controller;
 
 
-import j_n_super_pvt_ltd.asset.commonAsset.model.Enum.Title;
-import j_n_super_pvt_ltd.asset.customer.entity.Customer;
-import j_n_super_pvt_ltd.asset.customer.service.CustomerService;
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.Title;
 import j_n_super_pvt_ltd.util.interfaces.AbstractController;
 import j_n_super_pvt_ltd.util.service.EmailService;
 import j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
 import j_n_super_pvt_ltd.util.service.TwilioMessageService;
+import j_n_super_pvt_ltd.asset.customer.entity.Customer;
+import j_n_super_pvt_ltd.asset.customer.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,21 +19,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/customer")
-public class CustomerController implements AbstractController<Customer, Integer> {
+public  class CustomerController implements AbstractController<Customer, Integer> {
     private final CustomerService customerService;
     private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
     private final EmailService emailService;
     private final TwilioMessageService twilioMessageService;
 
+    @Autowired
     public CustomerController(CustomerService customerService, MakeAutoGenerateNumberService makeAutoGenerateNumberService, EmailService emailService, TwilioMessageService twilioMessageService) {
         this.customerService = customerService;
         this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
         this.emailService = emailService;
         this.twilioMessageService = twilioMessageService;
     }
-
 
     private String commonThings(Model model, Customer customer, Boolean addState) {
         model.addAttribute("title", Title.values());
@@ -42,8 +46,15 @@ public class CustomerController implements AbstractController<Customer, Integer>
 
     @GetMapping
     public String findAll(Model model) {
-        model.addAttribute("customers", customerService.findAll());
+        model.addAttribute("customers", customerService.findAll().stream()
+            .filter(x-> LiveOrDead.ACTIVE.equals(x.getLiveOrDead()))
+            .collect(Collectors.toList()));
         return "customer/customer";
+    }
+
+    @Override
+    public String findById(Integer id, Model model) {
+        return null;
     }
 
     @GetMapping("/add")
@@ -57,16 +68,16 @@ public class CustomerController implements AbstractController<Customer, Integer>
             return commonThings(model, customer, true);
         }
 //phone number length validator
-        if (customer.getMobile() != null) {
+        /*if (customer.getMobile() != null) {
             customer.setMobile(makeAutoGenerateNumberService.phoneNumberLengthValidator(customer.getMobile()));
-        }
+        }*/
 
 //if customer has id that customer is not a new customer
         if (customer.getId() == null) {
             //if there is not customer in db
             if (customerService.lastCustomer() == null) {
                 System.out.println("last customer null");
-                //need to generate new onecustomer
+                //need to generate new one
                 customer.setCode("KMC"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
             } else {
                 System.out.println("last customer not null");
@@ -76,10 +87,10 @@ public class CustomerController implements AbstractController<Customer, Integer>
             }
             //send welcome message and email
             if (customer.getEmail() != null) {
-                //  emailService.sendEmail(customer.getEmail(), "Welcome Message", "Welcome to Kmart Super...");
+              //  emailService.sendEmail(customer.getEmail(), "Welcome Message", "Welcome to Kmart Super...");
             }
             if (customer.getMobile() != null) {
-                //    twilioMessageService.sendSMS(customer.getMobile(), "Welcome to Kmart Super");
+            //    twilioMessageService.sendSMS(customer.getMobile(), "Welcome to Kmart Super");
             }
         }
 

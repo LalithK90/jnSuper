@@ -1,8 +1,9 @@
 package j_n_super_pvt_ltd.asset.branch.controller;
 
 
-import j_n_super_pvt_ltd.asset.branch.entity.Branch;
 import j_n_super_pvt_ltd.asset.branch.service.BranchService;
+import j_n_super_pvt_ltd.asset.branch.entity.Branch;
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
 import j_n_super_pvt_ltd.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/branch")
-   public  class BranchController  implements AbstractController<Branch , Integer> {
-        private final BranchService branchService;
+public class BranchController implements AbstractController<Branch, Integer> {
+    private final BranchService branchService;
 
     @Autowired
     public BranchController(BranchService branchService) {
@@ -31,8 +33,15 @@ import javax.validation.Valid;
 
     @GetMapping
     public String findAll(Model model) {
-        model.addAttribute("branches", branchService.findAll());
+        model.addAttribute("branchs", branchService.findAll().stream()
+            .filter(x-> LiveOrDead.ACTIVE.equals(x.getLiveOrDead()))
+            .collect(Collectors.toList()));
         return "branch/branch";
+    }
+
+    @Override
+    public String findById(Integer id, Model model) {
+        return null;
     }
 
     @GetMapping("/add")
@@ -46,7 +55,7 @@ import javax.validation.Valid;
             return commonThings(model, branch, true);
         }
         redirectAttributes.addFlashAttribute("branchDetail", branchService.persist(branch));
-        // branchService.persist(branch);
+       // branchService.persist(branch);
         return "redirect:/branch";
     }
 
@@ -67,4 +76,3 @@ import javax.validation.Valid;
         return "branch/branch-detail";
     }
 }
-

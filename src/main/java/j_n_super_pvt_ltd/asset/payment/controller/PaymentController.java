@@ -1,16 +1,17 @@
 package j_n_super_pvt_ltd.asset.payment.controller;
 
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.Enum.PurchaseOrderStatus;
-import j_n_super_pvt_ltd.asset.PurchaseOrder.entity.PurchaseOrder;
-import j_n_super_pvt_ltd.asset.PurchaseOrder.service.PurchaseOrderService;
-import j_n_super_pvt_ltd.asset.goodReceivedNote.entity.Enum.GoodReceivedNoteState;
-import j_n_super_pvt_ltd.asset.goodReceivedNote.entity.GoodReceivedNote;
-import j_n_super_pvt_ltd.asset.goodReceivedNote.service.GoodReceivedNoteService;
-import j_n_super_pvt_ltd.asset.invoice.entity.Enum.PaymentMethod;
-import j_n_super_pvt_ltd.asset.payment.entity.Payment;
-import j_n_super_pvt_ltd.asset.payment.service.PaymentService;
+
+import j_n_super_pvt_ltd.asset.good_received_note.entity.GoodReceivedNote;
+import j_n_super_pvt_ltd.asset.good_received_note.entity.enums.GoodReceivedNoteState;
+import j_n_super_pvt_ltd.asset.good_received_note.service.GoodReceivedNoteService;
+import j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
+import j_n_super_pvt_ltd.asset.purchase_order.entity.enums.PurchaseOrderStatus;
+import j_n_super_pvt_ltd.asset.purchase_order.service.PurchaseOrderService;
 import j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
 import j_n_super_pvt_ltd.util.service.OperatorService;
+import j_n_super_pvt_ltd.asset.invoice.entity.enums.PaymentMethod;
+import j_n_super_pvt_ltd.asset.payment.entity.Payment;
+import j_n_super_pvt_ltd.asset.payment.service.PaymentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,7 +48,7 @@ public class PaymentController {
     public String getAllPurchaseOrderToPay(Model model) {
         //find all purchase order to have to pay using purchase order status
         //1. still not processed po 2. partially paid po
-        List< PurchaseOrder > purchaseOrdersDB =
+        List<PurchaseOrder> purchaseOrdersDB =
                 purchaseOrderService.findByPurchaseOrderStatus(PurchaseOrderStatus.NOT_PROCEED);
         if ( !purchaseOrdersDB.isEmpty() ) {
             //need to pay po

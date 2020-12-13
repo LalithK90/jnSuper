@@ -1,17 +1,16 @@
 package j_n_super_pvt_ltd;
 
-
-import j_n_super_pvt_ltd.asset.commonAsset.model.Enum.CivilStatus;
-import j_n_super_pvt_ltd.asset.commonAsset.model.Enum.Gender;
-import j_n_super_pvt_ltd.asset.commonAsset.model.Enum.Title;
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.CivilStatus;
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.Gender;
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.Title;
 import j_n_super_pvt_ltd.asset.employee.entity.Employee;
-import j_n_super_pvt_ltd.asset.employee.entity.Enum.Designation;
-import j_n_super_pvt_ltd.asset.employee.entity.Enum.EmployeeStatus;
+import j_n_super_pvt_ltd.asset.employee.entity.enums.Designation;
+import j_n_super_pvt_ltd.asset.employee.entity.enums.EmployeeStatus;
 import j_n_super_pvt_ltd.asset.employee.service.EmployeeService;
-import j_n_super_pvt_ltd.asset.userManagement.entity.Role;
-import j_n_super_pvt_ltd.asset.userManagement.entity.User;
-import j_n_super_pvt_ltd.asset.userManagement.service.RoleService;
-import j_n_super_pvt_ltd.asset.userManagement.service.UserService;
+import j_n_super_pvt_ltd.asset.user_management.role.entity.Role;
+import j_n_super_pvt_ltd.asset.user_management.user.entity.User;
+import j_n_super_pvt_ltd.asset.user_management.role.service.RoleService;
+import j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,14 +45,14 @@ public class ApplicationCreateRestController {
 
 //Employee
         Employee employee = new Employee();
+        employee.setCode("11111111");
         employee.setName("Admin User");
         employee.setCallingName("Admin");
-        employee.setName("901142122V");
-        employee.setMobileOne("0717130052");
-        employee.setMobileTwo("0760870052");
-        employee.setTitle((Title) Title.Mr);
+        employee.setName("908670000V");
+        employee.setMobileOne("0750000000");
+        employee.setTitle(Title.MR);
         employee.setGender(Gender.MALE);
-        employee.setDesignation(Designation.Owner);
+        employee.setDesignation(Designation.LA);
         employee.setCivilStatus(CivilStatus.UNMARRIED);
         employee.setEmployeeStatus(EmployeeStatus.WORKING);
         employee.setDateOfBirth(LocalDate.now().minusYears(18));

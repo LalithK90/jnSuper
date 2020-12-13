@@ -1,6 +1,7 @@
 package j_n_super_pvt_ltd.asset.branch.entity;
 
 
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
 import j_n_super_pvt_ltd.asset.employee.entity.Employee;
 import j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
@@ -8,11 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,7 +33,9 @@ public class Branch extends AuditEntity {
     @Column( unique = true )
     private String email;
 
-    @OneToMany( mappedBy = "branch" )
+    @Enumerated(EnumType.STRING)
+    private LiveOrDead liveOrDead;
+
+   @OneToMany( mappedBy = "branch" )
     private List<Employee> employees;
 }
-

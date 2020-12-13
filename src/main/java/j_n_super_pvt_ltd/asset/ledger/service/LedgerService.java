@@ -1,6 +1,7 @@
 package j_n_super_pvt_ltd.asset.ledger.service;
 
 
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
 import j_n_super_pvt_ltd.asset.item.entity.Item;
 import j_n_super_pvt_ltd.asset.ledger.dao.LedgerDao;
 import j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Service
 @CacheConfig(cacheNames = "ledger")
-public class LedgerService implements AbstractService<Ledger, Integer> {
+public class LedgerService implements AbstractService< Ledger, Integer> {
     private final LedgerDao ledgerDao;
 
     public LedgerService(LedgerDao ledgerDao) {
@@ -36,12 +37,15 @@ public class LedgerService implements AbstractService<Ledger, Integer> {
 
 
     public Ledger persist(Ledger ledger) {
+        if(ledger.getId()==null){
+            ledger.setLiveOrDead(LiveOrDead.ACTIVE);}
         return ledgerDao.save(ledger);
     }
 
-
     public boolean delete(Integer id) {
-        //not applicable
+        Ledger ledger =  ledgerDao.getOne(id);
+        ledger.setLiveOrDead(LiveOrDead.STOP);
+        ledgerDao.save(ledger);
         return false;
     }
 

@@ -1,14 +1,16 @@
 package j_n_super_pvt_ltd.asset.invoice.entity;
 
 
-import j_n_super_pvt_ltd.asset.customer.entity.Customer;
-import j_n_super_pvt_ltd.asset.discountRatio.entity.DiscountRatio;
-import j_n_super_pvt_ltd.asset.invoice.entity.Enum.InvoicePrintOrNot;
-import j_n_super_pvt_ltd.asset.invoice.entity.Enum.InvoiceValidOrNot;
-import j_n_super_pvt_ltd.asset.invoice.entity.Enum.PaymentMethod;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
+import j_n_super_pvt_ltd.asset.customer.entity.Customer;
+import j_n_super_pvt_ltd.asset.discount_ratio.entity.DiscountRatio;
+import j_n_super_pvt_ltd.asset.invoice.entity.enums.InvoicePrintOrNot;
+import j_n_super_pvt_ltd.asset.invoice.entity.enums.InvoiceValidOrNot;
+import j_n_super_pvt_ltd.asset.invoice.entity.enums.PaymentMethod;
+import j_n_super_pvt_ltd.asset.invoice_item.entity.InvoiceItem;
+import j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -60,6 +62,9 @@ public class Invoice extends AuditEntity {
     @Enumerated(EnumType.STRING)
     private InvoiceValidOrNot invoiceValidOrNot;
 
+    @Enumerated(EnumType.STRING)
+    private LiveOrDead liveOrDead;
+
     @ManyToOne
     private Customer customer;
 
@@ -67,7 +72,7 @@ public class Invoice extends AuditEntity {
     private DiscountRatio discountRatio;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "invoice")
-    private List< InvoiceItem > invoiceItemQuantities;
+    private List<InvoiceItem> invoiceItemQuantities;
 
 
 }

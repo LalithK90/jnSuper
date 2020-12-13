@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface LedgerDao extends JpaRepository<Ledger, Integer> {
+public interface LedgerDao extends JpaRepository< Ledger, Integer> {
     List<Ledger> findByItem(Item item);
 
     Ledger findByItemAndAndExpiredDateAndSellPrice(Item item, LocalDate eDate, BigDecimal sellPrice);

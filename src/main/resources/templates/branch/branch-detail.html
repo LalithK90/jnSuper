@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header1 :: headerFragment}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head th:replace="~{fragments/header :: headerFragment}">
     <meta charset="UTF-8">
-    <title>J N Super </title>
+    <title>branch-detail</title>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body>
 <nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
 
 <!--heading Area-->
@@ -34,7 +33,7 @@
     </div>
 </div>
 <!--details-->
-<div th:fragment="branchDetailsFragment" class="container-fluid ">
+<div th:fragment="branchDetailsFragment" class="container-fluid bg-dark formBorder">
     <div class="col-sm-12 flex-column ">
         <div class="row">
             <!--Left Side-->
