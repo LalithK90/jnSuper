@@ -1,7 +1,7 @@
 package j_n_super_pvt_ltd.asset.user_management.user_session_log.entity;
 
-import j_n_super_pvt_ltd.asset.user_management.user_session_log.entity.enums.UserSessionLogStatus;
-import j_n_super_pvt_ltd.asset.user_management.user.entity.User;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.entity.User;
+import lk.j_n_super_pvt_ltd.asset.user_management.user_session_log.entity.enums.UserSessionLogStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

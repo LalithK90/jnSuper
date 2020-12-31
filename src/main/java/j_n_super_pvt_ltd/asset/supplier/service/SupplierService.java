@@ -1,10 +1,11 @@
 package j_n_super_pvt_ltd.asset.supplier.service;
 
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.supplier.dao.SupplierDao;
-import j_n_super_pvt_ltd.asset.supplier_item.entity.enums.ItemSupplierStatus;
-import j_n_super_pvt_ltd.util.interfaces.AbstractService;
-import j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
+import java.util.stream.Collectors;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
+import lk.j_n_super_pvt_ltd.asset.supplier.dao.SupplierDao;
+import lk.j_n_super_pvt_ltd.asset.supplier_item.entity.enums.ItemSupplierStatus;
+import lk.j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Example;
@@ -24,7 +25,9 @@ public class SupplierService implements AbstractService<Supplier, Integer> {
     }
 
     public List<Supplier> findAll() {
-        return supplierDao.findAll();
+        return supplierDao.findAll().stream()
+            .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
+            .collect(Collectors.toList());
     }
 
     public Supplier findById(Integer id) {
@@ -34,14 +37,14 @@ public class SupplierService implements AbstractService<Supplier, Integer> {
     public Supplier persist(Supplier supplier) {
         if (supplier.getId() == null) {
             supplier.setItemSupplierStatus(ItemSupplierStatus.CURRENTLY_BUYING);
-        supplier.setLiveOrDead(LiveOrDead.ACTIVE);
+        supplier.setLiveDead(LiveDead.ACTIVE);
         }
         return supplierDao.save(supplier);
     }
 
     public boolean delete(Integer id) {
         Supplier supplier =  supplierDao.getOne(id);
-        supplier.setLiveOrDead(LiveOrDead.STOP);
+        supplier.setLiveDead(LiveDead.STOP);
         supplierDao.save(supplier);
         return false;
     }

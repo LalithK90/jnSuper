@@ -1,10 +1,12 @@
-package j_n_super_pvt_ltd.asset.employee.service;
+package lk.j_n_super_pvt_ltd.asset.employee.service;
 
 
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.util.interfaces.AbstractService;
-import j_n_super_pvt_ltd.asset.employee.dao.EmployeeDao;
-import j_n_super_pvt_ltd.asset.employee.entity.Employee;
+
+import java.util.stream.Collectors;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.employee.dao.EmployeeDao;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
+import lk.j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Example;
@@ -28,7 +30,9 @@ public class EmployeeService implements AbstractService< Employee, Integer > {
 
     @Cacheable
     public List< Employee > findAll() {
-        return employeeDao.findAll();
+        return employeeDao.findAll().stream()
+            .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
+            .collect(Collectors.toList());
     }
 
     @Cacheable
@@ -41,13 +45,13 @@ public class EmployeeService implements AbstractService< Employee, Integer > {
     @Transactional
     public Employee persist(Employee employee) {
         if(employee.getId()==null){
-            employee.setLiveOrDead(LiveOrDead.ACTIVE);}
+            employee.setLiveDead(LiveDead.ACTIVE);}
         return employeeDao.save(employee);
     }
 
     public boolean delete(Integer id) {
         Employee employee =  employeeDao.getOne(id);
-        employee.setLiveOrDead(LiveOrDead.STOP);
+        employee.setLiveDead(LiveDead.STOP);
         employeeDao.save(employee);
         return false;
     }
@@ -80,4 +84,6 @@ public class EmployeeService implements AbstractService< Employee, Integer > {
     public Employee findByNic(String nic) {
         return employeeDao.findByNic(nic);
     }
+
+
 }

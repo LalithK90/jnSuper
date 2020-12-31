@@ -1,13 +1,13 @@
-package j_n_super_pvt_ltd.asset.purchase_order.entity;
+package lk.j_n_super_pvt_ltd.asset.purchase_order.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import j_n_super_pvt_ltd.asset.purchase_order.entity.enums.PurchaseOrderPriority;
-import j_n_super_pvt_ltd.asset.purchase_order.entity.enums.PurchaseOrderStatus;
-import j_n_super_pvt_ltd.asset.purchase_order_item.entity.PurchaseOrderItem;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.payment.entity.Payment;
-import j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.payment.entity.Payment;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.enums.PurchaseOrderPriority;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.enums.PurchaseOrderStatus;
+import lk.j_n_super_pvt_ltd.asset.purchase_order_item.entity.PurchaseOrderItem;
+import lk.j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
+import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,13 +41,13 @@ public class PurchaseOrder extends AuditEntity {
     private PurchaseOrderStatus purchaseOrderStatus;
 
     @Enumerated(EnumType.STRING)
-    private LiveOrDead liveOrDead;
+    private LiveDead liveDead;
 
     @ManyToOne
     private Supplier supplier;
 
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.PERSIST)
-    private List<PurchaseOrderItem> purchaseOrderItems;
+    private List< PurchaseOrderItem > purchaseOrderItems;
 
     @OneToMany(mappedBy = "purchaseOrder")
     private List< Payment > payments;

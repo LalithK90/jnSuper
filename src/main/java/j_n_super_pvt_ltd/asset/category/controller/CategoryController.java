@@ -1,10 +1,10 @@
-package j_n_super_pvt_ltd.asset.category.controller;
+package lk.j_n_super_pvt_ltd.asset.category.controller;
 
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.item.entity.enums.MainCategory;
-import j_n_super_pvt_ltd.util.interfaces.AbstractController;
-import j_n_super_pvt_ltd.asset.category.entity.Category;
-import j_n_super_pvt_ltd.asset.category.service.CategoryService;
+import lk.j_n_super_pvt_ltd.asset.category.entity.Category;
+import lk.j_n_super_pvt_ltd.asset.category.service.CategoryService;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.MainCategory;
+import lk.j_n_super_pvt_ltd.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +37,7 @@ public  class CategoryController implements AbstractController<Category, Integer
     @GetMapping
     public String findAll(Model model) {
         model.addAttribute("categorys", categoryService.findAll().stream()
-            .filter(x-> LiveOrDead.ACTIVE.equals(x.getLiveOrDead()))
+            .filter(x-> LiveDead.ACTIVE.equals(x.getLiveDead()))
             .collect(Collectors.toList()));
         return "category/category";
     }

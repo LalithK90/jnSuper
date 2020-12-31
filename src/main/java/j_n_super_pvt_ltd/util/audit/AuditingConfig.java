@@ -1,4 +1,4 @@
-package j_n_super_pvt_ltd.util.audit;
+package lk.j_n_super_pvt_ltd.util.audit;
 
 
 import org.springframework.context.annotation.Bean;

@@ -2,10 +2,10 @@ package j_n_super_pvt_ltd.asset.purchase_order_item.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import j_n_super_pvt_ltd.asset.item.entity.Item;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
+import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +32,7 @@ public class PurchaseOrderItem extends AuditEntity {
     private BigDecimal lineTotal;
 
     @Enumerated( EnumType.STRING)
-    private LiveOrDead liveOrDead;
+    private LiveDead liveDead;
 
     @ManyToOne
     private PurchaseOrder purchaseOrder;

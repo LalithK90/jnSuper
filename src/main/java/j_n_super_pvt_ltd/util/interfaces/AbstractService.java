@@ -1,4 +1,4 @@
-package j_n_super_pvt_ltd.util.interfaces;
+package lk.j_n_super_pvt_ltd.util.interfaces;
 
 import java.util.List;
 

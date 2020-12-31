@@ -1,4 +1,4 @@
-package j_n_super_pvt_ltd.asset.common_asset.model.enums;
+package lk.j_n_super_pvt_ltd.asset.common_asset.model.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

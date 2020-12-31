@@ -1,9 +1,9 @@
 package j_n_super_pvt_ltd.asset.category.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.item.entity.Item;
-import j_n_super_pvt_ltd.asset.item.entity.enums.MainCategory;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.MainCategory;
+import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,7 @@ public class Category {
     private MainCategory mainCategory;
 
     @Enumerated(EnumType.STRING)
-    private LiveOrDead liveOrDead;
+    private LiveDead liveDead;
 
     @Size( min = 3, message = "Your name cannot be accepted" )
     private String name;

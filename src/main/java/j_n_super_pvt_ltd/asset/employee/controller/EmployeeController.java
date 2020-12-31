@@ -1,20 +1,18 @@
 package j_n_super_pvt_ltd.asset.employee.controller;
 
 
-import j_n_super_pvt_ltd.asset.branch.service.BranchService;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.*;
-import j_n_super_pvt_ltd.asset.common_asset.service.CommonService;
-import j_n_super_pvt_ltd.asset.employee.entity.enums.Designation;
-import j_n_super_pvt_ltd.asset.employee.entity.enums.EmployeeStatus;
-import j_n_super_pvt_ltd.asset.employee.service.EmployeeFilesService;
-import j_n_super_pvt_ltd.asset.user_management.user.entity.User;
-import j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
-import j_n_super_pvt_ltd.util.service.DateTimeAgeService;
-import j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
-import lk.samarasingher_super.asset.common_asset.model.enums.*;
-import j_n_super_pvt_ltd.asset.employee.entity.Employee;
-import j_n_super_pvt_ltd.asset.employee.entity.EmployeeFiles;
-import j_n_super_pvt_ltd.asset.employee.service.EmployeeService;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.*;
+import lk.j_n_super_pvt_ltd.asset.common_asset.service.CommonService;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.EmployeeFiles;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.enums.Designation;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.enums.EmployeeStatus;
+import lk.j_n_super_pvt_ltd.asset.employee.service.EmployeeFilesService;
+import lk.j_n_super_pvt_ltd.asset.employee.service.EmployeeService;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.entity.User;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
+import lk.j_n_super_pvt_ltd.util.service.DateTimeAgeService;
+import lk.j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +26,7 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -39,7 +38,6 @@ public class EmployeeController {
   private final DateTimeAgeService dateTimeAgeService;
   private final CommonService commonService;
   private final UserService userService;
-  private final BranchService branchService;
 
   private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
 
@@ -47,16 +45,14 @@ public class EmployeeController {
   public EmployeeController(EmployeeService employeeService, EmployeeFilesService employeeFilesService,
                             DateTimeAgeService dateTimeAgeService,
                             CommonService commonService, UserService userService,
-                            BranchService branchService, MakeAutoGenerateNumberService makeAutoGenerateNumberService) {
+                            MakeAutoGenerateNumberService makeAutoGenerateNumberService) {
     this.employeeService = employeeService;
     this.employeeFilesService = employeeFilesService;
     this.dateTimeAgeService = dateTimeAgeService;
     this.commonService = commonService;
     this.userService = userService;
-    this.branchService = branchService;
     this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
   }
-//----> Employee details management - start <----//
 
   // Common things for an employee add and update
   private String commonThings(Model model) {
@@ -66,7 +62,6 @@ public class EmployeeController {
     model.addAttribute("employeeStatus", EmployeeStatus.values());
     model.addAttribute("designation", Designation.values());
     model.addAttribute("bloodGroup", BloodGroup.values());
-    model.addAttribute("branches", branchService.findAll());
     return "employee/addEmployee";
   }
 
@@ -82,19 +77,19 @@ public class EmployeeController {
   //Send all employee data
   @RequestMapping
   public String employeePage(Model model) {
+    System.out.println(" im in");
     List< Employee > employees = new ArrayList<>();
     for ( Employee employee : employeeService.findAll()
         .stream()
-        .filter(x-> LiveOrDead.ACTIVE.equals(x.getLiveOrDead()))
+        .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
         .collect(Collectors.toList())
     ) {
       employee.setFileInfo(employeeFilesService.employeeFileDownloadLinks(employee));
       employees.add(employee);
     }
-    /*  Employee employee = employeeService.findById(id);*/
+    System.out.println("dfsdfs "+employees.size());
     model.addAttribute("employees", employees);
     model.addAttribute("contendHeader", "Employee");
-//        /* model.addAttribute("files", employeeFilesService.employeeFileDownloadLinks(employee));*/
     return "employee/employee";
   }
 
@@ -146,9 +141,9 @@ public class EmployeeController {
     if ( employee.getId() == null ) {
       Employee lastEmployee = employeeService.lastEmployee();
       if ( lastEmployee.getCode() == null ) {
-        employee.setCode("GRIE" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
+        employee.setCode("SSME" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
       } else {
-        employee.setCode("GRIE" + makeAutoGenerateNumberService.numberAutoGen(lastEmployee.getCode().substring(4)).toString());
+        employee.setCode("SSME" + makeAutoGenerateNumberService.numberAutoGen(lastEmployee.getCode().substring(4)).toString());
       }
     }
 
@@ -167,7 +162,7 @@ public class EmployeeController {
 
     try {
       //save employee images file
-      if ( employee.getFile().getOriginalFilename() != null ) {
+      if ( employee.getFile().getOriginalFilename() != null && !Objects.requireNonNull(employee.getFile().getContentType()).equals("application/octet-stream")) {
         EmployeeFiles employeeFiles = employeeFilesService.findByEmployee(employeeSaved);
         if ( employeeFiles != null ) {
           // update new contents
@@ -183,7 +178,6 @@ public class EmployeeController {
         }
         employeeFilesService.persist(employeeFiles);
       }
-      employee = employeeSaved;
       return "redirect:/employee";
 
     } catch ( Exception e ) {

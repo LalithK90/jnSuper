@@ -1,18 +1,16 @@
 package j_n_super_pvt_ltd.asset.common_asset.service;
 
 
-import j_n_super_pvt_ltd.asset.item.entity.Item;
-import j_n_super_pvt_ltd.asset.item.service.ItemService;
-import j_n_super_pvt_ltd.asset.supplier_item.entity.SupplierItem;
-import j_n_super_pvt_ltd.asset.supplier_item.entity.enums.ItemSupplierStatus;
-import j_n_super_pvt_ltd.asset.supplier_item.service.SupplierItemService;
-import j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
-import j_n_super_pvt_ltd.asset.employee.controller.EmployeeRestController;
-import j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
-import j_n_super_pvt_ltd.asset.supplier.service.SupplierService;
+import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
+import lk.j_n_super_pvt_ltd.asset.item.service.ItemService;
+import lk.j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
+import lk.j_n_super_pvt_ltd.asset.supplier.service.SupplierService;
+import lk.j_n_super_pvt_ltd.asset.supplier_item.entity.enums.ItemSupplierStatus;
+import lk.j_n_super_pvt_ltd.asset.supplier_item.entity.SupplierItem;
+import lk.j_n_super_pvt_ltd.asset.supplier_item.service.SupplierItemService;
+import lk.j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,8 +73,6 @@ public class CommonService {
     public String purchaseOrder(Supplier supplier, Model model, String htmlFileLocation) {
         List<Supplier> suppliers = commonSupplierSearch(supplier);
 
-        System.out.println(" i am here" + suppliers.size());
-
         model.addAttribute("searchAreaShow", false);
         if (suppliers.size() == 1) {
             model.addAttribute("supplierDetail", suppliers.get(0));
@@ -110,33 +106,13 @@ public class CommonService {
         return mobileTwo;
     }
 
-    public List<Item> activeItemsFromSupplier(Supplier supplier) {
-        List<SupplierItem> supplierItems = supplierItemService.findBySupplierAndItemSupplierStatus(supplier, ItemSupplierStatus.CURRENTLY_BUYING);
+    public List< Item > activeItemsFromSupplier(Supplier supplier) {
+        List< SupplierItem > supplierItems = supplierItemService.findBySupplierAndItemSupplierStatus(supplier, ItemSupplierStatus.CURRENTLY_BUYING);
         List<Item> items = new ArrayList<>();
         for (SupplierItem supplierItem : supplierItems) {
             items.add(supplierItem.getItem());
         }
         return items;
-    }
-
-    //common things to employee and offender - start
-    public void commonUrlBuilder(Model model) {
-        model.addAttribute("addStatus", true);
-        // model.addAttribute("designations", Designation.values());
-/*        model.addAttribute("provinces", Province.values());
-        model.addAttribute("districtUrl", MvcUriComponentsBuilder
-                .fromMethodName(WorkingPlaceRestController.class, "getDistrict", "")
-                .build()
-                .toString());
-        model.addAttribute("stationUrl", MvcUriComponentsBuilder
-                .fromMethodName(WorkingPlaceRestController.class, "getStation", "")
-                .build()
-                .toString());*/
-        Object[] arg = {"designation", "id"};
-        model.addAttribute("employeeUrl", MvcUriComponentsBuilder
-            .fromMethodName(EmployeeRestController.class, "getEmployeeByWorkingPlace", arg)
-            .build()
-            .toString());
     }
 
 

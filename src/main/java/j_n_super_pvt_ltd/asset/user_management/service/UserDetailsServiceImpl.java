@@ -1,8 +1,8 @@
 package j_n_super_pvt_ltd.asset.user_management.service;
 
-import j_n_super_pvt_ltd.asset.user_management.CustomerUserDetails;
-import j_n_super_pvt_ltd.asset.user_management.user.dao.UserDao;
-import j_n_super_pvt_ltd.asset.user_management.user.entity.User;
+import lk.j_n_super_pvt_ltd.asset.user_management.CustomerUserDetails;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.dao.UserDao;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

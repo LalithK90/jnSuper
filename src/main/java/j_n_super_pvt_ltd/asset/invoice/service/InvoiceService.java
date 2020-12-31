@@ -1,9 +1,10 @@
-package j_n_super_pvt_ltd.asset.invoice.service;
+package lk.j_n_super_pvt_ltd.asset.invoice.service;
 
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.util.interfaces.AbstractService;
-import j_n_super_pvt_ltd.asset.invoice.dao.InvoiceDao;
-import j_n_super_pvt_ltd.asset.invoice.entity.Invoice;
+import java.util.stream.Collectors;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.invoice.dao.InvoiceDao;
+import lk.j_n_super_pvt_ltd.asset.invoice.entity.Invoice;
+import lk.j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,9 @@ public class InvoiceService implements AbstractService< Invoice, Integer > {
 
 
     public List< Invoice > findAll() {
-        return invoiceDao.findAll();
+        return invoiceDao.findAll().stream()
+            .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
+            .collect(Collectors.toList());
     }
 
     public Invoice findById(Integer id) {
@@ -30,13 +33,13 @@ public class InvoiceService implements AbstractService< Invoice, Integer > {
 
     public Invoice persist(Invoice invoice) {
         if(invoice.getId()==null){
-            invoice.setLiveOrDead(LiveOrDead.ACTIVE);}
+            invoice.setLiveDead(LiveDead.ACTIVE);}
         return invoiceDao.save(invoice);
     }
 
     public boolean delete(Integer id) {
         Invoice invoice =  invoiceDao.getOne(id);
-        invoice.setLiveOrDead(LiveOrDead.STOP);
+        invoice.setLiveDead(LiveDead.STOP);
         invoiceDao.save(invoice);
         return false;
     }

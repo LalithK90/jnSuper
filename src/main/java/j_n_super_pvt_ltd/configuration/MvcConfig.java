@@ -1,4 +1,4 @@
-package j_n_super_pvt_ltd.configuration;
+package lk.j_n_super_pvt_ltd.configuration;
 
 
 import org.slf4j.Logger;
@@ -33,7 +33,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/")
-                .setViewName("forward:/login");
+                .setViewName("mainWindow");
         registry.addViewController("/login")
                 .setViewName("login/login");
         registry.addViewController("/mainWindow")
@@ -82,7 +82,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @ControllerAdvice
     public static class ErrorController {
 
-        private Logger logger = LoggerFactory.getLogger(ErrorController.class);
+        private final Logger logger = LoggerFactory.getLogger(ErrorController.class);
 
         @ExceptionHandler( Throwable.class )
         @ResponseStatus( HttpStatus.INTERNAL_SERVER_ERROR )

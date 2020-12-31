@@ -1,16 +1,18 @@
 package j_n_super_pvt_ltd.asset.discount_ratio.service;
 
 
-import j_n_super_pvt_ltd.asset.discount_ratio.dao.DiscountRatioDao;
-import j_n_super_pvt_ltd.asset.discount_ratio.entity.DiscountRatio;
-import j_n_super_pvt_ltd.util.interfaces.AbstractService;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.discount_ratio.dao.DiscountRatioDao;
+import lk.j_n_super_pvt_ltd.asset.discount_ratio.entity.DiscountRatio;
+import lk.j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import java.util.stream.Collectors;
+
 @Service
-public class DiscountRatioService implements AbstractService<DiscountRatio, Integer > {
+public class DiscountRatioService implements AbstractService< DiscountRatio, Integer > {
 private final DiscountRatioDao discountRatioDao;
 
     public DiscountRatioService(DiscountRatioDao discountRatioDao) {
@@ -18,7 +20,9 @@ private final DiscountRatioDao discountRatioDao;
     }
 
     public List< DiscountRatio > findAll() {
-        return discountRatioDao.findAll();
+        return discountRatioDao.findAll().stream()
+            .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
+            .collect(Collectors.toList());
     }
 
     public DiscountRatio findById(Integer id) {
@@ -27,14 +31,14 @@ private final DiscountRatioDao discountRatioDao;
 
     public DiscountRatio persist(DiscountRatio discountRatio) {
         if ( discountRatio.getId() == null ){
-            discountRatio.setLiveOrDead(LiveOrDead.ACTIVE);
+            discountRatio.setLiveDead(LiveDead.ACTIVE);
         }
         return discountRatioDao.save(discountRatio);
     }
 
     public boolean delete(Integer id) {
         DiscountRatio discountRatio =  discountRatioDao.getOne(id);
-        discountRatio.setLiveOrDead(LiveOrDead.STOP);
+        discountRatio.setLiveDead(LiveDead.STOP);
         discountRatioDao.save(discountRatio);
         return false;
     }

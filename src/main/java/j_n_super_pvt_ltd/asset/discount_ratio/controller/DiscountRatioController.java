@@ -1,9 +1,9 @@
-package j_n_super_pvt_ltd.asset.discount_ratio.controller;
+package lk.j_n_super_pvt_ltd.asset.discount_ratio.controller;
 
 
-import j_n_super_pvt_ltd.asset.discount_ratio.entity.DiscountRatio;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.discount_ratio.service.DiscountRatioService;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.discount_ratio.entity.DiscountRatio;
+import lk.j_n_super_pvt_ltd.asset.discount_ratio.service.DiscountRatioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +25,7 @@ public class DiscountRatioController {
     @GetMapping
     public String findAll(Model model) {
         model.addAttribute("discountRatios", discountRatioService.findAll().stream()
-            .filter(x-> LiveOrDead.ACTIVE.equals(x.getLiveOrDead()))
+            .filter(x-> LiveDead.ACTIVE.equals(x.getLiveDead()))
             .collect(Collectors.toList()));
         return "discountRatio/discountRatio";
     }
@@ -33,7 +33,7 @@ public class DiscountRatioController {
     @GetMapping( "/edit/{id}" )
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("addStatus", false);
-        model.addAttribute("discountRatioStatuses", LiveOrDead.values());
+        model.addAttribute("discountRatioStatuses", LiveDead.values());
         model.addAttribute("discountRatio", discountRatioService.findById(id));
         return "discountRatio/addDiscountRatio";
     }
@@ -43,7 +43,7 @@ public class DiscountRatioController {
                           RedirectAttributes redirectAttributes, Model model) {
         if ( bindingResult.hasErrors() ) {
             model.addAttribute("addStatus", false);
-            model.addAttribute("discountRatioStatuses", LiveOrDead.values());
+            model.addAttribute("discountRatioStatuses", LiveDead.values());
             model.addAttribute("discountRatio", discountRatio);
             return "discountRatio/addDiscountRatio";
         }
@@ -60,7 +60,7 @@ public class DiscountRatioController {
     @GetMapping( "/add" )
     public String form(Model model) {
         model.addAttribute("addStatus", true);
-        model.addAttribute("discountRatioStatuses", LiveOrDead.values());
+        model.addAttribute("discountRatioStatuses", LiveDead.values());
         model.addAttribute("discountRatio", new DiscountRatio());
         return "discountRatio/addDiscountRatio";
     }

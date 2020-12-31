@@ -1,4 +1,4 @@
-package j_n_super_pvt_ltd.asset.common_asset.model;
+package lk.j_n_super_pvt_ltd.asset.common_asset.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

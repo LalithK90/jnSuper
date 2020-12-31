@@ -1,6 +1,6 @@
-package j_n_super_pvt_ltd.asset.category.dao;
+package lk.j_n_super_pvt_ltd.asset.category.dao;
 
-import j_n_super_pvt_ltd.asset.category.entity.Category;
+import lk.j_n_super_pvt_ltd.asset.category.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
-package j_n_super_pvt_ltd.asset.user_management;
+package lk.j_n_super_pvt_ltd.asset.user_management;
 
-import j_n_super_pvt_ltd.asset.user_management.user.entity.User;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.entity.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

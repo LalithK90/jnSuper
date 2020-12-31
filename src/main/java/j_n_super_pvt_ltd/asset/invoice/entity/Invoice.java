@@ -3,14 +3,14 @@ package j_n_super_pvt_ltd.asset.invoice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.customer.entity.Customer;
-import j_n_super_pvt_ltd.asset.discount_ratio.entity.DiscountRatio;
-import j_n_super_pvt_ltd.asset.invoice.entity.enums.InvoicePrintOrNot;
-import j_n_super_pvt_ltd.asset.invoice.entity.enums.InvoiceValidOrNot;
-import j_n_super_pvt_ltd.asset.invoice.entity.enums.PaymentMethod;
-import j_n_super_pvt_ltd.asset.invoice_item.entity.InvoiceItem;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.customer.entity.Customer;
+import lk.j_n_super_pvt_ltd.asset.discount_ratio.entity.DiscountRatio;
+import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.InvoicePrintOrNot;
+import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.InvoiceValidOrNot;
+import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.PaymentMethod;
+import lk.j_n_super_pvt_ltd.asset.invoice_ledger.entity.InvoiceLedger;
+import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,9 +52,7 @@ public class Invoice extends AuditEntity {
 
     @Column(precision = 10, scale = 2)
     private BigDecimal balance;
-
-    @Enumerated(EnumType.STRING)
-    private InvoicePrintOrNot invoicePrintOrNot;
+     private InvoicePrintOrNot invoicePrintOrNot;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
@@ -63,7 +61,7 @@ public class Invoice extends AuditEntity {
     private InvoiceValidOrNot invoiceValidOrNot;
 
     @Enumerated(EnumType.STRING)
-    private LiveOrDead liveOrDead;
+    private LiveDead liveDead;
 
     @ManyToOne
     private Customer customer;
@@ -72,7 +70,7 @@ public class Invoice extends AuditEntity {
     private DiscountRatio discountRatio;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "invoice")
-    private List<InvoiceItem> invoiceItemQuantities;
+    private List< InvoiceLedger > invoiceLedgers;
 
 
 }

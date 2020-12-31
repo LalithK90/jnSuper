@@ -1,13 +1,13 @@
-package j_n_super_pvt_ltd.asset.common_asset.model.enums;
+package lk.j_n_super_pvt_ltd.asset.common_asset.model.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum LiveOrDead {
+public enum LiveDead {
     ACTIVE("Active"),
     STOP("Stop");
 
-    private final String liveOrDead;
+    private final String liveDeath;
 }

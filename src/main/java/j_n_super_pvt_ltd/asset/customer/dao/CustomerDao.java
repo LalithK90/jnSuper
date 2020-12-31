@@ -1,6 +1,6 @@
 package j_n_super_pvt_ltd.asset.customer.dao;
 
-import j_n_super_pvt_ltd.asset.customer.entity.Customer;
+import lk.j_n_super_pvt_ltd.asset.customer.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

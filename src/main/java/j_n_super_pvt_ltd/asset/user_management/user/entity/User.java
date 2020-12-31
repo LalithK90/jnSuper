@@ -1,11 +1,11 @@
 package j_n_super_pvt_ltd.asset.user_management.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import j_n_super_pvt_ltd.asset.user_management.user_session_log.entity.UserSessionLog;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.employee.entity.Employee;
-import j_n_super_pvt_ltd.asset.user_management.role.entity.Role;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
+import lk.j_n_super_pvt_ltd.asset.user_management.role.entity.Role;
+import lk.j_n_super_pvt_ltd.asset.user_management.user_session_log.entity.UserSessionLog;
+import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,10 +42,10 @@ public class User extends AuditEntity {
     private boolean enabled;
 
     @Enumerated(EnumType.STRING)
-    private LiveOrDead liveOrDead;
+    private LiveDead liveDead;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
-    private List<UserSessionLog> userSessionLogs;
+    private List< UserSessionLog > userSessionLogs;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @Fetch( FetchMode.SUBSELECT)

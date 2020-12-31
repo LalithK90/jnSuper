@@ -1,15 +1,14 @@
 package j_n_super_pvt_ltd.asset.employee.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import j_n_super_pvt_ltd.asset.branch.entity.Branch;
-import j_n_super_pvt_ltd.asset.common_asset.model.FileInfo;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.CivilStatus;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.Gender;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.Title;
-import j_n_super_pvt_ltd.asset.employee.entity.enums.Designation;
-import j_n_super_pvt_ltd.asset.employee.entity.enums.EmployeeStatus;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.FileInfo;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.CivilStatus;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.Gender;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.Title;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.enums.Designation;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.enums.EmployeeStatus;
+import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -73,7 +72,7 @@ public class Employee extends AuditEntity {
     private EmployeeStatus employeeStatus;
 
     @Enumerated(EnumType.STRING)
-    private LiveOrDead liveOrDead;
+    private LiveDead liveDead;
 
     @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private LocalDate dateOfBirth;
@@ -81,8 +80,6 @@ public class Employee extends AuditEntity {
     @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private LocalDate dateOfAssignment;
 
-    @ManyToOne
-    private Branch branch;
 
     @Transient
     private MultipartFile file;

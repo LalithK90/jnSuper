@@ -1,13 +1,13 @@
-package j_n_super_pvt_ltd.asset.ledger.entity;
+package lk.j_n_super_pvt_ltd.asset.ledger.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.good_received_note.entity.GoodReceivedNote;
-import j_n_super_pvt_ltd.asset.item.entity.Item;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.good_received_note.entity.GoodReceivedNote;
+import lk.j_n_super_pvt_ltd.asset.invoice_ledger.entity.InvoiceLedger;
+import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
+import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +18,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,15 +41,18 @@ public class Ledger extends AuditEntity {
     private LocalDate expiredDate;
 
     @Enumerated( EnumType.STRING)
-    private LiveOrDead liveOrDead;
+    private LiveDead liveDead;
 
-    @ManyToOne
-    @JsonManagedReference
+    @ManyToOne(fetch=FetchType.EAGER)
     private Item item;
 
     @ManyToOne
     @JsonIgnore
     private GoodReceivedNote goodReceivedNote;
+
+
+    @OneToMany(mappedBy = "ledger")
+    private List< InvoiceLedger > invoiceLedgers;
 
 
 }

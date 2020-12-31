@@ -1,11 +1,14 @@
 package j_n_super_pvt_ltd.asset.user_management.user.dao;
 
-import j_n_super_pvt_ltd.asset.user_management.user.entity.User;
-import j_n_super_pvt_ltd.asset.employee.entity.Employee;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface UserDao extends JpaRepository<User, Integer > {
@@ -19,5 +22,7 @@ public interface UserDao extends JpaRepository<User, Integer > {
     User findByUsername(String name);
 
     User findByEmployee(Employee employee);
+
+    List<User> findByLiveDead(LiveDead live_dead);
 
    }

@@ -1,11 +1,11 @@
-package j_n_super_pvt_ltd.asset.invoice_item.entity;
+package j_n_super_pvt_ltd.asset.invoice_ledger.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import j_n_super_pvt_ltd.asset.item.entity.Item;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.invoice.entity.Invoice;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.invoice.entity.Invoice;
+import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
+import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +19,8 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("InvoiceItem")
-public class InvoiceItem extends AuditEntity {
+@JsonFilter("InvoiceLedger")
+public class InvoiceLedger extends AuditEntity {
 
     @Column(nullable = false)
     private String quantity;
@@ -28,11 +28,14 @@ public class InvoiceItem extends AuditEntity {
     @Column( nullable = false, precision = 10, scale = 2 )
     private BigDecimal sellPrice;
 
+    @Column( nullable = false, precision = 10, scale = 2 )
+    private BigDecimal lineTotal;
+
     @Enumerated( EnumType.STRING)
-    private LiveOrDead liveOrDead;
+    private LiveDead liveDead;
 
     @ManyToOne
-    private Item item;
+    private Ledger ledger;
 
     @ManyToOne
     private Invoice invoice;

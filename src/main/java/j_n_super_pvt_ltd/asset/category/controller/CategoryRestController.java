@@ -1,11 +1,11 @@
-package j_n_super_pvt_ltd.asset.category.controller;
+package lk.j_n_super_pvt_ltd.asset.category.controller;
 
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import j_n_super_pvt_ltd.asset.item.entity.enums.MainCategory;
-import j_n_super_pvt_ltd.asset.category.entity.Category;
-import j_n_super_pvt_ltd.asset.category.service.CategoryService;
+import lk.j_n_super_pvt_ltd.asset.category.entity.Category;
+import lk.j_n_super_pvt_ltd.asset.category.service.CategoryService;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.MainCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;

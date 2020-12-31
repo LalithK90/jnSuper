@@ -1,8 +1,8 @@
 package j_n_super_pvt_ltd.asset.common_asset.controller;
 
-import j_n_super_pvt_ltd.asset.user_management.entity.PasswordChange;
-import j_n_super_pvt_ltd.asset.user_management.user.entity.User;
-import j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
+import lk.j_n_super_pvt_ltd.asset.user_management.entity.PasswordChange;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.entity.User;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;

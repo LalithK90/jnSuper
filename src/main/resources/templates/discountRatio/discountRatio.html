@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<head th:replace="~{fragments/header1 :: headerFragment}" >
+<head th:replace="~{fragments/header :: headerFragment}" >
   <meta name="viewport" content="width=device-width, initial-scale=1" >
   <meta charset="UTF-8" >
   <title >J N Super </title >
@@ -48,7 +48,7 @@
           <th th:text="${rowCount.count}" ></th >
           <th th:text="${discountRatio.name}" ></th >
           <th th:text="${discountRatio.amount}" ></th >
-          <th th:text="${discountRatio.getLiveOrDead.getLiveOrDead}" ></th >
+          <th th:text="${discountRatio.liveDead.liveDeath}" ></th >
           <th >
             <a id="discountRatioEdit" th:href="${'/discountRatio/edit/' + discountRatio.id}"
                class="btn btn-primary btn-sm" ><i class="fa fa-edit" ></i >&nbsp;Edit</a >
@@ -75,17 +75,16 @@
         </h3 >
       </div >
     </div >
-    <script >
-        /*active boostrap alert - start*/
-        $(".alert").alert();
-        /*active boostrap alert - end*/
-    </script >
   </div >
 </div >
-<!--footer include-->
-<footer th:replace="~{fragments/footer :: footerFragment}" ></footer >
+<div  th:replace="~{fragments/footer :: footerFragment}" ></div >
 <!--script include-->
-<script th:replace="~{fragments/script :: scriptFragment}" ></script >
+<div th:replace="~{fragments/script :: scriptFragment}" ></div >
 
+<script >
+    /*active boostrap alert - start*/
+    $(".alert").alert();
+    /*active boostrap alert - end*/
+</script >
 </body >
 </html >

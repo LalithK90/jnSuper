@@ -3,13 +3,13 @@ package j_n_super_pvt_ltd.asset.item.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFilter;
-import j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
-import j_n_super_pvt_ltd.asset.category.entity.Category;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.item.entity.enums.ItemStatus;
-import j_n_super_pvt_ltd.asset.purchase_order_item.entity.PurchaseOrderItem;
-import j_n_super_pvt_ltd.asset.supplier_item.entity.SupplierItem;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
+import lk.j_n_super_pvt_ltd.asset.category.entity.Category;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ItemStatus;
+import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
+import lk.j_n_super_pvt_ltd.asset.purchase_order_item.entity.PurchaseOrderItem;
+import lk.j_n_super_pvt_ltd.asset.supplier_item.entity.SupplierItem;
+import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,7 +45,7 @@ public class Item extends AuditEntity {
     private ItemStatus itemStatus;
 
     @Enumerated(EnumType.STRING)
-    private LiveOrDead liveOrDead;
+    private LiveDead liveDead;
 
     @ManyToOne
     private Category category;
@@ -55,7 +55,7 @@ public class Item extends AuditEntity {
 
     @OneToMany( mappedBy = "item" )
     @JsonBackReference
-    private List<Ledger> ledgers;
+    private List< Ledger > ledgers;
 
     @OneToMany( mappedBy = "item" )
     private List< PurchaseOrderItem > purchaseOrderItems;

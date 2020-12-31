@@ -1,4 +1,4 @@
-package j_n_super_pvt_ltd.asset.user_management.user_session_log.entity.enums;
+package lk.j_n_super_pvt_ltd.asset.user_management.user_session_log.entity.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

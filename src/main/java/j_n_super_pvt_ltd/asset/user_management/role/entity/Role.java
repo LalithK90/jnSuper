@@ -1,8 +1,8 @@
-package j_n_super_pvt_ltd.asset.user_management.role.entity;
+package lk.j_n_super_pvt_ltd.asset.user_management.role.entity;
 
-import j_n_super_pvt_ltd.asset.user_management.user.entity.User;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.entity.User;
+import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +24,8 @@ public class Role extends AuditEntity {
     private String roleName;
 
     @Enumerated(EnumType.STRING)
-    private LiveOrDead liveOrDead;
+    private LiveDead liveDead;
 
     @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+    private List< User > users;
 }

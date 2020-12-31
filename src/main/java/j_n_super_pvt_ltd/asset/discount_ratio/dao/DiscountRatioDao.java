@@ -1,10 +1,10 @@
-package j_n_super_pvt_ltd.asset.discount_ratio.dao;
+package lk.j_n_super_pvt_ltd.asset.discount_ratio.dao;
 
 
-import j_n_super_pvt_ltd.asset.discount_ratio.entity.DiscountRatio;
+import lk.j_n_super_pvt_ltd.asset.discount_ratio.entity.DiscountRatio;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DiscountRatioDao extends JpaRepository<DiscountRatio, Integer > {
+public interface DiscountRatioDao extends JpaRepository< DiscountRatio, Integer > {
 }

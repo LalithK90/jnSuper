@@ -2,10 +2,10 @@ package j_n_super_pvt_ltd.asset.payment.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
-import j_n_super_pvt_ltd.util.audit.AuditEntity;
-import j_n_super_pvt_ltd.asset.invoice.entity.enums.PaymentMethod;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.PaymentMethod;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
+import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +33,7 @@ public class Payment extends AuditEntity {
     private PaymentMethod paymentMethod;
 
     @Enumerated(EnumType.STRING)
-    private LiveOrDead liveOrDead;
+    private LiveDead liveDead;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;

@@ -1,27 +1,21 @@
 package j_n_super_pvt_ltd.asset.purchase_order.controller;
 
 
-import j_n_super_pvt_ltd.asset.ledger.dao.LedgerDao;
-import j_n_super_pvt_ltd.asset.purchase_order_item.entity.PurchaseOrderItem;
-import j_n_super_pvt_ltd.asset.purchase_order_item.service.PurchaseOrderItemService;
-import j_n_super_pvt_ltd.util.service.EmailService;
-import j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
-import j_n_super_pvt_ltd.util.service.OperatorService;
-import j_n_super_pvt_ltd.asset.common_asset.service.CommonService;
-import j_n_super_pvt_ltd.asset.purchase_order.entity.enums.PurchaseOrderPriority;
-import j_n_super_pvt_ltd.asset.purchase_order.entity.enums.PurchaseOrderStatus;
-import j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
-import j_n_super_pvt_ltd.asset.purchase_order.service.PurchaseOrderService;
-import j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
-import j_n_super_pvt_ltd.asset.supplier.service.SupplierService;
-import j_n_super_pvt_ltd.asset.supplier_item.controller.SupplierItemController;
-import j_n_super_pvt_ltd.asset.supplier_item.service.SupplierItemService;
+import lk.j_n_super_pvt_ltd.asset.common_asset.service.CommonService;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.enums.PurchaseOrderPriority;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.enums.PurchaseOrderStatus;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
+import lk.j_n_super_pvt_ltd.asset.purchase_order_item.entity.PurchaseOrderItem;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.service.PurchaseOrderService;
+import lk.j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
+import lk.j_n_super_pvt_ltd.asset.supplier.service.SupplierService;
+import lk.j_n_super_pvt_ltd.asset.supplier_item.controller.SupplierItemController;
+import lk.j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -32,30 +26,17 @@ import java.util.stream.Collectors;
 @RequestMapping( "/purchaseOrder" )
 public class PurchaseOrderController {
     private final PurchaseOrderService purchaseOrderService;
-    private final PurchaseOrderItemService purchaseOrderItemService;
     private final SupplierService supplierService;
     private final CommonService commonService;
     private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
-    private final EmailService emailService;
-    private final OperatorService operatorService;
-    private final SupplierItemService supplierItemService;
-    private final LedgerDao ledgerDao;
 
-    public PurchaseOrderController(PurchaseOrderService supplierItemService,
-                                   PurchaseOrderService purchaseOrderService,
-                                   PurchaseOrderItemService purchaseOrderItemService, SupplierService supplierService
-            , CommonService commonService, MakeAutoGenerateNumberService makeAutoGenerateNumberService,
-                                   EmailService emailService, OperatorService operatorService,
-                                   SupplierItemService supplierItemService1, LedgerDao ledgerDao) {
+    public PurchaseOrderController(PurchaseOrderService purchaseOrderService,
+                                   SupplierService supplierService
+        , CommonService commonService, MakeAutoGenerateNumberService makeAutoGenerateNumberService) {
         this.purchaseOrderService = purchaseOrderService;
-        this.purchaseOrderItemService = purchaseOrderItemService;
         this.supplierService = supplierService;
         this.commonService = commonService;
         this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
-        this.emailService = emailService;
-        this.operatorService = operatorService;
-        this.supplierItemService = supplierItemService1;
-        this.ledgerDao = ledgerDao;
     }
 
     @GetMapping
@@ -88,7 +69,7 @@ public class PurchaseOrderController {
 
     @PostMapping( "/save" )
     public String purchaseOrderPersist(@Valid @ModelAttribute PurchaseOrder purchaseOrder,
-                                       BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+                                       BindingResult bindingResult) {
         if ( bindingResult.hasErrors() ) {
             return "redirect:/purchaseOrder/" + purchaseOrder.getId();
         }
@@ -96,15 +77,15 @@ public class PurchaseOrderController {
         if ( purchaseOrder.getId() == null ) {
             if ( purchaseOrderService.lastPurchaseOrder() == null ) {
                 //need to generate new one
-                purchaseOrder.setCode("JNPO" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
+                purchaseOrder.setCode("SSPO" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
             } else {
                 System.out.println("last customer not null");
                 //if there is customer in db need to get that customer's code and increase its value
                 String previousCode = purchaseOrderService.lastPurchaseOrder().getCode().substring(4);
-                purchaseOrder.setCode("JNPO" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+                purchaseOrder.setCode("SSPO" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
             }
         }
-        List<PurchaseOrderItem> purchaseOrderItemList = new ArrayList<>();
+        List< PurchaseOrderItem > purchaseOrderItemList = new ArrayList<>();
         for ( PurchaseOrderItem purchaseOrderItem : purchaseOrder.getPurchaseOrderItems() ) {
             if ( purchaseOrderItem.getItem() != null ) {
                 purchaseOrderItem.setPurchaseOrder(purchaseOrder);
@@ -149,7 +130,7 @@ public class PurchaseOrderController {
 
     @GetMapping( "view/{id}" )
     public String viewPurchaseOrderDetail(@PathVariable Integer id, Model model) {
-        model.addAttribute("purchaseOrder-details", purchaseOrderService.findById(id));
+        model.addAttribute("purchaseOrderDetail", purchaseOrderService.findById(id));
         return "purchaseOrder/purchaseOrder-detail";
     }
 
@@ -158,11 +139,10 @@ public class PurchaseOrderController {
         PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
         purchaseOrder.setPurchaseOrderStatus(PurchaseOrderStatus.NOT_PROCEED);
         purchaseOrderService.persist(purchaseOrder);
-        //model.addAttribute("purchaseOrder-details", purchaseOrderService.findById(id));
         return "redirect:/purchaseOrder/all";
     }
 
-    //todo -> need to  manage item price displaying option and amount calculation
+
     @GetMapping( "/supplier/{id}" )
     public String addPriceToSupplierItem(@PathVariable int id, Model model) {
         Supplier supplier = supplierService.findById(id);

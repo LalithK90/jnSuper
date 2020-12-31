@@ -1,16 +1,16 @@
-package j_n_super_pvt_ltd;
+package lk.j_n_super_pvt_ltd;
 
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.CivilStatus;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.Gender;
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.Title;
-import j_n_super_pvt_ltd.asset.employee.entity.Employee;
-import j_n_super_pvt_ltd.asset.employee.entity.enums.Designation;
-import j_n_super_pvt_ltd.asset.employee.entity.enums.EmployeeStatus;
-import j_n_super_pvt_ltd.asset.employee.service.EmployeeService;
-import j_n_super_pvt_ltd.asset.user_management.role.entity.Role;
-import j_n_super_pvt_ltd.asset.user_management.user.entity.User;
-import j_n_super_pvt_ltd.asset.user_management.role.service.RoleService;
-import j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.CivilStatus;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.Gender;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.Title;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.enums.Designation;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.enums.EmployeeStatus;
+import lk.j_n_super_pvt_ltd.asset.employee.service.EmployeeService;
+import lk.j_n_super_pvt_ltd.asset.user_management.role.entity.Role;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.entity.User;
+import lk.j_n_super_pvt_ltd.asset.user_management.role.service.RoleService;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,7 +52,7 @@ public class ApplicationCreateRestController {
         employee.setMobileOne("0750000000");
         employee.setTitle(Title.MR);
         employee.setGender(Gender.MALE);
-        employee.setDesignation(Designation.LA);
+        employee.setDesignation(Designation.ADMIN);
         employee.setCivilStatus(CivilStatus.UNMARRIED);
         employee.setEmployeeStatus(EmployeeStatus.WORKING);
         employee.setDateOfBirth(LocalDate.now().minusYears(18));

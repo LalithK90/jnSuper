@@ -1,13 +1,13 @@
 package j_n_super_pvt_ltd.asset.good_received_note.controller;
 
-import j_n_super_pvt_ltd.asset.good_received_note.entity.GoodReceivedNote;
-import j_n_super_pvt_ltd.asset.good_received_note.entity.enums.GoodReceivedNoteState;
-import j_n_super_pvt_ltd.asset.good_received_note.service.GoodReceivedNoteService;
-import j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
-import j_n_super_pvt_ltd.asset.ledger.service.LedgerService;
-import j_n_super_pvt_ltd.asset.purchase_order.entity.enums.PurchaseOrderStatus;
-import j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
-import j_n_super_pvt_ltd.asset.purchase_order.service.PurchaseOrderService;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.enums.PurchaseOrderStatus;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.service.PurchaseOrderService;
+import lk.j_n_super_pvt_ltd.asset.good_received_note.entity.enums.GoodReceivedNoteState;
+import lk.j_n_super_pvt_ltd.asset.good_received_note.entity.GoodReceivedNote;
+import lk.j_n_super_pvt_ltd.asset.good_received_note.service.GoodReceivedNoteService;
+import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
+import lk.j_n_super_pvt_ltd.asset.ledger.service.LedgerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,7 +54,7 @@ public class GoodReceivedNoteController {
             return "redirect:/goodReceivedNote/".concat(String.valueOf(goodReceivedNote.getPurchaseOrder().getId()));
         }
 //New Leger add to add system as new item on ledger
-        List<Ledger> ledgers = new ArrayList<>();
+        List< Ledger > ledgers = new ArrayList<>();
         for ( Ledger ledger : goodReceivedNote.getLedgers() ) {
             Ledger ledgerDB = ledgerService.findByItemAndAndExpiredDateAndSellPrice(ledger.getItem(),
                                                                                     ledger.getExpiredDate(),

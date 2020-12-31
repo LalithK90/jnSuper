@@ -1,10 +1,10 @@
 package j_n_super_pvt_ltd.asset.supplier.controller;
 
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.util.interfaces.AbstractController;
-import j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
-import j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
-import j_n_super_pvt_ltd.asset.supplier.service.SupplierService;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
+import lk.j_n_super_pvt_ltd.asset.supplier.service.SupplierService;
+import lk.j_n_super_pvt_ltd.util.interfaces.AbstractController;
+import lk.j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +36,7 @@ public  class SupplierController implements AbstractController<Supplier, Integer
     @GetMapping
     public String findAll(Model model) {
         model.addAttribute("suppliers", supplierService.findAll().stream()
-            .filter(x-> LiveOrDead.ACTIVE.equals(x.getLiveOrDead()))
+            .filter(x-> LiveDead.ACTIVE.equals(x.getLiveDead()))
             .collect(Collectors.toList()));
         return "supplier/supplier";
     }
@@ -69,12 +69,12 @@ public  class SupplierController implements AbstractController<Supplier, Integer
 
             if (DBSupplier == null) {
                 //need to generate new one
-                supplier.setCode("SS"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
+                supplier.setCode("SSMS"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
             } else {
                 System.out.println("last supplier not null");
                 //if there is supplier in db need to get that supplier's code and increase its value
-                String previousCode = DBSupplier.getCode().substring(3);
-                supplier.setCode("JNS"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+                String previousCode = DBSupplier.getCode().substring(4);
+                supplier.setCode("SSMS"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
             }
             //send welcome message and email
             if (supplier.getEmail() != null) {

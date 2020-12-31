@@ -1,11 +1,12 @@
-package j_n_super_pvt_ltd.asset.ledger.service;
+package lk.j_n_super_pvt_ltd.asset.ledger.service;
 
 
-import j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveOrDead;
-import j_n_super_pvt_ltd.asset.item.entity.Item;
-import j_n_super_pvt_ltd.asset.ledger.dao.LedgerDao;
-import j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
-import j_n_super_pvt_ltd.util.interfaces.AbstractService;
+import java.util.stream.Collectors;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
+import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
+import lk.j_n_super_pvt_ltd.asset.ledger.dao.LedgerDao;
+import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
+import lk.j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -27,7 +28,9 @@ public class LedgerService implements AbstractService< Ledger, Integer> {
 
 
     public List<Ledger> findAll() {
-        return ledgerDao.findAll();
+        return ledgerDao.findAll().stream()
+            .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
+            .collect(Collectors.toList());
     }
 
 
@@ -38,13 +41,13 @@ public class LedgerService implements AbstractService< Ledger, Integer> {
 
     public Ledger persist(Ledger ledger) {
         if(ledger.getId()==null){
-            ledger.setLiveOrDead(LiveOrDead.ACTIVE);}
+            ledger.setLiveDead(LiveDead.ACTIVE);}
         return ledgerDao.save(ledger);
     }
 
     public boolean delete(Integer id) {
         Ledger ledger =  ledgerDao.getOne(id);
-        ledger.setLiveOrDead(LiveOrDead.STOP);
+        ledger.setLiveDead(LiveDead.STOP);
         ledgerDao.save(ledger);
         return false;
     }
@@ -68,8 +71,12 @@ public class LedgerService implements AbstractService< Ledger, Integer> {
     }
 
     public List<Ledger> findByCreatedAtIsBetween(LocalDateTime startDate, LocalDateTime endDate) {
-        return ledgerDao.findByCreatedAtIsBetween(startDate, endDate);
+        return ledgerDao.findByCreatedAtBetween(startDate, endDate);
     }
+
+  public List<Ledger> findByExpiredDateBetween(LocalDate from, LocalDate to) {
+        return ledgerDao.findByExpiredDateBetween(from,to);
+  }
 
    /* public Ledger findByItem(Item item) {
         return ledgerDao.findByItem(item);

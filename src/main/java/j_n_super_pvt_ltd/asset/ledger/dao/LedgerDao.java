@@ -1,8 +1,8 @@
 package j_n_super_pvt_ltd.asset.ledger.dao;
 
 
-import j_n_super_pvt_ltd.asset.item.entity.Item;
-import j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
+import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
+import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +17,8 @@ public interface LedgerDao extends JpaRepository< Ledger, Integer> {
 
     Ledger findByItemAndAndExpiredDateAndSellPrice(Item item, LocalDate eDate, BigDecimal sellPrice);
 
-    List< Ledger > findByCreatedAtIsBetween(LocalDateTime form, LocalDateTime to);
+    List<Ledger> findByExpiredDateBetween(LocalDate from, LocalDate to);
+
+    List< Ledger > findByCreatedAtBetween(LocalDateTime form, LocalDateTime to);
 
 }
