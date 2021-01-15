@@ -6,35 +6,33 @@
 </head>
 <body>
 <nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
-
-<!--Page header -->
-<div class="container-fluid bg-secondary form-Border">
-    <div class="row text-center formManagement border-info">
-        <div class="col">
-            <a class="btn btn-primary" href="/home">
-                <i class="fa fa-home" style="font-size: 20px"></i> &nbsp; Home
-            </a>
-        </div>
-        <div class="col">
-            <h4 class="text-light text-center">
-                <strong>
-                    <span id="formHeader" th:text="${addStatus==true?'New User':'Update User'}"></span>
-                </strong>
-            </h4>
-        </div>
-        <div class="col">
-            <a href="/user" class="btn btn-primary">
-                <i class="fa fa-list"></i>&nbsp; View List
-            </a>
-        </div>
-    </div>
-</div>
 <!--Employee find-->
-<div class="container-fluid bg-dark formBorder" id="employeeFindForm" th:if="${employeeDetailShow==false}">
+<div class="container-fluid " id="employeeFindForm" th:if="${employeeDetailShow==false}">
     <div class="col-sm-12 flex-column ">
         <form id="form" method="POST" th:action="${'/user/workingPlace'}" th:object="${employee}"
               enctype="multipart/form-data">
             <div class="form-row">
+                <div class="container-fluid ">
+                    <div class="row text-center formManagement border-info">
+                        <div class="col">
+                            <a class="btn btn-success" href="/home">
+                                <i class="fa fa-home" style="font-size: 20px"></i> &nbsp; Home
+                            </a>
+                        </div>
+                        <div class="col">
+                            <h4 class="text-light text-center">
+                                <strong>
+                                    <span id="formHeader" th:text="${addStatus==true?'New User':'Update User'}"></span>
+                                </strong>
+                            </h4>
+                        </div>
+                        <div class="col">
+                            <a href="/user" class="btn btn-success">
+                                <i class="fa fa-list"></i>&nbsp; View List
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5 flex-column">
                     <div class="form-group">
                         <div class="col-4">

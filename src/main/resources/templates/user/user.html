@@ -7,20 +7,24 @@
 <body>
 <nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
 
-<div class="container-fluid bg-secondary form-Border">
+<div class="container-fluid ">
     <div class="row text-center formManagement border-info">
         <div class="col">
             <a class="btn btn-success" id="newUser" th:href="${'/user/add'}">
                 <i class="fa fa-user-plus" style="font-size: 18px;"></i> &nbsp; Add User </a>
         </div>
         <div class="col">
-            <h4 class="text-info text-center">
+            <h2 class="text-light text-center">
                 <strong>
                     User Management
                 </strong>
-            </h4>
+            </h2>
         </div>
-        <div class="col"></div>
+        <div class="col">
+            <a class="btn btn-success" href="/home" >
+                Back To Home
+            </a >
+        </div>
     </div>
 </div>
 <div class="container-fluid bg-dark formBorder">

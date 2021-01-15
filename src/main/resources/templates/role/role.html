@@ -7,21 +7,24 @@
 <body>
 <nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
 
-<div class="container-fluid bg-secondary form-Border">
+<div class="container-fluid ">
     <div class="row text-center formManagement border-info">
         <div class="col">
             <a class="btn btn-success" href="/role/add">
-                <i class="fa fa-user-plus" style="font-size: 18px;"></i> &nbsp; New Role </a>
-
+                <i class="fa fa-user-plus" style="font-size: 18px;"></i> New Role
+            </a>
         </div>
         <div class="col ">
-            <h4 class="text-info text-center">
+            <h2 class="text-light text-center">
                 <strong>
                     Role Management
                 </strong>
-            </h4>
+            </h2>
         </div>
         <div class="col">
+            <a class="btn btn-success" href="/home">
+                <i class="fa fa-home" style="font-size: 20px"></i>Home
+            </a>
         </div>
     </div>
 </div>

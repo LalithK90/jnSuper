@@ -10,30 +10,7 @@
 
 <nav th:replace="~{fragments/navBar :: navBarFragment}" ></nav >
 <!--Heading Area -->
-<div class="container-fluid " >
-  <div class="row text-center formManagement border-info" >
-    <!--View List Button-->
-    <div class="col" >
-      <a href="/supplier" class="btn btn-primary" >
-        <i class="fa fa-list" style="font-size: 20px" ></i >&nbsp;&nbsp;View List
-      </a >
-    </div >
-    <!--Form Name-->
-    <div class="col" >
-      <h2 class="text-white text-center" >
-        <strong >
-          Supplier Item Management
-        </strong >
-      </h2 >
-    </div >
-    <!--Home Button-->
-    <div class="col" >
-      <a class="btn btn-primary" href="/home" >
-        <i class="fa fa-home" style="font-size: 20px" ></i > &nbsp;&nbsp;Home
-      </a >
-    </div >
-  </div >
-</div >
+
 
 <!--Form Content - start -->
 <div class="container-fluid " >
@@ -42,6 +19,31 @@
     <form id="form" class="form-inline" th:action="${'/supplierItem/find'}"
           th:object="${supplierDetail}" method="POST" >
       <div class="form-row" >
+        <div class="container-fluid " >
+          <div class="row text-center formManagement border-info" >
+            <!--View List Button-->
+            <div class="col" >
+              <a href="/supplier" class="btn btn-success" >
+                <i class="fa fa-list" style="font-size: 20px" ></i >&nbsp;&nbsp;View List
+              </a >
+            </div >
+            <!--Form Name-->
+            <div class="col" >
+              <h2 class="text-white text-center" >
+                <strong >
+                  Supplier Item Management
+                </strong >
+              </h2 >
+            </div >
+            <!--Home Button-->
+            <div class="col" >
+              <a class="btn btn-success" href="/home" >
+                <i class="fa fa-home" style="font-size: 20px" ></i > &nbsp;&nbsp;Home
+              </a >
+            </div >
+          </div >
+        </div >
+
         <label for="searchCriteria" class="mr-5 ml-5" >Search By</label >
         <select class="form-control mr-5 ml-5" id="searchCriteria" tabindex="1" required >
           <option value="" disabled selected >Please Select</option >
