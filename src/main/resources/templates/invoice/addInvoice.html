@@ -555,11 +555,11 @@
     });
 
     function discountRatio() {
-      let discountRatio = parseFloat($("#discountRatio").find('option:selected').text());
-      let total = parseFloat($("#total").val());
-      let discountAmount = total * discountRatio / 100;
-      $("#totalAmount").val(total - discountAmount);
-      $("#discountAmount").val(discountAmount);
+        let discountRatio = parseFloat($("#discountRatio").find('option:selected').text());
+        let total = parseFloat($("#total").val());
+        let discountAmount = total * discountRatio / 100;
+        $("#totalAmount").val(total - discountAmount);
+        $("#discountAmount").val(discountAmount);
     }
 
     $("#amountTendered").bind('focusout', function () {
@@ -570,7 +570,7 @@
                 title: "Hey why do you try to pay less money",
                 icon: "warning",
             });
-          $("#amountTendered").val(totalAmount);
+            $("#amountTendered").val(totalAmount);
         } else {
             $("#balance").val(tenderedAmount - totalAmount);
         }
@@ -592,5 +592,6 @@
     }
 
 </script >
+
 </body >
 </html >
