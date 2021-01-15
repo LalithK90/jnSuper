@@ -1,5 +1,6 @@
 package lk.j_n_super_pvt_ltd.asset.good_received_note.controller;
 
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
 import lk.j_n_super_pvt_ltd.asset.good_received_note.entity.GoodReceivedNote;
 import lk.j_n_super_pvt_ltd.asset.good_received_note.entity.enums.GoodReceivedNoteState;
 import lk.j_n_super_pvt_ltd.asset.good_received_note.service.GoodReceivedNoteService;
@@ -68,6 +69,7 @@ public class GoodReceivedNoteController {
                     ledgers.add(ledgerDB);
                 } else {
                     ledger.setGoodReceivedNote(goodReceivedNote);
+                    ledger.setLiveDead(LiveDead.ACTIVE);
                     ledgers.add(ledger);
                 }
             }
