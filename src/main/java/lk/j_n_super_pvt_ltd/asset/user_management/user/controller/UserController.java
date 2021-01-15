@@ -5,8 +5,8 @@ import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
 import lk.j_n_super_pvt_ltd.asset.employee.entity.enums.Designation;
 import lk.j_n_super_pvt_ltd.asset.employee.entity.enums.EmployeeStatus;
 import lk.j_n_super_pvt_ltd.asset.employee.service.EmployeeService;
-import lk.j_n_super_pvt_ltd.asset.user_management.user.entity.User;
 import lk.j_n_super_pvt_ltd.asset.user_management.role.service.RoleService;
+import lk.j_n_super_pvt_ltd.asset.user_management.user.entity.User;
 import lk.j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -141,11 +141,7 @@ public class UserController {
     Designation designation = employee.getDesignation();
 
     // userService.persist(user);
-    if ( employee.getEmployeeStatus().equals(EmployeeStatus.WORKING) ) {
-      user.setEnabled(true);
-    } else {
-      user.setEnabled(false);
-    }
+    user.setEnabled(employee.getEmployeeStatus().equals(EmployeeStatus.WORKING));
     user.setRoles(user.getRoles());
     user.setEnabled(true);
     userService.persist(user);

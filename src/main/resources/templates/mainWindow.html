@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<head th:replace="~{fragments/header :: headerFragment}" >
+<html lang="en"  >
+<head  data-th-replace="~{fragments/header :: headerFragment}" >
   <meta charset="UTF-8" >
   <title >Thymeleaf Springboot </title >
 
 </head >
 <body >
-<nav th:replace="~{fragments/navBar :: navBarFragment}" ></nav >
+<nav  data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
 
   <div class="container-fluid " style="margin:0px 15px 50px 0px" >
     <div class="main-section" id="windowBack" >
@@ -160,9 +160,9 @@
   </div>
 
 <!--footer include-->
-<div th:replace="~{fragments/footer :: footerFragment}" ></div >
+<div  data-th-replace="~{fragments/footer :: footerFragment}" ></div >
 <!--script include-->
-<div th:replace="~{fragments/script :: scriptFragment}" ></div >
+<div  data-th-replace="~{fragments/script :: scriptFragment}" ></div >
 <script >
     $(document).ready(function () {
         $("h2").addClass("animated bounce");

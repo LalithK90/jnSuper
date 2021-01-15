@@ -3,8 +3,8 @@ package lk.j_n_super_pvt_ltd.asset.supplier_item.dao;
 
 import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
 import lk.j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
-import lk.j_n_super_pvt_ltd.asset.supplier_item.entity.enums.ItemSupplierStatus;
 import lk.j_n_super_pvt_ltd.asset.supplier_item.entity.SupplierItem;
+import lk.j_n_super_pvt_ltd.asset.supplier_item.entity.enums.ItemSupplierStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

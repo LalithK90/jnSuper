@@ -74,7 +74,7 @@ public  class SupplierController implements AbstractController<Supplier, Integer
                 System.out.println("last supplier not null");
                 //if there is supplier in db need to get that supplier's code and increase its value
                 String previousCode = DBSupplier.getCode().substring(4);
-                supplier.setCode("JNSS"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+                supplier.setCode("SSMS"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
             }
             //send welcome message and email
             if (supplier.getEmail() != null) {

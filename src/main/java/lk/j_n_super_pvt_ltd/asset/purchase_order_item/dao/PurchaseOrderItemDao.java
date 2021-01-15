@@ -1,9 +1,9 @@
 package lk.j_n_super_pvt_ltd.asset.purchase_order_item.dao;
 
 
+import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
 import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
 import lk.j_n_super_pvt_ltd.asset.purchase_order_item.entity.PurchaseOrderItem;
-import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

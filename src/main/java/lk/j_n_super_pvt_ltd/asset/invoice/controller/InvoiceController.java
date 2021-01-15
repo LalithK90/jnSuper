@@ -3,10 +3,10 @@ package lk.j_n_super_pvt_ltd.asset.invoice.controller;
 
 import lk.j_n_super_pvt_ltd.asset.customer.service.CustomerService;
 import lk.j_n_super_pvt_ltd.asset.discount_ratio.service.DiscountRatioService;
+import lk.j_n_super_pvt_ltd.asset.invoice.entity.Invoice;
 import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.InvoicePrintOrNot;
 import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.InvoiceValidOrNot;
 import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.PaymentMethod;
-import lk.j_n_super_pvt_ltd.asset.invoice.entity.Invoice;
 import lk.j_n_super_pvt_ltd.asset.invoice.service.InvoiceService;
 import lk.j_n_super_pvt_ltd.asset.item.service.ItemService;
 import lk.j_n_super_pvt_ltd.asset.ledger.controller.LedgerController;
@@ -51,7 +51,7 @@ public class InvoiceController {
   public String invoice(Model model) {
     model.addAttribute("invoices",
                        invoiceService.findAll());
-                       /*invoiceService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now())));*/
+    /*invoiceService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now())));*/
     model.addAttribute("firstInvoiceMessage", true);
     return "invoice/invoice";
   }

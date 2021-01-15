@@ -6,10 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum MainCategory {
-    SPICES("Spices"),
-    SEEDS("Seeds");
-
-    /*PROCESSED_MEAT("Processed Meat"),
+    PROCESSED_MEAT("Processed Meat"),
     BEVERAGES("Beverages"),
     CANNED_FOODS("Canned Foods"),
     CONFECTIONERY_ITEMS("Confectionery Items"),
@@ -28,7 +25,7 @@ public enum MainCategory {
     DESSERT_INGREDIENTS("Dessert Ingredients"),
     SPECIAL_SEA_FOODS("Special Sea Foods"),
     PARTY_FAVORS("Party Favors"),
-    ESSENTIAL_GROCERY_PACKS("Essential Grocery Packs");*/
+    ESSENTIAL_GROCERY_PACKS("Essential Grocery Packs");
 
     private final String mainCategory;
 }

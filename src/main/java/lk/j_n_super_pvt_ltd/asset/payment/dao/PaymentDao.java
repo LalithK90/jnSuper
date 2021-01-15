@@ -1,8 +1,8 @@
 package lk.j_n_super_pvt_ltd.asset.payment.dao;
 
 
-import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
 import lk.j_n_super_pvt_ltd.asset.payment.entity.Payment;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
