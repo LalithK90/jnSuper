@@ -51,7 +51,7 @@ public class InvoiceController {
   public String invoice(Model model) {
     model.addAttribute("invoices",
                        invoiceService.findAll());
-                       /*invoiceService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now())));*/
+    /*invoiceService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now())));*/
     model.addAttribute("firstInvoiceMessage", true);
     return "invoice/invoice";
   }

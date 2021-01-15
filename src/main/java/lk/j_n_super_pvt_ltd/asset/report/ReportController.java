@@ -2,6 +2,7 @@ package lk.j_n_super_pvt_ltd.asset.report;
 
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.NameCount;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.ParameterCount;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.TwoDate;
 import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
 import lk.j_n_super_pvt_ltd.asset.employee.service.EmployeeService;
 import lk.j_n_super_pvt_ltd.asset.invoice.entity.Invoice;
@@ -19,7 +20,8 @@ import lk.j_n_super_pvt_ltd.util.service.OperatorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
@@ -82,7 +84,7 @@ public class ReportController {
         invoices.stream().filter(x -> x.getPaymentMethod().equals(PaymentMethod.CASH)).collect(Collectors.toList());
     int invoiceCashCount = invoiceCash.size();
     AtomicReference< BigDecimal > invoiceCashAmount = new AtomicReference<>(BigDecimal.ZERO);
-    invoiceCards.forEach(x -> {
+    invoiceCash.forEach(x -> {
       BigDecimal addAmount = operatorService.addition(invoiceCashAmount.get(), x.getTotalAmount());
       invoiceCashAmount.set(addAmount);
     });
@@ -130,13 +132,37 @@ public class ReportController {
           invoices.stream().filter(a -> a.getCreatedBy().equals(x)).collect(Collectors.toList());
       nameCount.setCount(cashierInvoice.size());
       cashierInvoice.forEach(a -> {
-        BigDecimal addAmount = operatorService.addition(paymentCashAmount.get(), a.getTotalAmount());
-        paymentCashAmount.set(addAmount);
+        BigDecimal addAmount = operatorService.addition(cashierTotalCount.get(), a.getTotalAmount());
+        cashierTotalCount.set(addAmount);
       });
       nameCount.setTotal(cashierTotalCount.get());
       invoiceByCashierAndTotalAmount.add(nameCount);
     });
+
     model.addAttribute("invoiceByCashierAndTotalAmount", invoiceByCashierAndTotalAmount);
+    // invoice count by cashier
+    List< NameCount > paymentByUserAndTotalAmount = new ArrayList<>();
+//name, count, total
+    HashSet< String > createdByAllPayment = new HashSet<>();
+    payments.forEach(x -> createdByAllPayment.add(x.getCreatedBy()));
+
+    createdByAllPayment.forEach(x -> {
+      NameCount nameCount = new NameCount();
+      Employee employee = userService.findByUserName(x).getEmployee();
+      nameCount.setName(employee.getTitle().getTitle() + " " + employee.getName());
+      AtomicReference< BigDecimal > userTotalCount = new AtomicReference<>(BigDecimal.ZERO);
+      List< Payment > paymentUser =
+          payments.stream().filter(a -> a.getCreatedBy().equals(x)).collect(Collectors.toList());
+      nameCount.setCount(paymentUser.size());
+      paymentUser.forEach(a -> {
+        BigDecimal addAmount = operatorService.addition(userTotalCount.get(), a.getAmount());
+        userTotalCount.set(addAmount);
+      });
+      nameCount.setTotal(userTotalCount.get());
+      paymentByUserAndTotalAmount.add(nameCount);
+    });
+
+    model.addAttribute("paymentByUserAndTotalAmount", paymentByUserAndTotalAmount);
     // item count according to item
     HashSet< Item > invoiceItems = new HashSet<>();
 
@@ -155,6 +181,7 @@ public class ReportController {
       itemNameAndItemCount.add(parameterCount);
     });
     model.addAttribute("itemNameAndItemCount", itemNameAndItemCount);
+
     model.addAttribute("message", message);
     return "report/paymentAndIncomeReport";
   }
@@ -173,12 +200,11 @@ public class ReportController {
   }
 
 
-  @GetMapping( "/manager/search" )
-  public String getAllInvoiceAndPaymentBetweenTwoDate(@RequestAttribute( "startDate" ) LocalDate startDate,
-                                                      @RequestAttribute( "endDate" ) LocalDate endDate, Model model) {
-    String message = "This report is between from " + startDate.toString() + " to " + endDate.toString();
-    LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate);
-    LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate);
+  @PostMapping( "/manager/search" )
+  public String getAllInvoiceAndPaymentBetweenTwoDate(@ModelAttribute("twoDate") TwoDate twoDate, Model model) {
+    String message = "This report is between from " + twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString();
+    LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate());
+    LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate());
     return commonMethod(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime),
                         invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
                         startDateTime, endDateTime);
