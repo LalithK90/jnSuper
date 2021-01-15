@@ -9,31 +9,7 @@
 <link data-th-href="@{/css/multi.css}" media="all" rel="stylesheet" type="text/css"/>
 
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}"></nav>
-<!--Heading Area -->
-<div class="container-fluid bg-dark form-Border">
-    <div class="row text-center formManagement border-info">
-        <!--View List Button-->
-        <div class="col">
-            <a class="btn btn-primary" href="/purchaseOrder">
-                <i class="fa fa-list" style="font-size: 20px"></i>&nbsp;&nbsp;View List
-            </a>
-        </div>
-        <!--Form Name-->
-        <div class="col">
-            <h2 class="text-white text-center">
-                <strong>
-                    Purchase Order Management
-                </strong>
-            </h2>
-        </div>
-        <!--Home Button-->
-        <div class="col">
-            <a class="btn btn-primary" href="/home">
-                <i class="fa fa-home" style="font-size: 20px"></i> &nbsp;&nbsp;Home
-            </a>
-        </div>
-    </div>
-</div>
+
 
 <!--Form Content - start -->
 <div class="container-fluid bg-info">
@@ -42,6 +18,31 @@
         <form class="form-inline" data-th-action="${'/purchaseOrder/find'}" data-th-object="${purchaseOrder}"
               id="form" method="POST">
             <div class="form-row">
+                <div class="container-fluid ">
+                    <div class="row text-center formManagement border-info">
+                        <!--View List Button-->
+                        <div class="col">
+                            <a class="btn btn-success" href="/purchaseOrder">
+                                <i class="fa fa-list" style="font-size: 20px"></i>&nbsp;&nbsp;View List
+                            </a>
+                        </div>
+                        <!--Form Name-->
+                        <div class="col">
+                            <h2 class="text-light text-center">
+                                <strong>
+                                    Purchase Order List
+                                </strong>
+                            </h2>
+                        </div>
+                        <!--Home Button-->
+                        <div class="col">
+                            <a class="btn btn-success" href="/home">
+                                <i class="fa fa-home" style="font-size: 20px"></i> &nbsp;&nbsp;Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <label class="mr-5 ml-5" for="searchCriteria">Search By</label>
                 <select class="form-control mr-5 ml-5" id="searchCriteria" required tabindex="1">
                     <option disabled selected value="">Please Select</option>
@@ -278,7 +279,7 @@
         let selectedItemId = `${id} option[value='${selectedValue}']`;
         $(selectedItemId).remove();
     }
-    //seledted item count dispaly
+    //selected item count display
     let selectedItemCount = function () {
         $('#selectedItemCount').html($('#selectedItemInTable tr').length - 3);
     };

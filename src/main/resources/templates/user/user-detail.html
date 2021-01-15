@@ -8,10 +8,10 @@
 <nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
 
 <!--Page header -->
-<div class="container-fluid bg-secondary form-Border">
+<div class="container-fluid">
     <div class="row text-center formManagement border-info">
         <div class="col">
-            <a class="btn btn-primary" href="/home">
+            <a class="btn btn-success" href="/home">
                 <i class="fa fa-home" style="font-size: 20px"></i> &nbsp; Home
             </a>
         </div>
@@ -24,7 +24,7 @@
             </h4>
         </div>
         <div class="col">
-            <a href="/user" class="btn btn-primary">
+            <a href="/user" class="btn btn-success">
                 <i class="fa fa-list"></i>&nbsp; View List
             </a>
         </div>
@@ -99,9 +99,8 @@
     </div>
 </div>
 
-<!--footer include-->
-<footer id="footer" class="page-footer"></footer>
+<div  th:replace="~{fragments/footer :: footerFragment}"></div>
 <!--script include-->
-<script id="script"></script>
+<div th:replace="~{fragments/script :: scriptFragment}"></div>
 </body>
 </html>

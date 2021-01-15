@@ -8,27 +8,27 @@
 <nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
 
 <!--heading Area-->
-<div class="container-fluid  form-Border">
-    <div class="row text-center formManagement border-info">
+<div class="container-fluid ">
+    <div class="row text-center formManagement ">
         <div class="col">
-            <a href="/home" id="btnHome" class="btn btn-outline-info">
+            <a href="/home" id="btnHome" class="btn btn-success">
                 &nbsp;Back To Home&nbsp;
             </a>
         </div>
 
         <div class="col">
-            <a class="btn btn-info" href="/employee/add"><i class="fa fa-plus"></i>
+            <a class="btn btn-success" href="/employee/add"><i class="fa fa-plus"></i>
                 &nbsp;Add New</a>
         </div>
 
     </div>
     <div class="row text-center">
         <div class="col">
-            <h4 class="text-info text-center">
+            <h2 class="text-light text-center">
                 <strong>
                     Employee Management
                 </strong>
-            </h4>
+            </h2>
         </div>
     </div>
 </div>
@@ -41,7 +41,7 @@
                     <th> Index</th>
                     <th> Image</th>
                     <th> Employee Id</th>
-                    <th> Name</th>
+                    <th> Calling Name</th>
                     <th> Mobile</th>
                     <th> Designation</th>
                     <th> Status</th>
@@ -96,8 +96,7 @@
         </script>
     </div>
 </div>
-<!--footer include-->
-<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+<div  th:replace="~{fragments/footer :: footerFragment}"></div>
 <!--script include-->
 <script th:replace="~{fragments/script :: scriptFragment}"></script>
 
