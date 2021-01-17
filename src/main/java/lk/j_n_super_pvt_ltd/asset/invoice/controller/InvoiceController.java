@@ -50,7 +50,7 @@ public class InvoiceController {
   @GetMapping
   public String invoice(Model model) {
     model.addAttribute("invoices",
-                       invoiceService.findAll());
+            invoiceService.findAll());
     /*invoiceService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now())));*/
     model.addAttribute("firstInvoiceMessage", true);
     return "invoice/invoice";
@@ -60,7 +60,7 @@ public class InvoiceController {
   public String invoiceSearch(@RequestAttribute( "startDate" ) LocalDate startDate,
                               @RequestAttribute( "endDate" ) LocalDate endDate, Model model) {
     model.addAttribute("invoices",
-                       invoiceService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate), dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate)));
+            invoiceService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate), dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate)));
     model.addAttribute("firstInvoiceMessage", true);
     return "invoice/invoice";
   }
@@ -72,15 +72,15 @@ public class InvoiceController {
     model.addAttribute("customers", customerService.findAll());
     model.addAttribute("discountRatios", discountRatioService.findAll());
     model.addAttribute("ledgerItemURL", MvcUriComponentsBuilder
-        .fromMethodName(LedgerController.class, "findId", "")
-        .build()
-        .toString());
+            .fromMethodName(LedgerController.class, "findId", "")
+            .build()
+            .toString());
     System.out.println("Sixe" + ledgerService.findAll().size());
     //send not expired and not zero quantity
     model.addAttribute("ledgers", ledgerService.findAll()
-        .stream()
-        .filter(x -> 0 < Integer.parseInt(x.getQuantity()) && x.getExpiredDate().isAfter(LocalDate.now()))
-        .collect(Collectors.toList()));
+            .stream()
+            .filter(x -> 0 < Integer.parseInt(x.getQuantity()) && x.getExpiredDate().isBefore(LocalDate.now()))
+            .collect(Collectors.toList()));
     return "invoice/addInvoice";
   }
 
