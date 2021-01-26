@@ -6,9 +6,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum MainCategory {
-    SEEDS("Processed Meat"),
-    SPICES("Beverages"),
-    CANNED_FOODS("Canned Foods"),
+    SEEDS("Seeds"),
+    SPICES("Spices");
+
+
+
+    /*CANNED_FOODS("Canned Foods"),
     CONFECTIONERY_ITEMS("Confectionery Items"),
     RICE_PULSES("Rice Pulses"),
     CONDIMENTS_SPICES("Condiments Spices"),
@@ -25,8 +28,8 @@ public enum MainCategory {
     DESSERT_INGREDIENTS("Dessert Ingredients"),
     SPECIAL_SEA_FOODS("Special Sea Foods"),
     PARTY_FAVORS("Party Favors"),
-    ESSENTIAL_GROCERY_PACKS("Essential Grocery Packs");
-  //database eke drop karala aya danna wennawa
+    ESSENTIAL_GROCERY_PACKS("Essential Grocery Packs");*/
+
 
     private final String mainCategory;
 }

@@ -75,6 +75,7 @@ public class GoodReceivedNoteController {
                 }
             }
             ledger.setGoodReceivedNote(goodReceivedNote);
+            ledger.setLiveDead(LiveDead.ACTIVE);
             ledgers.add(ledger);
 
         }
