@@ -36,7 +36,8 @@
     </div>
 
     <div class="container-fluid formBorder text-center">
-            <div class="col"> <!--Supplier List Table-->
+            <div class="col">
+                <!--Supplier List Table-->
                 <div class="col" id="supplierListPresent" data-th-fragment="supplierFragment"
                      data-th-if="${not #lists.isEmpty(suppliers)}">
                     <table class="table table-hover table-striped" id="myTable">
@@ -74,9 +75,9 @@
                                     <!--data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"--> <i
                                       class="fa fa-trash" style="font-size: 15px"></i> Delete</a>
                             </th>
-                            <th data-th-if="${supplierDetailShow==true}">
+                            <th  data-th-if="${supplierDetailShow==true}">
                                 <a class="btn btn-primary btn-sm" data-th-href="${supplierDetailShow==true ?'/purchaseOrder/supplier/' + supplier.id :'/supplierItem/supplier/' + supplier.id}"><i
-                                      class="fa fa-thumbs-up" style="font-size: 15px"></i>&nbsp;Select</a>
+                                        class="fa fa-thumbs-up" style="font-size: 15px"></i>&nbsp;Select</a>
                             </th>
                         </tr>
                         </tbody>

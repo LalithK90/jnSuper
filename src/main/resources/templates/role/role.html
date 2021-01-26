@@ -44,10 +44,10 @@
                     <th  data-th-text="${rowCount.count}"></th>
                     <th  data-th-text="${role.roleName}"></th>
                     <th  data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-                        <a id="edit" th:href="${'/role/edit/' + role.id}" class="btn btn-primary btn-sm mr-2 p-2">Edit
+                        <a id="edit"  data-th-href="${'/role/edit/' + role.id}" class="btn btn-primary btn-sm mr-2 p-2">Edit
                         </a>
                         &nbsp;
-                        <a id="remove" th:href="${'/role/remove/' + role.id}" class="btn btn-danger btn-sm mr-2 p-2"
+                        <a id="remove"  data-th-href="${'/role/remove/' + role.id}" class="btn btn-danger btn-sm mr-2 p-2"
                            onclick="if
                         (!(confirm('Are you sure you want to delete this role?'))) return false"
 >Delete</a></th>

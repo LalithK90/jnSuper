@@ -50,9 +50,9 @@
           <th  data-th-text="${discountRatio.amount}" ></th >
           <th  data-th-text="${discountRatio.liveDead.liveDeath}" ></th >
           <th >
-            <a id="discountRatioEdit" th:href="${'/discountRatio/edit/' + discountRatio.id}"
+            <a id="discountRatioEdit"  data-th-href="${'/discountRatio/edit/' + discountRatio.id}"
                class="btn btn-primary btn-sm" ><i class="fa fa-edit" ></i >&nbsp;Edit</a >
-            <a id="discountRatioRemove" th:href="${'/discountRatio/delete/' + discountRatio.id}"
+            <a id="discountRatioRemove"  data-th-href="${'/discountRatio/delete/' + discountRatio.id}"
                 data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="btn btn-danger btn-sm" >
               <i class="fa fa-trash" ></i >
               Delete</a >

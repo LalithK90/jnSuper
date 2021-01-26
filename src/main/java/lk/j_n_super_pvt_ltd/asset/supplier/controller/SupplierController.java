@@ -36,8 +36,8 @@ public  class SupplierController implements AbstractController<Supplier, Integer
     @GetMapping
     public String findAll(Model model) {
         model.addAttribute("suppliers", supplierService.findAll().stream()
-            .filter(x-> LiveDead.ACTIVE.equals(x.getLiveDead()))
-            .collect(Collectors.toList()));
+                .filter(x-> LiveDead.ACTIVE.equals(x.getLiveDead()))
+                .collect(Collectors.toList()));
         return "supplier/supplier";
     }
 

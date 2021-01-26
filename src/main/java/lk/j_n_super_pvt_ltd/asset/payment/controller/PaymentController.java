@@ -1,6 +1,7 @@
 package lk.j_n_super_pvt_ltd.asset.payment.controller;
 
 
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.TwoDate;
 import lk.j_n_super_pvt_ltd.asset.good_received_note.entity.GoodReceivedNote;
 import lk.j_n_super_pvt_ltd.asset.good_received_note.entity.enums.GoodReceivedNoteState;
 import lk.j_n_super_pvt_ltd.asset.good_received_note.service.GoodReceivedNoteService;
@@ -76,15 +77,14 @@ public class PaymentController {
     //find all purchase order to have to pay using purchase order status
     //1. still not processed po 2. partially paid po
     List< PurchaseOrder > purchaseOrdersDB =
-        purchaseOrderService.findByPurchaseOrderStatus(PurchaseOrderStatus.NOT_PROCEED);
+            purchaseOrderService.findByPurchaseOrderStatus(PurchaseOrderStatus.NOT_PROCEED);
     return commonMethod(purchaseOrdersDB, model);
   }
 
-  @GetMapping( "/search" )
-  public String getAllPurchaseOrderToPayBetweenTwoDate(@RequestAttribute( "startDate" ) LocalDate startDate,
-                                                       @RequestAttribute( "endDate" ) LocalDate endDate, Model model) {
-    return commonMethod(purchaseOrderService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate), dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate))
-        , model);
+  @PostMapping( "/search" )
+  public String getAllPurchaseOrderToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
+    return commonMethod(purchaseOrderService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()), dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate()))
+            , model);
   }
 
   @GetMapping( "/{id}" )
@@ -94,8 +94,8 @@ public class PaymentController {
 
     //1. still not processed po 2. partially paid po
     List< PurchaseOrder > purchaseOrdersDB =
-        purchaseOrderService.findByPurchaseOrderStatusAndSupplier(PurchaseOrderStatus.NOT_PROCEED,
-                                                                  purchaseOrderNeedToPay.getSupplier());
+            purchaseOrderService.findByPurchaseOrderStatusAndSupplier(PurchaseOrderStatus.NOT_PROCEED,
+                    purchaseOrderNeedToPay.getSupplier());
     List< PurchaseOrder > purchaseOrderNotPaid = new ArrayList<>();
 
     if ( purchaseOrdersDB != null ) {
@@ -179,11 +179,10 @@ public class PaymentController {
     return "payment/allPayment";
   }
 
-  @GetMapping( "/all/search" )
-  public String getAllPaymentToPayBetweenTwoDate(@RequestAttribute( "startDate" ) LocalDate startDate,
-                                                 @RequestAttribute( "endDate" ) LocalDate endDate, Model model) {
+  @PostMapping( "/all/search" )
+  public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
     return commonPayment(model,
-                         paymentService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate), dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate))
-                        );
+            paymentService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()), dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate()))
+    );
   }
 }
