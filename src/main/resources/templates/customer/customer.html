@@ -56,16 +56,15 @@
                     <th  data-th-text="${customer.mobile}"></th>
                     <th  data-th-text="${customer.address}"></th>
                     <th>
-                        <a id="customerView" th:href="${'/customer/' + customer.id}" class="btn btn-primary btn-sm"><i
+                        <a id="customerView"  data-th-href="${'/customer/' + customer.id}" class="btn btn-primary btn-sm"><i
                                 class="fa fa-folder-open" style="font-size: 15px"></i>&nbsp;View</a>
-                        <a id="customerEdit" th:href="${'/customer/edit/' + customer.id}"
+                        <a id="customerEdit"  data-th-href="${'/customer/edit/' + customer.id}"
                            class="btn btn-success btn-sm"><i class="fa fa-edit"
                                                              style="font-size: 15px"></i>&nbsp;Edit</a>
-                        <a id="customerRemove" th:href="${'/customer/delete/' + customer.id}"
+                        <a id="customerRemove"  data-th-if="${!#authorization.expression('hasRole(''ROLE_CASHIER'')')}" data-th-href="${'/customer/delete/' + customer.id}"
                            class="btn btn-danger btn-sm">
-                            <!-- data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" --> <i
-                                class="fa fa-trash" style="font-size: 15px"></i>
-                            Delete</a>
+                            <!-- data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" -->
+                            <i class="fa fa-trash" style="font-size: 15px"></i> Delete </a>
                     </th>
                 </tr>
                 </tbody>

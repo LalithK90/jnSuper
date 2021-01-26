@@ -86,7 +86,7 @@
           <th  data-th-text="${ledger.manufactureDate}" ></th >
           <th  data-th-text="${ledger.expiredDate}" ></th >
           <th >
-            <a th:href="${'/purchaseOrder/supplier/' + ledger.goodReceivedNote.purchaseOrder.supplier.id}"
+            <a  data-th-href="${'/purchaseOrder/supplier/' + ledger.goodReceivedNote.purchaseOrder.supplier.id}"
                class="btn btn-primary btn-sm" ><i
                   class="fa fa-folder-open" style="font-size: 15px" ></i >Purchase Order</a >
           </th >
