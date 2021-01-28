@@ -1,6 +1,7 @@
 package lk.j_n_super_pvt_ltd.asset.report;
 
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.NameCount;
+
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.ParameterCount;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.TwoDate;
 import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
@@ -40,13 +41,9 @@ public class ReportController {
   private final OperatorService operatorService;
   private final DateTimeAgeService dateTimeAgeService;
   private final UserService userService;
-
   private final InvoiceLedgerService invoiceLedgerService;
 
-
-  public ReportController(PaymentService paymentService, InvoiceService invoiceService,
-                          OperatorService operatorService, DateTimeAgeService dateTimeAgeService,
-                          UserService userService, InvoiceLedgerService invoiceLedgerService) {
+  public ReportController(PaymentService paymentService, InvoiceService invoiceService, OperatorService operatorService, DateTimeAgeService dateTimeAgeService, UserService userService, InvoiceLedgerService invoiceLedgerService) {
     this.paymentService = paymentService;
     this.invoiceService = invoiceService;
     this.operatorService = operatorService;
@@ -72,7 +69,6 @@ public class ReportController {
     return "report/paymentAndIncomeReport";
   }
 
-
   @GetMapping( "/manager" )
   public String getAllInvoiceAndPayment(Model model) {
     LocalDate localDate = LocalDate.now();
@@ -96,7 +92,6 @@ public class ReportController {
                      invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
                      startDateTime, endDateTime);
   }
-
   private void commonInvoices(List< Invoice > invoices, Model model) {
     // invoice count
     int invoiceTotalCount = invoices.size();
