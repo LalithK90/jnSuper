@@ -10,7 +10,9 @@ import lk.j_n_super_pvt_ltd.asset.purchase_order_item.entity.PurchaseOrderItem;
 import lk.j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
 import lk.j_n_super_pvt_ltd.asset.supplier.service.SupplierService;
 import lk.j_n_super_pvt_ltd.asset.supplier_item.controller.SupplierItemController;
+import lk.j_n_super_pvt_ltd.util.service.EmailService;
 import lk.j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
+import lk.j_n_super_pvt_ltd.util.service.OperatorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,14 +32,19 @@ public class PurchaseOrderController {
     private final SupplierService supplierService;
     private final CommonService commonService;
     private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
+    private final OperatorService operatorService;
+    private final EmailService emailService;
 
     public PurchaseOrderController(PurchaseOrderService purchaseOrderService,
                                    SupplierService supplierService
-        , CommonService commonService, MakeAutoGenerateNumberService makeAutoGenerateNumberService) {
+        , CommonService commonService, MakeAutoGenerateNumberService makeAutoGenerateNumberService,
+                                   OperatorService operatorService, EmailService emailService) {
         this.purchaseOrderService = purchaseOrderService;
         this.supplierService = supplierService;
         this.commonService = commonService;
         this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
+        this.operatorService = operatorService;
+        this.emailService = emailService;
     }
 
     @GetMapping
@@ -94,8 +102,8 @@ public class PurchaseOrderController {
         }
         purchaseOrder.setPurchaseOrderItems(purchaseOrderItemList);
         PurchaseOrder purchaseOrderSaved = purchaseOrderService.persist(purchaseOrder);
-//todo-> PO email
-        /*        if (purchaseOrderSaved.getSupplier().getEmail() != null) {
+
+                if (purchaseOrderSaved.getSupplier().getEmail() != null) {
             StringBuilder message = new StringBuilder("Item Name\t\t\t\t\tQuantity\t\t\tItem Price\t\t\tTotal(Rs)\n");
             for (int i = 0; i < purchaseOrder.getPurchaseOrderItems().size(); i++) {
                 message
@@ -103,17 +111,16 @@ public class PurchaseOrderController {
                         .append("\t\t\t\t\t")
                         .append(purchaseOrderSaved.getPurchaseOrderItems().get(i).getQuantity())
                         .append("\t\t\t")
-                        .append(purchaseOrderSaved.getPurchaseOrderItems().get(i).getPrice()).append("\t\t\t")
+                        .append(purchaseOrderSaved.getPurchaseOrderItems().get(i).getItem().getSellPrice()).append("\t\t\t")
                         .append(operatorService.multiply(
-                                purchaseOrderSaved.getPurchaseOrderItems().get(i).getPrice(),
+                                purchaseOrderSaved.getPurchaseOrderItems().get(i).getItem().getSellPrice(),
                                 new BigDecimal(Integer.parseInt(purchaseOrderSaved.getPurchaseOrderItems().get(i)
                                 .getQuantity()))
                         ))
                         .append("\n");
             }
-            emailService.sendEmail(purchaseOrderSaved.getSupplier().getEmail(), "Requesting Items According To PO
-            Code " + purchaseOrder.getCode(), message.toString());
-        }*/
+            emailService.sendEmail(purchaseOrderSaved.getSupplier().getEmail(), "Requesting Items According To PO Code " + purchaseOrder.getCode(), message.toString());
+        }
         return "redirect:/purchaseOrder/all";
     }
 
