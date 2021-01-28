@@ -4,14 +4,12 @@ import lk.j_n_super_pvt_ltd.asset.common_asset.model.NameCount;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.ParameterCount;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.TwoDate;
 import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
-import lk.j_n_super_pvt_ltd.asset.employee.service.EmployeeService;
 import lk.j_n_super_pvt_ltd.asset.invoice.entity.Invoice;
 import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.PaymentMethod;
 import lk.j_n_super_pvt_ltd.asset.invoice.service.InvoiceService;
 import lk.j_n_super_pvt_ltd.asset.invoice_ledger.entity.InvoiceLedger;
 import lk.j_n_super_pvt_ltd.asset.invoice_ledger.service.InvoiceLedgerService;
 import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
-import lk.j_n_super_pvt_ltd.asset.ledger.service.LedgerService;
 import lk.j_n_super_pvt_ltd.asset.payment.entity.Payment;
 import lk.j_n_super_pvt_ltd.asset.payment.service.PaymentService;
 import lk.j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
@@ -41,24 +39,19 @@ public class ReportController {
   private final InvoiceService invoiceService;
   private final OperatorService operatorService;
   private final DateTimeAgeService dateTimeAgeService;
-  private final EmployeeService employeeService;
   private final UserService userService;
-  private final LedgerService ledgerService;
 
   private final InvoiceLedgerService invoiceLedgerService;
 
 
   public ReportController(PaymentService paymentService, InvoiceService invoiceService,
                           OperatorService operatorService, DateTimeAgeService dateTimeAgeService,
-                          EmployeeService employeeService, UserService userService, LedgerService ledgerService,
-                          InvoiceLedgerService invoiceLedgerService) {
+                          UserService userService, InvoiceLedgerService invoiceLedgerService) {
     this.paymentService = paymentService;
     this.invoiceService = invoiceService;
     this.operatorService = operatorService;
     this.dateTimeAgeService = dateTimeAgeService;
-    this.employeeService = employeeService;
     this.userService = userService;
-    this.ledgerService = ledgerService;
     this.invoiceLedgerService = invoiceLedgerService;
   }
 
@@ -189,7 +182,6 @@ public class ReportController {
 
   private String commonAll(List< Payment > payments, List< Invoice > invoices, Model model, String message,
                            LocalDateTime startDateTime, LocalDateTime endDateTime) {
-
     //according to payment type -> invoice
     commonInvoices(invoices, model);
     //according to payment type -> payment
@@ -218,7 +210,6 @@ public class ReportController {
                            startDateTime, endDateTime);
 
   }
-
 
   @PostMapping( "/manager/search" )
   public String getAllInvoiceAndPaymentBetweenTwoDate(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
