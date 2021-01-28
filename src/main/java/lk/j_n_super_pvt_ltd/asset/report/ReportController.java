@@ -55,131 +55,6 @@ public class ReportController {
     this.invoiceLedgerService = invoiceLedgerService;
   }
 
-  private String commonAllMethod(List< Payment > payments, List< Invoice > invoices, Model model, String message,
-                                 LocalDateTime startDateTime, LocalDateTime endDateTime) {
-
-    //according to payment type -> invoice
-    // invoice count
-    int invoiceTotalCount = invoices.size();
-    model.addAttribute("invoiceTotalCount", invoiceTotalCount);
-    //|-> card
-    List< Invoice > invoiceCards =
-        invoices.stream().filter(x -> x.getPaymentMethod().equals(PaymentMethod.CREDIT)).collect(Collectors.toList());
-    int invoiceCardCount = invoiceCards.size();
-    AtomicReference< BigDecimal > invoiceCardAmount = new AtomicReference<>(BigDecimal.ZERO);
-    invoiceCards.forEach(x -> {
-      BigDecimal addAmount = operatorService.addition(invoiceCardAmount.get(), x.getTotalAmount());
-      invoiceCardAmount.set(addAmount);
-    });
-    model.addAttribute("invoiceCardCount", invoiceCardCount);
-    model.addAttribute("invoiceCardAmount", invoiceCardAmount.get());
-    //|-> cash
-    List< Invoice > invoiceCash =
-        invoices.stream().filter(x -> x.getPaymentMethod().equals(PaymentMethod.CASH)).collect(Collectors.toList());
-    int invoiceCashCount = invoiceCash.size();
-    AtomicReference< BigDecimal > invoiceCashAmount = new AtomicReference<>(BigDecimal.ZERO);
-    invoiceCash.forEach(x -> {
-      BigDecimal addAmount = operatorService.addition(invoiceCashAmount.get(), x.getTotalAmount());
-      invoiceCashAmount.set(addAmount);
-    });
-    model.addAttribute("invoiceCashCount", invoiceCashCount);
-    model.addAttribute("invoiceCashAmount", invoiceCashAmount.get());
-    //according to payment type -> payment
-    // payment count
-    int paymentTotalCount = payments.size();
-    model.addAttribute("paymentTotalCount", paymentTotalCount);
-    //|-> card
-    List< Payment > paymentCards =
-        payments.stream().filter(x -> x.getPaymentMethod().equals(PaymentMethod.CREDIT)).collect(Collectors.toList());
-    int paymentCardCount = paymentCards.size();
-    AtomicReference< BigDecimal > paymentCardAmount = new AtomicReference<>(BigDecimal.ZERO);
-    paymentCards.forEach(x -> {
-      BigDecimal addAmount = operatorService.addition(paymentCardAmount.get(), x.getAmount());
-      paymentCardAmount.set(addAmount);
-    });
-    model.addAttribute("paymentCardCount", paymentCardCount);
-    model.addAttribute("paymentCardAmount", paymentCardAmount.get());
-    //|-> cash
-    List< Payment > paymentCash =
-        payments.stream().filter(x -> x.getPaymentMethod().equals(PaymentMethod.CASH)).collect(Collectors.toList());
-    int paymentCashCount = paymentCash.size();
-    AtomicReference< BigDecimal > paymentCashAmount = new AtomicReference<>(BigDecimal.ZERO);
-    paymentCash.forEach(x -> {
-      BigDecimal addAmount = operatorService.addition(paymentCashAmount.get(), x.getAmount());
-      paymentCashAmount.set(addAmount);
-    });
-    model.addAttribute("paymentCashCount", paymentCashCount);
-    model.addAttribute("paymentCardAmount", paymentCashAmount.get());
-
-    // invoice count by cashier
-    List< NameCount > invoiceByCashierAndTotalAmount = new ArrayList<>();
-//name, count, total
-    HashSet< String > createdByAll = new HashSet<>();
-    invoices.forEach(x -> createdByAll.add(x.getCreatedBy()));
-
-    createdByAll.forEach(x -> {
-      NameCount nameCount = new NameCount();
-      Employee employee = userService.findByUserName(x).getEmployee();
-      nameCount.setName(employee.getTitle().getTitle() + " " + employee.getName());
-      AtomicReference< BigDecimal > cashierTotalCount = new AtomicReference<>(BigDecimal.ZERO);
-      List< Invoice > cashierInvoice =
-          invoices.stream().filter(a -> a.getCreatedBy().equals(x)).collect(Collectors.toList());
-      nameCount.setCount(cashierInvoice.size());
-      cashierInvoice.forEach(a -> {
-        BigDecimal addAmount = operatorService.addition(cashierTotalCount.get(), a.getTotalAmount());
-        cashierTotalCount.set(addAmount);
-      });
-      nameCount.setTotal(cashierTotalCount.get());
-      invoiceByCashierAndTotalAmount.add(nameCount);
-    });
-
-    model.addAttribute("invoiceByCashierAndTotalAmount", invoiceByCashierAndTotalAmount);
-    // invoice count by cashier
-    List< NameCount > paymentByUserAndTotalAmount = new ArrayList<>();
-//name, count, total
-    HashSet< String > createdByAllPayment = new HashSet<>();
-    payments.forEach(x -> createdByAllPayment.add(x.getCreatedBy()));
-
-    createdByAllPayment.forEach(x -> {
-      NameCount nameCount = new NameCount();
-      Employee employee = userService.findByUserName(x).getEmployee();
-      nameCount.setName(employee.getTitle().getTitle() + " " + employee.getName());
-      AtomicReference< BigDecimal > userTotalCount = new AtomicReference<>(BigDecimal.ZERO);
-      List< Payment > paymentUser =
-          payments.stream().filter(a -> a.getCreatedBy().equals(x)).collect(Collectors.toList());
-      nameCount.setCount(paymentUser.size());
-      paymentUser.forEach(a -> {
-        BigDecimal addAmount = operatorService.addition(userTotalCount.get(), a.getAmount());
-        userTotalCount.set(addAmount);
-      });
-      nameCount.setTotal(userTotalCount.get());
-      paymentByUserAndTotalAmount.add(nameCount);
-    });
-
-    model.addAttribute("paymentByUserAndTotalAmount", paymentByUserAndTotalAmount);
-    // item count according to item
-    HashSet< Item > invoiceItems = new HashSet<>();
-
-    List< ParameterCount > itemNameAndItemCount = new ArrayList<>();
-
-    List< InvoiceLedger > invoiceLedgers = invoiceLedgerService.findByCreatedAtIsBetween(startDateTime, endDateTime);
-    invoiceLedgers.forEach(x -> invoiceItems.add(x.getLedger().getItem()));
-
-    invoiceItems.forEach(x -> {
-      ParameterCount parameterCount = new ParameterCount();
-      parameterCount.setName(x.getName());
-      parameterCount.setCount((int) invoiceLedgers
-          .stream()
-          .filter(a -> a.getLedger().getItem().equals(x))
-          .count());
-      itemNameAndItemCount.add(parameterCount);
-    });
-    model.addAttribute("itemNameAndItemCount", itemNameAndItemCount);
-
-    model.addAttribute("message", message);
-    return "report/paymentAndIncomeReport";
-  }
-
   private String commonAll(List< Payment > payments, List< Invoice > invoices, Model model, String message,
                            LocalDateTime startDateTime, LocalDateTime endDateTime) {
     //according to payment type -> invoice
@@ -205,9 +80,9 @@ public class ReportController {
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(localDate);
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(localDate);
 
-    return commonAllMethod(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime),
-                           invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
-                           startDateTime, endDateTime);
+    return commonAll(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime),
+                     invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
+                     startDateTime, endDateTime);
 
   }
 
@@ -217,9 +92,9 @@ public class ReportController {
         "This report is between from " + twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate());
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate());
-    return commonAllMethod(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime),
-                           invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
-                           startDateTime, endDateTime);
+    return commonAll(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime),
+                     invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
+                     startDateTime, endDateTime);
   }
 
   private void commonInvoices(List< Invoice > invoices, Model model) {
