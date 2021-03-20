@@ -24,8 +24,8 @@ $(document).ready(function () {
     /*//--------------- data table short using - data table plugin ------- start //*/
 
     /*When edit employee if there is a nic number need to select relevant gender*/
-    if ($("#nic").val() !== null || $("#nic").val() === undefined){
-        $("input:radio[name=gender]").filter(`[value=${calculateGender($("#nic").val())}]`).prop('checked',true);
+    if ($("#nic").val() !== null || $("#nic").val() === undefined) {
+        $("input:radio[name=gender]").filter(`[value=${calculateGender($("#nic").val())}]`).prop('checked', true);
     }
 
     /* Patient and employee Nic Validation - start*/
@@ -33,7 +33,7 @@ $(document).ready(function () {
         let nic = $(this).val();
         $("#dateOfBirth").val(calculateDateOfBirth(nic));
 //access our front-end gender*/
-        $("input:radio[name=gender]").filter(`[value=${calculateGender(nic)}]`).prop('checked',true);
+        $("input:radio[name=gender]").filter(`[value=${calculateGender(nic)}]`).prop('checked', true);
 
     });
     /* Patient and employee Nic Validation - end*/
@@ -43,7 +43,6 @@ $(document).ready(function () {
     });
 
 });
-
 
 
 // regex
@@ -643,6 +642,6 @@ $(".reveal").on('click', function () {
 });
 
 /*When edit employee if there is a nic number need to select relevant gender*/
-if ($("#nic").val() !== null || $("#nic").val() === undefined){
-    $("input:radio[name=gender]").filter(`[value=${calculateGender($("#nic").val())}]`).prop('checked',true);
+if ($("#nic").val() !== null || $("#nic").val() === undefined) {
+    $("input:radio[name=gender]").filter(`[value=${calculateGender($("#nic").val())}]`).prop('checked', true);
 }
