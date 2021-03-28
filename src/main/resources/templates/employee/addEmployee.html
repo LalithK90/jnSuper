@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  >
+<html lang="en" >
 <head data-th-replace="~{fragments/header :: headerFragment}" >
   <meta charset="UTF-8" >
 </head >
@@ -46,11 +46,11 @@
             </div >
             <div class="col-md-8" >
               <input id="id" data-th-field="*{id}" class="form-control" type="text" readonly />
-              <input type="text" data-th-field="*{liveDead}" hidden>
+              <input type="text" data-th-field="*{liveDead}" hidden >
             </div >
           </div >
           <!--Payrole number-->
-          <div class="form-row text-right" data-th-if="${addStatus==false}">
+          <div class="form-row text-right" data-th-if="${addStatus==false}" >
             <div class="col-md-4" >
               <label class="control-label" for="name" >Employee code :</label >
             </div >
@@ -106,7 +106,7 @@
               <label class="control-label" for="nic" >NIC No :</label >
             </div >
             <div class="col-md-8" >
-              <input data-th-field="*{nic}" class="form-control" tabindex="6" type="text"
+              <input id="nic" data-th-field="*{nic}" class="form-control" tabindex="6" type="text"
                      maxlength="12"
                      minlength="10" required />
               <span class="error" id="nicError" data-th-errors="*{nic}"
@@ -120,17 +120,17 @@
             </div >
             <div class="col-md-8" >
               <div class="custom-control custom-checkbox custom-control-inline "
-                   data-th-each="genders,index : ${gender}">
+                   data-th-each="genders,index : ${gender}" >
                 <input class="custom-control-input gender" required
                        data-th-name="${'gender'}"
                        data-th-value="${genders}"
                        data-th-id="${index.index}+${genders}" type="radio"
-                       data-th-checked="${genders==gender}"/>
+                       data-th-checked="${genders==gender}" />
                 <label class="custom-control-label"
                        data-th-for="${index.index}+${genders}"
-                       data-th-text="${genders.gender}"> radio
-                </label>
-              </div>
+                       data-th-text="${genders.gender}" > radio
+                </label >
+              </div >
             </div >
           </div >
           <!--Date of birth-->
@@ -146,21 +146,6 @@
                     data-th-if="${#fields.hasErrors('dateOfBirth')}" class="error" >Error Birthday</span >
             </div >
           </div >
-          <!--Blood group-->
-          <!--<div class="form-row text-right">
-              <div class="col-md-4">
-                  <label class="control-label" for="bloodGroup">Blood Group :</label>
-              </div>
-              <div class="col-md-8">
-                  <select id="bloodGroup" data-th-field="*{bloodGroup}" class="form-control" tabindex="9" required>
-                      <option value="">Please select</option>
-                      <option data-th-each="bloodGroups : ${bloodGroup}"
-                              data-th-text="${bloodGroups.bloodGroup}"
-                              data-th-value="${bloodGroups}"
-                              data-th-selected="${bloodGroups==employee.bloodGroup?'selected':'unselected'}">Please select</option>
-                  </select>
-              </div>
-          </div>-->
           <!--Designation-->
           <div class="form-row text-right" >
             <div class="col-md-4" >
@@ -250,17 +235,6 @@
                     data-th-if="${#fields.hasErrors('land')}" id="landError" >Error Land Number</span >
             </div >
           </div >
-          <!--Email-->
-          <!--<div class="form-row text-right">
-              <div class="col-md-4">
-                  <label class="control-label" for="email">Email :</label>
-              </div>
-              <div class="col-md-8">
-                  <input id="email" data-th-field="*{email}" class="form-control" tabindex="16" type="email" required/>
-                  <span class="error" data-th-errors="*{email}"
-                        data-th-if="${#fields.hasErrors('email')}" id="emailError">Error Email</span>
-              </div>
-          </div>-->
           <!--Office email-->
           <div class="form-row text-right" >
             <div class="col-md-4" >

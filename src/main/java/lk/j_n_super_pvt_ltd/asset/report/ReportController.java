@@ -40,13 +40,9 @@ public class ReportController {
   private final OperatorService operatorService;
   private final DateTimeAgeService dateTimeAgeService;
   private final UserService userService;
-
   private final InvoiceLedgerService invoiceLedgerService;
 
-
-  public ReportController(PaymentService paymentService, InvoiceService invoiceService,
-                          OperatorService operatorService, DateTimeAgeService dateTimeAgeService,
-                          UserService userService, InvoiceLedgerService invoiceLedgerService) {
+  public ReportController(PaymentService paymentService, InvoiceService invoiceService, OperatorService operatorService, DateTimeAgeService dateTimeAgeService, UserService userService, InvoiceLedgerService invoiceLedgerService) {
     this.paymentService = paymentService;
     this.invoiceService = invoiceService;
     this.operatorService = operatorService;
@@ -72,7 +68,6 @@ public class ReportController {
     return "report/paymentAndIncomeReport";
   }
 
-
   @GetMapping( "/manager" )
   public String getAllInvoiceAndPayment(Model model) {
     LocalDate localDate = LocalDate.now();
@@ -81,8 +76,8 @@ public class ReportController {
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(localDate);
 
     return commonAll(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime),
-                           invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
-                           startDateTime, endDateTime);
+                     invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
+                     startDateTime, endDateTime);
 
   }
 
@@ -93,10 +88,9 @@ public class ReportController {
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate());
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate());
     return commonAll(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime),
-                           invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
-                           startDateTime, endDateTime);
+                     invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
+                     startDateTime, endDateTime);
   }
-
   private void commonInvoices(List< Invoice > invoices, Model model) {
     // invoice count
     int invoiceTotalCount = invoices.size();
@@ -261,15 +255,14 @@ public class ReportController {
       NameCount nameCount = new NameCount();
       Employee employee = userService.findByUserName(x).getEmployee();
       nameCount.setName(employee.getTitle().getTitle() + " " + employee.getName());
-      AtomicReference< BigDecimal > userTotalCount = new AtomicReference<>(BigDecimal.ZERO);
+      List< BigDecimal > userTotalCount = new ArrayList<>();
       List< Payment > paymentUser =
           payments.stream().filter(a -> a.getCreatedBy().equals(x)).collect(Collectors.toList());
       nameCount.setCount(paymentUser.size());
       paymentUser.forEach(a -> {
-        BigDecimal addAmount = operatorService.addition(userTotalCount.get(), a.getAmount());
-        userTotalCount.set(addAmount);
+        userTotalCount.add(a.getAmount());
       });
-      nameCount.setTotal(userTotalCount.get());
+      nameCount.setTotal(userTotalCount.stream().reduce(BigDecimal.ZERO,BigDecimal::add));
       paymentByUserAndTotalAmount.add(nameCount);
     });
 

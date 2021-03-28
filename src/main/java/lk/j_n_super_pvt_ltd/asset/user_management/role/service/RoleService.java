@@ -1,5 +1,6 @@
 package lk.j_n_super_pvt_ltd.asset.user_management.role.service;
 
+
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
 import lk.j_n_super_pvt_ltd.asset.user_management.role.dao.RoleDao;
 import lk.j_n_super_pvt_ltd.asset.user_management.role.entity.Role;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @CacheConfig( cacheNames = {"role"} ) // tells Spring where to store cache for this class
-public class RoleService implements AbstractService<Role, Integer > {
+public class RoleService implements AbstractService< Role, Integer > {
     private final RoleDao roleDao;
 
     @Autowired
