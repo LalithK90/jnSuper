@@ -1,3 +1,4 @@
+
 * {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
@@ -9,7 +10,7 @@
 
 /* Main window- start*/
 body {
-    background-image: url(../img/back-01.jpg);
+   /* background-image: url(../img/back-13.jpg);*/
     background-size: cover;
     background-repeat: no-repeat;
 
@@ -35,16 +36,8 @@ body {
 
 
 /* Main window- end*/
-/* LOGIN PAGE*/
-* {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Comic Sans", "Courier New",
-    georgia, helvetica, impact, "times new roman", "trebuchet ms", verdana,
-    "Iskoola Pota";
-    --error-color: #fa370d;
 
-}
+
 /* for login form - start*/
 #loginBack {
     background-image: url('../img/12.jpg');
@@ -197,7 +190,7 @@ body {
 
 
 }
-/** fade login page-end**/
+/* fade login page-end*/
 .form-area {
     animation: fadeIn ease 2s;
     -webkit-animation: fadeIn ease 2s;
@@ -230,7 +223,7 @@ body {
     100% {opacity:1;}
 }
 
-/** fade login page-end**/
+/* fade login page-end*/
 
 .img-area{
 
@@ -313,7 +306,7 @@ body {
     color: #fff;
 }
 
-/**html Background - end login page styles*/
+/*html Background - end login page styles*/
 
 
 /*radio button style -start*/
@@ -381,6 +374,7 @@ body {
 }
 
 /* for sbilling test show - end*/
+
 /*main window  - start*/
 .mainWindowText {
     font-size: 1.5rem;
@@ -416,18 +410,87 @@ body {
 
 
 /*main windo - properties end */
+
+
+/*main window start */
+#windowBack {
+    background-image: url('../img/back-02.jpg');
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-color: #d9b38c;
+
+}
+
+/*main window end */
+
+/*Card start*/
+.card-color{
+    width: 23rem;
+    background-image:url('../img/back-03.jpg');
+    opacity: 0.91;
+    align-content: center;
+    position: relative;
+    margin-left: 56px;
+    margin-bottom: 20px;
+    margin-top: 32px;
+    padding-left: 25px;
+    text-decoration-color: #4d2600;
+
+}
+/*Card start*/
+/*main window notification div style- start*/
+.mainWindSumReport {
+    color: #33cc33;
+    align-content: center;
+    background: #49e6fd;
+    background: -webkit-radial-gradient( #cc9900, #ffcc00, #ffcc66, #ff9933);
+    background: -o-radial-gradient(#cc9900, #ffcc00, #ffcc66, #ff9933);
+    background: -moz-radial-gradient(#cc9900, #ffcc00, #ffcc66, #ff9933);
+    background: radial-gradient(#cc9900, #ffcc00, #ffcc66, #ff9933);
+    border: 1px solid #f7f7f7;
+    border-radius: 25px 10px 25px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*main window notification div style- end*/
+.view-btn {
+    background-image: url("../img/back-04.jpg");
+}
+
+/* Make the image fully responsive */
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}
+#carousal{
+
+    background-color:#ccff33;
+    opacity: 0.91;
+    align-content: center;
+    position: relative;
+    margin-left: 56px;
+    margin-bottom: 20px;
+    margin-top: 32px;
+}
+
 /*Nav bar - start*/
 
 .dropdown-toggle {
     font-size: 18px;
 
+
 !important;
 }
 
 .dropdown-menu{
-    background-color: #4f4f4f;
-    background:rgba(0,0,0,0.4);
+    min-width: 15rem;
+    background-color: #e9af3d;
+    color: #dddddd;
+
+
 }
+
 .dropdown-item{
     font-size: small;
     color: white;
@@ -436,13 +499,6 @@ body {
 
 nav {
     position: sticky;
-}
-
-#petitionTodayCount{
-    position:absolute;
-    top:30%;
-    left:60%;
-    transform:translate(-10%,-90%);
 }
 
 .nav-item{
@@ -464,12 +520,8 @@ nav {
 
 /*Nav bar - end*/
 
-/*error pages - properties start */
-
-/*error pages - properties end */
 /*Error Message Colour - star*/
 .error {
-    font-family: 'Open Sans', 'Segoe UI';
     font-size: 16px;
     font-weight: bold;
     color: var(--error-color);
@@ -528,9 +580,9 @@ button .btn {
     border-radius: 50px !important;
 }
 
-/*all button same size according to boostrap btn-sm  - end*/
+/*all button same size according to boostrap btn-sm  - end*!
 
-/*remove lab test from selected table - start*/
+!*remove lab test from selected table - start*/
 .removeLabTest {
     color: #f0ad4e;
     font-weight: lighter;
@@ -607,7 +659,7 @@ div input {
 
 .formBorder {
     border-radius: 15px;
-    background: linear-gradient(215deg,#996633, #cc9900, #ffcc00, #ffcc66, #ff9933);
+    background: linear-gradient(215deg, #dd8b53, #cc9900, #ffcc00, #ffcc66, #ff9933);
     background-size: 1000% 1000%;
 
     -webkit-animation: AnimationName 31s ease infinite;
@@ -691,35 +743,6 @@ div input {
     display: none;
 }
 
-/*Table show and hide - end*/
-/*medical Package show area - start*/
-#medicalPackage {
-    border: 2px solid blue;
-    border-radius: 5px;
-}
-
-#labTestShowTable {
-    margin-top: 3px;
-}
-
-#medicalPackageDetails {
-    margin-top: 5px;
-}
-
-#btnRegisteredPatient {
-    margin-bottom: 5px;
-}
-
-/*medical Package show area - end*/
-/* enter filed validation - start*/
-.valid {
-    background-color: #7ae899;
-}
-
-.invalid {
-    background-color: #ff88b3;
-}
-
 /*html 5 filed validation - start */
 input:required:invalid, input:focus:invalid {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
@@ -738,7 +761,7 @@ input:required:valid {
 
 /*html 5 filed validation - end */
 
-/* Flaired edges */
+
 /*<hr/> tag style - start */
 hr{
     height: 30px;
@@ -758,6 +781,7 @@ hr:before {
     border-radius: 20px;
 }
 /*<hr/> tag style - end */
+
 /** logo animation**/
 #logo {
 
@@ -787,139 +811,3 @@ hr:before {
 }
 
 /** logo animation end**/
-
-
-/** Carousal H2 animation**/
-
-.animated {
-    -webkit-animation-duration: 2.5s;
-    animation-duration: 2.5s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    -webkit-animation-iteration-count: infinite;
-}
-
-@-webkit-keyframes bounce {
-    0%, 20%, 40%, 60%, 80%, 100% {-webkit-transform: translateY(0);}
-    50% {-webkit-transform: translateY(-5px);}
-}
-
-@keyframes bounce {
-    0%, 20%, 40%, 60%, 80%, 100% {transform: translateY(0);}
-    50% {transform: translateY(-5px);}
-}
-
-.bounce {
-    -webkit-animation-name: bounce;
-    animation-name: bounce;
-}
-
-/** Cards style start**/
-.wrimagecard{
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    text-align: left;
-    position: relative;
-    background: #fff;
-    box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-.wrimagecard .fa{
-    position: relative;
-    font-size: 70px;
-}
-.wrimagecard-topimage_header{
-    padding: 20px;
-}
-a.wrimagecard:hover, .wrimagecard-topimage:hover {
-    box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
-}
-.wrimagecard-topimage a {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-.wrimagecard-topimage_title {
-    height: 80px;
-    padding: 20px 24px 0.75rem;
-    position: relative;
-}
-.wrimagecard-topimage a {
-    border-bottom: none;}
-
-/** Cards style end**/
-.card{
-    margin: 10px;
-
-
-}
-
-/*main window start */
-#windowBack {
-   background-image: url('../img/back-06.jpg');
-    margin: 0;
-    padding: 0;
-    background-size: cover;
-    /*background-color: #d9b38c;*/
-
-
-}
-
-/*main window end */
-
-/*Card start*/
-.card-color{
-    width: 23rem;
-    background-image:url('../img/back-03.jpg');
-    opacity: 0.91;
-    align-content: center;
-    position: relative;
-    margin-left: 56px;
-    margin-bottom: 20px;
-    margin-top: 32px;
-    padding-left: 25px;
-    text-decoration-color: #4d2600;
-
-}
-/*Card start*/
-/*main window notification div style- start*/
-.mainWindSumReport {
-    color: #33cc33;
-    align-content: center;
-    background: #49e6fd;
-    background: -webkit-radial-gradient( #cc9900, #ffcc00, #ffcc66, #ff9933);
-    background: -o-radial-gradient(#cc9900, #ffcc00, #ffcc66, #ff9933);
-    background: -moz-radial-gradient(#cc9900, #ffcc00, #ffcc66, #ff9933);
-    background: radial-gradient(#cc9900, #ffcc00, #ffcc66, #ff9933);
-    border: 1px solid #f7f7f7;
-    border-radius: 25px 10px 25px 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-/*main window notification div style- end*/
-.view-btn {
-    background-image: url("../img/back-04.jpg");
-}
-.fakeimg {
-    height: 200px;
-    background: #aaa;
-}
-/* Make the image fully responsive */
-.carousel-inner img {
-    width: 100%;
-    height: 100%;
-}
-#carousal{
-
-    background-color:#ccff33;
-    opacity: 0.91;
-    align-content: center;
-    position: relative;
-    margin-left: 56px;
-    margin-bottom: 20px;
-    margin-top: 32px;
-}

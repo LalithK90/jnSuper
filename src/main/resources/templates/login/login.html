@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head  data-th-replace="~{fragments/header :: headerFragment}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: headerFragment}">
     <meta charset="UTF-8">
     <title>Thymeleaf Springboot </title>
-
 </head>
 <body id="loginBack">
 <div class="col full-height " id="loginPage">
@@ -12,7 +11,7 @@
         <img  class="logo1" alt JN Super src="../img/logo.png">
     </div>
     <div class="col-sm-8">
-        <form  data-th-action="${'/login'}" method="post">
+        <form th:action="${'/login'}" method="post">
             <br/>
             <fieldset>
                 <div class="form-label-group">
@@ -30,19 +29,19 @@
                     <button class="btn btn-primary " type="submit">LOGIN</button>
                 </div>
             </fieldset>
-            <div class="container-fluid "  data-th-if="${param.error}">
+            <div class="container-fluid " th:if="${param.error}">
                 <p class="bg-white text-capitalize text-danger text-lg-center">Invalid username or password. </p>
             </div>
             <div class="container-fluid ">
-                <p id="errorMessage"  data-th-text="${err}" class="bg-white text-capitalize text-danger text-lg-center"></p>
+                <p id="errorMessage" th:text="${err}" class="bg-white text-capitalize text-danger text-lg-center"></p>
             </div>
         </form>
     </div>
 </div>
-
-<div   data-th-replace="~{fragments/footer :: footerFragment}"></div>
+<!--footer include-->
+<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 <!--script include-->
-<script  data-th-replace="~{fragments/script :: scriptFragment}"></script>
+<script th:replace="~{fragments/script :: scriptFragment}"></script>
 
 </body>
 </html>

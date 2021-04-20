@@ -42,13 +42,15 @@ public class ReportController {
   private final UserService userService;
   private final InvoiceLedgerService invoiceLedgerService;
 
-  public ReportController(PaymentService paymentService, InvoiceService invoiceService, OperatorService operatorService, DateTimeAgeService dateTimeAgeService, UserService userService, InvoiceLedgerService invoiceLedgerService) {
-    this.paymentService = paymentService;
-    this.invoiceService = invoiceService;
-    this.operatorService = operatorService;
-    this.dateTimeAgeService = dateTimeAgeService;
-    this.userService = userService;
-    this.invoiceLedgerService = invoiceLedgerService;
+  public ReportController(PaymentService paymentService, InvoiceService invoiceService,
+  OperatorService operatorService, DateTimeAgeService dateTimeAgeService, UserService userService,
+  InvoiceLedgerService invoiceLedgerService) {
+      this.paymentService = paymentService;
+      this.invoiceService = invoiceService;
+      this.operatorService = operatorService;
+      this.dateTimeAgeService = dateTimeAgeService;
+      this.userService = userService;
+      this.invoiceLedgerService = invoiceLedgerService;
   }
 
   private String commonAll(List< Payment > payments, List< Invoice > invoices, Model model, String message,

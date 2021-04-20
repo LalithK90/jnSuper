@@ -4,10 +4,10 @@
   <meta charset="UTF-8" >
 </head >
 <body >
-<nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
 
+<nav data-th-replace="~{fragments/navBar :: navBarFragment}"></nav >
 <!--Form Content - start -->
-<div class="container-fluid" style="margin:30px 30px 30px 0px;" >
+<div class="container-fluid">
   <div class="col-sm-12 flex-column " >
     <form id="form" class="form-horizontal" data-th-action="${addStatus==true?'/employee/save':'/employee/update'}"
           data-th-object="${employee}" method="POST" enctype="multipart/form-data" >
@@ -38,7 +38,7 @@
         </div >
 
         <!--Left Side-->
-        <div class="form-group col-md-6 col-sm-6 text-left flex-column" >
+        <div class="form-group col-md-4 col-sm-12 text-left flex-column" >
           <!--Id-->
           <div id="idStatus" data-th-if="${addStatus==false}" class="form-row text-right" >
             <div class="col-md-4" >
@@ -56,7 +56,7 @@
             </div >
             <div class="col-md-8" >
               <input id="code" data-th-field="*{code}" class="form-control" tabindex="4"
-                     type="text" required />
+                     type="text" required readonly />
               <span id="codeE" data-th-errors="*{code}"
                     data-th-if="${#fields.hasErrors('code')}" class="error" >Error Employee code
                             </span >
@@ -106,7 +106,7 @@
               <label class="control-label" for="nic" >NIC No :</label >
             </div >
             <div class="col-md-8" >
-              <input id="nic" data-th-field="*{nic}" class="form-control" tabindex="6" type="text"
+              <input data-th-field="*{nic}" class="form-control" tabindex="6" type="text"
                      maxlength="12"
                      minlength="10" required />
               <span class="error" id="nicError" data-th-errors="*{nic}"
@@ -120,19 +120,20 @@
             </div >
             <div class="col-md-8" >
               <div class="custom-control custom-checkbox custom-control-inline "
-                   data-th-each="genders,index : ${gender}" >
+                   data-th-each="genders,index : ${gender}">
                 <input class="custom-control-input gender" required
                        data-th-name="${'gender'}"
                        data-th-value="${genders}"
                        data-th-id="${index.index}+${genders}" type="radio"
-                       data-th-checked="${genders==gender}" />
+                       data-th-checked="${genders==gender}"/>
                 <label class="custom-control-label"
                        data-th-for="${index.index}+${genders}"
-                       data-th-text="${genders.gender}" > radio
-                </label >
-              </div >
+                       data-th-text="${genders.gender}"> radio
+                </label>
+              </div>
             </div >
           </div >
+
           <!--Date of birth-->
           <div class="form-row text-right" >
             <div class="col-md-4" >
@@ -146,6 +147,21 @@
                     data-th-if="${#fields.hasErrors('dateOfBirth')}" class="error" >Error Birthday</span >
             </div >
           </div >
+          <!--Blood group-->
+          <!--<div class="form-row text-right">
+              <div class="col-md-4">
+                  <label class="control-label" for="bloodGroup">Blood Group :</label>
+              </div>
+              <div class="col-md-8">
+                  <select id="bloodGroup" data-th-field="*{bloodGroup}" class="form-control" tabindex="9" required>
+                      <option value="">Please select</option>
+                      <option data-th-each="bloodGroups : ${bloodGroup}"
+                              data-th-text="${bloodGroups.bloodGroup}"
+                              data-th-value="${bloodGroups}"
+                              data-th-selected="${bloodGroups==employee.bloodGroup?'selected':'unselected'}">Please select</option>
+                  </select>
+              </div>
+          </div>-->
           <!--Designation-->
           <div class="form-row text-right" >
             <div class="col-md-4" >
@@ -164,31 +180,14 @@
           </div >
         </div >
         <!--Right Side-->
-        <div class="form-group col-md-6 col-sm-6 text-right flex-column" >
-          <!--Civil status-->
-          <div class="form-row text-right" >
-            <div class="col-md-4" >
-              <label class="control-label" for="civilStatus" >Civil State :</label >
-            </div >
-            <div class="col-md-8" >
-              <select data-th-field="*{civilStatus}" id="civilStatus" class="form-control" tabindex="11"
-                      required >
-                <option value="" >Please select</option >
-                <option data-th-each="civilStatu : ${civilStatus}"
-                        data-th-text="${civilStatu.CivilStatus}"
-                        data-th-value="${civilStatu}"
-                        data-th-selected="${civilStatu==employee.civilStatus?'selected':'unselected'}" ></option >
-              </select >
-            </div >
-          </div >
+        <div class="form-group col-md-4 col-sm-12  text-right flex-column" >
           <!--Address-->
           <div class="form-row text-right" >
             <div class="col-md-4" >
               <label class="control-label" for="address" >Address :</label >
             </div >
             <div class="col-md-8" >
-                            <textarea id="address" data-th-field="*{address}" class="form-control" tabindex="12"
-                                      required ></textarea >
+              <input id="address"   data-th-field="*{address}" class="form-control" tabindex="12" required />
               <span class="error" data-th-errors="*{address}"
                     data-th-if="${#fields.hasErrors('address')}" id="addressError" >Error Address</span >
             </div >
@@ -235,6 +234,17 @@
                     data-th-if="${#fields.hasErrors('land')}" id="landError" >Error Land Number</span >
             </div >
           </div >
+          <!--Email-->
+          <!--<div class="form-row text-right">
+              <div class="col-md-4">
+                  <label class="control-label" for="email">Email :</label>
+              </div>
+              <div class="col-md-8">
+                  <input id="email" data-th-field="*{email}" class="form-control" tabindex="16" type="email" required/>
+                  <span class="error" data-th-errors="*{email}"
+                        data-th-if="${#fields.hasErrors('email')}" id="emailError">Error Email</span>
+              </div>
+          </div>-->
           <!--Office email-->
           <div class="form-row text-right" >
             <div class="col-md-4" >
@@ -277,8 +287,8 @@
               </select >
             </div >
           </div >
-          <!--Image-->
-          <div class="form-row text-right" >
+
+          <!--<div class="form-row text-right" >
             <div class="form-row " >
               <div class="col-md-3 mr-5" >
                 <label class="control-label" >Image</label >
@@ -287,7 +297,7 @@
               </div >
               <div class="col-md-3" ></div >
               <div class="col-md-3 ml-5" >
-                <!--photo details-->
+                &lt;!&ndash;photo details&ndash;&gt;
                 <img class="img-fluid ml-5" data-th-if="${addStatus==false && file!=null}" data-th-src="${file.url}"
                      id="image" alt=""
                      style="height: 100px; width: 100%;" >
@@ -295,7 +305,7 @@
                      style="height: 100px; width: 100%" >
               </div >
             </div >
-          </div >
+          </div >-->
           <!--Created by and created at-->
           <div id="updateStatus" data-th-if="${addStatus==false}" >
             <div class="form-row text-right" >
@@ -318,12 +328,34 @@
             </div >
           </div >
         </div >
+
+        <div class="form-group col-md-4 col-sm-12  text-right flex-column" >
+          <!--Image-->
+          <div class="form-row text-right" >
+            <div class="form-row " >
+              <div class="col-md-3 ml-5" >
+                <div class="card" style="width: 18rem;">
+                  <!--photo details-->
+                  <img class="img-fluid ml-5" data-th-if="${addStatus==false && file!=null}" data-th-src="${file.url}"
+                       id="image"  style="height: 100px; width: 100%;" >
+                  <img class="card-img-top" data-th-src="@{/img/user.jpg}"  data-th-if="${addStatus==true}" src="" id="image" alt="" style="height:275px; width: 100%" >
+                  <div class="card-body">
+                    <div class="col-md-12 mr-2" >
+                      <label class="control-label" >Image</label >
+                      <input type="file" name="file" id="imgUpload" accept="image/png, image/jpeg" style="size:200px"/>
+                    </div >
+                  </div>
+                </div>
+              </div >
+            </div >
+          </div >
+        </div>
+
         <div class="form-group col-md-12 col-sm-12 text-left flex-column " >
           <!--Button-->
           <div class="form-group col-md-12 col-sm-12 text-center flex-column " >
             <button class="btn btn-success" type="submit" tabindex="21" >
-              <i class="fa fa-save " style="font-size: 20px" ></i >&nbsp; &nbsp;<span id="submit"
-                                                                                      data-th-text="${addStatus==true?'Save': 'Update'}" ></span >
+              <i class="fa fa-save " style="font-size: 20px" ></i ><span id="submit" data-th-text="${addStatus==true?'Save': 'Update'}" ></span >
             </button >
             <button class="btn btn-danger" type="reset" >
               <i class="fa fa-redo" ></i > <span id="reset" >Reset</span >
@@ -340,6 +372,7 @@
     </form >
   </div >
 </div >
+
 <!--footer include-->
 <div data-th-replace="~{fragments/footer :: footerFragment}" ></div >
 <!--script include-->
@@ -376,6 +409,12 @@
             $("#image").toggle('hide');
         }
     }
+
+    //input type date can not be selected future date
+    $('[type="date"]').prop('max', function () {
+      return new Date().toJSON().split('T')[0];
+    });
 </script >
+
 </body >
 </html >

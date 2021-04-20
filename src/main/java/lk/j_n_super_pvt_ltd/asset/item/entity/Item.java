@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.j_n_super_pvt_ltd.asset.category.entity.Category;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
 import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ItemStatus;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.Weight;
 import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
 import lk.j_n_super_pvt_ltd.asset.purchase_order_item.entity.PurchaseOrderItem;
 import lk.j_n_super_pvt_ltd.asset.supplier_item.entity.SupplierItem;
@@ -33,6 +34,9 @@ public class Item extends AuditEntity {
     private String name;
 
     @NotEmpty
+    private String amount;
+
+    @NotEmpty
     private String rop;
 
     @Column( unique = true )
@@ -43,6 +47,9 @@ public class Item extends AuditEntity {
 
     @Enumerated( EnumType.STRING )
     private ItemStatus itemStatus;
+
+    @Enumerated( EnumType.STRING )
+    private Weight weight;
 
     @Enumerated(EnumType.STRING)
     private LiveDead liveDead;

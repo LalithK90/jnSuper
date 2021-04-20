@@ -1,6 +1,5 @@
 package lk.j_n_super_pvt_ltd.asset.purchase_order.controller;
 
-
 import lk.j_n_super_pvt_ltd.asset.common_asset.service.CommonService;
 import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
 import lk.j_n_super_pvt_ltd.asset.item.service.ItemService;
@@ -40,15 +39,15 @@ public class PurchaseOrderController {
     private final TwilioMessageService twilioMessageService;
 
     public PurchaseOrderController(PurchaseOrderService purchaseOrderService,
-                                   PurchaseOrderItemService purchaseOrderItemService, SupplierService supplierService
-            , CommonService commonService, ItemService itemService, MakeAutoGenerateNumberService makeAutoGenerateNumberService, EmailService emailService,
-                                   TwilioMessageService twilioMessageService) {
+    PurchaseOrderItemService purchaseOrderItemService,SupplierService supplierService,CommonService commonService,
+    ItemService itemService,MakeAutoGenerateNumberService makeAutoGenerateNumberService,EmailService emailService,
+    TwilioMessageService twilioMessageService) {
         this.purchaseOrderService = purchaseOrderService;
-      this.purchaseOrderItemService = purchaseOrderItemService;
-      this.supplierService = supplierService;
+        this.purchaseOrderItemService = purchaseOrderItemService;
+        this.supplierService = supplierService;
         this.commonService = commonService;
-      this.itemService = itemService;
-      this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
+        this.itemService = itemService;
+        this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
         this.emailService = emailService;
         this.twilioMessageService = twilioMessageService;
     }
@@ -91,12 +90,12 @@ public class PurchaseOrderController {
         if (purchaseOrder.getId() == null) {
             if (purchaseOrderService.lastPurchaseOrder() == null) {
                 //need to generate new one
-                purchaseOrder.setCode("SSPO" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
+                purchaseOrder.setCode("JNPO" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
             } else {
 
                 //if there is customer in db need to get that customer's code and increase its value
                 String previousCode = purchaseOrderService.lastPurchaseOrder().getCode().substring(4);
-                purchaseOrder.setCode("SSPO" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+                purchaseOrder.setCode("JNPO" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
             }
         }
         List<PurchaseOrderItem> purchaseOrderItemList = new ArrayList<>();
@@ -130,7 +129,7 @@ public class PurchaseOrderController {
                 try {
                   String mobileNumber = purchaseOrderSaved.getSupplier().getContactOne().substring(1,10);
                     twilioMessageService.sendSMS("+94"+mobileNumber, "There is immediate PO from " +
-                            "Samarasingher Super \nPlease Check Your Email Form Further Details");
+                            "JN_Super \nPlease Check Your Email Form Further Details");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

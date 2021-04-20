@@ -39,7 +39,7 @@ public class EmployeeController {
 
   @Autowired
   public EmployeeController(EmployeeService employeeService, EmployeeFilesService employeeFilesService,
-                             UserService userService,
+                            UserService userService,
                             MakeAutoGenerateNumberService makeAutoGenerateNumberService) {
     this.employeeService = employeeService;
     this.employeeFilesService = employeeFilesService;
@@ -63,8 +63,8 @@ public class EmployeeController {
   public ResponseEntity< byte[] > downloadFile(@PathVariable( "filename" ) String filename) {
     EmployeeFiles file = employeeFilesService.findByNewID(filename);
     return ResponseEntity.ok()
-        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
-        .body(file.getPic());
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
+            .body(file.getPic());
   }
 
   //Send all employee data
@@ -73,9 +73,9 @@ public class EmployeeController {
     System.out.println(" im in");
     List< Employee > employees = new ArrayList<>();
     for ( Employee employee : employeeService.findAll()
-        .stream()
-        .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
-        .collect(Collectors.toList())
+            .stream()
+            .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
+            .collect(Collectors.toList())
     ) {
       employee.setFileInfo(employeeFilesService.employeeFileDownloadLinks(employee));
       employees.add(employee);
@@ -120,7 +120,31 @@ public class EmployeeController {
   //Employee add and update
   @PostMapping( value = {"/save", "/update"} )
   public String addEmployee(@Valid @ModelAttribute Employee employee, BindingResult result, Model model
-                           ) {
+  ) {
+    Employee officeEmail = null;
+    Employee employeeNic = null;
+
+    if ( employee.getNic() != null && employee.getId() == null ) {
+      employeeNic = employeeService.findByNic(employee.getNic());
+    }
+    if ( employeeNic != null) {
+      ObjectError error = new ObjectError("employee",
+              "There is employee on same nic number . System message ");
+      result.addError(error);
+    }
+
+
+
+    if ( employee.getOfficeEmail() != null &&  employee.getId() == null ) {
+      officeEmail = employeeService.findByOfficeEmail(employee.getOfficeEmail());
+    }
+    if ( officeEmail != null) {
+      ObjectError error = new ObjectError("employee","There is employee on same Email  System message ");
+      result.addError(error);
+    }
+
+
+
     if ( result.hasErrors() ) {
       model.addAttribute("addStatus", true);
       model.addAttribute("employee", employee);
@@ -128,7 +152,6 @@ public class EmployeeController {
     }
 
     employee.setMobileOne(makeAutoGenerateNumberService.phoneNumberLengthValidator(employee.getMobileOne()));
-    employee.setMobileTwo(makeAutoGenerateNumberService.phoneNumberLengthValidator(employee.getMobileTwo()));
     employee.setLand(makeAutoGenerateNumberService.phoneNumberLengthValidator(employee.getLand()));
 
     if ( employee.getId() == null ) {
@@ -139,6 +162,7 @@ public class EmployeeController {
         employee.setCode("SSCE" + makeAutoGenerateNumberService.numberAutoGen(lastEmployee.getCode().substring(4)).toString());
       }
     }
+
 
 
     //after save employee files and save employee
@@ -163,10 +187,10 @@ public class EmployeeController {
           // Save all to database
         } else {
           employeeFiles = new EmployeeFiles(employee.getFile().getOriginalFilename(),
-                                            employee.getFile().getContentType(),
-                                            employee.getFile().getBytes(),
-                                            employee.getNic().concat("-" + LocalDateTime.now()),
-                                            UUID.randomUUID().toString().concat("employee"));
+                  employee.getFile().getContentType(),
+                  employee.getFile().getBytes(),
+                  employee.getNic().concat("-" + LocalDateTime.now()),
+                  UUID.randomUUID().toString().concat("employee"));
           employeeFiles.setEmployee(employee);
         }
         employeeFilesService.persist(employeeFiles);
@@ -175,7 +199,7 @@ public class EmployeeController {
 
     } catch ( Exception e ) {
       ObjectError error = new ObjectError("employee",
-                                          "There is already in the system. <br>System message -->" + e.toString());
+              "There is already in the system. <br>System message -->" + e.toString());
       result.addError(error);
       if ( employee.getId() != null ) {
         model.addAttribute("addStatus", true);

@@ -4,6 +4,7 @@ import lk.j_n_super_pvt_ltd.asset.category.entity.Category;
 import lk.j_n_super_pvt_ltd.asset.category.service.CategoryService;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
 import lk.j_n_super_pvt_ltd.asset.item.entity.enums.MainCategory;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.Weight;
 import lk.j_n_super_pvt_ltd.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ public  class CategoryController implements AbstractController<Category, Integer
 
     private String commonThings(Model model, Category category, Boolean addState) {
         model.addAttribute("mainCategories", MainCategory.values());
+        model.addAttribute("weights", Weight.values());
         model.addAttribute("category", category);
         model.addAttribute("addStatus", addState);
         return "category/addCategory";

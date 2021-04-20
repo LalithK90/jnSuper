@@ -1,14 +1,14 @@
 package lk.j_n_super_pvt_ltd.asset.item.controller;
 
-
 import lk.j_n_super_pvt_ltd.asset.category.controller.CategoryRestController;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
 import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
 import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ItemStatus;
 import lk.j_n_super_pvt_ltd.asset.item.entity.enums.MainCategory;
-import lk.j_n_super_pvt_ltd.asset.item.service.ItemService;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.Weight;
 import lk.j_n_super_pvt_ltd.util.interfaces.AbstractController;
 import lk.j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
+import lk.j_n_super_pvt_ltd.asset.item.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -39,6 +40,7 @@ public class ItemController implements AbstractController< Item, Integer > {
     model.addAttribute("item", item);
     model.addAttribute("addStatus", addState);
     model.addAttribute("mainCategories", MainCategory.values());
+    model.addAttribute("weights", Weight.values());
     model.addAttribute("urlMainCategory", MvcUriComponentsBuilder
         .fromMethodName(CategoryRestController.class, "getCategoryByMainCategory", "")
         .build()
@@ -73,12 +75,12 @@ public class ItemController implements AbstractController< Item, Integer > {
       //if there is not item in db
       if ( itemService.lastItem() == null ) {
         //need to generate new one
-        item.setCode("SSMI" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
+        item.setCode("JNSI" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
         item.setItemStatus(ItemStatus.JUSTENTERED);
       } else {
         //if there is item in db need to get that item's code and increase its value
         String previousCode = itemService.lastItem().getCode().substring(4);
-        item.setCode("SSMI" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+        item.setCode("JNSI" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
       }
     }
 
