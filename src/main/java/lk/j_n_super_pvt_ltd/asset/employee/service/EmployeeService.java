@@ -6,18 +6,16 @@ import lk.j_n_super_pvt_ltd.asset.employee.dao.EmployeeDao;
 import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
 import lk.j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 // spring transactional annotation need to tell spring to this method work through the project
-@CacheConfig( cacheNames = "employee" )
+
 public class EmployeeService implements AbstractService< Employee, Integer > {
 
     private final EmployeeDao employeeDao;
@@ -27,21 +25,18 @@ public class EmployeeService implements AbstractService< Employee, Integer > {
         this.employeeDao = employeeDao;
     }
 
-    @Cacheable
+
     public List< Employee > findAll() {
         return employeeDao.findAll().stream()
             .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
             .collect(Collectors.toList());
     }
 
-    @Cacheable
+
     public Employee findById(Integer id) {
         return employeeDao.getOne(id);
     }
 
-    @Caching( evict = {@CacheEvict( value = "employee", allEntries = true )},
-            put = {@CachePut( value = "employee", key = "#employee.id" )} )
-    @Transactional
     public Employee persist(Employee employee) {
         if(employee.getId()==null){
             employee.setLiveDead(LiveDead.ACTIVE);}
@@ -54,13 +49,13 @@ public class EmployeeService implements AbstractService< Employee, Integer > {
         employeeDao.save(employee);
         return false;
     }
-   /* @CacheEvict( allEntries = true )
+   /*
     public boolean delete(Integer id) {
         employeeDao.deleteById(id);
         return false;
     }
 */
-    @Cacheable
+
     public List< Employee > search(Employee employee) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
@@ -79,10 +74,12 @@ public class EmployeeService implements AbstractService< Employee, Integer > {
         return employeeDao.findFirstByOrderByIdDesc();
     }
 
-    @Cacheable
+
     public Employee findByNic(String nic) {
         return employeeDao.findByNic(nic);
     }
 
+
+    public Employee findByOfficeEmail(String officeEmail) { return employeeDao.findByOfficeEmail(officeEmail); }
 
 }

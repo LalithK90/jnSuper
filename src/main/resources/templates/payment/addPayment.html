@@ -4,10 +4,9 @@
   <meta charset="UTF-8" >
   <title >Thymeleaf Springboot </title >
 </head >
-<body >
+<body class="sb-nav-fixed" >
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
-
-<div class="container-fluid " >
+<div class="container-fluid " style="margin-top:100px" >
   <div class="row text-center formManagement border-info" >
     <div class="col" >
 
@@ -213,6 +212,7 @@
   </div >
 </div >
 
+
 <!--footer include-->
 <div data-th-replace="~{fragments/footer :: footerFragment}" ></div >
 <!--script include-->
@@ -268,5 +268,5 @@
         return poValue - amount;
     }
 </script >
-</body >
+</div></div></body >
 </html >
