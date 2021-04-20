@@ -627,3 +627,4 @@ $(".btn-warning").on('click', function () {
 $(".btnReset").on('click',function (){
     location.reload();
 });
+
