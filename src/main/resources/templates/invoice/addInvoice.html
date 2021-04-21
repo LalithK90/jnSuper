@@ -111,7 +111,7 @@
                 <tfoot >
                 <tr >
                   <th colspan="4" class="text-right" ><label for="total" >Total</label ></th >
-                  <th ><input id="total" type="text" class="form-control" name="totalPrice" placeholder="Total Price" >
+                  <th ><input id="total" type="text" class="form-control" name="totalPrice" placeholder="Total Price" readonly>
                   </th >
                 </tr >
                 </tfoot >
@@ -437,7 +437,6 @@
         for (let i = 0; i < selectedInvoiceLedger.length; i++) {
             html += tableRowCreate(i, selectedInvoiceLedger[i]);
         }
-        //$("#myTable tbody tr:last").after(html);
 
         $("#myTable tbody ").html(html);
         totalPrice();
@@ -491,9 +490,17 @@
     //calculate line total
     function lineTotalCalculateByLine(obj) {
         let selectedFiledId = obj.getAttribute('id').slice(2);
-        let price = $(`#sp${selectedFiledId}`).val();
-        $(`#lt${selectedFiledId}`).val(price * obj.value);
-        totalPrice();
+        let quantity = $(`#aq${selectedFiledId}`).val();
+        if (quantity >= obj.value) {
+            let price = $(`#sp${selectedFiledId}`).val();
+            $(`#lt${selectedFiledId}`).val(price * obj.value);
+            totalPrice();
+        } else {
+            swal({
+                title: "Please check the quantity ",
+                icon: "warning",
+            });
+        }
     }
 
     function totalPrice() {
@@ -511,9 +518,25 @@
 
     //modal total mount calculate
     $("#requestCount").bind('keyup', function () {
-        $("#totalModal").val(parseFloat($("#sellPriceModal").val()) * parseFloat($(this).val()));
-        addButtonDisable();
+        totalPriceCard();
     });
+
+    function totalPriceCard() {
+        let requestCountVal = $("#requestCount").val();
+        let abQuantity = $("#abQuantity").val();
+
+        if (parseFloat(abQuantity) >= parseFloat(requestCountVal) && ! isNaN(requestCountVal)) {
+            $("#totalModal").val(parseFloat($("#sellPriceModal").val()) * parseFloat(requestCountVal));
+            addButtonDisable();
+        } else {
+            swal({
+                title: "Request more than available or less than available  ",
+                icon: "warning",
+            });
+
+            addButtonDisable();
+        }
+    }
 
     //modal all values zero
     function modalValueZero() {
@@ -535,10 +558,12 @@
         if (paymentMethodValue === 'CASH') {
             $("#bankNameBlock").hide();
             $("#cashPaymentBlock").show();
+            $("#bankName, #cardNumber").prop('required', false);
             $("#amountTendered, #balance").prop('required', true);
         } else {
             $("#cashPaymentBlock").hide();
             $("#bankNameBlock").show();
+            $("#amountTendered, #balance").prop('required', false);
             $("#bankName, #cardNumber").prop('required', true);
         }
     }
@@ -555,25 +580,41 @@
     });
 
     function discountRatio() {
-      let discountRatio = parseFloat($("#discountRatio").find('option:selected').text());
-      let total = parseFloat($("#total").val());
-      let discountAmount = total * discountRatio / 100;
-      $("#totalAmount").val(total - discountAmount);
-      $("#discountAmount").val(discountAmount);
+        let discountRatio = parseFloat($("#discountRatio").find('option:selected').text());
+        let total = parseFloat($("#total").val());
+        let discountAmount = total * discountRatio / 100;
+        $("#totalAmount").val(total - discountAmount);
+        $("#discountAmount").val(discountAmount);
     }
 
-    $("#amountTendered").bind('focusout', function () {
-        let tenderedAmount = $(this).val();
-        let totalAmount = $("#totalAmount").val();
-        if (tenderedAmount < totalAmount) {
+    $("#amountTendered").bind('keyup', function () {
+
+        if(!$("#discountRatio").val()){
             swal({
-                title: "Hey why do you try to pay less money",
+                title: "Please Select Discount",
                 icon: "warning",
             });
-          $("#amountTendered").val(totalAmount);
-        } else {
-            $("#balance").val(tenderedAmount - totalAmount);
         }
+        let tenderedAmount = parseFloat($(this).val());
+        let totalAmount = parseFloat($("#totalAmount").val());
+
+        console.log(tenderedAmount+ " " +totalAmount);
+
+        if (tenderedAmount < totalAmount) {
+            $("#balance").addClass("bg-danger");
+            $("#amountTendered").addClass("bg-danger");
+            $("#btnSubmit").hide();
+        } else {
+            $("#amountTendered").removeClass("bg-danger").addClass("bg-success");
+            $("#balance").val(tenderedAmount - totalAmount).removeClass("bg-danger").addClass("bg-success");
+            $("#btnSubmit").show();
+        }
+        if(isNaN($("#balance").val())){
+            $("#balance").addClass("bg-danger");
+            $("#amountTendered").addClass("bg-danger");
+            $("#btnSubmit").hide();
+        }
+
     });
 
     //option tag remove

@@ -623,7 +623,7 @@ label {
     font-max-size: 22px;
     font-min-size: 12px;
     font-weight: normal;
-    color: white;
+    /*color: white;*/
     alignment: left;
     width:auto;
     text-align: left;

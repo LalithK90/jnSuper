@@ -73,11 +73,6 @@
                 </h3>
             </div>
         </div>
-        <script>
-            /*active boostrap alert - start*/
-            $(".alert").alert();
-            /*active boostrap alert - end*/
-        </script>
     </div>
 </div>
 
@@ -85,5 +80,10 @@
 <!--script include-->
 <script  data-th-replace="~{fragments/script :: scriptFragment}"></script>
 
+<script data-th-if="${ #lists.isEmpty(items)}">
+    /*active boostrap alert - start*/
+    $(".alert").alert();
+    /*active boostrap alert - end*/
+</script>
 </body>
 </html>
