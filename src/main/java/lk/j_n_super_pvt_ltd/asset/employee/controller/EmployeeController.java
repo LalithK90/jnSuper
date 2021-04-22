@@ -75,6 +75,8 @@ public class EmployeeController {
     for ( Employee employee : employeeService.findAll()
             .stream()
             .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
+            /**employee status eka change karala gattama filter wela ena aya**/
+           /* .filter(x ->x.getEmployeeStatus().equals(EmployeeStatus.WORKING) && LiveDead.ACTIVE.equals(x.getLiveDead()))*/
             .collect(Collectors.toList())
     ) {
       employee.setFileInfo(employeeFilesService.employeeFileDownloadLinks(employee));
@@ -157,9 +159,9 @@ public class EmployeeController {
     if ( employee.getId() == null ) {
       Employee lastEmployee = employeeService.lastEmployee();
       if ( lastEmployee.getCode() == null ) {
-        employee.setCode("SSCE" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
+        employee.setCode("JNSE" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
       } else {
-        employee.setCode("SSCE" + makeAutoGenerateNumberService.numberAutoGen(lastEmployee.getCode().substring(4)).toString());
+        employee.setCode("JNSE" + makeAutoGenerateNumberService.numberAutoGen(lastEmployee.getCode().substring(4)).toString());
       }
     }
 

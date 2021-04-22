@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum InvoiceValidOrNot {
     VALID("Valid"),
-    NOTVALID("No Valid");
+    NOTVALID("Not Valid");
     private final String invoiceValidOrNot;
 }

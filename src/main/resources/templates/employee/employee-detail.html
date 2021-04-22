@@ -10,18 +10,18 @@
       <div class="container-fluid  form-Border" >
         <div class="row text-center formManagement border-info" >
           <div class="col" >
-            <a class="btn btn-outline-info" href="/home" >&nbsp; Back To Home
+            <a class="btn btn-success" href="/home" >&nbsp; Back To Home
             </a >
           </div >
 
           <div class="col" >
-            <a href="/employee" class="btn btn-info" >View Employees
+            <a href="/employee" class="btn btn-success" >View Employees
             </a >
           </div >
         </div >
         <div >
           <div class="col" >
-            <h4 class="text-info text-center" >
+            <h4 class="text-dark text-center" >
               <strong >
                 <p data-th-text="${employeeDetail.title.title} +${' '} +${employeeDetail.name}" ></p >
               </strong >
@@ -43,6 +43,7 @@
                   <p id="id" data-th-text="${employeeDetail.id}" class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="employeeCode" >Employee Id :</label >
@@ -61,6 +62,7 @@
                      class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="callingName" >Calling Name :</label >
@@ -69,6 +71,7 @@
                   <p id="callingName" data-th-text="${employeeDetail.callingName}" class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="nic" >NIC No :</label >
@@ -77,6 +80,7 @@
                   <p id="nic" data-th-text="${employeeDetail.nic}" class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="gender" >Gender :</label >
@@ -85,6 +89,7 @@
                   <p id="gender" data-th-text="${employeeDetail.gender.gender}" class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="dateOfBirth" >Birth date :</label >
@@ -104,15 +109,7 @@
                   </p >
                 </div >
               </div >
-              <div class="form-row text-right" >
-                <div class="col-md-4" >
-                  <label class="control-label" for="civilStatus" >Civil State :</label >
-                </div >
-                <div class="col-md-8" >
-                  <p id="civilStatus" data-th-text="${employeeDetail.civilStatus.civilStatus}"
-                     class="display_detail" ></p >
-                </div >
-              </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="employeeStatus" >Employee Status :</label >
@@ -133,6 +130,7 @@
                   <p id="address" class="display_detail " data-th-utext="${employeeDetail.address}" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="mobileOne" >Mobile One No :</label >
@@ -141,6 +139,7 @@
                   <p id="mobileOne" data-th-text="${employeeDetail.mobileOne}" class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="mobileTwo" >Mobile Two No :</label >
@@ -149,6 +148,7 @@
                   <p id="mobileTwo" data-th-text="${employeeDetail.mobileTwo}" class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="land" >Land No :</label >
@@ -157,14 +157,7 @@
                   <p id="land" data-th-text="${employeeDetail.land}" class="display_detail" ></p >
                 </div >
               </div >
-              <!--<div class="form-row text-right">
-                  <div class="col-md-4">
-                      <label class="control-label" for="email">Email :</label>
-                  </div>
-                  <div class="col-md-8">
-                      <p id="email" data-th-text="${employeeDetail.email}" class="display_detail"></p>
-                  </div>
-              </div>-->
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="officeEmail" >Office Email :</label >
@@ -173,6 +166,7 @@
                   <p id="officeEmail" data-th-text="${employeeDetail.officeEmail}" class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="dateOfAssignment" >Date Of Assignment :</label >
@@ -182,6 +176,7 @@
                      class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="createdBy" >Created By :</label >
@@ -190,6 +185,7 @@
                   <p id="createdBy" data-th-text="${employeeDetail.createdBy}" class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="createdAt" >Created At :</label >
@@ -199,6 +195,7 @@
                      class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="updatedBy" >Updated By :</label >
@@ -207,6 +204,7 @@
                   <p id="updatedBy" data-th-text="${employeeDetail.updatedBy}" class="display_detail" ></p >
                 </div >
               </div >
+
               <div class="form-row text-right" >
                 <div class="col-md-4" >
                   <label class="control-label" for="updatedAt" >Updated At :</label >
