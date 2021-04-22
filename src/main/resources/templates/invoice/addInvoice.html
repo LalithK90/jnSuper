@@ -6,6 +6,7 @@
     <title >Thymeleaf Springboot </title >
 </head >
 <body >
+<nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
 <!--Creates the popup body-->
 <div class="popup-overlay" >
     <!--Creates the popup content-->
@@ -60,9 +61,56 @@
     </div >
 </div >
 
-<div class="container-fluid mt-3" >
+<!--<div class="container-fluid mt-3" >-->
     <div class="container-fluid" >
+        <!--heading Area-->
+        <div class="container-fluid " >
+            <div class="row text-center formManagement border-info" >
+                <!--ViewList Button-->
+                <div class="col" >
+                    <a href="/invoice" class="btn btn-success" tabindex="1" >
+                        <i class="fa fa-list" style="font-size: 20px" ></i >&nbsp;&nbsp;View List
+                    </a >
+                </div >
+                <!--Customer Name-->
+                <div class="col" >
+                    <h2 class="text-dark text-center" >
+                        <strong >
+                            ADD NEW INVOICE
+                        </strong >
+                    </h2 >
+                </div >
+                <!--Home Button-->
+                <div class="col" >
+                    <a class="btn btn-success" href="/home" tabindex="2" >
+                        <i class="fa fa-home" style="font-size: 20px" ></i > &nbsp;&nbsp;Home
+                    </a >
+                </div >
+            </div >
+        </div >
+        <!--details-->
+
         <form action="/invoice" method="post" data-th-object="${invoice}" >
+            <!--customer list-->
+            <div class="form-group" >
+                <!--Customers-->
+                <div class="form-row text-right" >
+                    <div class="col-md-2" >
+                        <label class="control-label" for="customer " >Customer :</label >
+                    </div >
+                    <div class="col-md-10" >
+                        <select id="customer " data-th-field="*{customer}" class="form-control"
+                                tabindex="9" >
+                            <option value="" >Please select</option >
+                            <option data-th-each="customer : ${customers}"
+                                    data-th-text="${customer.name+'  '+customer.mobile}"
+                                    data-th-value="${customer.id}" >
+                                Please select
+                            </option >
+                        </select >
+                    </div >
+                </div >
+            </div >
             <!--ledgers will list-->
             <div class="form-group" >
                 <!--Ledgers item-->
@@ -72,11 +120,11 @@
                     </div >
                     <div class="col-10 text-left" >
                         <select id="item" class="form-control" tabindex="9" >
-                            <option value="" >Please select</option >
+                            <option value="" ></option >
                             <option data-th-each="ledger : ${ledgers}"
-                                    data-th-text="${'Item Name: '+ledger.item.name+'  Sell Price : '+ledger.item.sellPrice+'  Available quantity : '+ledger.quantity+'  Expired Date : '+ledger.expiredDate}"
-                                    data-th-value="${ledger.id}" >
-                                Please select
+                                    data-th-text="${'Item Name: '+ledger.item.name+'  Sell Price : '+ledger.item.sellPrice+'
+                                      Available quantity : '+ledger.quantity+'  Expired Date : '+ledger.expiredDate}"
+                                    data-th-value="${ledger.id}" >Please select
                             </option >
                         </select >
                     </div >
@@ -92,7 +140,7 @@
                                 <tr >
                                     <th >Index</th >
                                     <th >Item Name</th >
-                                    <th >Ex Date</th >
+                                    <th >Expire Date</th >
                                     <th >Available Quantity</th >
                                     <th >Unit Price</th >
                                     <th >Quantity</th >
@@ -116,7 +164,8 @@
                     </div >
                 </div >
             </div >
-            <hr >
+            --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
             <!--Payment Section-->
             <div class="form-group" >
                 <!--Payment method and total amount-->
@@ -269,28 +318,8 @@
                     </div >
                 </div >
             </div >
-            <hr >
-            <!--customer list-->
-            <div class="form-group" >
-                <!--Customers-->
-                <div class="form-row text-right" >
-                    <div class="col-md-2" >
-                        <label class="control-label" for="customer " >Customer :</label >
-                    </div >
-                    <div class="col-md-10" >
-                        <select id="customer " data-th-field="*{customer}" class="form-control"
-                                tabindex="9" >
-                            <option value="" >Please select</option >
-                            <option data-th-each="customer : ${customers}"
-                                    data-th-text="${customer.name+'  '+customer.mobile}"
-                                    data-th-value="${customer.id}" >
-                                Please select
-                            </option >
-                        </select >
-                    </div >
-                </div >
-            </div >
-            <hr >
+            --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
             <!--remarks and invoice print or not-->
             <div class="form-group" >
                 <div class="form-row" >
@@ -329,7 +358,7 @@
                     </div >
                 </div >
             </div >
-            <hr >
+
             <!--button-->
             <div class="form-group" >
                 <!--Button-->
@@ -352,7 +381,7 @@
             </div >
         </form >
     </div >
-</div >
+
 <input type="hidden" data-th-value="${ledgerItemURL}" id="ledgerItemURL" >
 <!--/* footer is */-->
 <div data-th-replace="~{fragments/footer :: footerFragment}" ></div >

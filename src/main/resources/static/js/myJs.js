@@ -35,7 +35,7 @@ $(document).ready(function () {
         $("input:radio[name=gender]").filter(`[value=${calculateGender(nic)}]`).prop('checked', true);
 
     });
-    /* Patient and employee Nic Validation - end*/
+    /* employee Nic Validation - end*/
 
 
 });

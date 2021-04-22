@@ -7,11 +7,35 @@
 </head >
 <body>
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
+        <!--heading Area-->
+        <div class="container-fluid " >
+            <div class="row text-center formManagement border-info" >
+                <!--ViewList Button-->
+                <div class="form-group text-right col-sm-2" >
+                    <a class="btn btn-success" href="/invoice/search" >
+                        <span class="glyphicon glyphicon-search" ></span >&nbsp; Search Invoice</a >
+                </div >
+                <!--Customer Name-->
+                <div class="col" >
+                    <h2 class="text-dark text-center" >
+                        <strong >
+                            Invoice Managment
+                        </strong >
+                    </h2 >
+                </div >
+                <!--New Invoice Button-->
+                <div class="form-group text-left col-sm-2" >
+                    <a class="btn btn-success" href="/invoice/add" ><span
+                            class="glyphicon glyphicon-list-alt" ></span >&nbsp; New Invoice</a >
+                </div>
+            </div >
+        </div >
+        <!--details-->
 
-      <div class="container" >
+      <div class="container-fluid " >
         <div class="row" >
           <!--Custom Invoice search-->
-          <button type="button" class="btn btn-info mb-5 btn-block text-capitalize" data-toggle="collapse"
+          <button type="button" class="btn btn-danger mb-5 btn-block text-capitalize" data-toggle="collapse"
                   data-target="#dataTargetCollapse"
                   aria-expanded="false" aria-controls="dataTargetCollapse" style="width:500px;margin-left:350px;margin-top:40px"
           > Custom Invoice Search
@@ -20,7 +44,7 @@
             <div class="container-fluid text-center" >
               <div class="row" >
                 <div class="col-sm-6 col-sm-offset-3" >
-                  <h4 class="text-info" ><b > Custom Search</b ></h4 >
+                  <h4 class="text-" ><b > Custom Search</b ></h4 >
                   <form class="form-inline" data-th-action="@{/invoice/search}" data-th-method="POST" >
                     <div class="form-group" >
                       <label for="startDate" >FROM :</label >
@@ -43,30 +67,26 @@
         <div class="row" data-th-if="${firstInvoiceMessage}" >
 
             <div class="form-group text-left col-sm-2" >
-              <a class="btn btn-primary" href="/invoice/add" ><span
-                      class="glyphicon glyphicon-list-alt" ></span >&nbsp; New Invoice</a >
+             <!-- <a class="btn btn-success" href="/invoice/add" ><span
+                      class="glyphicon glyphicon-list-alt" ></span >&nbsp; New Invoice</a >-->
             </div>
 
-            <div class="alert alert-info col-sm-8" role="alert">
+            <div class="alert alert-danger col-sm-8" role="alert">
        Following table show details belongs to there month. if you need to more please  search using above method
             </div >
 
             <div class="form-group text-right col-sm-2" >
-              <a class="btn btn-info" href="/invoice/search" ><span
-                    class="glyphicon glyphicon-search" ></span >&nbsp; Search Invoice</a >
+              <!--<a class="btn btn-success" href="/invoice/search" >
+                  <span class="glyphicon glyphicon-search" ></span >&nbsp; Search Invoice</a >-->
             </div >
-
-
           </div >
         </div >
+
         <!--List all invoice-->
-
-
-        <div class="container-fluid tableview  text-center text-white" style="margin-top:10px">
-
+        <div class="container-fluid tableview  text-center text-dark" style="margin-top:10px">
         <div class="row " >
-          <div class="col-md-12" >
-            <table class="table table-hover table-responsive mt-4 col-md-12" id="myTable"  style="margin-left:150px">
+            <div class="col formBorder  " >
+            <table class="table table-hover table-responsive mt-4 col-md-12 " id="myTable"  style="margin-left:150px">
               <thead >
               <tr >
                 <th >Index</th >
