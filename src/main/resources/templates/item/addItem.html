@@ -99,7 +99,7 @@
               <label class="control-label" for="amount" >Amount :</label >
             </div >
             <div class="col-md-4" >
-              <input id="amount" class="form-control" tabindex="6" type="text"
+              <input id="amount" data-th-field="*{amount}"  class="form-control" tabindex="6" type="text"
                      required />
               <span id="amountError" data-th-errors="*{amount}"
                     data-th-if="${#fields.hasErrors('amount')}" class="error" >Error Amount</span >
@@ -175,8 +175,7 @@
           </a >
           <!--Save Button-->
           <button class="btn btn-success ml-5" type="submit" tabindex="12" >
-            <i class="fa fa-save " style="font-size: 20px" ></i >&nbsp;&nbsp;<span id="submit"
-                                                                                   data-th-text="${addStatus==true?'Save': 'Update'}" ></span >
+            <i class="fa fa-save " style="font-size: 20px" ></i >&nbsp;&nbsp;<span id="submit" data-th-text="${addStatus==true?'Save': 'Update'}" ></span >
           </button >
           <!--Cancel Button-->
           <button class="btn btn-warning ml-5" type="reset" tabindex="13" >
@@ -225,33 +224,6 @@
 
     };
 
-    /*    $(document).ready(function () {
-                let weightValueBind = $("#weightValueBind").val();
-                let amountValueBind = $("#amountValueBind").val();
-                if (weightValueBind !== null || weightValueBind !== undefined && amountValueBind !== null || amountValueBind !== undefined) {
-                    $("#weight").val(weightValueBind);
-                    $("#amount").val(amountValueBind);
-                    getName(weightValueBind, amountValueBind);
-                }
-            }
-        );
-        $("#weight").bind("change", function () {
-            getName(this.value);
-        });
-
-        $("#amount").bind("change", function () {
-            getName(this.value);
-        });   let getName = function (val) {
-            let url = "[[${urlWeight}]]" + val;
-            let amount = "[${amount}]" + val;
-            removeOption('iName');
-            $.getJSON(url, function (val) {
-                $.each(val, function () {
-                    $("#iName").append(`<option value="${this.id}">${this.name}</option>`);
-                });
-            });
-
-        };*/
     let removeOption = function (idValue) {
         $(`#${idValue}`).find('option')
             .remove();
@@ -271,7 +243,7 @@
         let amount = $("#amount").val();
 
         if (subCategory && weight && amount) {
-            $("#name").val(subCategory + ' - ' + amount + ' - ' + weight);
+            $("#name").val(subCategory + ' - ' + amount +'' + weight);
         }
 
     }

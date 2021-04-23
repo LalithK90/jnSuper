@@ -1,100 +1,126 @@
 <!DOCTYPE html>
-<html lang="en"  >
+<html lang="en" >
 <head data-th-replace="~{fragments/header :: headerFragment}" >
   <meta name="viewport" content="width=device-width, initial-scale=1" >
   <meta charset="UTF-8" >
-  <title >J N Super </title >
+  <title >Samarasinghe Super</title >
 </head >
-<body >
+<body>
+<nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
+        <!--heading Area-->
+        <div class="container-fluid " >
+            <div class="row text-center formManagement border-info" >
+                <!--ViewList Button-->
+                <div class="form-group text-right col-sm-2" >
+                    <a class="btn btn-success" href="/invoice/search" >
+                        <span class="glyphicon glyphicon-search" ></span >&nbsp; Search Invoice</a >
+                </div >
+                <!--Customer Name-->
+                <div class="col" >
+                    <h2 class="text-dark text-center" >
+                        <strong >
+                            Invoice Managment
+                        </strong >
+                    </h2 >
+                </div >
+                <!--New Invoice Button-->
+                <div class="form-group text-left col-sm-2" >
+                    <a class="btn btn-success" href="/invoice/add" ><span
+                            class="glyphicon glyphicon-list-alt" ></span >&nbsp; New Invoice</a >
+                </div>
+            </div >
+        </div >
+        <!--details-->
 
-<div class="container" >
-  <div class="row" >
-    <!--Custom Invoice search-->
-    <button type="button" class="btn btn-info mb-5 btn-block text-capitalize" data-toggle="collapse"
-            data-target="#dataTargetCollapse"
-            aria-expanded="false" aria-controls="dataTargetCollapse"
-    > Custom Invoice Search
-    </button >
-    <div class="collapse mx-auto" id="dataTargetCollapse" >
-      <div class="container-fluid text-center" >
+      <div class="container-fluid " >
         <div class="row" >
-          <div class="col-sm-6 col-sm-offset-3" >
-            <h4 class="text-info" ><b > Custom Search</b ></h4 >
-            <form class="form-inline" data-th-action="@{/invoice/search}" data-th-method="POST" >
-              <div class="form-group" >
-                <label for="startDate" >FROM :</label >
-                <input class="form-control" id="startDate" name="startDate" type="date" />
+          <!--Custom Invoice search-->
+          <button type="button" class="btn btn-danger mb-5 btn-block text-capitalize" data-toggle="collapse"
+                  data-target="#dataTargetCollapse"
+                  aria-expanded="false" aria-controls="dataTargetCollapse" style="width:500px;margin-left:350px;margin-top:40px"
+          > Custom Invoice Search
+          </button >
+          <div class="collapse mx-auto" id="dataTargetCollapse" >
+            <div class="container-fluid text-center" >
+              <div class="row" >
+                <div class="col-sm-6 col-sm-offset-3" >
+                  <h4 class="text-" ><b > Custom Search</b ></h4 >
+                  <form class="form-inline" data-th-action="@{/invoice/search}" data-th-method="POST" >
+                    <div class="form-group" >
+                      <label for="startDate" >FROM :</label >
+                      <input class="form-control" id="startDate" name="startDate" type="date" />
+                    </div >
+                    <div class="form-group" >
+                      <label for="endDate" >TO :</label >
+                      <input class="form-control" id="endDate" name="endDate" type="date" />
+                    </div >
+                    <button class="btn btn-success" id="btnSummaryFind" type="submit" ><span
+                          class="glyphicon glyphicon-search" ></span >&nbsp;Search
+                    </button >
+                  </form >
+                </div >
               </div >
-              <div class="form-group" >
-                <label for="endDate" >TO :</label >
-                <input class="form-control" id="endDate" name="endDate" type="date" />
-              </div >
-              <button class="btn btn-success" id="btnSummaryFind" type="submit" ><span
-                    class="glyphicon glyphicon-search" ></span >&nbsp;Search
-              </button >
-            </form >
+            </div >
           </div >
         </div >
+        <!--There is message about invoice count-->
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <p data-th-if="${messageView==false}"><strong>Notice!</strong> Below table shows the invoices for
+                  last
+                  three month only.
+                  To find older records, please use the custom
+                  search options.</p>
+              <p data-th-if="${messageView==true}" data-th-text="${message}"></p>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+        </div >
+
+        <!--List all invoice-->
+        <div class="container-fluid tableview  text-center text-dark" style="margin-top:10px">
+        <div class="row " >
+            <div class="col formBorder  " >
+            <table class="table table-hover table-responsive mt-4 col-md-12 " id="myTable"  style="margin-left:150px">
+              <thead >
+              <tr >
+                <th >Index</th >
+                <th >Number</th >
+                <th > Amount</th >
+                <th > Created By</th >
+                <th > Date of Invoice</th >
+                <th >View</th >
+                <th data-th-if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" > Delete Invoice
+                </th >
+              </tr >
+              </thead >
+              <tbody >
+              <tr data-th-each="invoice, rowCount : ${invoices}" >
+                <th data-th-text="${rowCount.count}" ></th >
+                <th data-th-text="${invoice.code}" ></th >
+                <th data-th-text="${invoice.totalAmount}" ></th >
+                <th data-th-text="${invoice.createdBy}" ></th >
+                <th data-th-text="${{invoice.createdAt}}" ></th >
+                <th style="width: 200px" ><a class="btn btn-success" data-th-href="${'/invoice/'+ invoice.id}" ><i
+                      class="fa fa-folder-open" ></i >&nbsp;View</a >&nbsp;
+                </th >
+                <th data-th-if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" ><a
+                      class="btn btn-danger" data-th-href="${'/invoice/remove/' + invoice.id}" style="width: 100px" >
+                  <i class="fa fa-recycle" style="font-size:20px;margin-right:5px" ></i >Delete</a >
+                </th >
+              </tr >
+              </tbody >
+            </table >
+
+        </div >
+        </div>
       </div >
-    </div >
-  </div >
-  <!--There is message about invoice count-->
-  <div class="row"  data-th-if="${firstInvoiceMessage}" >
-    <div class="col-sm-12 mt-4" >
-      <div class="form-group text-left col-sm-2" >
-        <a class="btn btn-primary" href="/invoice/add" ><span
-              class="glyphicon glyphicon-list-alt" ></span >&nbsp; New Invoice</a >
-      </div >
-      <div class="alert alert-warning col-sm-8" role="alert" >
-        <strong >Following table show details belongs to there month. if you need to more please
-                 search
-                 using above method</strong >
-      </div >
-      <div class="form-group text-right col-sm-2" >
-        <a class="btn btn-info" href="/invoice/search" ><span
-              class="glyphicon glyphicon-search" ></span >&nbsp; Search Invoice</a >
-      </div >
-    </div >
-  </div >
-  <!--List all invoice-->
-  <div class="row" >
-    <div class="table-responsive mt-4" >
-      <table class="table table-hover" id="myTable" >
-        <thead >
-        <tr >
-          <th >Index</th >
-          <th >Number</th >
-          <th > Amount</th >
-          <th > Created By</th >
-          <th > Date of Invoice</th >
-          <th >View</th >
-          <th  data-th-if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" > Delete Invoice
-          </th >
-        </tr >
-        </thead >
-        <tbody >
-        <tr data-th-each="invoice, rowCount : ${invoices}" >
-          <th data-th-text="${rowCount.count}" ></th >
-          <th data-th-text="${invoice.code}" ></th >
-          <th data-th-text="${invoice.totalAmount}" ></th >
-          <th data-th-text="${invoice.createdBy}" ></th >
-          <th data-th-text="${{invoice.createdAt}}" ></th >
-          <th ><a class="btn btn-success" data-th-href="${'/invoice/'+ invoice.id}" ><i
-                class="fa fa-folder-open" ></i >&nbsp;View</a >&nbsp;
-          </th >
-          <th  data-th-if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" ><a
-                class="btn btn-danger" data-th-href="${'/invoice/remove/' + invoice.id}" >Delete</a >
-          </th >
-        </tr >
-        </tbody >
-      </table >
-    </div >
-  </div >
-</div >
-<!--/* footer is */-->
-<div data-th-replace="~{fragments/footer :: footerFragment}" ></div >
-<!--/* script is included */-->
-<div data-th-replace="~{fragments/script :: scriptFragment}" ></div >
+
+    <!--/* footer is */-->
+    <div data-th-replace="~{fragments/footer :: footerFragment}" ></div >
+    <!--/* script is included */-->
+    <div data-th-replace="~{fragments/script :: scriptFragment}" ></div >
+
 
 <script >
 
@@ -117,5 +143,5 @@
 
 
 </script >
-</body >
+</div></div></body >
 </html >

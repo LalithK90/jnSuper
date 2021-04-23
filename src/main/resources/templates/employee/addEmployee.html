@@ -28,7 +28,7 @@
           </div >
           <div class="row text-center" >
             <div class="col" >
-              <h4 class="text-light text-center" >
+              <h4 class="text-dark text-center" >
                 <strong >
                   <span data-th-text="${addStatus==true?'New Employee':'Update Employee Details'}" ></span >
                 </strong >
@@ -83,7 +83,7 @@
               <label class="control-label" for="name" >Name :</label >
             </div >
             <div class="col-md-8" >
-              <input id="name" data-th-field="*{name}" class="form-control" tabindex="4" type="text" required />
+              <input id="name" data-th-field="*{name}" class="form-control text-capitalize" tabindex="4" type="text" required />
               <span id="nameError" data-th-errors="*{name}"
                     data-th-if="${#fields.hasErrors('name')}" class="error" >Error Name</span >
             </div >
@@ -91,7 +91,7 @@
           <!--Calling Name-->
           <div class="form-row text-right" >
             <div class="col-md-4" >
-              <label class="control-label" for="callingName" >Calling Name :</label >
+              <label class="control-label text-capitalize" for="callingName" >Calling Name :</label >
             </div >
             <div class="col-md-8" >
               <input id="callingName" data-th-field="*{callingName}" class="form-control" tabindex="5"
@@ -181,7 +181,7 @@
         </div >
         <!--Right Side-->
         <div class="form-group col-md-4 col-sm-12  text-right flex-column" >
-          <!--Address-->
+        <!--Address-->
           <div class="form-row text-right" >
             <div class="col-md-4" >
               <label class="control-label" for="address" >Address :</label >

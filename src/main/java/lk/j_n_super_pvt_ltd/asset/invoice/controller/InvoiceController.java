@@ -61,7 +61,7 @@ public class InvoiceController {
   @GetMapping
   public String invoice(Model model) {
     model.addAttribute("invoices",
-    invoiceService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now())));
+            invoiceService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now())));
     model.addAttribute("firstInvoiceMessage", true);
     return "invoice/invoice";
   }
@@ -114,12 +114,12 @@ public class InvoiceController {
     if ( invoice.getId() == null ) {
       if ( invoiceService.findByLastInvoice() == null ) {
         //need to generate new one
-        invoice.setCode("SSCI" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
+        invoice.setCode("JNSI" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
       } else {
 
         //if there is customer in db need to get that customer's code and increase its value
         String previousCode = invoiceService.findByLastInvoice().getCode().substring(4);
-        invoice.setCode("SSCI" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+        invoice.setCode("JNSI" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
       }
     }
     invoice.setInvoiceValidOrNot(InvoiceValidOrNot.VALID);
@@ -143,7 +143,7 @@ public class InvoiceController {
     if ( saveInvoice.getCustomer() != null ) {
       try {
         String mobileNumber = saveInvoice.getCustomer().getMobile().substring(1,10);
-        twilioMessageService.sendSMS("+94"+mobileNumber, "Thank You Come Again \n Samarasinghe Super ");
+        twilioMessageService.sendSMS("+94"+mobileNumber, "Thank You Come Again \n JN_Super ");
       } catch ( Exception e ) {
         e.printStackTrace();
       }
@@ -167,20 +167,20 @@ public class InvoiceController {
     InputStreamResource pdfFile = new InputStreamResource(invoiceService.createPDF(id));
 
     return ResponseEntity
-        .ok()
-        .headers(headers)
-        .contentType(MediaType.APPLICATION_PDF)
-        .body(pdfFile);
+            .ok()
+            .headers(headers)
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(pdfFile);
   }
 
   @GetMapping("/fileView/{id}")
   public String fileRequest(@PathVariable("id") Integer id, Model model, HttpServletRequest request) {
     model.addAttribute("pdfFile",MvcUriComponentsBuilder
-        .fromMethodName(InvoiceController.class, "invoicePrint", id)
-        .toUriString());
+            .fromMethodName(InvoiceController.class, "invoicePrint", id)
+            .toUriString());
     model.addAttribute("redirectUrl",MvcUriComponentsBuilder
-        .fromMethodName(InvoiceController.class, "getInvoiceForm","")
-        .toUriString());
+            .fromMethodName(InvoiceController.class, "getInvoiceForm","")
+            .toUriString());
     return "invoice/pdfSilentPrint";
   }
 
