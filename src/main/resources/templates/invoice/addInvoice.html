@@ -62,7 +62,7 @@
 </div >
 
 <!--<div class="container-fluid mt-3" >-->
-    <div class="container-fluid" >
+    <div class="container" >
         <!--heading Area-->
         <div class="container-fluid " >
             <div class="row text-center formManagement border-info" >
@@ -83,13 +83,14 @@
                 <!--Home Button-->
                 <div class="col" >
                     <a class="btn btn-success" href="/home" tabindex="2" >
-                        <i class="fa fa-home" style="font-size: 20px" ></i > &nbsp;&nbsp;Home
+                        <i class="fa fa-home" style="font-size: 20px" ></i > Home
                     </a >
                 </div >
             </div >
         </div >
         <!--details-->
 
+        <div class="container formBorder">
         <form action="/invoice" method="post" data-th-object="${invoice}" >
             <!--customer list-->
             <div class="form-group" >
@@ -130,6 +131,7 @@
                     </div >
                 </div >
             </div >
+
             <!--selected ledger items-->
             <div class="form-group" >
                 <div class="form-row" >
@@ -164,8 +166,7 @@
                     </div >
                 </div >
             </div >
-            --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+            --------------------------------------------------------------------------------------------------------------------------------------------------------------------
             <!--Payment Section-->
             <div class="form-group" >
                 <!--Payment method and total amount-->
@@ -318,7 +319,7 @@
                     </div >
                 </div >
             </div >
-            --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             <!--remarks and invoice print or not-->
             <div class="form-group" >
@@ -351,8 +352,7 @@
                             <div class="col-md-4" >
                                 <label for="remarks" >Remarks :</label ></div >
                             <div class="col-md-8" >
-                                            <textarea id="remarks" class="form-control" data-th-field="*{remarks}"
-                                                      rows="2" ></textarea >
+                                <textarea id="remarks" class="form-control" data-th-field="*{remarks}" rows="2" ></textarea >
                             </div >
                         </div >
                     </div >
@@ -381,6 +381,7 @@
             </div >
         </form >
     </div >
+    </div>
 
 <input type="hidden" data-th-value="${ledgerItemURL}" id="ledgerItemURL" >
 <!--/* footer is */-->
@@ -560,7 +561,7 @@
             addButtonDisable();
         } else {
             swal({
-                title: "Request more than available or less than avalilable  ",
+                title: "Request more than available   ",
                 icon: "warning",
             });
 

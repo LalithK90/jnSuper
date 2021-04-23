@@ -64,22 +64,17 @@
           </div >
         </div >
         <!--There is message about invoice count-->
-        <div class="row" data-th-if="${firstInvoiceMessage}" >
-
-            <div class="form-group text-left col-sm-2" >
-             <!-- <a class="btn btn-success" href="/invoice/add" ><span
-                      class="glyphicon glyphicon-list-alt" ></span >&nbsp; New Invoice</a >-->
-            </div>
-
-            <div class="alert alert-danger col-sm-8" role="alert">
-       Following table show details belongs to there month. if you need to more please  search using above method
-            </div >
-
-            <div class="form-group text-right col-sm-2" >
-              <!--<a class="btn btn-success" href="/invoice/search" >
-                  <span class="glyphicon glyphicon-search" ></span >&nbsp; Search Invoice</a >-->
-            </div >
-          </div >
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <p data-th-if="${messageView==false}"><strong>Notice!</strong> Below table shows the invoices for
+                  last
+                  three month only.
+                  To find older records, please use the custom
+                  search options.</p>
+              <p data-th-if="${messageView==true}" data-th-text="${message}"></p>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
         </div >
 
         <!--List all invoice-->
