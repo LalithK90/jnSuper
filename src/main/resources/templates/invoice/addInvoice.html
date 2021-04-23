@@ -7,6 +7,8 @@
 </head >
 <body >
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
+<link data-th-href="@{/css/combo-box-search.css}" media="all" rel="stylesheet" type="text/css" />
+<link data-th-href="@{/css/modal.css}" media="all" rel="stylesheet" type="text/css" />
 <!--Creates the popup body-->
 <div class="popup-overlay" >
     <!--Creates the popup content-->
@@ -506,11 +508,11 @@
         let selectedFiledId = obj.getAttribute('id').slice(2);
         //id,name,sellPrice,abQut,exDate
         $("#item").append(optionTagAdd(
-            $(`#id${selectedFiledId}`).val(),
-            $(`#na${selectedFiledId}`).val(),
-            $(`#sp${selectedFiledId}`).val(),
-            $(`#aq${selectedFiledId}`).val(),
-            $(`#ex${selectedFiledId}`).val()));
+              $(`#id${selectedFiledId}`).val(),
+              $(`#na${selectedFiledId}`).val(),
+              $(`#sp${selectedFiledId}`).val(),
+              $(`#aq${selectedFiledId}`).val(),
+              $(`#ex${selectedFiledId}`).val()));
         selectedInvoiceLedger = selectedInvoiceLedger.filter(function (obj) {
             return obj.id !== $(`#id${selectedFiledId}`).val();
         })
@@ -561,7 +563,7 @@
             addButtonDisable();
         } else {
             swal({
-                title: "Request more than available   ",
+                title: "Request more than available or less than avalilable  ",
                 icon: "warning",
             });
 
