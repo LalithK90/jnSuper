@@ -76,4 +76,8 @@ public class PurchaseOrderService implements AbstractService< PurchaseOrder, Int
     public List< PurchaseOrder> findByCreatedAtIsBetween(LocalDateTime form, LocalDateTime to) {
     return purchaseOrderDao.findByCreatedAtIsBetween(form, to);
     }
+
+  public List< PurchaseOrder> findByUpdatedAtIsBetween(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return purchaseOrderDao.findByUpdatedAtIsBetween(startDateTime, startDateTime);
+  }
 }
