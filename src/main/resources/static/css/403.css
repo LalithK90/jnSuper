@@ -1,187 +1,201 @@
-@page-background-color: #282820;
-@message-background-color: #825301;
-@message-border-color: #b1811d;
-@message-width: 432px;
-@message-height: 324px;
-@message-inner-offset: 2%;
-@message-box-shadow: #471f05;
-@rivet-color: #8f6002;
-@text-color: #291b03;
-@cog-offset: -50px;
-@cog-outer-color: #955112;
-@cog-inner-color: #633d03;
-@chain-width: 50px;
-@chain-background: url(https://i.postimg.cc/0QbqNZYv/chain-4.png) repeat-y
-center;
-
-.cog-animation(@name) {
-    animation: @name 1.8s ease-in-out;
+html {
+    background-color: #000121;
+    font-family: "Roboto", sans-serif;
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: "Sancreek", cursive;
-}
-
-.container {
+.maincontainer {
     position: relative;
-    height: 100vh;
-    overflow: hidden;
-    background: @page-background-color;
-    z-index: -1;
+    top: -50px;
+    transform: scale(0.8);
+    background: url("https://www.blissfullemon.com/wp-content/uploads/2018/09/HauntedHouseBackground.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 700px 600px;
+    width: 800px;
+    height: 600px;
+    margin: 0px auto;
+    display: grid;
 }
 
-.message {
+.foregroundimg {
+    position: relative;
+    width: 100%;
+    top: -230px;
+    z-index: 5;
+}
+
+.errorcode {
+    position: relative;
+    top: -200px;
+    font-family: "Creepster", cursive;
+    color: white;
     text-align: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    top: 150px;
-    width: @message-width;
-    height: @message-height;
-    margin: 0 auto;
-    border: 20px solid @message-border-color;
-    background: @message-border-color;
-    border-radius: 20px;
-    box-shadow: 0px 0px 0px 4px @message-box-shadow;
-    animation-delay: 1s;
-    animation-duration: 1.3s;
-
-&::before,
-&::after {
-     content: "";
-     position: absolute;
-     bottom: 107%;
-     width: @chain-width;
-     height: 300px;
-     background: @chain-background;
-     z-index: -10;
- }
-
-&::before {
-     left: 20px;
- }
-
-&::after {
-     right: 20px;
- }
+    font-size: 6em;
+    letter-spacing: 0.1em;
 }
 
-.message-inner {
-    padding: 40px;
-    border-radius: 20px;
-    position: absolute;
-    top: @message-inner-offset;
-    right: @message-inner-offset;
-    bottom: @message-inner-offset;
-    left: @message-inner-offset;
-    color: @text-color;
-    background: @message-background-color;
+.errortext {
+    position: relative;
+    top: -260px;
+    color: #fbd130;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.8em;
 }
 
-.message-title {
-    font-size: 4em;
-    margin: 0 0 20px;
+.bat {
+    opacity: 0;
+    position: relative;
+    transform-origin: center;
+    z-index: 3;
 }
 
-.message-subtitle {
-    font-size: 2em;
-    margin: 0;
+.bat:nth-child(1) {
+    top: 380px;
+    left: 120px;
+    transform: scale(0.5);
+    animation: 13s 1s flyBat1 infinite linear;
 }
 
-.chain {
-    position: absolute;
-    top: 0;
-    height: 200%;
-    width: @chain-width;
-    background: @chain-background;
-.cog-animation(chain);
-
-&.left {
-     left: 0;
- }
-
-&.right {
-     right: 0;
- }
+.bat:nth-child(2) {
+    top: 280px;
+    left: 80px;
+    transform: scale(0.3);
+    animation: 8s 4s flyBat2 infinite linear;
 }
 
-.cog {
-    position: absolute;
-    bottom: @cog-offset;
-
-&.left {
-     left: @cog-offset;
- .cog-animation(cog-spin-left);
- }
-&.right {
-     right: @cog-offset;
- .cog-animation(cog-spin-right);
- }
+.bat:nth-child(3) {
+    top: 200px;
+    left: 150px;
+    transform: scale(0.4);
+    animation: 12s 2s flyBat3 infinite linear;
 }
 
-.cog-outer {
-    fill: @cog-outer-color;
+.body {
+    position: relative;
+    width: 50px;
+    top: 12px;
 }
 
-.cog-inner {
-    fill: @cog-inner-color;
+.wing {
+    width: 150px;
+    position: relative;
+    transform-origin: right center;
 }
 
-.rivet {
-    position: absolute;
-    background-color: #8f6002;
-    width: 3%;
-    border-radius: 100px;
-    padding-bottom: 3%;
-
-&.top-left {
-     top: -7px;
-     left: -7px;
- }
-&.top-right {
-     top: -7px;
-     right: -7px;
- }
-&.bottom-left {
-     bottom: -7px;
-     left: -7px;
- }
-&.bottom-right {
-     bottom: -7px;
-     right: -7px;
- }
+.leftwing {
+    left: 30px;
+    animation: 0.8s flapLeft infinite ease-in-out;
 }
 
-@keyframes cog-spin-left {
-    from {
-        transform: rotate(0deg);
+.rightwing {
+    left: -180px;
+    transform: scaleX(-1);
+    animation: 0.8s flapRight infinite ease-in-out;
+}
+
+@keyframes flapLeft {
+    0% {
+        transform: rotateZ(0);
     }
-    to {
-        transform: rotate(360deg);
+    50% {
+        transform: rotateZ(10deg) rotateY(40deg);
+    }
+    100% {
+        transform: rotateZ(0);
     }
 }
 
-@keyframes cog-spin-right {
-    from {
-        transform: rotate(0deg);
+@keyframes flapRight {
+    0% {
+        transform: scaleX(-1) rotateZ(0);
     }
-    to {
-        transform: rotate(-360deg);
+    50% {
+        transform: scaleX(-1) rotateZ(10deg) rotateY(40deg);
+    }
+    100% {
+        transform: scaleX(-1) rotateZ(0);
     }
 }
 
-@keyframes chain {
-    from {
-        top: 0;
+@keyframes flyBat1 {
+    0% {
+        opacity: 1;
+        transform: scale(0.5);
     }
-    to {
-        top: -100%;
+    25% {
+        opacity: 1;
+        transform: scale(0.5) translate(-400px, -330px);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(0.5) translate(400px, -800px);
+    }
+    75% {
+        opacity: 1;
+        transform: scale(0.5) translate(600px, 100px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(0.5) translate(100px, 300px);
     }
 }
+
+@keyframes flyBat2 {
+    0% {
+        opacity: 1;
+        transform: scale(0.3);
+    }
+    25% {
+        opacity: 1;
+        transform: scale(0.3) translate(200px, -330px);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(0.3) translate(-300px, -800px);
+    }
+    75% {
+        opacity: 1;
+        transform: scale(0.3) translate(-400px, 100px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(0.3) translate(100px, 300px);
+    }
+}
+
+@keyframes flyBat3 {
+    0% {
+        opacity: 1;
+        transform: scale(0.4);
+    }
+    25% {
+        opacity: 1;
+        transform: scale(0.4) translate(-350px, -330px);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(0.4) translate(400px, -800px);
+    }
+    75% {
+        opacity: 1;
+        transform: scale(0.4) translate(-600px, 100px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(0.4) translate(100px, 300px);
+    }
+}
+
+/*@media only screen and (max-width: 850px) {
+  .maincontainer {
+    transform: scale(0.6);
+    width: 600px;
+    height: 400px;
+    background-size: 600px 400px;
+  }
+
+  .errortext {
+    font-size: 1em;
+  }
+}*/

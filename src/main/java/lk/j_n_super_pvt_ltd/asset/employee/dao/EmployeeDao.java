@@ -13,6 +13,6 @@ public interface EmployeeDao extends JpaRepository< Employee, Integer> {
     Employee findByNic(String nic);
 
     Employee findByOfficeEmail (String officeEmail);
-
+    Employee findByMobileOne(String mobileOne);
 
 }

@@ -54,7 +54,7 @@ public class EmployeeController {
     model.addAttribute("civilStatus", CivilStatus.values());
     model.addAttribute("employeeStatus", EmployeeStatus.values());
     model.addAttribute("designation", Designation.values());
- /*   model.addAttribute("bloodGroup", BloodGroup.values());*/
+    model.addAttribute("bloodGroup", BloodGroup.values());
     return "employee/addEmployee";
   }
 
@@ -75,8 +75,6 @@ public class EmployeeController {
     for ( Employee employee : employeeService.findAll()
             .stream()
             .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
-            /**employee status eka change karala gattama filter wela ena aya**/
-           /* .filter(x ->x.getEmployeeStatus().equals(EmployeeStatus.WORKING) && LiveDead.ACTIVE.equals(x.getLiveDead()))*/
             .collect(Collectors.toList())
     ) {
       employee.setFileInfo(employeeFilesService.employeeFileDownloadLinks(employee));
@@ -125,8 +123,11 @@ public class EmployeeController {
   ) {
     Employee officeEmail = null;
     Employee employeeNic = null;
+    Employee mobileOne = null;
 
-    if ( employee.getNic() != null && employee.getId() == null ) {
+    //NIC
+
+    if ( employee.getNic() != null && employee.getId() == null  ) {
       employeeNic = employeeService.findByNic(employee.getNic());
     }
     if ( employeeNic != null) {
@@ -135,7 +136,7 @@ public class EmployeeController {
       result.addError(error);
     }
 
-
+    //NIC
 
     if ( employee.getOfficeEmail() != null &&  employee.getId() == null ) {
       officeEmail = employeeService.findByOfficeEmail(employee.getOfficeEmail());
@@ -145,6 +146,16 @@ public class EmployeeController {
       result.addError(error);
     }
 
+//Mobile
+
+    if ( employee.getMobileOne() != null && employee.getId() == null ) {
+      mobileOne = employeeService.findByMobileOne(employee.getMobileOne());
+    }
+    if ( mobileOne != null) {
+      ObjectError error = new ObjectError("employee",
+              "There is employee on same Mobile . System message ");
+      result.addError(error);
+    }
 
 
     if ( result.hasErrors() ) {

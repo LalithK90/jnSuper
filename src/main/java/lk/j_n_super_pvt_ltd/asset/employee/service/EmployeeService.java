@@ -4,6 +4,7 @@ package lk.j_n_super_pvt_ltd.asset.employee.service;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
 import lk.j_n_super_pvt_ltd.asset.employee.dao.EmployeeDao;
 import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
+import lk.j_n_super_pvt_ltd.asset.employee.entity.enums.EmployeeStatus;
 import lk.j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -39,7 +40,9 @@ public class EmployeeService implements AbstractService< Employee, Integer > {
 
     public Employee persist(Employee employee) {
         if(employee.getId()==null){
-            employee.setLiveDead(LiveDead.ACTIVE);}
+            employee.setLiveDead(LiveDead.ACTIVE);
+            employee.setEmployeeStatus(EmployeeStatus.WORKING);
+        }
         return employeeDao.save(employee);
     }
 
@@ -49,6 +52,7 @@ public class EmployeeService implements AbstractService< Employee, Integer > {
         employeeDao.save(employee);
         return false;
     }
+
    /*
     public boolean delete(Integer id) {
         employeeDao.deleteById(id);
@@ -81,5 +85,11 @@ public class EmployeeService implements AbstractService< Employee, Integer > {
 
 
     public Employee findByOfficeEmail(String officeEmail) { return employeeDao.findByOfficeEmail(officeEmail); }
+
+    public Employee findByMobileOne(String mobileOne) {
+        return employeeDao.findByMobileOne(mobileOne);
+    }
+
+
 
 }

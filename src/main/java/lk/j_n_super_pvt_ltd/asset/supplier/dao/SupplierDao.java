@@ -10,4 +10,8 @@ public interface SupplierDao extends JpaRepository<Supplier, Integer> {
     Supplier findFirstByOrderByIdDesc();
 
     Supplier findByIdAndItemSupplierStatus(Integer supplierId, ItemSupplierStatus itemSupplierStatus);
+
+    Supplier findByName(String name);
+    Supplier findByEmail(String email);
+
 }
