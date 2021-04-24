@@ -3,6 +3,7 @@ package lk.j_n_super_pvt_ltd.asset.report;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.NameCount;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.ParameterCount;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.TwoDate;
+import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
 import lk.j_n_super_pvt_ltd.asset.employee.entity.Employee;
 import lk.j_n_super_pvt_ltd.asset.invoice.entity.Invoice;
 import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.PaymentMethod;
@@ -10,8 +11,15 @@ import lk.j_n_super_pvt_ltd.asset.invoice.service.InvoiceService;
 import lk.j_n_super_pvt_ltd.asset.invoice_ledger.entity.InvoiceLedger;
 import lk.j_n_super_pvt_ltd.asset.invoice_ledger.service.InvoiceLedgerService;
 import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
+import lk.j_n_super_pvt_ltd.asset.item.service.ItemService;
+import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
+import lk.j_n_super_pvt_ltd.asset.ledger.service.LedgerService;
 import lk.j_n_super_pvt_ltd.asset.payment.entity.Payment;
 import lk.j_n_super_pvt_ltd.asset.payment.service.PaymentService;
+import lk.j_n_super_pvt_ltd.asset.purchase_order.service.PurchaseOrderService;
+import lk.j_n_super_pvt_ltd.asset.purchase_order_item.service.PurchaseOrderItemService;
+import lk.j_n_super_pvt_ltd.asset.report.model.ItemSellPriceQuantityBuyingPrice;
+import lk.j_n_super_pvt_ltd.asset.report.model.LedgerQuantitySellPrice;
 import lk.j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
 import lk.j_n_super_pvt_ltd.util.service.DateTimeAgeService;
 import lk.j_n_super_pvt_ltd.util.service.OperatorService;
@@ -41,16 +49,27 @@ public class ReportController {
   private final DateTimeAgeService dateTimeAgeService;
   private final UserService userService;
   private final InvoiceLedgerService invoiceLedgerService;
+  private final PurchaseOrderService purchaseOrderService;
+  private final ItemService itemService;
+  private final LedgerService ledgerService;
+  private final PurchaseOrderItemService purchaseOrderItemService;
 
   public ReportController(PaymentService paymentService, InvoiceService invoiceService,
-  OperatorService operatorService, DateTimeAgeService dateTimeAgeService, UserService userService,
-  InvoiceLedgerService invoiceLedgerService) {
-      this.paymentService = paymentService;
-      this.invoiceService = invoiceService;
-      this.operatorService = operatorService;
-      this.dateTimeAgeService = dateTimeAgeService;
-      this.userService = userService;
-      this.invoiceLedgerService = invoiceLedgerService;
+                          OperatorService operatorService, DateTimeAgeService dateTimeAgeService,
+                          UserService userService,
+                          InvoiceLedgerService invoiceLedgerService, PurchaseOrderService purchaseOrderService,
+                          ItemService itemService, LedgerService ledgerService,
+                          PurchaseOrderItemService purchaseOrderItemService) {
+    this.paymentService = paymentService;
+    this.invoiceService = invoiceService;
+    this.operatorService = operatorService;
+    this.dateTimeAgeService = dateTimeAgeService;
+    this.userService = userService;
+    this.invoiceLedgerService = invoiceLedgerService;
+    this.purchaseOrderService = purchaseOrderService;
+    this.itemService = itemService;
+    this.ledgerService = ledgerService;
+    this.purchaseOrderItemService = purchaseOrderItemService;
   }
 
   private String commonAll(List< Payment > payments, List< Invoice > invoices, Model model, String message,
@@ -93,6 +112,7 @@ public class ReportController {
                      invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
                      startDateTime, endDateTime);
   }
+
   private void commonInvoices(List< Invoice > invoices, Model model) {
     // invoice count
     int invoiceTotalCount = invoices.size();
@@ -264,7 +284,7 @@ public class ReportController {
       paymentUser.forEach(a -> {
         userTotalCount.add(a.getAmount());
       });
-      nameCount.setTotal(userTotalCount.stream().reduce(BigDecimal.ZERO,BigDecimal::add));
+      nameCount.setTotal(userTotalCount.stream().reduce(BigDecimal.ZERO, BigDecimal::add));
       paymentByUserAndTotalAmount.add(nameCount);
     });
 
@@ -336,5 +356,89 @@ public class ReportController {
     model.addAttribute("message", message);
     return "report/perItemReport";
   }
+
+
+  @GetMapping( "/incomeItem" )
+  public String incomeItemToday(Model model) {
+    LocalDate localDate = LocalDate.now();
+    String message = "This report is belongs to " + localDate.toString();
+    LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(localDate);
+    LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(localDate);
+
+    //purchase order list
+//    List< PurchaseOrder > purchaseOrders = purchaseOrderService.findByUpdatedAtIsBetween(startDateTime, endDateTime)
+//        .stream()
+//        .filter(x -> !x.getPurchaseOrderStatus().equals(PurchaseOrderStatus.NOT_COMPLETED))
+//        .collect(Collectors.toList());
+
+    return commonIncomeItem(startDateTime,endDateTime,model, message);
+  }
+
+  @PostMapping( "/incomeItem" )
+  public String incomeItemToday(@ModelAttribute TwoDate twoDate, Model model) {
+
+    String message = "This report is belongs to " + twoDate.getStartDate() +"  to "+ twoDate.getEndDate();
+    LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate());
+    LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate());
+
+    //purchase order list
+//    List< PurchaseOrder > purchaseOrders = purchaseOrderService.findByUpdatedAtIsBetween(startDateTime, endDateTime)
+//        .stream()
+//        .filter(x -> !x.getPurchaseOrderStatus().equals(PurchaseOrderStatus.NOT_COMPLETED))
+//        .collect(Collectors.toList());
+
+    return commonIncomeItem(startDateTime,endDateTime,model, message);
+  }
+private String commonIncomeItem(LocalDateTime startDateTime, LocalDateTime endDateTime, Model model, String message){
+  List< ItemSellPriceQuantityBuyingPrice > itemSellPriceQuantityBuyingPrices = new ArrayList<>();
+//given date invoices
+  List< LedgerQuantitySellPrice > ledgerQuantitySellPrices = new ArrayList<>();
+
+  List< Invoice > invoices =
+      invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime).stream().filter(x -> x.getLiveDead().equals(LiveDead.ACTIVE)).collect(Collectors.toList());
+//
+  for ( Invoice invoice : invoices ) {
+    for ( InvoiceLedger invoiceLedger : invoice.getInvoiceLedgers() ) {
+      LedgerQuantitySellPrice ledgerQuantitySellPrice = new LedgerQuantitySellPrice();
+      ledgerQuantitySellPrice.setLedger(ledgerService.findById(invoiceLedger.getLedger().getId()));
+      ledgerQuantitySellPrice.setAmount(invoiceLedger.getSellPrice());
+      ledgerQuantitySellPrice.setCounter(Integer.parseInt(invoiceLedger.getQuantity()));
+      ledgerQuantitySellPrices.add(ledgerQuantitySellPrice);
+    }
+  }
+
+  List< Ledger > ledgers = new ArrayList<>();
+  for ( LedgerQuantitySellPrice ledgerQuantitySellPrice : ledgerQuantitySellPrices ) {
+    ledgers.add(ledgerQuantitySellPrice.getLedger());
+  }
+  //duplicate removed
+  List< Ledger > duplicateRemovedLedgers = ledgers.stream().distinct().collect(Collectors.toList());
+  for ( Ledger duplicateRemovedLedger : duplicateRemovedLedgers ) {
+    ItemSellPriceQuantityBuyingPrice itemSellPriceQuantityBuyingPrice = new ItemSellPriceQuantityBuyingPrice();
+    int counter = 0;
+    for ( LedgerQuantitySellPrice ledgerQuantitySellPrice : ledgerQuantitySellPrices ) {
+      if ( duplicateRemovedLedger.equals(ledgerQuantitySellPrice.getLedger()) ) {
+        counter = counter + ledgerQuantitySellPrice.getCounter();
+      }
+    }
+    itemSellPriceQuantityBuyingPrice.setItem(itemService.findById(duplicateRemovedLedger.getItem().getId()));
+    itemSellPriceQuantityBuyingPrice.setSellPrice(duplicateRemovedLedger.getSellPrice());
+    itemSellPriceQuantityBuyingPrice.setItemCounter(counter);
+    itemSellPriceQuantityBuyingPrice.setSellPrice(duplicateRemovedLedger.getSellPrice());
+    itemSellPriceQuantityBuyingPrice.setSellTotalPrice(duplicateRemovedLedger.getSellPrice().multiply(new BigDecimal(counter)));
+    BigDecimal buyingPrices =
+        purchaseOrderItemService.findByPurchaseOrderAndItem(duplicateRemovedLedger.getGoodReceivedNote().getPurchaseOrder(),
+                                                            duplicateRemovedLedger.getItem()).getBuyingPrice();
+    itemSellPriceQuantityBuyingPrice.setBuyingPrice(buyingPrices);
+    itemSellPriceQuantityBuyingPrice.setBuyingTotalPrice(buyingPrices.multiply(new BigDecimal(counter)));
+
+    itemSellPriceQuantityBuyingPrices.add(itemSellPriceQuantityBuyingPrice);
+  }
+  model.addAttribute("itemSellPriceQuantityBuyingPrices", itemSellPriceQuantityBuyingPrices);
+
+
+  model.addAttribute("message", message);
+  return "report/incomeItem";
+}
 
 }

@@ -11,14 +11,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface PurchaseOrderDao extends JpaRepository< PurchaseOrder, Integer> {
+public interface PurchaseOrderDao extends JpaRepository< PurchaseOrder, Integer > {
 
-    List<PurchaseOrder> findByPurchaseOrderStatus(PurchaseOrderStatus purchaseOrderStatus);
+  List< PurchaseOrder > findByPurchaseOrderStatus(PurchaseOrderStatus purchaseOrderStatus);
 
-    List<PurchaseOrder> findByPurchaseOrderStatusAndSupplier(PurchaseOrderStatus purchaseOrderStatus, Supplier supplier);
+  List< PurchaseOrder > findByPurchaseOrderStatusAndSupplier(PurchaseOrderStatus purchaseOrderStatus,
+                                                             Supplier supplier);
 
 
-    PurchaseOrder findFirstByOrderByIdDesc();
+  PurchaseOrder findFirstByOrderByIdDesc();
 
-  List< PurchaseOrder> findByCreatedAtIsBetween(LocalDateTime form, LocalDateTime to);
+  List< PurchaseOrder > findByCreatedAtIsBetween(LocalDateTime form, LocalDateTime to);
+
+  List< PurchaseOrder > findByUpdatedAtIsBetween(LocalDateTime startDateTime, LocalDateTime startDateTime1);
 }
