@@ -37,7 +37,7 @@ public class UiController {
         model.addAttribute("ropList", ledgerService.findAll()
             .stream()
             .filter(x -> Integer.parseInt(x.getQuantity()) < Integer.parseInt(x.getItem().getRop()))
-            .collect(Collectors.toList()).size());
+            .collect(Collectors.toList()));
         LocalDate today = LocalDate.now();
 
         model.addAttribute("exList",
