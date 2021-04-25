@@ -1,6 +1,7 @@
 package lk.j_n_super_pvt_ltd.asset.common_asset.controller;
 
 
+import lk.j_n_super_pvt_ltd.asset.ledger.service.LedgerService;
 import lk.j_n_super_pvt_ltd.asset.user_management.user.service.UserService;
 import lk.j_n_super_pvt_ltd.util.service.DateTimeAgeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +9,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
+import java.util.stream.Collectors;
+
 @Controller
 public class UiController {
 
     private final UserService userService;
     private final DateTimeAgeService dateTimeAgeService;
+    private final LedgerService ledgerService;
 
     @Autowired
-    public UiController(UserService userService, DateTimeAgeService dateTimeAgeService) {
+    public UiController(UserService userService, DateTimeAgeService dateTimeAgeService, LedgerService ledgerService) {
         this.userService = userService;
         this.dateTimeAgeService = dateTimeAgeService;
+        this.ledgerService = ledgerService;
     }
 
     @GetMapping(value = {"/", "/index"})
@@ -27,6 +33,15 @@ public class UiController {
 
     @GetMapping(value = {"/home", "/mainWindow"})
     public String getHome(Model model) {
+
+        model.addAttribute("ropList", ledgerService.findAll()
+            .stream()
+            .filter(x -> Integer.parseInt(x.getQuantity()) < Integer.parseInt(x.getItem().getRop()))
+            .collect(Collectors.toList()));
+        LocalDate today = LocalDate.now();
+
+        model.addAttribute("exList",
+                           ledgerService.findByExpiredDateBetween(today.minusDays(10), today));
         //do some logic here if you want something to be done whenever
         /*User authUser = userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         Set<Petition> petitionSet = new HashSet<>();

@@ -52,10 +52,10 @@ public class LedgerController {
     System.out.println("star date " + twoDate.getStartDate() + " end " + twoDate.getEndDate());
     model.addAttribute("title",
                        "All items on given date range start at " + twoDate.getStartDate() + " end at " + twoDate.getEndDate());
+
     model.addAttribute("ledgers",
                        ledgerService.findByExpiredDateBetween(twoDate.getStartDate(), twoDate.getEndDate()));
-    System.out.println("star date " + dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()) + " " +
-                           "end " + dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate()));
+
     model.addAttribute("twoDate", new TwoDate());
     return "ledger/ledger";
   }
