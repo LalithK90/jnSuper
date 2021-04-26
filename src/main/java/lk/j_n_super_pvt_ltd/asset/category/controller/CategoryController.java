@@ -71,10 +71,6 @@ public  class CategoryController implements AbstractController<Category, Integer
         }
 
 
-
-
-
-
         if ( bindingResult.hasErrors() ) {
             return commonThings(model, category, true);
         }
