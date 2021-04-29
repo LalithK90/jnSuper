@@ -810,4 +810,11 @@ hr:before {
     }
 }
 
+
 /** logo animation end**/
+/* Requierd feid eka hada eka*/
+.requiredfield{
+    color: #FF0000;
+    font-size:18px;
+    font-weight: bolder;
+}

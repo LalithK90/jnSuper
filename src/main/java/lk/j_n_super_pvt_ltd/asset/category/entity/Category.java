@@ -32,6 +32,7 @@ public class Category {
     @Enumerated(EnumType.STRING)
     private LiveDead liveDead;
 
+    @Column(unique = true)
     @Size( min = 3, message = "Your name cannot be accepted" )
     private String name;
 
