@@ -82,7 +82,7 @@
               <label class="control-label" for="weight" >Weight :</label >
             </div >
             <div class="col-md-4" >
-              <select id="weight" class="form-control" tabindex="4" style="font-size: large"
+              <select id="weight" data-th-field="*{weight}" class="form-control" tabindex="4" style="font-size: large"
                       required >
                 <option value="" >Please select</option >
                 <option data-th-each="weight : ${weights}"
