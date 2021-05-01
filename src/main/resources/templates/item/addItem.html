@@ -92,6 +92,26 @@
               </select >
             </div >
           </div >
+          <!--production or retail-->
+          <div class="form-row text-right" >
+            <div class="col-md-4" ><span class="requiredfield">*</span>
+              <label class="control-label" for="productionRetail" >Production or Retail :</label >
+            </div >
+            <div class="col-md-8" >
+              <div class="custom-control custom-checkbox custom-control-inline "
+                   data-th-each="productionRetail,index : ${productionRetails}" >
+                <input class="custom-control-input gender" required
+                       data-th-name="${'productionRetail'}"
+                       data-th-value="${productionRetail}"
+                       data-th-id="${index.index}+${productionRetail}" type="radio"
+                       data-th-checked="${productionRetail==productionRetail}" />
+                <label class="custom-control-label"
+                       data-th-for="${index.index}+${productionRetail}"
+                       data-th-text="${productionRetail.productionRetail}" > radio
+                </label >
+              </div >
+            </div >
+          </div >
 
           <!--Amount -->
           <div class="form-row text-right" >
