@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmployeeDao extends JpaRepository< Employee, Integer> {
+
     Employee findFirstByOrderByIdDesc();
 
     Employee findByNic(String nic);

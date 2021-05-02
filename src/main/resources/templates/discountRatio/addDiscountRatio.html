@@ -41,8 +41,8 @@
                     <input type="text" data-th-if="${addStatus==false}" data-th-field="*{liveDead}" hidden>
                     <!--Name-->
                     <div class="form-row text-right">
-                        <div class="col-md-4">
-                            <label class="control-label" for="name">Customer Name Type :</label>
+                        <div class="col-md-4"><span class="requiredfield">*</span>
+                            <label class="control-label" for="name">Name :</label>
                         </div>
                         <div class="col-md-8">
                             <input class="form-control" data-th-field="*{name}" id="name" required tabindex="4"
@@ -54,23 +54,28 @@
 
                     <!--amount-->
                     <div class="form-row text-right">
-                        <div class="col-md-4">
-                            <label class="control-label" for="name">Amount (%):</label>
+                        <div class="col-md-4"><span class="requiredfield">*</span>
+                            <label class="control-label" for="name">Amount :</label>
                         </div>
                         <div class="col-md-8">
                             <input class="form-control" data-th-field="*{amount}" id="amount" required tabindex="4"
-                                   type=""/>
+                                   type="number" min="0" max="100"/>
                             <span class="error" data-th-errors="*{amount}"
-                                  data-th-if="${#fields.hasErrors('amount')}" >Error Name</span>
+                                  data-th-if="${#fields.hasErrors('amount')}">Error Name</span>
                         </div>
                     </div>
+
+
                     <!--Discount Ratio status-->
                     <div class="form-row text-right" data-th-if="${addStatus==false}">
                         <div class="col-md-4">
                             <label class="control-label" for="discountRatioStatus">Discount Ratio Status :</label>
                         </div>
                         <div class="col-md-8">
-                            <select id="discountRatioStatus" data-th-field="*{discountRatioStatus}" class="form-control" tabindex="7" required>
+                            <select id="discountRatioStatus" data-th-field="*{discountRatioStatus}"
+                                    class="form-control"
+                                    tabindex="7"
+                                    required>
                                 <option value="">Please select</option>
                                 <option data-th-each="discountRatioStatus : ${discountRatioStatuses}"
                                         data-th-text="${discountRatioStatus.discountRatioStatus}"
@@ -78,8 +83,9 @@
                             </select>
                         </div>
                     </div>
-
                 </div>
+
+            </div>
 
                 <!--Button-->
                 <div class="form-group col-md-12 col-sm-12 text-center flex-column ">

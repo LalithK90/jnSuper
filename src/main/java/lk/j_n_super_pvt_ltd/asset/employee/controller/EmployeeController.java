@@ -136,7 +136,7 @@ public class EmployeeController {
       result.addError(error);
     }
 
-    //NIC
+    //Email
 
     if ( employee.getOfficeEmail() != null &&  employee.getId() == null ) {
       officeEmail = employeeService.findByOfficeEmail(employee.getOfficeEmail());

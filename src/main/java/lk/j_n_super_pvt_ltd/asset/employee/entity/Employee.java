@@ -42,8 +42,8 @@ public class Employee extends AuditEntity {
     @Size( max = 10, message = "Mobile number length should be contained 10 and 9" )
     private String mobileOne;
 
-    @Size( max = 10, message = "Mobile number length should be contained 10 and 9" )
-    private String mobileTwo;
+    /*@Size( max = 10, message = "Mobile number length should be contained 10 and 9" )
+    private String mobileTwo;*/
 
     @Size( max = 10, message = "Phone number length should be contained 10 and 9" )
     private String land;
