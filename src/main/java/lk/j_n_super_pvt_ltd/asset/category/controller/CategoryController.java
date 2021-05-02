@@ -31,7 +31,6 @@ public  class CategoryController implements AbstractController<Category, Integer
 
     private String commonThings(Model model, Category category, Boolean addState) {
         model.addAttribute("mainCategories", MainCategory.values());
-        model.addAttribute("weights", Weight.values());
         model.addAttribute("category", category);
         model.addAttribute("addStatus", addState);
         return "category/addCategory";
@@ -40,8 +39,8 @@ public  class CategoryController implements AbstractController<Category, Integer
     @GetMapping
     public String findAll(Model model) {
         model.addAttribute("categorys", categoryService.findAll().stream()
-            .filter(x-> LiveDead.ACTIVE.equals(x.getLiveDead()))
-            .collect(Collectors.toList()));
+                .filter(x-> LiveDead.ACTIVE.equals(x.getLiveDead()))
+                .collect(Collectors.toList()));
         return "category/category";
     }
 
@@ -63,12 +62,12 @@ public  class CategoryController implements AbstractController<Category, Integer
         if ( category.getName() != null && category.getId() == null ) {
             name = categoryService.findByName(category.getName());
         }
-
-        if ( name != null) {
+        if ( name != null ) {
             ObjectError error = new ObjectError("category",
-                    "There is a sub category on same name  . System message ");
+                    "Their is Sub Category on same name . System message ");
             bindingResult.addError(error);
         }
+
 
 
         if ( bindingResult.hasErrors() ) {

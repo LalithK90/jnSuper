@@ -8,8 +8,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PurchaseOrderStatus {
 
-    NOT_COMPLETED(" Not Completed"),
-    NOT_PROCEED(" Not Proceed"),
+    NOT_PROCEED(" Not Completed"),
+    NOT_COMPLETED(" Not Proceed"),
     COMPLETED(" Completed ");
 
     private final String purchaseOrderStatus;
