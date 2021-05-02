@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.TwoDate;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ProductionRetail;
 import lk.j_n_super_pvt_ltd.asset.ledger.service.LedgerService;
 import lk.j_n_super_pvt_ltd.util.service.DateTimeAgeService;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -30,6 +31,20 @@ public class LedgerController {
   public String findAllLed(Model model) {
     model.addAttribute("title", "All Items In Stock");
     model.addAttribute("ledgers", ledgerService.findAll());
+    model.addAttribute("twoDate", new TwoDate());
+    return "ledger/ledger";
+  }
+  @GetMapping("/production")
+  public String findProduction(Model model) {
+    model.addAttribute("title", "All Items In Stock");
+    model.addAttribute("ledgers", ledgerService.findAll().stream().filter(x->x.getItem().getProductionRetail().equals(ProductionRetail.PRODUCTION)).collect(Collectors.toList()));
+    model.addAttribute("twoDate", new TwoDate());
+    return "ledger/ledger";
+  }
+  @GetMapping("/retail")
+  public String findRetail(Model model) {
+    model.addAttribute("title", "All Items In Stock");
+    model.addAttribute("ledgers", ledgerService.findAll().stream().filter(x->x.getItem().getProductionRetail().equals(ProductionRetail.RETAIL)).collect(Collectors.toList()));
     model.addAttribute("twoDate", new TwoDate());
     return "ledger/ledger";
   }

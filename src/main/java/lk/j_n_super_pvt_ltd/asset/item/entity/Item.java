@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.j_n_super_pvt_ltd.asset.category.entity.Category;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
 import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ItemStatus;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ProductionRetail;
 import lk.j_n_super_pvt_ltd.asset.item.entity.enums.Weight;
 import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
 import lk.j_n_super_pvt_ltd.asset.purchase_order_item.entity.PurchaseOrderItem;
@@ -53,6 +54,9 @@ public class Item extends AuditEntity {
 
     @Enumerated(EnumType.STRING)
     private LiveDead liveDead;
+
+    @Enumerated(EnumType.STRING)
+    private ProductionRetail productionRetail;
 
     @ManyToOne
     private Category category;

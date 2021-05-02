@@ -5,6 +5,7 @@ import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
 import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
 import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ItemStatus;
 import lk.j_n_super_pvt_ltd.asset.item.entity.enums.MainCategory;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ProductionRetail;
 import lk.j_n_super_pvt_ltd.asset.item.entity.enums.Weight;
 import lk.j_n_super_pvt_ltd.util.interfaces.AbstractController;
 import lk.j_n_super_pvt_ltd.util.service.MakeAutoGenerateNumberService;
@@ -40,6 +41,7 @@ public class ItemController implements AbstractController< Item, Integer > {
     model.addAttribute("item", item);
     model.addAttribute("addStatus", addState);
     model.addAttribute("mainCategories", MainCategory.values());
+    model.addAttribute("productionRetails", ProductionRetail.values());
     model.addAttribute("weights", Weight.values());
     model.addAttribute("urlMainCategory", MvcUriComponentsBuilder
         .fromMethodName(CategoryRestController.class, "getCategoryByMainCategory", "")
