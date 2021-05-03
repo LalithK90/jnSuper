@@ -96,6 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/supplierItem/**").hasAnyRole("MANAGER", "PROCUREMENT_MANAGER")
                     .antMatchers("/user/**").hasAnyRole("MANAGER", "HR_MANAGER", "ADMIN")
                     .antMatchers("/report/**").hasAnyRole("MANAGER")
+
                     .anyRequest()
                     .authenticated())
         // Login form

@@ -2,50 +2,55 @@
 <html lang="en" >
 <head data-th-replace="~{fragments/header :: headerFragment}" >
   <meta charset="UTF-8" >
-  <title >item</title >
+  <title >Ledger</title >
 </head >
 <body class="sb-nav-fixed" >
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
-<!--heading Area-->
-<div class="container-fluid " >
-  <div class="row text-center formManagement border-info" >
-    <!-- New Item Button-->
-    <div class="col" >
-      <a class="btn btn-success" href="/supplier" tabindex="1" >
-        <i class="fas fa-user" style="font-size: 20px" ></i >
-        &nbsp;&nbsp;Supplier List</a >&nbsp;
-    </div >
-    <!-- List Name-->
-    <div class="col" >
-      <h2 class="text-dark text-center" >
-        <strong >
-          All Item In Stock
-        </strong >
-      </h2 >
-    </div >
-    <!-- Home Button-->
-    <div class="col" >
-      <a href="/home" id="btnHome" class="btn btn-success" >
-        &nbsp;Back To Home&nbsp; </a >
-    </div >
-  </div >
-</div >
 
-<div class="container-fluid" >
+<div class="container-fluid " >
   <div class="row" >
     <div class="col-4" ><a href="/ledger" >
-      <button class="btn btn-primary" type="button" >All Items In Ledger</button >
+      <button class="btn btn-secondary" type="button" >All Items In Ledger</button >
     </a ></div >
     <div class="col-4" ><a href="/ledger/production" >
-      <button class="btn btn-primary" type="button" >Production Item</button >
+      <button class="btn btn-secondary" type="button" >Production Item</button >
     </a ></div >
     <div class="col-4" ><a href="/ledger/retail" >
-      <button class="btn btn-primary" type="button" >Retail Item</button >
+      <button class="btn btn-secondary" type="button" >Retail Item</button >
     </a ></div >
   </div >
 </div >
 
-<div class="container-fluid text-center " >
+
+<!--heading Area-->
+    <div class="container-fluid " >
+      <div class="row text-center formManagement border-info" >
+        <!-- New Item Button-->
+        <div class="col" >
+          <a class="btn btn-success" href="/supplier" tabindex="1" >
+            <i class="fas fa-user" style="font-size: 20px" ></i >
+            &nbsp;&nbsp;Supplier List</a >&nbsp;
+        </div >
+        <!-- List Name-->
+        <div class="col" >
+          <h2 class="text-dark text-center" >
+            <strong >
+              All Item In Stock
+            </strong >
+          </h2 >
+        </div >
+        <!-- Home Button-->
+        <div class="col" >
+          <a href="/home" id="btnHome" class="btn btn-success" >
+            &nbsp;Back To Home&nbsp; </a >
+        </div >
+      </div >
+    </div >
+
+
+
+
+<div class="container-fluid text-center bg-warning " >
   <div class="row" >
     <div class="col-md-2" ></div >
     <div class="col-md-8" >
