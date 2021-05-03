@@ -1,24 +1,113 @@
 <!DOCTYPE html>
 <html lang="en" >
 <head data-th-replace="~{fragments/header :: headerFragment}" >
+  <title ></title >
 </head >
 
 <body >
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
-&lt;!&ndash;button for expire date and report point view&ndash;&gt;
+<!--button for expire date and report point view-->
 <div class="row" >
-  <div class="col-6 text-center" >
-    <button class="btn btn-warning" type="button" id="btnROP" >
-      ROI Achieved Item
-    </button >
-  </div >
-  <div class="col-6 text-center" >
-    <button class="btn btn-warning" type="button" id="btnEx" >
-      Expired Date Near
-    </button >
-
+  <div class="container-fluid" >
+    <div id="accordianId" role="tablist" aria-multiselectable="true" >
+      <div class="row" >
+        <div class="card  col-6" >
+          <div class="card-header" role="tab" id="section1HeaderId" >
+            <a class="btn btn-block" data-toggle="collapse" data-parent="#accordianId" href="#section1ContentId"
+               aria-expanded="true"
+               aria-controls="section1ContentId" >
+              <h5 class="mb-0" >
+                ROI Achieved Item
+              </h5 >
+            </a >
+          </div >
+          <div id="section1ContentId" class="collapse in" role="tabpanel" aria-labelledby="section1HeaderId" >
+            <div class="card-body" >
+              <div class="col" data-th-if="${not #lists.isEmpty(ropList)}" >
+                <div class="col" >
+                  <table class="table table-hover table-striped" >
+                    <thead >
+                    <tr >
+                      <th > Index</th >
+                      <th > Item Name</th >
+                      <th > ROP</th >
+                      <th > Quantity</th >
+                      <th > Price</th >
+                      <th > Modify</th >
+                    </tr >
+                    </thead >
+                    <tbody >
+                    <tr data-th-each="ledger, rowCount : ${ropList}" >
+                      <th data-th-text="${rowCount.count}" ></th >
+                      <th data-th-text="${ledger.item.name}" ></th >
+                      <th data-th-text="${ledger.item.rop}" ></th >
+                      <th data-th-text="${ledger.quantity}" ></th >
+                      <th data-th-text="${ledger.sellPrice}" ></th >
+                      <th >
+                        <a data-th-href="${'/purchaseOrder/supplier/' + ledger.goodReceivedNote.purchaseOrder.supplier.id}"
+                           class="btn btn-secondary btn-sm" ><i
+                              class="fa fa-folder-open" style="font-size: 15px" ></i >Purchase Order</a >
+                      </th >
+                    </tr >
+                    </tbody >
+                  </table >
+                </div >
+              </div >
+            </div >
+          </div >
+        </div >
+        <div class="card col-6" >
+          <div class="card-header" role="tab" id="section2HeaderId" >
+            <a class="btn btn-block" data-toggle="collapse" data-parent="#accordianId" href="#section2ContentId"
+               aria-expanded="true"
+               aria-controls="section2ContentId" >
+              <h5 class="mb-0 " >
+                Expired Date Near
+              </h5 >
+            </a >
+          </div >
+          <div id="section2ContentId" class="collapse in" role="tabpanel" aria-labelledby="section2HeaderId" >
+            <div class="card-body" >
+              <div class="col" data-th-if="${not #lists.isEmpty(exList)}" >
+                <table class="table table-hover table-striped" >
+                  <thead >
+                  <tr >
+                    <th > Index</th >
+                    <th > Item Name</th >
+                    <th > ROP</th >
+                    <th > Quantity</th >
+                    <th > Price</th >
+                    <th > M Date</th >
+                    <th > E Date</th >
+                    <th > Modify</th >
+                  </tr >
+                  </thead >
+                  <tbody >
+                  <tr data-th-each="ledger, rowCount : ${exList}" >
+                    <th data-th-text="${rowCount.count}" ></th >
+                    <th data-th-text="${ledger.item.name}" ></th >
+                    <th data-th-text="${ledger.item.rop}" ></th >
+                    <th data-th-text="${ledger.quantity}" ></th >
+                    <th data-th-text="${ledger.sellPrice}" ></th >
+                    <th data-th-text="${ledger.manufactureDate}" ></th >
+                    <th data-th-text="${ledger.expiredDate}" ></th >
+                    <th >
+                      <a data-th-href="${'/purchaseOrder/supplier/' + ledger.goodReceivedNote.purchaseOrder.supplier.id}"
+                         class="btn btn-secondary btn-sm" ><i
+                            class="fa fa-folder-open" style="font-size: 15px" ></i >Purchase Order</a >
+                    </th >
+                  </tr >
+                  </tbody >
+                </table >
+              </div >
+            </div >
+          </div >
+        </div >
+      </div >
+    </div >
   </div >
 </div >
+
 <div class="container-fluid " style="margin:0px 15px 50px 0px" >
 
   <div class="main-section" id="windowBack" >
@@ -170,110 +259,16 @@
         </div >
       </div >
     </div >
-    &lt;!&ndash;card End&ndash;&gt;
+
   </div >
-  &lt;!&ndash;  data area showing&ndash;&gt;
-  <div class="container-fluid" >
-    <div class="row" >
-      <div class="container" id="contentId" >
-        <div class="col" data-th-if="${not #lists.isEmpty(ropList)}" >
-          <div class="col" >
-            <table class="table table-hover table-striped" >
-              <thead >
-              <tr >
-                <th > Index</th >
-                <th > Item Name</th >
-                <th > ROP</th >
-                <th > Quantity</th >
-                <th > Price</th >
-                <th > M Date</th >
-                <th > E Date</th >
-                <th > Modify</th >
-              </tr >
-              </thead >
-              <tbody >
-              <tr data-th-each="ledger, rowCount : ${ropList}" >
-                <th data-th-text="${rowCount.count}" ></th >
-                <th data-th-text="${ledger.item.name}" ></th >
-                <th data-th-text="${ledger.item.rop}" ></th >
-                <th data-th-text="${ledger.quantity}" ></th >
-                <th data-th-text="${ledger.sellPrice}" ></th >
-                <th data-th-text="${ledger.manufactureDate}" ></th >
-                <th data-th-text="${ledger.expiredDate}" ></th >
-                <th >
-                  <a data-th-href="${'/purchaseOrder/supplier/' + ledger.goodReceivedNote.purchaseOrder.supplier.id}"
-                     class="btn btn-secondary btn-sm" ><i
-                        class="fa fa-folder-open" style="font-size: 15px" ></i >Purchase Order</a >
-                </th >
-              </tr >
-              </tbody >
-            </table >
-          </div >
-        </div >
-      </div >
-    </div >
-    <div class="row" >
-      <div class="container" id="contentId1" >
-        <div class="col" data-th-if="${not #lists.isEmpty(exList)}" >
-          <table class="table table-hover table-striped" >
-            <thead >
-            <tr >
-              <th > Index</th >
-              <th > Item Name</th >
-              <th > ROP</th >
-              <th > Quantity</th >
-              <th > Price</th >
-              <th > M Date</th >
-              <th > E Date</th >
-              <th > Modify</th >
-            </tr >
-            </thead >
-            <tbody >
-            <tr data-th-each="ledger, rowCount : ${exList}" >
-              <th data-th-text="${rowCount.count}" ></th >
-              <th data-th-text="${ledger.item.name}" ></th >
-              <th data-th-text="${ledger.item.rop}" ></th >
-              <th data-th-text="${ledger.quantity}" ></th >
-              <th data-th-text="${ledger.sellPrice}" ></th >
-              <th data-th-text="${ledger.manufactureDate}" ></th >
-              <th data-th-text="${ledger.expiredDate}" ></th >
-              <th >
-                <a data-th-href="${'/purchaseOrder/supplier/' + ledger.goodReceivedNote.purchaseOrder.supplier.id}"
-                   class="btn btn-secondary btn-sm" ><i
-                      class="fa fa-folder-open" style="font-size: 15px" ></i >Purchase Order</a >
-              </th >
-            </tr >
-            </tbody >
-          </table >
-        </div >
-      </div >
-    </div >
-  </div >
+
 </div >
-&lt;!&ndash;footer include&ndash;&gt;
+
+
 <div data-th-replace="~{fragments/footer :: footerFragment}" ></div >
-&lt;!&ndash;script include&ndash;&gt;
+
 <div data-th-replace="~{fragments/script :: scriptFragment}" ></div >
-<script >
-    $(document).ready(function () {
-        $("h2").addClass("animated bounce");
-        //$("#contentId, #contentId1").hide();
 
-
-
-    });
-
-    $("#btnROP").click(function () {
-        $("#contentId").toggle();
-    });
-
-    $("#btnEx").click(function () {
-        $("#contentId1").toggle();
-    });
-
-
-</script >
 </body >
 </html >
 
--->
