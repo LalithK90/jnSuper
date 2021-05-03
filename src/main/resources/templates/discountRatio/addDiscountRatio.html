@@ -7,13 +7,13 @@
 <body class="sb-nav-fixed" >
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
 <!--Form Content - start -->
-    <div class="col-sm-12 flex-column " style="margin-top:100px">
+    <div class="col-sm-12 flex-column " >
         <form data-th-action="${addStatus==true?'/discountRatio/save':'/discountRatio/update'}"
               data-th-object="${discountRatio}"
               method="POST">
             <div class="row">
-                <div class="container-fluid bg-secondary form-Border">
-                    <div class="row text-center formManagement border-info">
+                <div class="container-fluid  form-Border">
+                    <div class="row text-center  border-info">
                         <div class="col">
                             <a class="btn btn-success" href="/home">
                                 <i class="fa fa-home" style="font-size: 20px"></i> &nbsp; Home
@@ -36,7 +36,7 @@
                 </div>
 
                 <!--Left Side-->
-                <div class="form-group col-md-6 col-sm-6 text-left flex-column">
+                <div class=" container-fluid form-group col-md-6 col-sm-6 text-left flex-column formBorder">
                     <input data-th-field="*{id}" data-th-if="${addStatus==false}" hidden type="text"/>
                     <input type="text" data-th-if="${addStatus==false}" data-th-field="*{liveDead}" hidden>
                     <!--Name-->

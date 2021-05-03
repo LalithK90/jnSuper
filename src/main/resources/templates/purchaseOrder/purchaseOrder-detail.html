@@ -150,7 +150,7 @@
               </div >
               <div class="container-fluid table-responsive" >
                 <table class="table table-striped " >
-                  <thead >
+                  <thead class="thead-dark">
                   <tr >
                     <th >Index</th >
                     <th >Item Name</th >
@@ -160,7 +160,7 @@
                     <th >Line Total</th >
                   </tr >
                   </thead >
-                  <tbody >
+                  <tbody class="table-warning">
                   <tr data-th-each="purchaseOrderItem, index : ${purchaseOrderDetail.purchaseOrderItems}" >
                     <td data-th-text="${index.count}" ></td >
                     <td data-th-text="${purchaseOrderItem.item.name}" ></td >

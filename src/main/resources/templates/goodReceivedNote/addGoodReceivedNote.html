@@ -19,7 +19,7 @@
     <form data-th-action="${'/goodReceivedNote/received'}" method="POST" data-th-object="${goodReceivedNote}">
         <div class="container-fluid table-responsive">
             <table class="table table-striped " id="myTable">
-                <thead>
+                <thead class="thead-dark">
                 <tr class="text-center">
                     <th>Index</th>
                     <th>Item Name</th>
@@ -28,7 +28,7 @@
                     <th>Expire Date</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-warning">
                 <tr data-th-each="purchaseOrderItem, index : ${purchaseOrderDetail.purchaseOrderItems}">
                     <td>
                         <input type="text" class="form-control text-center" data-th-value="${index.count}" readonly required>
