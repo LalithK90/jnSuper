@@ -60,7 +60,7 @@
       </div >
     </div >
     <div class="form-row" >
-      <!--Expired date-->
+      <!--Discount Price-->
       <div class="form-group col-md-6" >
         <label for="discountPrice" class="text-dark" >Discount Price :</label >
         <input id="discountPrice" class="form-control" type="number" step="1" readonly/>
@@ -220,9 +220,27 @@
           </div >
           <!--Discount-->
           <div class="col-md-6 " >
-
+            <!--<div class="form-row text-right" >
+              <div class="col-md-4" >
+                <label class="control-label" for="discountRatio" >Discount Ratio :</label >
+              </div >
+              <div class="col-md-8" >
+                <select id="discountRatio" data-th-field="*{discountRatio}"
+                        class="form-control"
+                        tabindex="9"
+                        required >
+                  <option value="" >Please select</option >
+                  <option data-th-each="discountRatio : ${discountRatios}"
+                          data-th-text="${discountRatio.amount}"
+                          data-th-value="${discountRatio.id}" >
+                    Please select
+                  </option >
+                </select >
+              </div >
+            </div >
           </div >
-        </div >
+        </div >-->
+
         <div class="form-row" >
           <!--Total Amount-->
           <div class="col-md-6 " >
@@ -244,7 +262,7 @@
           <div class="col-md-6 " >
             <div class="form-row text-right" >
               <div class="col-md-4" >
-                <label class="control-label" for="discountAmount" >Discount Amount :</label >
+                <label class="control-label " for="discountAmount"  >Discount Amount :</label >
               </div >
               <div class="col-md-8" >
                 <input id="discountAmount" data-th-field="*{discountAmount}"
