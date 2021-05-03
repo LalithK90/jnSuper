@@ -137,6 +137,9 @@ public class InvoiceService implements AbstractService< Invoice, Integer > {
     Font tableHeader = FontFactory.getFont("Arial", 10, BaseColor.BLACK);
     Font tableHeaderOnly = FontFactory.getFont("Arial", 12, BaseColor.BLACK);
 
+    /*PdfPCell customerHeader = new PdfPCell(new Paragraph("Customer", tableHeaderOnly));
+    pdfCellHeaderCommonStyle(customerHeader);
+    ledgerItemDisplay.addCell(customerHeader);*/
 
     PdfPCell indexHeader = new PdfPCell(new Paragraph("Index", tableHeaderOnly));
     pdfCellHeaderCommonStyle(indexHeader);
@@ -149,6 +152,7 @@ public class InvoiceService implements AbstractService< Invoice, Integer > {
     PdfPCell unitPriceHeader = new PdfPCell(new Paragraph("Unit Price", tableHeaderOnly));
     pdfCellHeaderCommonStyle(unitPriceHeader);
     ledgerItemDisplay.addCell(unitPriceHeader);
+
 
     PdfPCell quantityHeader = new PdfPCell(new Paragraph("Quantity", tableHeaderOnly));
     pdfCellHeaderCommonStyle(quantityHeader);
@@ -163,10 +167,16 @@ public class InvoiceService implements AbstractService< Invoice, Integer > {
       pdfCellBodyCommonStyle(index);
       ledgerItemDisplay.addCell(index);
 
+      /*PdfPCell customerName =
+              new PdfPCell(new Paragraph(invoice.getCustomer().getName(), tableHeader));
+      pdfCellBodyCommonStyle(customerName);
+      ledgerItemDisplay.addCell(customerName);*/
+
       PdfPCell itemName =
               new PdfPCell(new Paragraph(invoice.getInvoiceLedgers().get(i).getLedger().getItem().getName(), tableHeader));
       pdfCellBodyCommonStyle(itemName);
       ledgerItemDisplay.addCell(itemName);
+
 
       PdfPCell unitPrice =
               new PdfPCell(new Paragraph(invoice.getInvoiceLedgers().get(i).getLedger().getSellPrice().toString(),
