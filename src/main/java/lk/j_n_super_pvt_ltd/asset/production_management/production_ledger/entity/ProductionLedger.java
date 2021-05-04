@@ -26,15 +26,6 @@ public class ProductionLedger extends AuditEntity {
     @Column(nullable = false)
     private String quantity;
 
-    @Column( nullable = false, precision = 10, scale = 2 )
-    private BigDecimal sellPrice;
-
-    @Column( nullable = false, precision = 10, scale = 2 )
-    private BigDecimal lineTotal;
-
-    @Column( nullable = false, precision = 10, scale = 2 )
-    private BigDecimal discountAmount;
-
     @ManyToOne
     private Ledger ledger;
 

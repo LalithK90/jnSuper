@@ -18,6 +18,7 @@
       <div class="form-group col-md-6" >
         <label for="itemName" class="text-dark" >Item Name :</label >
         <input id="itemName" class="form-control" type="text" readonly />
+        <input id="ledgerId" class="form-control" type="hidden" hidden />
       </div >
       <!--Available Quantity-->
       <div class="form-group col-md-6" >
@@ -56,7 +57,7 @@
     <div class="row text-center formManagement border-info" >
       <!--ViewList Button-->
       <div class="col" >
-        <a href="/invoice" class="btn btn-success" tabindex="1" >
+        <a href="/production" class="btn btn-success" tabindex="1" >
           <i class="fa fa-list" style="font-size: 20px" ></i >&nbsp;&nbsp;View List
         </a >
       </div >
@@ -244,7 +245,7 @@
     function tableRowCreate(id, invoiceLedger) {
         return `<tr >
                       <th >${id + 1}
-                      <input type="hidden" id="id${id}" class="form-control"  name="productionLedger[${id}].ledger.id" value="${invoiceLedger.id}">
+                      <input type="hidden" id="id${id}" class="form-control"  name="productionLedgers[${id}].ledger.id" value="${invoiceLedger.id}">
                       </th >
                       <th >
                       <input type="text" id="na${id}" class="form-control" value="${invoiceLedger.name}" readonly>
@@ -256,7 +257,7 @@
                       <input type="number" id="aq${id}" class="form-control" value="${invoiceLedger.quantity}" readonly>
                       </th >
                       <th >
-                      <input type="number" id="rq${id}" class="form-control" onchange="lineTotalCalculateByLine(this)"  onkeyup="lineTotalCalculateByLine(this)" name="productionLedger[${id}].quantity" value="${invoiceLedger.requestCount}">
+                      <input type="number" id="rq${id}" class="form-control" onchange="lineTotalCalculateByLine(this)"  onkeyup="lineTotalCalculateByLine(this)" name="productionLedgers[${id}].quantity" value="${invoiceLedger.requestCount}">
                       </th >
                       <th>
                       <button type="button" id="rm${id}" class="btn btn-danger" onclick="removeItem(this)">Remove</button>

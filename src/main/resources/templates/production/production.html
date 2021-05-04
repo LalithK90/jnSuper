@@ -7,18 +7,17 @@
 </head >
 <body >
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
-<div class="row" >
 
   <div class="container-fluid" >
     <!--Heading Area-->
     <div class="row text-center formManagement" >
       <div class="col" >
-        <a class="btn btn-dark" href="/invoice/add" ><i class="fa fa-file-invoice-dollar" ></i >
-          &nbsp;Add New Invoice</a >
+        <a class="btn btn-dark" href="/production/add" ><i class="fa fa-file-invoice-dollar" ></i >
+          &nbsp;Add New Order</a >
       </div >
       <div class="col" >
         <h2 class="text text-right" >
-          <span >Invoice Management</span >
+          <span >Production Order List</span >
         </h2 >
       </div >
       <div class="col" >
@@ -41,7 +40,7 @@
               </button >
             </div >
             <div class="modal-body form-horizontal" >
-              <form class="mx-4" data-th-action="@{/invoice/search}" data-th-method="POST"
+              <form class="mx-4" data-th-action="${searchUrl}" data-th-method="POST"
                     id="invoiceDateRange" >
                 <div class="form-group" >
                   <label for="startDate" class="" >From</label >
@@ -65,28 +64,48 @@
     </div >
   </div >
 
+  <div class="container-fluid mb-2 text-center" >
+    <a href="/production" class="col-3">
+      <button type="button" class="btn btn-success  " >All Production Order</button >
+    </a >
+    <a href="/production/initial" class="col-3">
+      <button type="button" class="btn btn-light " >Initial Production Order</button >
+    </a >
+    <a href="/production/pending" class="col-3">
+      <button type="button" class="btn btn-outline-info " >Pending Production Order</button >
+    </a >
+    <a href="/production/completed" class="col-3">
+      <button type="button" class="btn btn-primary  " >Complete Production Order</button >
+    </a >
+  </div >
+
+
   <div class="container-fluid formBorder text-center" >
+
     <div class="col" >
       <!--There is message about invoice count-->
       <div class="alert alert-warning alert-dismissible fade show" role="alert" >
-        <p data-th-if="${messageView==false}" ><strong >Notice!</strong > Below table shows the invoices for
-                                                                          last
-                                                                          three month only.
-                                                                          To find older records, please use the custom
-                                                                          search options.</p >
+        <p data-th-if="${messageView==false}" >
+          <strong >Notice!</strong >
+          <br >
+          Below table shows the invoices for
+          last
+          three month only.
+          To find older records, please use the custom
+          search options.
+        </p >
         <p data-th-if="${messageView==true}" data-th-text="${message}" ></p >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
           <span aria-hidden="true" >&times;</span >
         </button >
       </div >
     </div >
-    <!--  todo here need to add production-->
     <!--List all invoice-->
     <div class="col" >
       <!--Table Title-->
       <div class="card-header" >
         <i class="fas fa-table mr-1" ></i >
-        Invoice List
+        Production Order List
       </div >
       <!--Table view-->
       <div class="table-responsive-md" >
@@ -95,29 +114,48 @@
           <tr >
             <th >Index</th >
             <th >Number</th >
-            <th > Amount</th >
+            <th > Items</th >
             <th > Created By</th >
             <th > Date of Invoice</th >
             <th >View</th >
-            <th data-th-if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" > Delete
-                                                                                         Invoice
-            </th >
+
           </tr >
           </thead >
           <tbody class="table-primary" >
-          <tr data-th-each="invoice, rowCount : ${invoices}" >
+          <tr data-th-each="production, rowCount : ${productions}" >
             <td data-th-text="${rowCount.count}" ></td >
-            <td data-th-text="${invoice.code}" ></td >
-            <td data-th-text="${invoice.totalAmount}" ></td >
-            <td data-th-text="${invoice.createdBy}" ></td >
-            <td data-th-text="${{invoice.createdAt}}" ></td >
-            <td ><a class="btn btn-sm btn-light" data-th-href="${'/invoice/'+ invoice.id}" ><i
-                  class="fa fa-eye" ></i >&nbsp;View</a >&nbsp;
+            <td data-th-text="${production.code}" ></td >
+            <td >
+              <p >
+                <a class="btn btn-primary" data-toggle="collapse" data-th-href="${'#contentId'+rowCount.index}"
+                   aria-expanded="false" aria-controls="contentId" >
+                  Items Show
+                </a >
+              </p >
+              <div class="collapse" data-th-id="${'contentId'+rowCount.index}" >
+                <table class="table" >
+                  <thead >
+                  <tr >
+                    <th >Index</th >
+                    <th >Item Name</th >
+                    <th >Quantity</th >
+                  </tr >
+                  </thead >
+                  <tbody >
+                  <tr data-th-each="productionLedger, index : ${production.productionLedgers}">
+                    <td data-th-text="${index.count}"></td >
+                    <td data-th-text="${productionLedger.ledger.item.name}"></td >
+                    <td data-th-text="${productionLedger.quantity}"></td >
+                  </tr >
+                  </tbody >
+                </table >
+              </div >
             </td >
-            <td data-th-if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" ><a
-                  class="btn btn-sm btn-danger"
-                  data-th-href="${'/invoice/remove/' + invoice.id}" ><i
-                  class="fa fa-trash" ></i > Delete</a >
+            <td data-th-text="${production.createdBy}" ></td >
+            <td data-th-text="${{production.createdAt}}" ></td >
+            <td >
+              <a class="btn btn-sm btn-light" data-th-href="${'/production/'+ production.id}" ><i
+                    class="fa fa-eye" ></i >&nbsp;View</a >&nbsp;
             </td >
           </tr >
           </tbody >
@@ -125,7 +163,7 @@
       </div >
     </div >
   </div >
-</div >
+
 
 <!--/* footer is */-->
 <div data-th-replace="~{fragments/footer :: footerFragment}" ></div >

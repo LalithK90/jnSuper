@@ -8,6 +8,7 @@ import lk.j_n_super_pvt_ltd.asset.ledger.controller.LedgerController;
 import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
 import lk.j_n_super_pvt_ltd.asset.ledger.service.LedgerService;
 import lk.j_n_super_pvt_ltd.asset.production_management.production.entity.Production;
+import lk.j_n_super_pvt_ltd.asset.production_management.production.entity.enums.ProductionStatus;
 import lk.j_n_super_pvt_ltd.asset.production_management.production.service.ProductionService;
 import lk.j_n_super_pvt_ltd.asset.production_management.production_item.service.ProductionItemService;
 import lk.j_n_super_pvt_ltd.asset.production_management.production_ledger.entity.ProductionLedger;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/production")
+@RequestMapping( "/production" )
 public class ProductionController {
   private final ProductionService productionService;
   private final ProductionItemService productionItemService;
@@ -38,7 +39,9 @@ public class ProductionController {
   private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
 
   public ProductionController(ProductionService productionService, ProductionItemService productionItemService,
-                              ProductionLedgerService productionLedgerService, ItemService itemService, LedgerService ledgerService, DateTimeAgeService dateTimeAgeService, MakeAutoGenerateNumberService makeAutoGenerateNumberService) {
+                              ProductionLedgerService productionLedgerService, ItemService itemService,
+                              LedgerService ledgerService, DateTimeAgeService dateTimeAgeService,
+                              MakeAutoGenerateNumberService makeAutoGenerateNumberService) {
     this.productionService = productionService;
     this.productionItemService = productionItemService;
     this.productionLedgerService = productionLedgerService;
@@ -48,21 +51,84 @@ public class ProductionController {
     this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
   }
 
+
+  private String commonProduction(Model model, List< Production > productions, String searchUrl) {
+    model.addAttribute("productions", productions);
+    model.addAttribute("firstInvoiceMessage", true);
+    model.addAttribute("searchUrl", searchUrl);
+    return "production/production";
+  }
+
   @GetMapping
   public String production(Model model) {
-    model.addAttribute("productions",
-                       productionService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now())));
-    model.addAttribute("firstInvoiceMessage", true);
-    return "production/production";
+    List< Production > productions =
+        productionService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now()));
+    String searchUrl = "/production/search";
+    return commonProduction(model, productions, searchUrl);
   }
 
   @GetMapping( "/search" )
   public String invoiceSearch(@RequestAttribute( "startDate" ) LocalDate startDate,
                               @RequestAttribute( "endDate" ) LocalDate endDate, Model model) {
-    model.addAttribute("productions",
-                       productionService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate), dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate)));
-    model.addAttribute("firstInvoiceMessage", true);
-    return "production/production";
+    List< Production > productions =
+        productionService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate),
+                                                   dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate)).stream().filter(z -> z.getProductionStatus().equals(ProductionStatus.INI)).collect(Collectors.toList());
+    String searchUrl = "/production/search";
+    return commonProduction(model, productions, searchUrl);
+  }
+
+  @GetMapping( "/initial" )
+  public String productionInitial(Model model) {
+    List< Production > productions =
+        productionService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now())).stream().filter(z -> z.getProductionStatus().equals(ProductionStatus.INI)).collect(Collectors.toList());
+    String searchUrl = "/production/initial/search";
+    return commonProduction(model, productions, searchUrl);
+  }
+
+  @GetMapping( "/initial/search" )
+  public String invoiceInitialSearch(@RequestAttribute( "startDate" ) LocalDate startDate,
+                                     @RequestAttribute( "endDate" ) LocalDate endDate, Model model) {
+    List< Production > productions =
+        productionService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate),
+                                                   dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate)).stream().filter(z -> z.getProductionStatus().equals(ProductionStatus.INI)).collect(Collectors.toList());
+    String searchUrl = "/production/initial/search";
+    return commonProduction(model, productions, searchUrl);
+  }
+
+  @GetMapping( "/pending" )
+  public String productionPending(Model model) {
+    List< Production > productions =
+        productionService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now())).stream().filter(z -> z.getProductionStatus().equals(ProductionStatus.PENDING)).collect(Collectors.toList());
+    String searchUrl = "/production/pending/search";
+    return commonProduction(model, productions, searchUrl);
+  }
+
+  @GetMapping( "/pending/search" )
+  public String invoicePendingSearch(@RequestAttribute( "startDate" ) LocalDate startDate,
+                                     @RequestAttribute( "endDate" ) LocalDate endDate, Model model) {
+    List< Production > productions =
+        productionService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate),
+                                                   dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate)).stream().filter(z -> z.getProductionStatus().equals(ProductionStatus.PENDING)).collect(Collectors.toList());
+    String searchUrl = "/production/pending/search";
+    return commonProduction(model, productions, searchUrl);
+  }
+
+  @GetMapping( "/completed" )
+  public String productionCompleted(Model model) {
+    List< Production > productions =
+        productionService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(dateTimeAgeService.getPastDateByMonth(3)), dateTimeAgeService.dateTimeToLocalDateEndInDay(LocalDate.now())).stream().filter(z -> z.getProductionStatus().equals(ProductionStatus.COMPLETED)).collect(Collectors.toList());
+    String searchUrl = "/production/completed/search";
+    return commonProduction(model, productions, searchUrl);
+  }
+
+  @GetMapping( "/completed/search" )
+  public String invoiceCompletedSearch(@RequestAttribute( "startDate" ) LocalDate startDate,
+                                       @RequestAttribute( "endDate" ) LocalDate endDate, Model model) {
+    List< Production > productions =
+        productionService.findByCreatedAtIsBetween(dateTimeAgeService.dateTimeToLocalDateStartInDay(startDate),
+                                                   dateTimeAgeService.dateTimeToLocalDateEndInDay(endDate)).stream().filter(z -> z.getProductionStatus().equals(ProductionStatus.COMPLETED)).collect(Collectors.toList());
+    String searchUrl = "/production/completed/search";
+    return commonProduction(model, productions, searchUrl);
   }
 
   private String common(Model model, Production production) {
@@ -95,6 +161,7 @@ public class ProductionController {
   @PostMapping
   public String persistInvoice(@Valid @ModelAttribute Production production, BindingResult bindingResult, Model model) {
     if ( bindingResult.hasErrors() ) {
+   bindingResult.getAllErrors().forEach(System.out::println);
       return common(model, production);
     }
     if ( production.getId() == null ) {
@@ -111,15 +178,14 @@ public class ProductionController {
 
     List< ProductionLedger > productionLedgers = new ArrayList<>();
 
-    production.getProductionLedgers().forEach(x-> {
+    production.getProductionLedgers().forEach(x -> {
       x.setProduction(production);
       productionLedgers.add(x);
     });
     production.setProductionLedgers(productionLedgers);
     Production saveInvoice = productionService.persist(production);
 
-    //todo here
-    return "redirect:/production/fileView/"+saveInvoice.getId();
+    return "redirect:/production";
   }
 
 
@@ -130,7 +196,6 @@ public class ProductionController {
     productionService.persist(production);
     return "redirect:/production";
   }
-
 
 
 }
