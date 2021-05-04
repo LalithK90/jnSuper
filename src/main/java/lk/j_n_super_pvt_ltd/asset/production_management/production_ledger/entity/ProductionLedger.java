@@ -3,7 +3,7 @@ package lk.j_n_super_pvt_ltd.asset.production_management.production_ledger.entit
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
-import lk.j_n_super_pvt_ltd.asset.production_management.entity.Production;
+import lk.j_n_super_pvt_ltd.asset.production_management.production.entity.Production;
 import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

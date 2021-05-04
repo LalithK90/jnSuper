@@ -1,11 +1,13 @@
-package lk.j_n_super_pvt_ltd.asset.production_management.dao;
+package lk.j_n_super_pvt_ltd.asset.production_management.production.dao;
 
 
-import lk.j_n_super_pvt_ltd.asset.production_management.entity.Production;
+import lk.j_n_super_pvt_ltd.asset.production_management.production.entity.Production;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+;
 
 public interface ProductionDao extends JpaRepository< Production, Integer > {
 

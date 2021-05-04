@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" >
+<!--/* Styles, meta data, and title are included */-->
+<head data-th-replace="~{fragments/header :: headerFragment}" >
+  <meta charset="UTF-8" >
+  <title >Thymeleaf Springboot </title >
+</head >
+<body >
+<nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
+<link data-th-href="@{/css/combo-box-search.css}" media="all" rel="stylesheet" type="text/css" />
+<link data-th-href="@{/css/modal.css}" media="all" rel="stylesheet" type="text/css" />
+<!--Creates the popup body-->
+<div class="popup-overlay" >
+  <!--Creates the popup content-->
+  <div class="popup-content" >
+    <div class="form-row" >
+      <!--item name-->
+      <div class="form-group col-md-6" >
+        <label for="itemName" class="text-dark" >Item Name :</label >
+        <input id="itemName" class="form-control" type="text" readonly />
+      </div >
+      <!--Available Quantity-->
+      <div class="form-group col-md-6" >
+        <label for="abQuantity" class="text-dark" >Available Quantity :</label >
+        <input id="abQuantity" class="form-control" type="text" readonly />
+      </div >
+    </div >
+    <div class="form-row" >
+      <!--Expired date-->
+      <div class="form-group col-md-6" >
+        <label for="exDate" class="text-dark" >Expired Date :</label >
+        <input id="exDate" class="form-control" type="text" readonly />
+      </div >
+      <!--Request Count-->
+      <div class="form-group col-md-6" >
+        <label for="requestCount" class="text-dark" >Request Count :</label >
+        <input id="requestCount" class="form-control" type="number" step="1" />
+      </div >
+    </div >
+    <!--button area-->
+    <div class="form-row" >
+      <div class="col text-center " >
+        <button class="btn btn-danger" id="close" >Close</button >
+      </div >
+      <div class="col text-center " >
+        <button class="btn btn-success" id="addModal" >Add</button >
+      </div >
+    </div >
+  </div >
+</div >
+
+<!--<div class="container-fluid mt-3" >-->
+<div class="container" >
+  <!--heading Area-->
+  <div class="container-fluid " >
+    <div class="row text-center formManagement border-info" >
+      <!--ViewList Button-->
+      <div class="col" >
+        <a href="/invoice" class="btn btn-success" tabindex="1" >
+          <i class="fa fa-list" style="font-size: 20px" ></i >&nbsp;&nbsp;View List
+        </a >
+      </div >
+      <!--Customer Name-->
+      <div class="col" >
+        <h2 class="text-dark text-center" >
+          <strong >
+            ADD NEW PRODUCTION ORDER
+          </strong >
+        </h2 >
+      </div >
+      <!--Home Button-->
+      <div class="col" >
+        <a class="btn btn-success" href="/home" tabindex="2" >
+          <i class="fa fa-home" style="font-size: 20px" ></i > Home
+        </a >
+      </div >
+    </div >
+  </div >
+  <!--details-->
+
+  <div class="container formBorder" >
+    <form action="/production" method="post" data-th-object="${production}" >
+      <!--ledgers will list-->
+      <div class="form-group" >
+        <!--Ledgers item-->
+        <div class="form-row " >
+          <div class="col-2 text-right" >
+            <label class="control-label" for="item" >Items :</label >
+          </div >
+          <div class="col-10 text-left" >
+            <select id="item" class="form-control" tabindex="9" >
+              <option value="" ></option >
+              <option data-th-each="ledger : ${ledgers}"
+                      data-th-text="${'Item Name: '+ledger.item.name+'  Sell Price : '+ledger.item.sellPrice+'
+                                      Available quantity : '+ledger.quantity+'  Expired Date : '+ledger.expiredDate}"
+                      data-th-value="${ledger.id}" >Please select
+              </option >
+            </select >
+          </div >
+        </div >
+      </div >
+
+      <!--selected ledger items-->
+      <div class="form-group" >
+        <div class="form-row" >
+          <div class="container" >
+            <div class="col" >
+              <table class="table table-hover table-striped " id="myTable" >
+                <thead >
+                <tr >
+                  <th >Index</th >
+                  <th >Item Name</th >
+                  <th >Expire Date</th >
+                  <th >Available Quantity</th >
+                  <th >Quantity</th >
+                  <th >Modify</th >
+                </tr >
+                </thead >
+                <tbody >
+
+                </tbody >
+              </table >
+            </div >
+          </div >
+        </div >
+      </div >
+      <!--button-->
+      <div class="form-group " >
+        <!--Button-->
+        <div class="form-group col-md-12 col-sm-12 text-center flex-column p-3" >
+          <!--Back Button-->
+          <a class="btn btn-dark" href="/production" tabindex="14" >
+            <i class="fas fa-arrow-circle-left" style="font-size: 20px" ></i >&nbsp;&nbsp;Back
+          </a >
+          <!--Save Button-->
+          <button class="btn btn-success ml-5 " tabindex="12" type="submit" id="btnSubmit" >
+            <i class="fa fa-save " style="font-size: 20px" ></i >&nbsp;&nbsp;<span
+                data-th-text="${'Save'}"
+                id="submit" ></span >
+          </button >
+        </div >
+      </div >
+    </form >
+  </div >
+</div >
+
+<input type="hidden" data-th-value="${ledgerItemURL}" id="ledgerItemURL" >
+<!--/* footer is */-->
+<div data-th-replace="~{fragments/footer :: footerFragment}" ></div >
+<!--/* script is included */-->
+<div data-th-replace="~{fragments/script :: scriptFragment}" ></div >
+<script data-th-src="@{/js/combo-box-search.js}" ></script >
+<script >
+    //removes the "active" class to .popup and .popup-content when the "Close" button is clicked
+    $("#close, .popup-overlay body").on("click", function () {
+        $(".popup-overlay, .popup-content").removeClass("active");
+        modalValueZero();
+    });
+
+    $(document).ready(function () {
+        $("#btnshow").hide();
+        ///*/**/*/
+        $("#item").select2({
+            data: $(this).val()
+        }).change(() => {
+            let finalUrl = $('#ledgerItemURL').val() + $("#item").val();
+            $.ajax({
+                type: 'GET',
+                url: finalUrl,
+                success: function (resp) {
+                    popUpDataSet(resp);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+
+        });
+
+        $("#customer").select2({
+            data: $(this).val()
+        });
+        $("input[value='CASH']").prop('checked', true);
+        showHideContent();
+        $("input[value='NOT_PRINTED']").prop('checked', true);
+
+    });
+
+    let selectedInvoiceLedger = [];
+
+    function popUpDataSet(resp) {
+        $("#ledgerId").val(resp.id);
+        $("#itemName").val(resp.item.name);
+        $("#abQuantity").val(resp.quantity);
+        let date = resp.expiredDate[0] + '-' + resp.expiredDate[1] + '-' + resp.expiredDate[2];
+        $("#exDate").val(date);
+        $(".popup-overlay, .popup-content").addClass("active");
+        addButtonDisable();
+    }
+
+    $('#requestCount').bind('keyup', () => {
+        addButtonDisable();
+    })
+
+    function addButtonDisable() {
+        let requestInputValue = $('#requestCount').val();
+        let availableQu = $("#abQuantity").val();
+        if (requestInputValue && (parseFloat(availableQu) >= parseFloat(requestInputValue))) {
+            $("#addModal").show();
+        } else {
+            $("#addModal").hide();
+            if (parseFloat(availableQu) <= parseFloat(requestInputValue)) {
+                swal({
+                    title: "Please check the request quantity ",
+                    icon: "warning",
+                });
+            }
+        }
+    }
+
+    $('#addModal').bind('click', function () {
+        let receivedLedgerItem = {};// ledgerItem
+        receivedLedgerItem.id = $("#ledgerId").val();
+        receivedLedgerItem.name = $("#itemName").val();
+        receivedLedgerItem.quantity = $("#abQuantity").val();
+        receivedLedgerItem.exDate = $("#exDate").val();
+        receivedLedgerItem.requestCount = $("#requestCount").val();
+        selectedInvoiceLedger.push(receivedLedgerItem);
+        $(".popup-overlay, .popup-content").removeClass("active");
+        optionElementRemove('#item');
+        itemAddToItemSelectTable();
+        modalValueZero();
+    });
+
+    function itemAddToItemSelectTable() {
+        let html = "";
+        for (let i = 0; i < selectedInvoiceLedger.length; i++) {
+            html += tableRowCreate(i, selectedInvoiceLedger[i]);
+        }
+
+        $("#myTable tbody ").html(html);
+    }
+
+    function tableRowCreate(id, invoiceLedger) {
+        return `<tr >
+                      <th >${id + 1}
+                      <input type="hidden" id="id${id}" class="form-control"  name="productionLedger[${id}].ledger.id" value="${invoiceLedger.id}">
+                      </th >
+                      <th >
+                      <input type="text" id="na${id}" class="form-control" value="${invoiceLedger.name}" readonly>
+                      </th >
+                      <th >
+                      <input type="text" id="ex${id}" class="form-control" value="${invoiceLedger.exDate}" readonly>
+                      </th >
+                      <th >
+                      <input type="number" id="aq${id}" class="form-control" value="${invoiceLedger.quantity}" readonly>
+                      </th >
+                      <th >
+                      <input type="number" id="rq${id}" class="form-control" onchange="lineTotalCalculateByLine(this)"  onkeyup="lineTotalCalculateByLine(this)" name="productionLedger[${id}].quantity" value="${invoiceLedger.requestCount}">
+                      </th >
+                      <th>
+                      <button type="button" id="rm${id}" class="btn btn-danger" onclick="removeItem(this)">Remove</button>
+                      </th>
+                    </tr >`
+    }
+
+    function removeItem(obj) {
+        let selectedFiledId = obj.getAttribute('id').slice(2);
+        //id,name,sellPrice,abQut,exDate
+        $("#item").append(optionTagAdd(
+            $(`#id${selectedFiledId}`).val(),
+            $(`#na${selectedFiledId}`).val(),
+            $(`#sp${selectedFiledId}`).val(),
+            $(`#aq${selectedFiledId}`).val(),
+            $(`#ex${selectedFiledId}`).val()));
+        selectedInvoiceLedger = selectedInvoiceLedger.filter(function (obj) {
+            return obj.id !== $(`#id${selectedFiledId}`).val();
+        })
+        document.getElementById("myTable").deleteRow(obj.parentNode.parentNode.rowIndex);
+        totalPrice();
+    }
+
+
+    //modal all values zero
+    function modalValueZero() {
+        $("#ledgerId").val(0);
+        $("#itemName").val('');
+        $("#abQuantity").val(0);
+        $("#requestCount").val('');
+    }
+
+
+    //option tag remove
+    let optionElementRemove = (id) => {
+        let selectedValue = $(id).val();
+        let selectedItemId = `${id} option[value='${selectedValue}']`;
+        $(selectedItemId).remove();
+    }
+
+    //option tag add
+    function optionTagAdd(id, name, sellPrice, abQut, exDate) {
+        return `<option value="${id}">
+                      Item Name: ${name}
+                      Available quantity : ${abQut}  Expired Date : ${exDate}
+                    </option>`;
+    }
+
+</script >
+</body >
+</html >
