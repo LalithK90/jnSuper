@@ -63,7 +63,7 @@
       <!--Discount Price-->
       <div class="form-group col-md-6" >
         <label for="discountPrice" class="text-dark" >Discount Price :</label >
-        <input id="discountPrice" class="form-control" type="number" step="1" />
+        <input id="discountPrice" class="form-control" type="number" step="1" readonly />
       </div >
       <!--Total -->
       <div class="form-group col-md-6" >
@@ -170,6 +170,7 @@
                   <th >Available Quantity</th >
                   <th >Unit Price</th >
                   <th >Quantity</th >
+                  <th >Discount Amount</th >
                   <th >Line Total</th >
                   <th >Modify</th >
                 </tr >
@@ -190,8 +191,7 @@
           </div >
         </div >
       </div >
-      --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-      <!--Payment Section-->
+       <!--Payment Section-->
       <div class="form-group" >
         <!--Payment method and total amount-->
         <div class="form-row text-right" >
@@ -240,112 +240,112 @@
           </div >
         </div >-->
 
-        <div class="form-row" >
-          <!--Total Amount-->
-          <div class="col-md-6 " >
-            <div class="form-row text-right" >
-              <div class="col-md-4" >
-                <label class="control-label" for="totalAmount" >Total Amount :</label >
+            <div class="form-row" >
+              <!--Total Amount-->
+              <div class="col-md-6 " >
+                <div class="form-row text-right" >
+                  <div class="col-md-4" >
+                    <label class="control-label" for="totalAmount" >Total Amount :</label >
+                  </div >
+                  <div class="col-md-8" >
+                    <input id="totalAmount" data-th-field="*{totalAmount}" class="form-control"
+                           tabindex="6"
+                           type="text"
+                           required readonly />
+                    <span class="error" id="totalAmountError" data-th-errors="*{balance}"
+                          data-th-if="${#fields.hasErrors('totalAmount')}" ></span >
+                  </div >
+                </div >
               </div >
-              <div class="col-md-8" >
-                <input id="totalAmount" data-th-field="*{totalAmount}" class="form-control"
-                       tabindex="6"
-                       type="text"
-                       required readonly />
-                <span class="error" id="totalAmountError" data-th-errors="*{balance}"
-                      data-th-if="${#fields.hasErrors('totalAmount')}" ></span >
-              </div >
-            </div >
-          </div >
-          <!--Discount Amount-->
-          <div class="col-md-6 " >
-            <div class="form-row text-right" >
-              <div class="col-md-4" >
-                <label class="control-label " for="discountAmount"  >Discount Amount :</label >
-              </div >
-              <div class="col-md-8" >
-                <input id="discountAmount" data-th-field="*{discountAmount}"
-                       class="form-control" tabindex="6"
-                       type="text"
-                       required readonly />
-                <span class="error" id="nicError" data-th-errors="*{discountAmount}"
-                      data-th-if="${#fields.hasErrors('discountAmount')}" >Error
+              <!--Discount Amount-->
+              <div class="col-md-6 " >
+                <div class="form-row text-right" >
+                  <div class="col-md-4" >
+                    <label class="control-label " for="discountAmount" >Discount Amount :</label >
+                  </div >
+                  <div class="col-md-8" >
+                    <input id="discountAmount" data-th-field="*{discountAmount}"
+                           class="form-control" tabindex="6"
+                           type="text"
+                           required readonly />
+                    <span class="error" id="nicError" data-th-errors="*{discountAmount}"
+                          data-th-if="${#fields.hasErrors('discountAmount')}" >Error
                                                                Discount Amount</span >
+                  </div >
+                </div >
               </div >
             </div >
-          </div >
-        </div >
-        <!--Amount tendered and balance  -->
-        <div class="form-row text-right" id="cashPaymentBlock" >
-          <!--Amount Tendered-->
-          <div class="col-md-6 " >
-            <div class="form-row text-right" >
-              <div class="col-md-4" >
-                <label class="control-label" for="amountTendered" >Amount Tendered :</label >
+            <!--Amount tendered and balance  -->
+            <div class="form-row text-right" id="cashPaymentBlock" >
+              <!--Amount Tendered-->
+              <div class="col-md-6 " >
+                <div class="form-row text-right" >
+                  <div class="col-md-4" >
+                    <label class="control-label" for="amountTendered" >Amount Tendered :</label >
+                  </div >
+                  <div class="col-md-8" >
+                    <input id="amountTendered" data-th-field="*{amountTendered}"
+                           class="form-control"
+                           tabindex="6" type="number" min="0" step="0.01"
+                           required />
+                    <span class="error" data-th-errors="*{amountTendered}"
+                          data-th-if="${#fields.hasErrors('amountTendered')}" ></span >
+                  </div >
+                </div >
               </div >
-              <div class="col-md-8" >
-                <input id="amountTendered" data-th-field="*{amountTendered}"
-                       class="form-control"
-                       tabindex="6" type="number" min="0" step="0.01"
-                       required />
-                <span class="error" data-th-errors="*{amountTendered}"
-                      data-th-if="${#fields.hasErrors('amountTendered')}" ></span >
-              </div >
-            </div >
-          </div >
-          <!--Balance-->
-          <div class="col-md-6 " >
-            <div class="form-row text-right" >
-              <div class="col-md-4" >
-                <label class="control-label" for="balance" >Balance :</label >
-              </div >
-              <div class="col-md-8" >
-                <input id="balance" data-th-field="*{balance}" class="form-control"
-                       tabindex="6"
-                       type="text"
-                       required readonly />
-                <span class="error" id="balanceError" data-th-errors="*{balance}"
-                      data-th-if="${#fields.hasErrors('balance')}" ></span >
-              </div >
-            </div >
-          </div >
-        </div >
-        <!-- Card Payment -> Bank and card Number -->
-        <div class="form-row text-right" id="bankNameBlock" >
-          <!--Bank -->
-          <div class="col-md-6 " >
-            <div class="form-row text-right" >
-              <div class="col-md-4" >
-                <label class="control-label" for="bankName" >Bank Name :</label >
-              </div >
-              <div class="col-md-8" >
-                <input id="bankName" data-th-field="*{bankName}"
-                       class="form-control"
-                       tabindex="6" type="text" />
-                <span class="error" data-th-errors="*{bankName}"
-                      data-th-if="${#fields.hasErrors('bankName')}" ></span >
+              <!--Balance-->
+              <div class="col-md-6 " >
+                <div class="form-row text-right" >
+                  <div class="col-md-4" >
+                    <label class="control-label" for="balance" >Balance :</label >
+                  </div >
+                  <div class="col-md-8" >
+                    <input id="balance" data-th-field="*{balance}" class="form-control"
+                           tabindex="6"
+                           type="text"
+                           required readonly />
+                    <span class="error" id="balanceError" data-th-errors="*{balance}"
+                          data-th-if="${#fields.hasErrors('balance')}" ></span >
+                  </div >
+                </div >
               </div >
             </div >
-          </div >
-          <!--card number-->
-          <div class="col-md-6 " >
-            <div class="form-row text-right" >
-              <div class="col-md-4" >
-                <label class="control-label" for="cardNumber" >Card Number :</label >
+            <!-- Card Payment -> Bank and card Number -->
+            <div class="form-row text-right" id="bankNameBlock" >
+              <!--Bank -->
+              <div class="col-md-6 " >
+                <div class="form-row text-right" >
+                  <div class="col-md-4" >
+                    <label class="control-label" for="bankName" >Bank Name :</label >
+                  </div >
+                  <div class="col-md-8" >
+                    <input id="bankName" data-th-field="*{bankName}"
+                           class="form-control"
+                           tabindex="6" type="text" />
+                    <span class="error" data-th-errors="*{bankName}"
+                          data-th-if="${#fields.hasErrors('bankName')}" ></span >
+                  </div >
+                </div >
               </div >
-              <div class="col-md-8" >
-                <input id="cardNumber" data-th-field="*{cardNumber}" class="form-control"
-                       tabindex="6"
-                       type="text" />
-                <span class="error" data-th-errors="*{cardNumber}"
-                      data-th-if="${#fields.hasErrors('cardNumber')}" ></span >
+              <!--card number-->
+              <div class="col-md-6 " >
+                <div class="form-row text-right" >
+                  <div class="col-md-4" >
+                    <label class="control-label" for="cardNumber" >Card Number :</label >
+                  </div >
+                  <div class="col-md-8" >
+                    <input id="cardNumber" data-th-field="*{cardNumber}" class="form-control"
+                           tabindex="6"
+                           type="text" />
+                    <span class="error" data-th-errors="*{cardNumber}"
+                          data-th-if="${#fields.hasErrors('cardNumber')}" ></span >
+                  </div >
+                </div >
               </div >
             </div >
           </div >
         </div >
       </div >
-      --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
       <!--remarks and invoice print or not-->
       <div class="form-group" >
         <div class="form-row" >
@@ -377,7 +377,8 @@
               <div class="col-md-4" >
                 <label for="remarks" >Remarks :</label ></div >
               <div class="col-md-8" >
-                <textarea id="remarks" class="form-control" data-th-field="*{remarks}" rows="2" ></textarea >
+                                <textarea id="remarks" class="form-control" data-th-field="*{remarks}"
+                                          rows="2" ></textarea >
               </div >
             </div >
           </div >
@@ -465,7 +466,8 @@
 
     function addButtonDisable() {
         let requestInputValue = $('#requestCount').val();
-        if (requestInputValue) {
+        let discountRatio = $('#discountRatio').val();
+        if ((requestInputValue && discountRatio)) {
             $("#addModal").show();
         } else {
             $("#addModal").hide();
@@ -480,6 +482,7 @@
         receivedLedgerItem.exDate = $("#exDate").val();
         receivedLedgerItem.sellPrice = $("#sellPriceModal").val();
         receivedLedgerItem.requestCount = $("#requestCount").val();
+        receivedLedgerItem.discountAmount = $("#discountPrice").val();
         receivedLedgerItem.totalModal = $("#totalModal").val();
         selectedInvoiceLedger.push(receivedLedgerItem);
         $(".popup-overlay, .popup-content").removeClass("active");
@@ -517,6 +520,9 @@
                       </th >
                       <th >
                       <input type="number" id="rq${id}" class="form-control" onchange="lineTotalCalculateByLine(this)"  onkeyup="lineTotalCalculateByLine(this)" name="invoiceLedgers[${id}].quantity" value="${invoiceLedger.requestCount}">
+                      </th >
+                      <th >
+                      <input type="number" id="da${id}" class="form-control discountTotal" name="invoiceLedgers[${id}].discountAmount" value="${invoiceLedger.discountAmount}" readonly>
                       </th >
                       <th >
                       <input type="number" id="lt${id}" class="form-control lineTotal" name="invoiceLedgers[${id}].lineTotal" value="${invoiceLedger.totalModal}" readonly>
@@ -567,9 +573,12 @@
         }
         $("#total").val(totalValue);
         $("#totalAmount").val(totalValue);
-        if ($("#discountRatio").find('option:selected').text() >= 0) {
-            discountRatio();
+        let discountTotal = document.getElementsByClassName("discountTotal");
+        let discountValue = 0;
+        for (let i = 0; i < discountTotal.length; i++) {
+            discountValue += parseFloat(discountTotal[i].value);
         }
+        $("#discountAmount").val(discountValue);
     }
 
     //modal total mount calculate
@@ -589,9 +598,9 @@
                 title: "Request more than available or less than avalilable  ",
                 icon: "warning",
             });
-
-            addButtonDisable();
         }
+
+        discountRatio();
     }
 
     //modal all values zero
@@ -600,6 +609,8 @@
         $("#itemName").val('');
         $("#abQuantity").val(0);
         $("#exDate").val('');
+        $("#discountRatio").val('');
+        $("#discountPrice").val(0.00);
         $("#sellPriceModal").val(0.00);
         $("#requestCount").val('');
         $("#totalModal").val(0.00);
@@ -625,33 +636,29 @@
     }
 
     $('#discountRatio').bind('change', function () {
+        discountRatio();
+    });
+
+    function discountRatio() {
         let requestCount = $("#requestCount").val();
-        if (requestCount) {
+        if (!requestCount) {
             swal({
                 title: "Please Select Request Count",
                 icon: "warning",
             });
         }
-
-        discountRatio();
-    });
-
-    function discountRatio() {
         let discountRatio = parseFloat($("#discountRatio").find('option:selected').text());
-        let total = parseFloat($("#totalModal").val());
-        let discountAmount = total * discountRatio / 100;
-        $("#totalModal").val(total - discountAmount);
-        $("#discountPrice").val(discountAmount);
+        if (!isNaN(discountRatio)) {
+            let total = parseFloat($("#totalModal").val());
+            let discountAmount = total * discountRatio / 100;
+            $("#totalModal").val(total - discountAmount);
+            $("#discountPrice").val(discountAmount);
+        }
+        addButtonDisable();
     }
 
     $("#amountTendered").bind('keyup', function () {
 
-        /* if (!$("#discountRatio").val()) {
-             swal({
-                 title: "Please Select Discount",
-                 icon: "warning",
-             });
-         }*/
         let tenderedAmount = parseFloat($(this).val());
         let totalAmount = parseFloat($("#totalAmount").val());
 

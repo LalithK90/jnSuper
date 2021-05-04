@@ -1,25 +1,197 @@
 <!DOCTYPE html>
 <html lang="en" >
 <head data-th-replace="~{fragments/header :: headerFragment}" >
-    <meta charset="UTF-8" >
-    <title >Production</title >
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <meta charset="UTF-8" >
+  <title >Samarasinghe Super</title >
 </head >
-<body class="sb-nav-fixed" >
+<body >
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
 
-<div class="container-fluid " >
-    <div class="row" >
-        <div class="col-4" ><a href="/ledger" >
-            <button class="btn btn-secondary" type="button" >All Items In Ledger</button >
-        </a ></div >
-        <div class="col-4" ><a href="/ledger/production" >
-            <button class="btn btn-secondary" type="button" >Production Item</button >
-        </a ></div >
-        <div class="col-4" ><a href="/ledger/retail" >
-            <button class="btn btn-secondary" type="button" >Retail Item</button >
-        </a ></div >
-    </div >
-</div >
+  <div class="container-fluid" >
+    <!--Heading Area-->
+    <div class="row text-center formManagement" >
+      <div class="col" >
+        <a class="btn btn-dark" href="/production/add" ><i class="fa fa-file-invoice-dollar" ></i >
+          &nbsp;Add New Order</a >
+      </div >
+      <div class="col" >
+        <h2 class="text text-right" >
+          <span >Production Order List</span >
+        </h2 >
+      </div >
+      <div class="col" >
+        <button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#invoiceCustomSerch" >
+          <i class="fa fa-search" ></i > Custom Invoice Search
+        </button >
+      </div >
 
-</body>
-</html>
+
+      <!-- Modal -->
+      <div class="modal fade" id="invoiceCustomSerch" tabindex="-1" role="dialog"
+           aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document" >
+          <div class="modal-content" >
+            <div class="modal-header" >
+              <h6 class="modal-title" id="exampleModalCenterTitle" >Select date range</h6 >
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                <span aria-hidden="true" >&times;</span >
+              </button >
+            </div >
+            <div class="modal-body form-horizontal" >
+              <form class="mx-4" data-th-action="${searchUrl}" data-th-method="POST"
+                    id="invoiceDateRange" >
+                <div class="form-group" >
+                  <label for="startDate" class="" >From</label >
+                  <input class="form-control" id="startDate" name="startDate" type="date" />
+                </div >
+                <div class="form-group" >
+                  <label for="endDate" >To</label >
+                  <input class="form-control" id="endDate" name="endDate" type="date" />
+                </div >
+              </form >
+            </div >
+            <div class="modal-footer" >
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button >
+              <button class="btn btn-success" form="invoiceDateRange" key="submit" htmlType="submit" >
+                Search
+              </button >
+            </div >
+          </div >
+        </div >
+      </div ><!--Model End-->
+    </div >
+  </div >
+
+  <div class="container-fluid mb-2 text-center" >
+    <a href="/production" class="col-3">
+      <button type="button" class="btn btn-success  " >All Production Order</button >
+    </a >
+    <a href="/production/initial" class="col-3">
+      <button type="button" class="btn btn-light " >Initial Production Order</button >
+    </a >
+    <a href="/production/pending" class="col-3">
+      <button type="button" class="btn btn-outline-info " >Pending Production Order</button >
+    </a >
+    <a href="/production/completed" class="col-3">
+      <button type="button" class="btn btn-primary  " >Complete Production Order</button >
+    </a >
+  </div >
+
+
+  <div class="container-fluid formBorder text-center" >
+
+    <div class="col" >
+      <!--There is message about invoice count-->
+      <div class="alert alert-warning alert-dismissible fade show" role="alert" >
+        <p data-th-if="${messageView==false}" >
+          <strong >Notice!</strong >
+          <br >
+          Below table shows the invoices for
+          last
+          three month only.
+          To find older records, please use the custom
+          search options.
+        </p >
+        <p data-th-if="${messageView==true}" data-th-text="${message}" ></p >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+          <span aria-hidden="true" >&times;</span >
+        </button >
+      </div >
+    </div >
+    <!--List all invoice-->
+    <div class="col" >
+      <!--Table Title-->
+      <div class="card-header" >
+        <i class="fas fa-table mr-1" ></i >
+        Production Order List
+      </div >
+      <!--Table view-->
+      <div class="table-responsive-md" >
+        <table class="table table-hover table-striped" id="myTable" >
+          <thead class="thead-dark" >
+          <tr >
+            <th >Index</th >
+            <th >Number</th >
+            <th > Items</th >
+            <th > Created By</th >
+            <th > Date of Invoice</th >
+            <th >View</th >
+
+          </tr >
+          </thead >
+          <tbody class="table-primary" >
+          <tr data-th-each="production, rowCount : ${productions}" >
+            <td data-th-text="${rowCount.count}" ></td >
+            <td data-th-text="${production.code}" ></td >
+            <td >
+              <p >
+                <a class="btn btn-primary" data-toggle="collapse" data-th-href="${'#contentId'+rowCount.index}"
+                   aria-expanded="false" aria-controls="contentId" >
+                  Items Show
+                </a >
+              </p >
+              <div class="collapse" data-th-id="${'contentId'+rowCount.index}" >
+                <table class="table" >
+                  <thead >
+                  <tr >
+                    <th >Index</th >
+                    <th >Item Name</th >
+                    <th >Quantity</th >
+                  </tr >
+                  </thead >
+                  <tbody >
+                  <tr data-th-each="productionLedger, index : ${production.productionLedgers}">
+                    <td data-th-text="${index.count}"></td >
+                    <td data-th-text="${productionLedger.ledger.item.name}"></td >
+                    <td data-th-text="${productionLedger.quantity}"></td >
+                  </tr >
+                  </tbody >
+                </table >
+              </div >
+            </td >
+            <td data-th-text="${production.createdBy}" ></td >
+            <td data-th-text="${{production.createdAt}}" ></td >
+            <td >
+              <a class="btn btn-sm btn-light" data-th-href="${'/production/'+ production.id}" ><i
+                    class="fa fa-eye" ></i >&nbsp;View</a >&nbsp;
+            </td >
+          </tr >
+          </tbody >
+        </table >
+      </div >
+    </div >
+  </div >
+
+
+<!--/* footer is */-->
+<div data-th-replace="~{fragments/footer :: footerFragment}" ></div >
+<!--/* script is included */-->
+<div data-th-replace="~{fragments/script :: scriptFragment}" ></div >
+
+<script >
+
+    $("#startDate, #endDate").bind('keyup',
+        function () {
+            let manufactureDate = $(`#startDate`).val();
+            let expiredDate = $(`#endDate`).val();
+
+            if (manufactureDate !== "" && expiredDate !== "") {
+                if (Date.parse(manufactureDate) > Date.parse(expiredDate)) {
+                    swal({
+                        title: "Could you accept those days.. !",
+                        icon: "warning",
+                        text: "Please check your date \n Expire Date can not be less than Manufacture Date",
+                    })
+                    $(`#endDate`).val($(`#startDate`).val());
+                }
+            }
+        });
+
+
+</script >
+
+
+</body >
+</html >

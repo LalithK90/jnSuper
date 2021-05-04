@@ -11,6 +11,7 @@ import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.InvoiceValidOrNot;
 import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.PaymentMethod;
 import lk.j_n_super_pvt_ltd.asset.invoice.service.InvoiceService;
 import lk.j_n_super_pvt_ltd.asset.invoice_ledger.entity.InvoiceLedger;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ProductionRetail;
 import lk.j_n_super_pvt_ltd.asset.item.service.ItemService;
 import lk.j_n_super_pvt_ltd.asset.ledger.controller.LedgerController;
 import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
@@ -45,6 +46,7 @@ public class InvoiceController {
   private final DiscountRatioService discountRatioService;
   private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
   private final TwilioMessageService twilioMessageService;
+  private final ItemService itemService;
 
   public InvoiceController(InvoiceService invoiceService, CustomerService customerService,
                            LedgerService ledgerService, DateTimeAgeService dateTimeAgeService,
@@ -58,6 +60,7 @@ public class InvoiceController {
     this.discountRatioService = discountRatioService;
     this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
     this.twilioMessageService = twilioMessageService;
+    this.itemService = itemService;
   }
 
   @GetMapping
@@ -90,7 +93,7 @@ public class InvoiceController {
     //send not expired and not zero quantity
     model.addAttribute("ledgers", ledgerService.findAll()
             .stream()
-            .filter(x -> 0 < Integer.parseInt(x.getQuantity()) && x.getExpiredDate().isAfter(LocalDate.now()))
+            .filter(x -> 0 < Integer.parseInt(x.getQuantity()) && x.getExpiredDate().isAfter(LocalDate.now()) && itemService.findById(x.getItem().getId()).getProductionRetail().equals(ProductionRetail.RETAIL))
             .collect(Collectors.toList()));
     return "invoice/addInvoice";
 

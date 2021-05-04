@@ -14,11 +14,13 @@ $(document).ready(function () {
 
 
     /*//--------------- data table short using - data table plugin ------- start //*/
-    $("#myTable").DataTable({
-        "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
-        "ordering": false,
-        stateSave: true,
-    });
+    if ($("#myTable tr").length > 0) {
+        $("#myTable").DataTable({
+            "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
+            "ordering": false,
+            stateSave: true,
+        });
+    }
     /*//--------------- data table short using - data table plugin ------- start //*/
 
     /*When edit employee if there is a nic number need to select relevant gender*/
@@ -51,9 +53,6 @@ let numberRegex = /^([eE][hH][sS][\d]+)$/;
 let invoiceNumberRegex = /^[0-9]{10}$/;
 let addressRegex = /^[0-9a-zA-Z\s,-,/]+$/;
 let officeEmailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-
-
-
 
 
 //Nic - data of birth - start
@@ -444,7 +443,7 @@ $("#startDate, #endDate").bind("click", function () {
     }
 });
 
-$("#btnSummaryFind").bind("mouseover", function () {
+$("#btnSummaryFind").bind("click", function () {
     let endDate = document.getElementById("endDate").value;
     let startDate = document.getElementById("startDate").value;
 
@@ -621,7 +620,7 @@ $(".btn-warning").on('click', function () {
     location.reload();
 });
 
-$(".btnReset").on('click',function (){
+$(".btnReset").on('click', function () {
     location.reload();
 });
 

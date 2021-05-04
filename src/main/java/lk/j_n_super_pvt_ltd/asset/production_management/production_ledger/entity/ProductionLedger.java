@@ -3,7 +3,7 @@ package lk.j_n_super_pvt_ltd.asset.production_management.production_ledger.entit
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
-import lk.j_n_super_pvt_ltd.asset.production_management.entity.Production;
+import lk.j_n_super_pvt_ltd.asset.production_management.production.entity.Production;
 import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,15 +25,6 @@ public class ProductionLedger extends AuditEntity {
 
     @Column(nullable = false)
     private String quantity;
-
-    @Column( nullable = false, precision = 10, scale = 2 )
-    private BigDecimal sellPrice;
-
-    @Column( nullable = false, precision = 10, scale = 2 )
-    private BigDecimal lineTotal;
-
-    @Column( nullable = false, precision = 10, scale = 2 )
-    private BigDecimal discountAmount;
 
     @ManyToOne
     private Ledger ledger;

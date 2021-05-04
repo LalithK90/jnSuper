@@ -1,13 +1,15 @@
-package lk.j_n_super_pvt_ltd.asset.production_management.service;
+package lk.j_n_super_pvt_ltd.asset.production_management.production.service;
 
-
-import lk.j_n_super_pvt_ltd.asset.production_management.dao.ProductionDao;
-import lk.j_n_super_pvt_ltd.asset.production_management.entity.Production;
+import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.InvoiceValidOrNot;
+import lk.j_n_super_pvt_ltd.asset.production_management.production.dao.ProductionDao;
+import lk.j_n_super_pvt_ltd.asset.production_management.production.entity.enums.ProductionStatus;
 import lk.j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import lk.j_n_super_pvt_ltd.asset.production_management.production.entity.Production;
 
+import javax.management.loading.MLetContent;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,23 +29,26 @@ public class ProductionService implements AbstractService< Production, Integer >
     return productionDao.getOne(id);
   }
 
-  public Production persist(Production Production) {
-
-    return productionDao.save(Production);
+  public Production persist(Production production) {
+    if ( production.getId() == null ) {
+      production.setInvoiceValidOrNot(InvoiceValidOrNot.VALID);
+      production.setProductionStatus(ProductionStatus.INI);
+    }
+    return productionDao.save(production);
   }
 
   public boolean delete(Integer id) {
-    Production Production = productionDao.getOne(id);
-    productionDao.save(Production);
+    Production production = productionDao.getOne(id);
+    productionDao.save(production);
     return false;
   }
 
-  public List< Production > search(Production Production) {
+  public List< Production > search(Production production) {
     ExampleMatcher matcher = ExampleMatcher
         .matching()
         .withIgnoreCase()
         .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-    Example< Production > paymentExample = Example.of(Production, matcher);
+    Example< Production > paymentExample = Example.of(production, matcher);
     return productionDao.findAll(paymentExample);
   }
 
@@ -56,7 +61,12 @@ public class ProductionService implements AbstractService< Production, Integer >
 
   }
 
-  public List< Production > findByCreatedAtIsBetweenAndCreatedBy(LocalDateTime from, LocalDateTime to, String userName) {
+  public List< Production > findByCreatedAtIsBetweenAndCreatedBy(LocalDateTime from, LocalDateTime to,
+                                                                 String userName) {
     return productionDao.findByCreatedAtIsBetweenAndCreatedBy(from, to, userName);
+  }
+
+  public Production findByLastInvoice() {
+    return productionDao.findFirstByOrderByIdDesc();
   }
 }
