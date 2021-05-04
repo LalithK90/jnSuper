@@ -7,6 +7,7 @@ import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
 import lk.j_n_super_pvt_ltd.asset.good_received_note.entity.GoodReceivedNote;
 import lk.j_n_super_pvt_ltd.asset.invoice_ledger.entity.InvoiceLedger;
 import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
+import lk.j_n_super_pvt_ltd.asset.production_management.production.entity.Production;
 import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -49,6 +50,9 @@ public class Ledger extends AuditEntity {
     @ManyToOne
     @JsonIgnore
     private GoodReceivedNote goodReceivedNote;
+
+    @ManyToOne
+    private Production production;
 
 
     @OneToMany(mappedBy = "ledger")
