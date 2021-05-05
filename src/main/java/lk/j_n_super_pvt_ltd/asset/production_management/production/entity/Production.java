@@ -2,6 +2,7 @@ package lk.j_n_super_pvt_ltd.asset.production_management.production.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.InvoiceValidOrNot;
+import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
 import lk.j_n_super_pvt_ltd.asset.production_management.production.entity.enums.ProductionStatus;
 import lk.j_n_super_pvt_ltd.asset.production_management.production_item.entity.ProductionItem;
 import lk.j_n_super_pvt_ltd.asset.production_management.production_ledger.entity.ProductionLedger;
@@ -34,6 +35,9 @@ public class Production extends AuditEntity {
   @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "production")
   private List< ProductionLedger > productionLedgers;
 
-  @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "production")
+  @OneToMany(mappedBy = "production")
   private List< ProductionItem > productionItems;
+
+  @OneToMany(mappedBy = "production")
+  private List< Ledger > ledgers;
 }

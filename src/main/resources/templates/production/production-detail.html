@@ -30,7 +30,7 @@
         <div class="col">
           Production order items
         </div>
-        <div class="col" >
+        <div class="col" data-th-fragment="productionItemsFragment">
           <table class="table table-hover text-dark table-striped">
             <thead >
             <tr >
@@ -51,7 +51,7 @@
       </div >
     </div >
 
-    <div class="form-row" data-th-if="${not lists.isEmpty(productionDetail.productionItems)}">
+    <div class="form-row" data-th-if="${not #lists.isEmpty(productionDetail.productionItems)}">
       <div class="container tableview" style="margin-top:150px" >
         <div class="col">
           Produced items

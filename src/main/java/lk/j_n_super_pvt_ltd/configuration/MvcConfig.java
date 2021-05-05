@@ -73,7 +73,7 @@ public class MvcConfig implements WebMvcConfigurer {
         @ResponseStatus( HttpStatus.INTERNAL_SERVER_ERROR )
         public String exception(final Throwable throwable, Model model) {
             logger.error("Exception during execution of SpringSecurity application", throwable);
-            String errorMessage = (throwable != null ? throwable.getMessage() : "Unknown error");
+            String errorMessage = (throwable != null ? throwable.getCause().getCause().getMessage() : "Unknown error");
             model.addAttribute("errorMessage", errorMessage);
             return "error/error";
         }

@@ -9,6 +9,7 @@ import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ItemStatus;
 import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ProductionRetail;
 import lk.j_n_super_pvt_ltd.asset.item.entity.enums.Weight;
 import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
+import lk.j_n_super_pvt_ltd.asset.production_management.production_item.entity.ProductionItem;
 import lk.j_n_super_pvt_ltd.asset.purchase_order_item.entity.PurchaseOrderItem;
 import lk.j_n_super_pvt_ltd.asset.supplier_item.entity.SupplierItem;
 import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
@@ -73,4 +74,7 @@ public class Item extends AuditEntity {
 
     @OneToMany( mappedBy = "item" )
     private List< PurchaseOrderItem > purchaseOrderItems;
+
+    @OneToMany( mappedBy = "item" )
+    private List< ProductionItem > productionItems;
 }

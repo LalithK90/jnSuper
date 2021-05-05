@@ -9,30 +9,30 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("ProductionItem")
+@JsonFilter( "ProductionItem" )
 public class ProductionItem extends AuditEntity {
 
-    @Column(nullable = false)
-    private String quantity;
+  @Column( nullable = false )
+  private String quantity;
 
-    @Column( nullable = false, precision = 10, scale = 2 )
-    private BigDecimal sellPrice;
+  @ManyToOne
+  private Item item;
 
-    @ManyToOne
-    private Item item;
+  @ManyToOne
+  private Production production;
 
-    @ManyToOne
-    private Production production;
 
 }

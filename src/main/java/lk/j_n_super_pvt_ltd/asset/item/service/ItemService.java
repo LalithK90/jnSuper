@@ -3,6 +3,7 @@ package lk.j_n_super_pvt_ltd.asset.item.service;
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.enums.LiveDead;
 import lk.j_n_super_pvt_ltd.asset.item.dao.ItemDao;
 import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ProductionRetail;
 import lk.j_n_super_pvt_ltd.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -58,4 +59,8 @@ public class ItemService implements AbstractService<Item, Integer> {
     public Item lastItem() {
         return itemDao.findFirstByOrderByIdDesc();
     }
+
+  public List<Item> findByProductionRetail(ProductionRetail productionRetail) {
+        return itemDao.findByProductionRetail(productionRetail);
+  }
 }
