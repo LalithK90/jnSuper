@@ -48,7 +48,6 @@
       <div data-th-replace="~{production/production-detail :: productionItemsFragment}" ></div >
     </div >
   </div >
-
   <div class="container formBorder" >
     <form action="/production/confirm" method="post" data-th-object="${production}" >
       <input type="hidden" data-th-field="*{id}" >
@@ -59,7 +58,7 @@
           <div class="container" >
             <div class="col" >
               <table class="table table-hover table-striped " id="myTableA" >
-                <thead class="thead-dark">
+                <thead >
                 <tr >
                   <th >Index</th >
                   <th >Item Name</th >
@@ -69,20 +68,21 @@
                   <th >Expired Date</th >
                 </tr >
                 </thead >
-                <tbody class="table-warning">
-                <tr data-th-each="productionItem, index : ${productionItems}" >
+                <tbody >
+                <tr data-th-each="productionItem, index : ${production.productionItems}" >
                   <th data-th-text="${index.count}" ></th >
                   <th >
                     <span data-th-text="${productionItem.item.name}" ></span >
                     <!--item-->
-                    <input type="hidden" data-th-value="${productionItem.item.id}" data-th-name="${'ledgers[__${index.index}__].item.id'}" required>
+                    <input type="hidden" data-th-value="${productionItem.item.id}"
+                           data-th-name="${'ledgers[__${index.index}__].item.id'}" required >
                     <!--production id-->
-                    <input type="hidden" data-th-value="${productionItem.id}" data-th-name="${'ledgers[__${index.index}__].production.id'}" required>
+                    <input type="hidden" data-th-value="${productionItem.id}"
+                           data-th-name="${'ledgers[__${index.index}__].production.id'}" required >
                   </th >
-                  <!--Production Quantity-->
                   <td >
                     <input type="text" class="form-control text-center"
-                           data-th-value="${purchaseOrderItem.quantity}"
+                           data-th-value="${productionItem.quantity}"
                            data-th-name="${'ledgers[__${index.index}__].quantity'}"
                            readonly required >
                   </td >
@@ -93,13 +93,11 @@
                            data-th-value="${productionItem.item.sellPrice}"
                            required >
                   </td >
-                  <!--Manufacture Date-->
                   <td >
                     <input type="date" class="form-control mdate" onchange="dateMatch(this)"
                            data-th-name="${'ledgers[__${index.index}__].manufactureDate'}"
                            data-th-id="${'md'+index.count}" required >
                   </td >
-                  <!--Expired Date-->
                   <td >
                     <input type="date" class="form-control expdate" onchange="dateMatch(this)"
                            data-th-name="${'ledgers[__${index.index}__].expiredDate'}" data-th-id="${'ed'+index.count}"
@@ -136,13 +134,13 @@
 <div data-th-replace="~{fragments/footer :: footerFragment}" ></div >
 <!--/* script is included */-->
 <div data-th-replace="~{fragments/script :: scriptFragment}" ></div >
-<script>
+<script >
     function dateMatch(obj) {
         let selectedFiledId = obj.getAttribute('id').slice(2);
         let manufactureDate = $(`#md${selectedFiledId}`).val();
         let expiredDate = $(`#ed${selectedFiledId}`).val();
 
-        if (manufactureDate !=="" && expiredDate !=="") {
+        if (manufactureDate !== "" && expiredDate !== "") {
             if (Date.parse(manufactureDate) > Date.parse(expiredDate)) {
                 swal({
                     title: "Could you accept those days.. !",
@@ -154,9 +152,9 @@
         }
     }
 
-    $(document).ready(function (){
+    $(document).ready(function () {
 
-        //input type date can not be selected future date (Manufactuer Date)
+        //input type date can not be selected future date
         $('.mdate').prop('max', function () {
             return new Date().toJSON().split('T')[0];
         });
@@ -164,15 +162,15 @@
     })
 
 
-    $(document).ready(function (){
+    $(document).ready(function () {
 
-        //input type date can not be selected future date(Expir date)
+        //input type date can not be selected future date
         $('.expdate').prop('min', function () {
             return new Date().toJSON().split('T')[0];
         });
 
     })
 
-</script>
+</script >
 </body >
 </html >
