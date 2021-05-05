@@ -35,9 +35,9 @@ public class Production extends AuditEntity {
   @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "production")
   private List< ProductionLedger > productionLedgers;
 
-  @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "production")
+  @OneToMany(mappedBy = "production")
   private List< ProductionItem > productionItems;
 
-  @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "production")
+  @OneToMany(mappedBy = "production")
   private List< Ledger > ledgers;
 }

@@ -28,15 +28,6 @@ public class ProductionItem extends AuditEntity {
   @Column( nullable = false )
   private String quantity;
 
-  @Column( nullable = false, precision = 10, scale = 2 )
-  private BigDecimal sellPrice;
-
-  @DateTimeFormat( pattern = "yyyy-MM-dd" )
-  private LocalDate manufactureDate;
-
-  @DateTimeFormat( pattern = "yyyy-MM-dd" )
-  private LocalDate expiredDate;
-
   @ManyToOne
   private Item item;
 

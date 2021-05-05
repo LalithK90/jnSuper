@@ -10,6 +10,7 @@ import lk.j_n_super_pvt_ltd.asset.ledger.service.LedgerService;
 import lk.j_n_super_pvt_ltd.asset.production_management.production.entity.Production;
 import lk.j_n_super_pvt_ltd.asset.production_management.production.entity.enums.ProductionStatus;
 import lk.j_n_super_pvt_ltd.asset.production_management.production.service.ProductionService;
+import lk.j_n_super_pvt_ltd.asset.production_management.production_item.entity.ProductionItem;
 import lk.j_n_super_pvt_ltd.asset.production_management.production_item.service.ProductionItemService;
 import lk.j_n_super_pvt_ltd.asset.production_management.production_ledger.entity.ProductionLedger;
 import lk.j_n_super_pvt_ltd.asset.production_management.production_ledger.service.ProductionLedgerService;
@@ -161,7 +162,7 @@ public class ProductionController {
   @PostMapping
   public String persistInvoice(@Valid @ModelAttribute Production production, BindingResult bindingResult, Model model) {
     if ( bindingResult.hasErrors() ) {
-   bindingResult.getAllErrors().forEach(System.out::println);
+      bindingResult.getAllErrors().forEach(System.out::println);
       return common(model, production);
     }
     if ( production.getId() == null ) {
@@ -188,7 +189,6 @@ public class ProductionController {
     return "redirect:/production";
   }
 
-
   @GetMapping( "/remove/{id}" )
   public String removeInvoice(@PathVariable( "id" ) Integer id) {
     Production production = productionService.findById(id);
@@ -197,5 +197,62 @@ public class ProductionController {
     return "redirect:/production";
   }
 
+  @GetMapping( "/add/{id}" )
+  public String productionAdd(@PathVariable( "id" ) Integer id, Model model) {
+    Production production = productionService.findById(id);
+    model.addAttribute("productionDetail", production);
+    model.addAttribute("production", production);
+    List< Ledger > ledgers = new ArrayList<>();
+    itemService.findByProductionRetail(ProductionRetail.PRODUCTION).forEach(x -> ledgers.addAll(ledgerService.findByItem(x)));
+    model.addAttribute("ledgers", ledgers);
+    model.addAttribute("ledgerItemURL", MvcUriComponentsBuilder
+        .fromMethodName(LedgerController.class, "findId", "")
+        .build()
+        .toString());
+    return "production/confirmProduction";
+  }
 
+  @PostMapping( "/add" )
+  public String saveProduction(@ModelAttribute Production production, BindingResult bindingResult) {
+    if ( bindingResult.hasErrors() ) {
+      return "redirect:/production/add/" + production.getId();
+    }
+    Production productionDb = productionService.findById(production.getId());
+    production.getProductionItems().forEach(x -> {
+      ProductionItem productionItem = new ProductionItem();
+      productionItem.setProduction(productionDb);
+      productionItem.setItem(itemService.findById(x.getItem().getId()));
+      productionItem.setQuantity(x.getQuantity());
+      productionItemService.persist(productionItem);
+      System.out.println(x.getItem().getId());
+    });
+    productionDb.setProductionStatus(ProductionStatus.PENDING);
+    productionService.persist(productionDb);
+    return "redirect:/production";
+  }
+
+
+  @GetMapping( "/confirm/{id}" )
+  public String productionConfirm(@PathVariable( "id" ) Integer id, Model model) {
+    Production production = productionService.findById(id);
+    model.addAttribute("productionDetail", production);
+    model.addAttribute("production", production);
+    return "production/confirmProductionAdd";
+  }
+
+  @PostMapping( "/confirm" )
+  public String confirmProduction(@ModelAttribute Production production, BindingResult bindingResult) {
+    if ( bindingResult.hasErrors() ) {
+      return "redirect:/production/add/" + production.getId();
+    }
+    Production productionDb = productionService.findById(production.getId());
+    production.getLedgers().forEach(x -> {
+      x.setProduction(productionDb);
+      ledgerService.persist(x);
+    });
+    productionDb.setProductionStatus(ProductionStatus.COMPLETED);
+    productionService.persist(productionDb);
+
+    return "redirect:/production";
+  }
 }
