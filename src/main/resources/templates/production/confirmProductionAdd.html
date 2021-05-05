@@ -59,7 +59,7 @@
           <div class="container" >
             <div class="col" >
               <table class="table table-hover table-striped " id="myTableA" >
-                <thead >
+                <thead class="thead-dark">
                 <tr >
                   <th >Index</th >
                   <th >Item Name</th >
@@ -69,7 +69,7 @@
                   <th >Expired Date</th >
                 </tr >
                 </thead >
-                <tbody >
+                <tbody class="table-warning">
                 <tr data-th-each="productionItem, index : ${productionItems}" >
                   <th data-th-text="${index.count}" ></th >
                   <th >
@@ -79,6 +79,7 @@
                     <!--production id-->
                     <input type="hidden" data-th-value="${productionItem.id}" data-th-name="${'ledgers[__${index.index}__].production.id'}" required>
                   </th >
+                  <!--Production Quantity-->
                   <td >
                     <input type="text" class="form-control text-center"
                            data-th-value="${purchaseOrderItem.quantity}"
@@ -92,11 +93,13 @@
                            data-th-value="${productionItem.item.sellPrice}"
                            required >
                   </td >
+                  <!--Manufacture Date-->
                   <td >
                     <input type="date" class="form-control mdate" onchange="dateMatch(this)"
                            data-th-name="${'ledgers[__${index.index}__].manufactureDate'}"
                            data-th-id="${'md'+index.count}" required >
                   </td >
+                  <!--Expired Date-->
                   <td >
                     <input type="date" class="form-control expdate" onchange="dateMatch(this)"
                            data-th-name="${'ledgers[__${index.index}__].expiredDate'}" data-th-id="${'ed'+index.count}"
@@ -153,7 +156,7 @@
 
     $(document).ready(function (){
 
-        //input type date can not be selected future date
+        //input type date can not be selected future date (Manufactuer Date)
         $('.mdate').prop('max', function () {
             return new Date().toJSON().split('T')[0];
         });
@@ -163,7 +166,7 @@
 
     $(document).ready(function (){
 
-        //input type date can not be selected future date
+        //input type date can not be selected future date(Expir date)
         $('.expdate').prop('min', function () {
             return new Date().toJSON().split('T')[0];
         });
