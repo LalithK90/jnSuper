@@ -156,6 +156,10 @@
             <td >
               <a class="btn btn-sm btn-light" data-th-href="${'/production/'+ production.id}" ><i
                     class="fa fa-eye" ></i >&nbsp;View</a >&nbsp;
+              <a data-th-if="${#strings.equals(production.productionStatus, 'INI')}" class="btn btn-sm btn-light" data-th-href="${'/production/add/'+ production.id}" ><i
+                    class="fa fa-eye" ></i >&nbsp;Production Request</a >&nbsp;
+              <a data-th-if="${#strings.equals(production.productionStatus, 'PENDING')}" class="btn btn-sm btn-light" data-th-href="${'/production/confirm/'+ production.id}" ><i
+                    class="fa fa-eye" ></i >&nbsp;Confirm Production</a >;
             </td >
           </tr >
           </tbody >
