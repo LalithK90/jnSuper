@@ -67,7 +67,7 @@ public class GoodReceivedNoteController {
 //if there is on value in ledger need to update it
             if ( ledgerDB != null ) {
                 //before update need to check price and expire date
-                if ( ledgerDB.getSellPrice().equals(ledger.getSellPrice()) && ledgerDB.getExpiredDate() == ledger.getExpiredDate()) {
+                if ( ledgerDB.getSellPrice().equals(ledger.getSellPrice()) && ledgerDB.getExpiredDate().equals(ledger.getExpiredDate()) && ledgerDB.getManufactureDate().equals(ledger.getManufactureDate())) {
                     int quantity = Integer.parseInt(ledgerDB.getQuantity()) + Integer.parseInt(ledger.getQuantity());
                     ledgerDB.setQuantity(Integer.toString(quantity));
                     ledgerDB.setGoodReceivedNote(goodReceivedNoteDb);
