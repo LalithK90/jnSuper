@@ -38,7 +38,10 @@ public class EmailService {
 
         try {
             mailMessage.setTo(receiverEmail);
-            mailMessage.setFrom("-(Samarasinghe Super - Kadawatha - (not reply))");
+            mailMessage.setFrom("-(JN Super - No:130 B.1, \n" +
+                    "Negombo Road, \n" +
+                    "Veyangoda.\n" +
+                    "Wataddara. - (not reply))");
             mailMessage.setSubject(subject);
             mailMessage.setText(message);
 
