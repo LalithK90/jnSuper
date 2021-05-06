@@ -31,6 +31,7 @@
                     <a data-sec-authorize="hasAnyAuthority('ROLE_MANAGER', 'ROLE_PROCUREMENT_MANAGER' ,'ROLE_ACCOUNT_MANAGER' , 'ROLE_CASHIER')"  data-th-href="@{'/invoice'}" class="nav-link"> Invoice Management </a>
                     <a data-sec-authorize="hasAnyAuthority('ROLE_MANAGER', 'ROLE_PROCUREMENT_MANAGER' , 'ROLE_CASHIER')"  data-th-href="@{'/ledger'}" class="nav-link"> Ledger Management </a>
                     <a data-sec-authorize="hasAnyAuthority('ROLE_MANAGER', 'ROLE_PROCUREMENT_MANAGER')"  data-th-href="@{'/discountRatio'}" class="nav-link"> Discount Management </a>
+                    <a data-sec-authorize="hasAnyAuthority('ROLE_MANAGER', 'ROLE_PROCUREMENT_MANAGER')"  data-th-href="@{'/production'}" class="nav-link"> Production Management </a>
                     <a data-sec-authorize="hasAnyAuthority('ROLE_MANAGER', 'ROLE_CASHIER')"  data-th-href="@{'/customer'}" class="nav-link"> Customer Management </a>
                 </div>
             </li>
@@ -47,6 +48,7 @@
                     <a data-sec-authorize="hasAnyAuthority('ROLE_MANAGER', 'ROLE_PROCUREMENT_MANAGER')" data-th-href="@{'/supplier/add'}" class="nav-link"> New Supplier </a>
                     <a data-sec-authorize="hasAnyAuthority('ROLE_MANAGER', 'ROLE_ACCOUNT_MANAGER','ROLE_CASHIER')" data-th-href="@{'/invoice/add'}" class="nav-link"> New Invoice </a>
                     <a data-sec-authorize="hasAnyAuthority('ROLE_MANAGER', 'ROLE_PROCUREMENT_MANAGER')" data-th-href="@{'/discountRatio/add'}" class="nav-link"> New Discount </a>
+                    <a data-sec-authorize="hasAnyAuthority('ROLE_MANAGER', 'ROLE_PROCUREMENT_MANAGER')" data-th-href="@{'/production/add'}" class="nav-link"> New Production </a>
                     <a data-sec-authorize="hasAnyAuthority('ROLE_MANAGER', 'ROLE_CASHIER')" data-th-href="@{'/customer/add'}" class="nav-link"> New Customer </a>
                 </div>
             </li>

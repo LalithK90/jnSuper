@@ -8,7 +8,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PaymentMethod {
     CASH("Cash"),
-    CHEQUE("Cheque"),
     CREDIT("Credit card");
     private final String paymentMethod;
 }

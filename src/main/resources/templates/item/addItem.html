@@ -97,10 +97,10 @@
             <div class="col-md-4" ><span class="requiredfield">*</span>
               <label class="control-label" for="productionRetail" >Production or Retail :</label >
             </div >
-            <div class="col-md-8" >
+            <div class="col-md-4" >
               <div class="custom-control custom-checkbox custom-control-inline "
                    data-th-each="productionRetail,index : ${productionRetails}" >
-                <input class="custom-control-input gender" required
+                <input class="custom-control-input " required
                        data-th-name="${'productionRetail'}"
                        data-th-value="${productionRetail}"
                        data-th-id="${index.index}+${productionRetail}" type="radio"
@@ -125,6 +125,18 @@
                     data-th-if="${#fields.hasErrors('amount')}" class="error" >Error Amount</span >
             </div >
           </div >
+          <!--Type Name-->
+          <!--<div class="form-row text-right" >
+            <div class="col-md-4" >
+              <label class="control-label" for="typename" >Item Name :</label >
+            </div >
+            <div class="col-md-4" >
+              <input id="typename" data-th-field="*{typename}" class="form-control" tabindex="8" type="text"
+                     readonly />
+              <span data-th-errors="*{typename}"
+                    data-th-if="${#fields.hasErrors('typename')}" class="error" >Error Type name</span >
+            </div >
+          </div >-->
           <!--Item Name-->
           <div class="form-row text-right" >
             <div class="col-md-4" >
@@ -256,7 +268,6 @@
         nameCreation();
     });
 
-
     function nameCreation() {
         let subCategory = $("#subCategory option:selected").text();
         let weight = $("#weight option:selected").text();
@@ -267,6 +278,19 @@
         }
 
     }
+
+   /* $("#typename").change(function () {
+      typeCreation();
+    });
+
+    function typeCreation() {
+      let productionRetail = $("#productionRetail option:checked").val();
+
+      if (productionRetail) {
+        $("#typename").val(productionRetail);
+      }
+
+    }*/
 </script >
 </body >
 </html >
