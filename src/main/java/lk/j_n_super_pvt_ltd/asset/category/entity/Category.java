@@ -36,11 +36,6 @@ public class Category {
     @Size( min = 3, message = "Your name cannot be accepted" )
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private Weight weight;
-
-    @Size( max = 4, message = "Your Amount cannot be accepted" )
-    private String Amount;
 
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items;
