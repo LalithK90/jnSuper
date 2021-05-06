@@ -35,8 +35,5 @@ public class DiscountRatio extends AuditEntity {
     @Enumerated( EnumType.STRING)
     private DiscountRatioStatus discountRatioStatus;
 
-    @OneToMany( mappedBy = "discountRatio" )
-    private List< Invoice > invoices;
-
 }
 
