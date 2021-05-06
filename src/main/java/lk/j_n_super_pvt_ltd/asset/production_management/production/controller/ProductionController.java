@@ -184,7 +184,13 @@ public class ProductionController {
       productionLedgers.add(x);
     });
     production.setProductionLedgers(productionLedgers);
-    Production saveInvoice = productionService.persist(production);
+    Production saveProduction = productionService.persist(production);
+    saveProduction.getProductionLedgers().forEach(x -> {
+      Ledger ledger = ledgerService.findById(x.getLedger().getId());
+      ledger.setQuantity(Integer.toString(Integer.parseInt(ledger.getQuantity()) - Integer.parseInt(x.getQuantity())));
+      ledgerService.persist(ledger);
+    });
+
 
     return "redirect:/production";
   }
@@ -224,7 +230,7 @@ public class ProductionController {
       productionItem.setItem(itemService.findById(x.getItem().getId()));
       productionItem.setQuantity(x.getQuantity());
       productionItemService.persist(productionItem);
-      System.out.println(x.getItem().getId());
+
     });
     productionDb.setProductionStatus(ProductionStatus.PENDING);
     productionService.persist(productionDb);
