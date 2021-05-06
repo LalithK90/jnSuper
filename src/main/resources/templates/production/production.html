@@ -21,7 +21,7 @@
         </h2 >
       </div >
       <div class="col" >
-        <button type="button" class="btn btn-primary" data-toggle="modal"
+        <button type="button" class="btn btn-dark" data-toggle="modal"
                 data-target="#invoiceCustomSerch" >
           <i class="fa fa-search" ></i > Custom Invoice Search
         </button >
@@ -69,10 +69,10 @@
       <button type="button" class="btn btn-success  " >All Production Order</button >
     </a >
     <a href="/production/initial" class="col-3">
-      <button type="button" class="btn btn-light " >Initial Production Order</button >
+      <button type="button" class="btn btn-warning " >Initial Production Order</button >
     </a >
     <a href="/production/pending" class="col-3">
-      <button type="button" class="btn btn-outline-info " >Pending Production Order</button >
+      <button type="button" class="btn btn-secondary " >Pending Production Order</button >
     </a >
     <a href="/production/completed" class="col-3">
       <button type="button" class="btn btn-primary  " >Complete Production Order</button >
@@ -121,7 +121,7 @@
 
           </tr >
           </thead >
-          <tbody class="table-primary" >
+          <tbody class="table-warning" >
           <tr data-th-each="production, rowCount : ${productions}" >
             <td data-th-text="${rowCount.count}" ></td >
             <td data-th-text="${production.code}" ></td >
@@ -134,14 +134,14 @@
               </p >
               <div class="collapse" data-th-id="${'contentId'+rowCount.index}" >
                 <table class="table" >
-                  <thead >
+                  <thead class="thead-dark" >
                   <tr >
                     <th >Index</th >
                     <th >Item Name</th >
                     <th >Quantity</th >
                   </tr >
                   </thead >
-                  <tbody >
+                  <tbody class="table-warning" >
                   <tr data-th-each="productionLedger, index : ${production.productionLedgers}">
                     <td data-th-text="${index.count}"></td >
                     <td data-th-text="${productionLedger.ledger.item.name}"></td >

@@ -13,7 +13,7 @@
 
         <!--New Supplier Button-->
         <div class="col">
-          <a class="btn btn-dark" href="/supplier/add" id="button1" tabindex="1">
+          <a class="btn btn-success" href="/supplier/add"  tabindex="1">
             <i class="fa fa-truck"></i> Add New Supplier</a>&nbsp;
         </div>
         <!--List Name-->
@@ -26,9 +26,9 @@
         </div>
         <!--Home Button-->
         <div class="col">
-          <!-- <a href="/home" id="searchShow" class="btn btn-primary" tabindex="2">
-               <i class="fas fa-home"></i>Home
-           </a>-->
+          <a href="/home" x class="btn btn-success" tabindex="2">
+               <i class="fas fa-home"></i> Back to Home
+           </a>
         </div>
 
       </div>
@@ -51,7 +51,7 @@
               <th style="width: 420px; "> Modify</th>
             </tr>
             </thead>
-            <tbody class="table-primary">
+            <tbody class="table-warning">
             <tr  data-th-each="supplier, rowCount : ${suppliers}">
               <th data-th-text="  ${rowCount.count}"></th>
               <th data-th-text="${supplier.code}"></th>

@@ -42,7 +42,7 @@
                 <div class="row" id="userListTable"  data-th-if="${! #lists.isEmpty(users)}">
                     <div class="col-sm-12">
                         <table class="table table-hover table-striped" id="myTable">
-                            <thead class="thead-inverse">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th>Index</th>
                                     <th>User Name</th>
@@ -51,7 +51,7 @@
                                     <th>Modify</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="table-warning">
                                 <tr  data-th-each="user, rowCount : ${users}" scope="row">
                                     <th  data-th-text="${rowCount.count}"></th>
                                     <th  data-th-text="${user.username}"></th>

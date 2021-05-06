@@ -45,7 +45,7 @@
   </div >
 </div >
 <!--<div class="container-fluid mt-3" >-->
-<div class="container" >
+<div class="container-fluid" >
   <!--heading Area-->
   <div class="container-fluid " >
     <div class="row text-center formManagement border-info" >
@@ -72,9 +72,9 @@
     </div >
   </div >
   <!--row material details-->
-  <div class="container formBorder" >
+  <div class="container-fluid formBorder" >
     <p >
-      <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#contentId"
+      <button class="btn btn-secondary btn-block" type="button" data-toggle="collapse" data-target="#contentId"
               aria-expanded="false"
               aria-controls="contentId" >
         Production Request Item Show
@@ -85,7 +85,7 @@
     </div >
   </div >
 
-  <div class="container formBorder" >
+  <div class="container-fluid formBorder" >
     <form action="/production/add" method="post" data-th-object="${production}" >
       <input type="hidden" data-th-field="*{id}" >
       <!--ledgers will list-->
@@ -114,7 +114,7 @@
           <div class="container" >
             <div class="col" >
               <table class="table table-hover table-striped " id="myTableA" >
-                <thead >
+                <thead class="thead-dark">
                 <tr >
                   <th >Index</th >
                   <th >Item Name</th >
@@ -123,7 +123,7 @@
                   <th >Modify</th >
                 </tr >
                 </thead >
-                <tbody >
+                <tbody class="table-warning" >
 
                 </tbody >
               </table >

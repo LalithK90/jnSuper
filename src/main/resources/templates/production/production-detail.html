@@ -32,14 +32,14 @@
         </div>
         <div class="col" data-th-fragment="productionItemsFragment">
           <table class="table table-hover text-dark table-striped">
-            <thead >
+            <thead class="thead-dark" >
             <tr >
               <th >Index</th >
               <th >Item Name</th >
               <th >Quantity</th >
             </tr >
             </thead >
-            <tbody >
+            <tbody class="table-warning">
             <tr data-th-each="productionLedger, index : ${productionDetail.productionLedgers}" >
               <td data-th-text="${index.count}" ></td >
               <td data-th-text="${productionLedger.ledger.item.name}" ></td >
@@ -58,7 +58,7 @@
         </div>
         <div class="col" >
           <table class="table table-hover text-dark table-striped" >
-            <thead >
+            <thead class="thead-dark">
             <tr >
               <th >Index</th >
               <th >Item Name</th >
@@ -68,7 +68,7 @@
               <th >Ex Date</th >
             </tr >
             </thead >
-            <tbody >
+            <tbody class="table-warning">
             <tr data-th-each="productionItem, index : ${productionDetail.productionItems}" >
               <td data-th-text="${index.count}" ></td >
               <td data-th-text="${productionItem.ledger.item.name}" ></td >

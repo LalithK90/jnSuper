@@ -6,33 +6,36 @@
 </head >
 <body >
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
+<!--heading-->
+<div class="container-fluid" >
+  <div class="row text-center formManagement border-info" >
+    <div class="col" >
+      <a class="btn btn-success" href="/home" >
+        <i class="fa fa-home" style="font-size: 20px" ></i > &nbsp; Home
+      </a >
+    </div >
+    <div class="col" >
+      <h4 class="text-dark text-center" >
+        <strong >
+          <span id="formHeader" data-th-text="${addStatus==true?'New User':'Update User'}" ></span >
+        </strong >
+      </h4 >
+    </div >
+    <div class="col" >
+      <a href="/user" class="btn btn-success" >
+        <i class="fa fa-list" ></i >&nbsp; View List
+      </a >
+    </div >
+  </div >
+</div >
+
 <!--Employee find-->
 <div class="container-fluid " id="employeeFindForm" data-th-if="${employeeDetailShow==false}" >
   <div class="col-sm-12 flex-column " >
     <form id="form" method="POST" data-th-action="${'/user/workingPlace'}" data-th-object="${employee}"
           enctype="multipart/form-data" >
-      <div class="form-row" >
-        <div class="row text-center formManagement border-info" >
-          <div class="col" >
-            <a class="btn btn-success" href="/home" >
-              <i class="fa fa-home" style="font-size: 20px" ></i > &nbsp; Home
-            </a >
-          </div >
-          <div class="col" >
-            <h4 class="text-dark text-center" >
-              <strong >
-                 <span id="formHeader" data-th-text="${addStatus==true?'New User':'Update User'}" ></span >
-              </strong >
-            </h4 >
-          </div >
-          <div class="col" >
-            <a href="/user" class="btn btn-success" >
-              <i class="fa fa-list" ></i >&nbsp; View List
-            </a >
-          </div >
-        </div >
-      </div >
-      <div class="col-5 flex-column" >
+
+      <div class="col-6 " >
         <div class="form-group" >
           <div class="col-4" >
             <label class="control-label" for="selectParameter" >Parameter :</label >
@@ -47,12 +50,12 @@
           </div >
         </div >
       </div >
-      <div class="col-4 flex-column" >
+      <div class="col-6 " >
         <div class="form-group" >
-          <div class="col-5" >
+          <div class="col-4" >
             <label class="control-label" for="valueEmployee" >Value :</label >
           </div >
-          <div class="col-7" >
+          <div class="col-8" >
             <input id="valueEmployee" tabindex="2" class="form-control" type="text"
                    minlength="3"
                    required
@@ -60,10 +63,9 @@
           </div >
         </div >
       </div >
-      <div class="col-3 flex-column" >
+
         <div class="form-group" >
-          <div class="" >
-            <div class="col-2" >
+            <div class="row" >
               <label class="control-label" ></label >
             </div >
             <div class="col-10 text-left" id="btnSearchEmployee" >
@@ -72,12 +74,10 @@
               </button >
             </div >
           </div >
-        </div >
-      </div >
+    </form>
   </div >
-  </form>
 </div >
-</div>
+
 <!--Employee not fount message-->
 <div id="employeeNotFoundShow" data-th-if="${employeeNotFoundShow==true}"
      class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
@@ -94,7 +94,7 @@
         class="form-horizontal" method="POST" autocomplete="false" >
     <div class="row" >
       <!--Left Side-->
-      <div class="form-group col-md-5 col-sm-7 text-left flex-column" >
+      <div class="form-group col-md-5 col-sm-7 text-center flex-column" >
         <div id="idHide" data-th-if="${addStatus==false}" class="form-row" >
           <div class="col-md-4" >
             <label class="control-label" for="id" >ID :</label >
