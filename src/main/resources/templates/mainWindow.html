@@ -43,10 +43,13 @@
                       <th data-th-text="${ledger.item.rop}" ></th >
                       <th data-th-text="${ledger.quantity}" ></th >
                       <th data-th-text="${ledger.sellPrice}" ></th >
-                      <th >
+                      <th data-th-if="${ledger.production==null}" >
                         <a data-th-href="${'/purchaseOrder/supplier/' + ledger.goodReceivedNote.purchaseOrder.supplier.id}"
                            class="btn btn-secondary btn-sm" ><i
                               class="fa fa-folder-open" style="font-size: 15px" ></i >Purchase Order</a >
+                      </th >
+                      <th data-th-if="${ledger.production!=null}" >
+                        Please contact Production Manager
                       </th >
                     </tr >
                     </tbody >
@@ -91,11 +94,15 @@
                     <th data-th-text="${ledger.sellPrice}" ></th >
                     <th data-th-text="${ledger.manufactureDate}" ></th >
                     <th data-th-text="${ledger.expiredDate}" ></th >
-                    <th >
+                    <th data-th-if="${ledger.production==null}" >
                       <a data-th-href="${'/purchaseOrder/supplier/' + ledger.goodReceivedNote.purchaseOrder.supplier.id}"
                          class="btn btn-secondary btn-sm" ><i
                             class="fa fa-folder-open" style="font-size: 15px" ></i >Purchase Order</a >
                     </th >
+                    <th data-th-if="${ledger.production!=null}" >
+                      Please contact Production Manager
+                    </th >
+
                   </tr >
                   </tbody >
                 </table >
