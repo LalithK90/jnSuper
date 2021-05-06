@@ -91,6 +91,7 @@ public class GoodReceivedNoteController {
         PurchaseOrder purchaseOrderDb = purchaseOrderService.findById(goodReceivedNoteDb.getPurchaseOrder().getId());
         purchaseOrderDb.setPurchaseOrderStatus(PurchaseOrderStatus.NOT_PROCEED);
         purchaseOrderService.persist(purchaseOrderDb);
+
         return "redirect:/goodReceivedNote";
     }
 
