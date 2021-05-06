@@ -136,7 +136,6 @@ public class SupplierItemController {
         supplierItemOne.setItem(itemService.findById(supplierItem.getItem().getId()));
         supplierItemOne.setPrice(supplierItem.getPrice());
         supplierItemOne.setItemSupplierStatus(supplierItem.getItemSupplierStatus());
-        supplierItemOne.setLiveDead(supplierItem.getLiveDead());
       }
       supplierItemService.persist(supplierItemOne);
     }
