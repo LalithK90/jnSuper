@@ -1,7 +1,6 @@
 package lk.j_n_super_pvt_ltd.asset.good_received_note.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.j_n_super_pvt_ltd.asset.good_received_note.entity.enums.GoodReceivedNoteState;
 import lk.j_n_super_pvt_ltd.asset.ledger.entity.Ledger;
 import lk.j_n_super_pvt_ltd.asset.purchase_order.entity.PurchaseOrder;
 import lk.j_n_super_pvt_ltd.util.audit.AuditEntity;
@@ -26,8 +25,6 @@ public class GoodReceivedNote extends AuditEntity {
     @Column( precision = 10, scale = 2 )
     private BigDecimal totalAmount;
 
-    @Enumerated( EnumType.STRING )
-    private GoodReceivedNoteState goodReceivedNoteState;
 
     @ManyToOne
     private PurchaseOrder purchaseOrder;

@@ -2,8 +2,6 @@ package lk.j_n_super_pvt_ltd.asset.payment.controller;
 
 
 import lk.j_n_super_pvt_ltd.asset.common_asset.model.TwoDate;
-import lk.j_n_super_pvt_ltd.asset.good_received_note.entity.GoodReceivedNote;
-import lk.j_n_super_pvt_ltd.asset.good_received_note.entity.enums.GoodReceivedNoteState;
 import lk.j_n_super_pvt_ltd.asset.good_received_note.service.GoodReceivedNoteService;
 import lk.j_n_super_pvt_ltd.asset.invoice.entity.enums.PaymentMethod;
 import lk.j_n_super_pvt_ltd.asset.payment.entity.Payment;
@@ -91,9 +89,7 @@ public class PaymentController {
     //payment need to make
     PurchaseOrder purchaseOrderNeedToPay = purchaseOrderService.findById(id);
     List< BigDecimal > needPayAmount = new ArrayList<>();
-    paymentService.findByPurchaseOrder(purchaseOrderNeedToPay).forEach(x -> {
-      needPayAmount.add(x.getAmount());
-    });
+    paymentService.findByPurchaseOrder(purchaseOrderNeedToPay).forEach(x -> needPayAmount.add(x.getAmount()));
     purchaseOrderNeedToPay
         .setNeedToPaid(operatorService
                            .subtraction(purchaseOrderNeedToPay.getPrice(), needPayAmount.stream().reduce(BigDecimal.ZERO,BigDecimal::add)));
@@ -168,11 +164,7 @@ public class PaymentController {
       // if check all paid amount is equal or not purchase order amount
 
       if ( paidAmount.equals(purchaseOrderPrice) ) {
-        System.out.println("Im here ");
-        //change GRN sate
-        GoodReceivedNote goodReceivedNote = goodReceivedNoteService.findByPurchaseOrder(purchaseOrder);
-        goodReceivedNote.setGoodReceivedNoteState(GoodReceivedNoteState.PAID);
-        goodReceivedNoteService.persist(goodReceivedNote);
+
         //change purchase order status
         PurchaseOrder completedPurchaseOrder = purchaseOrderService.findById(purchaseOrder.getId());
         completedPurchaseOrder.setPurchaseOrderStatus(PurchaseOrderStatus.COMPLETED);
