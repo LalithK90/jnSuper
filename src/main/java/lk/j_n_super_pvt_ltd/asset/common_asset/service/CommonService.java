@@ -1,6 +1,7 @@
 package lk.j_n_super_pvt_ltd.asset.common_asset.service;
 
 import lk.j_n_super_pvt_ltd.asset.item.entity.Item;
+import lk.j_n_super_pvt_ltd.asset.item.entity.enums.ProductionRetail;
 import lk.j_n_super_pvt_ltd.asset.item.service.ItemService;
 import lk.j_n_super_pvt_ltd.asset.supplier.entity.Supplier;
 import lk.j_n_super_pvt_ltd.asset.supplier.service.SupplierService;
@@ -88,7 +89,7 @@ public class CommonService {
     model.addAttribute("searchAreaShow", false);
     model.addAttribute("supplierDetail", supplierService.findById(id));
     model.addAttribute("supplierDetailShow", false);
-    model.addAttribute("items", itemService.findAll());
+    model.addAttribute("items", itemService.findAll().stream().filter(x->!x.getProductionRetail().equals(ProductionRetail.PRODUCTION)).collect(Collectors.toList()));
     return "supplier/addSupplierItem";
   }
 
