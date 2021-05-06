@@ -34,21 +34,8 @@ public class LedgerController {
     model.addAttribute("twoDate", new TwoDate());
     return "ledger/ledger";
   }
-  @GetMapping("/production")
-  public String findProduction(Model model) {
-    model.addAttribute("title", "All Items In Stock");
-    model.addAttribute("ledgers", ledgerService.findAll().stream().filter(x->x.getItem().getProductionRetail().equals(ProductionRetail.PRODUCTION)).collect(Collectors.toList()));
-    model.addAttribute("twoDate", new TwoDate());
-    return "ledger/ledger";
-  }
-  @GetMapping("/bulk")
-  public String findBulk(Model model) {
-    model.addAttribute("title", "All Items In Stock");
-    model.addAttribute("ledgers", ledgerService.findAll().stream().filter(x->x.getItem().getProductionRetail().equals(ProductionRetail.BULK)).collect(Collectors.toList()));
-    model.addAttribute("twoDate", new TwoDate());
-    return "ledger/ledger";
 
-  }@GetMapping("/retail")
+  @GetMapping("/retail")
   public String findRetail(Model model) {
     model.addAttribute("title", "All Items In Stock");
     model.addAttribute("ledgers", ledgerService.findAll().stream().filter(x->x.getItem().getProductionRetail().equals(ProductionRetail.RETAIL)).collect(Collectors.toList()));
